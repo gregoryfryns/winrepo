@@ -1,0 +1,42 @@
+{% if profile_list %}
+	<table><tbody>
+	<tr>
+		<th>Name</th>
+		<th></th>
+		<th>Institution/Company</th>
+		<th>Country</th>
+		<th>Position</th>
+		<th>Field of Research</th>
+		<th>Keywords</th>
+		<th>Details</th>
+	</tr>
+    {% for profile in profile_list %}
+		<tr>
+			<td>{{ profile.name }}</td>
+			<td>
+				{% if profile.email %}
+				<a href="mailto:{{ profile.email }}">Email</a>
+				{% endif %}
+				{% if profile.webpage %}
+				<a href="{{ profile.webpage }}" target="_blank">Webpage</a>
+				{% endif %}
+			</td>
+			<td>{{ profile.institution }}</td>
+			<td>{{ profile.country }}</td>
+			<td>{{ profile.position }}</td>
+			<td>
+				<dl>
+					<dt>Brain Area</dt><dd>{{ profile.brain_structure }}</dd>
+					<dt>Domain</dt><dd>{{ profile.domain }}</dd>
+					<dt>Modalities</dt><dd>{{ profile.modalities }}</dd>
+					<dt>Methods</dt><dd>{{ profile.methods }}</dd>
+				</dl>
+			</td>
+			<td>{{ profile.keywords}}</td>
+			<td><a href="{% url 'viewlist:detail' profile.id %}">More details</a></td>
+		</tr>
+    {% endfor %}
+    </tbody><table>
+{% else %}
+    <p>No profiles are available.</p>
+{% endif %}

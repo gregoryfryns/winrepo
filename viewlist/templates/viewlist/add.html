@@ -1,0 +1,52 @@
+<h1>Add new profile</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'viewlist:create' %}" method="post">
+{% csrf_token %}
+    <input type="text" name="name" id="name" />
+    <label for="name">Full Name</label><br />
+	
+    <input type="text" name="institution" id="institution" />
+    <label for="institution">Institution</label><br />
+
+	<!-- drop down? -->
+    <input type="text" name="country" id="country" />
+    <label for="country">Country</label><br />
+	
+    <input type="email" name="email" id="email" />
+    <label for="email">Email address</label><br />
+	
+	<!-- radio buttons / other = free text -->
+    <input type="text" name="position" id="position" />
+    <label for="position">Position</label><br />
+	
+    <input type="url" name="webpage" id="webpage" />
+    <label for="webpage">Linked In or web page</label><br />
+	
+	<!-- drop downs month + year -->
+    <input type="text" name="grad_date" id="grad_date" />
+    <label for="grad_date">Year PhD was obtained</label><br />
+	
+	<!-- check boxes -->
+    <input type="text" name="brain_structure" id="brain_structure" />
+    <label for="brain_structure">Field of Research - Brain Structure</label><br />
+	
+	<!-- check boxes -->
+    <input type="text" name="modalities" id="modalities" />
+    <label for="modalities">Field of Research - Modalities</label><br />
+
+	<!-- check boxes -->
+    <input type="text" name="methods" id="methods" />
+    <label for="methods">Field of Research - Methods</label><br />
+	
+	<!-- check boxes -->
+    <input type="text" name="domain" id="domain" />
+    <label for="domain">Field of Research - Domain</label><br />
+	
+    <input type="text" name="keywords" id="keywords" />
+    <label for="keywords">Field of Research - Keywords</label><br />
+	
+	
+	<input type="submit" value="Submit" />
+</form>
