@@ -269,7 +269,7 @@ class Profile(models.Model):
     def __str__(self):
         return ' - '.join([self.name, self.position, self.institution])
 
-class Recommandation(models.Model):
+class Recommendation(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=100, blank=False)
     reviewer_email = models.EmailField(blank=False)

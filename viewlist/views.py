@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 
-from .models import Profile, Recommandation
+from .models import Profile, Recommendation
 
 class IndexView(generic.ListView):
     template_name = 'viewlist/index.html'
@@ -55,8 +55,8 @@ class CreateProfile(generic.CreateView):
     def get_success_url(self):
             return reverse('viewlist:index')
 
-class CreateRecommandation(generic.UpdateView):
-    model = Recommandation
+class UpdateRecommendation(generic.UpdateView):
+    model = Recommendation
     fields = [
         'reviewer_name',
         'reviewer_email',
@@ -70,10 +70,10 @@ class CreateRecommandation(generic.UpdateView):
 
     def form_valid(self, form):
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return super(CreateRecommandation, self).form_valid(form)
+        return super(UpdateRecommendation, self).form_valid(form)
 
-class CreateRecommandation(generic.CreateView):
-    model = Recommandation
+class CreateRecommendation(generic.CreateView):
+    model = Recommendation
     fields = [
         'reviewer_name',
         'reviewer_email',
@@ -87,4 +87,4 @@ class CreateRecommandation(generic.CreateView):
 
     def form_valid(self, form):
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return super(CreateRecommandation, self).form_valid(form)
+        return super(CreateRecommendation, self).form_valid(form)
