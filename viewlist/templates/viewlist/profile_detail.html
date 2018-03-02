@@ -2,10 +2,10 @@
 <a href="mailto: {{ profile.email }}">{{ profile.name }}</a> - {{ profile.position }} - {{ profile.country }} - {{ profile.institution }}
 <h2> Recommendations </h2>
 <ul>
-{% for recommendation in profile.recommendation_set.all %}
-    <li>{{ recommendation }}</li>
+{% for recommandation in profile.recommandation_set.all %}
+    <li>{{ recommandation }}</li>
 {% endfor %}
 </ul>
 
 <a href="{% url 'viewlist:edit' profile.id %}">Edit</a>
-<a href="{% url 'viewlist:recommend' profile.id %}">Write a recommendation</a>
+<a href="{% url 'viewlist:recommand' profile.id %}">Write a recommandation</a>

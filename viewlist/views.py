@@ -3,19 +3,19 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 
-from .models import Profile, Recommendation
+from .models import Profile, Recommandation
 
 class IndexView(generic.ListView):
     template_name = 'viewlist/index.html'
 
     def get_queryset(self):
-        """Return the last ten published questions."""
+        """Return the latest profiles first"""
         return Profile.objects.order_by('-publish_date')
 
 class ProfileDetail(generic.DetailView):
     model = Profile
 
-class ProfileUpdate(generic.UpdateView):
+class UpdateProfile(generic.UpdateView):
     model = Profile
     fields = [
         'name', 
@@ -35,7 +35,7 @@ class ProfileUpdate(generic.UpdateView):
     def get_success_url(self):
         return reverse('viewlist:detail', args=(self.object.id,))
 
-class ProfileCreate(generic.CreateView):
+class CreateProfile(generic.CreateView):
     model = Profile
     fields = [
         'name', 
@@ -54,6 +54,37 @@ class ProfileCreate(generic.CreateView):
 
     def get_success_url(self):
             return reverse('viewlist:index')
-  
-def recommend(request, profile_id):
-    return HttpResponse("You are writing a recommendation for profile %s." % profile_id)
+
+class CreateRecommandation(generic.UpdateView):
+    model = Recommandation
+    fields = [
+        'reviewer_name',
+        'reviewer_email',
+        'reviewer_position',
+        'seen_at_conf',
+        'comment',
+    ]
+
+    def get_success_url(self):
+        return reverse('viewlist:detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return super(CreateRecommandation, self).form_valid(form)
+
+class CreateRecommandation(generic.CreateView):
+    model = Recommandation
+    fields = [
+        'reviewer_name',
+        'reviewer_email',
+        'reviewer_position',
+        'seen_at_conf',
+        'comment',
+    ]
+
+    def get_success_url(self):
+        return reverse('viewlist:detail', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        return super(CreateRecommandation, self).form_valid(form)
