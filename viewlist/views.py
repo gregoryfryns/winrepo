@@ -53,7 +53,7 @@ class CreateProfile(generic.CreateView):
     ]
 
     def get_success_url(self):
-            return reverse('viewlist:index')
+        return reverse('viewlist:index')
 
 class UpdateRecommendation(generic.UpdateView):
     model = Recommendation
@@ -67,10 +67,6 @@ class UpdateRecommendation(generic.UpdateView):
 
     def get_success_url(self):
         return reverse('viewlist:detail', kwargs={'pk': self.kwargs['pk']})
-
-    def form_valid(self, form):
-        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return super(UpdateRecommendation, self).form_valid(form)
 
 class CreateRecommendation(generic.CreateView):
     model = Recommendation

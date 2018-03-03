@@ -1,5 +1,26 @@
+{% extends "viewlist/includes/base.html" %}
+
+{% load bootstrap3 %}
+{% load static %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% bootstrap_messages %}
+
+
+{% block content %}
 {% if profile_list %}
-	<table><tbody>
+<div id="search-container" class="form-group">
+	<div id="search-form" class="input-group">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces...">
+	</div>
+	<label id="search-message" class="help-block" for="search"> {{ profile_list|length}} entries found</label>
+</div>
+
+<div class="table-responsive">
+	<table id="results-table" class="table"><tbody>
 	<tr>
 		<th>Name</th>
 		<th></th>
@@ -15,10 +36,10 @@
 			<td>{{ profile.name }}</td>
 			<td>
 				{% if profile.email %}
-				<a href="mailto:{{ profile.email }}">Email</a>
+				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
 				{% endif %}
 				{% if profile.webpage %}
-				<a href="{{ profile.webpage }}" target="_blank">Webpage</a>
+				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
 			</td>
 			<td>{{ profile.institution }}</td>
@@ -36,7 +57,11 @@
 			<td><a href="{% url 'viewlist:detail' profile.id %}">More details</a></td>
 		</tr>
     {% endfor %}
-    </tbody><table>
+    </tbody></table>
+    </div>
+
 {% else %}
-    <p>No profiles are available.</p>
+    <p>No profiles to show.</p>
 {% endif %}
+
+{% endblock %}

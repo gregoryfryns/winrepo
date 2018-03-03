@@ -1,0 +1,70 @@
+body {
+	background-color: #e0f2f1;
+	font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+
+.page-container {
+	background-color: #ffffff;
+	padding-top: 20px;
+}
+
+.jumbotron {
+	background-color: #009688;
+	color: #ffffff;
+	margin-bottom: 0;
+}
+
+.jumbotron a {
+	color: #e2f1af;
+}
+
+.intro p {
+	font-size: medium;
+}
+
+#search-container {
+	margin:auto;
+	max-width:600px
+}
+
+#results-table .btn {
+	margin: 4px;
+	background-color: #5bc4bd;
+	border-color: #009688;;
+}
+
+#results-table td {
+	white-space: normal;
+}
+
+#results-table dl.researchDetails dt {
+	width: 70px;
+	color: #a7a7a7;
+	font-size: small;
+}
+
+#results-table dl.researchDetails dd {
+	margin-left: 90px;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    background: #cacaca;
+    color: #fafafa;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #009688;
+}
+
+#back-to-top.show {
+    opacity: 1;
+}
