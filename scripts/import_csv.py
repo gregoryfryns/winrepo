@@ -1,56 +1,41 @@
 from viewlist.models import Profile, Country
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
+from datetime import datetime
 import csv
 
-rejected_values = {}
+countryResults = Country.objects.filter(code='BE')
+
 with open('scripts/win.tsv', newline='') as csvfile:
-    spamreader = list(csv.reader(csvfile, delimiter='\t', quotechar='|'))
+    spamreader = list(csv.reader(csvfile, delimiter='\t', quotechar='|'))[1:]
     for row in spamreader:
-        # name = row[1]
-        # email = row[2]
-        # webpage = row[3]
-        # institution = row[4]
-        # country = row[5]
-        # position = row[6]
-        # grad_date = row[7]
-        # brain_structure = row[8]
-        # modalities = row[9]
-        # methods = row[10]
-        # domain = row[11]
-        # keywords = row[12]
-        # publish_date = row[13]
-        # last_updated = row[14]
 
-        name = row[1]
-        institution = row[2]
-        country = row[3]
-        email = row[4]
-        position = row[5]
-        webpage = row[6]
-        grad_date = row[7]
-        brain_structure = row[8]
-        domain = row[9]
-        modalities = row[10]
-        methods = row[11]
-        keywords = row[12]
-        publish_date = row[0]
-        last_updated = row[0]
+        pd = datetime.strptime(row[0]+' UTC', '%d/%m/%Y %H:%M:%S %Z')
+        p = Profile(
+                name = row[1],
+                institution = row[2],
+                # country = row[3],
+                country = countryResults[0],
+                email = row[4],
+                position = row[5],
+                webpage = row[6],
+                brain_structure = row[8],
+                domain = row[9],
+                modalities = row[10],
+                methods = row[11],
+                keywords = row[12],
+                publish_date = pd.strftime('%Y-%m-%d %H:%M:%S'),
+                last_updated = pd.strftime('%Y-%m-%d %H:%M:%S'),
+        )
 
-        countryResults = Country.objects.filter(name=country)
-        
-        if len(countryResults) <= 0:
-            if country in rejected_values:
-                rejected_values[country] += 1
-            else:
-                rejected_values[country] = 1
-
-for entry in rejected_values:
-    print('%s (%s occurrences)' % (entry, rejected_values[entry]))
+        if row[7]:
+            gd = row[7].split('/')
+            p.grad_date = '%s-%s-%s' % (gd[2], gd[1], gd[0])
 
 
-# for country in countries_list:
-# 	c = Country(
-# 			code = country[0],
-# 			name = country[1],
-# 			is_under_represented = False,
-# 		)
-# 	c.save()
+        try:
+            p.save()
+        except IntegrityError as ie:
+            print('%s - integrity error: %s' % (row[1], ie))
+        except ValidationError as ve:
+            print('%s - validation error: %s' % (row[1], ve))

@@ -16,7 +16,7 @@ class Profile(models.Model):
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     position = models.CharField(max_length=30, blank=False)
-    grad_date = models.DateField()
+    grad_date = models.DateField(null=True)
     brain_structure = models.CharField(max_length=30)
     modalities = models.CharField(max_length=50)
     methods = models.CharField(max_length=50)

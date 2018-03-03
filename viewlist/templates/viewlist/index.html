@@ -16,7 +16,7 @@
 		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
 		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces...">
 	</div>
-	<label id="search-message" class="help-block" for="search"> {{ profile_list|length}} entries found</label>
+	<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
 </div>
 
 <div class="table-responsive">
@@ -33,7 +33,7 @@
 	</tr>
     {% for profile in profile_list %}
 		<tr>
-			<td>{{ profile.name }}</td>
+			<td class="searchable">{{ profile.name }}</td>
 			<td>
 				{% if profile.email %}
 				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
@@ -42,23 +42,30 @@
 				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
 			</td>
-			<td>{{ profile.institution }}</td>
-			<td>{{ profile.country }}</td>
-			<td>{{ profile.position }}</td>
+			<td class="searchable">{{ profile.institution }}</td>
+			<td class="searchable">{{ profile.country }}</td>
+			<td class="searchable">{{ profile.position }}</td>
 			<td>
 				<dl>
-					<dt>Brain Area</dt><dd>{{ profile.brain_structure }}</dd>
-					<dt>Domain</dt><dd>{{ profile.domain }}</dd>
-					<dt>Modalities</dt><dd>{{ profile.modalities }}</dd>
-					<dt>Methods</dt><dd>{{ profile.methods }}</dd>
+					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
+					<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
+					<dt>Modalities</dt><dd class="searchable">{{ profile.modalities }}</dd>
+					<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
 				</dl>
 			</td>
-			<td>{{ profile.keywords}}</td>
+			<td class="searchable">{{ profile.keywords}}</td>
 			<td><a href="{% url 'viewlist:detail' profile.id %}">More details</a></td>
 		</tr>
     {% endfor %}
     </tbody></table>
     </div>
+
+	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+	<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
+	</div>
+	
+	<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
+	<script src="{% static 'viewlist/js/filter.js' %}"></script>
 
 {% else %}
     <p>No profiles to show.</p>
