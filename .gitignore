@@ -99,3 +99,15 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+# My additions
+*.pyc
+*.pyo
+*.mo
+*~
+.coverage
+db.sqlite3
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py

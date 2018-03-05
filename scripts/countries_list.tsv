@@ -1,0 +1,219 @@
+Code	Country name	is_under_represented
+AFG	Afghanistan	1
+ALB	Albania	1
+DZA	Algeria	1
+ASM	American Samoa	1
+AND	Andorra	0
+AGO	Angola	1
+ATG	Antigua and Barbuda	0
+ARG	Argentina	1
+ARM	Armenia	1
+ABW	Aruba	0
+AUS	Australia	0
+AUT	Austria	0
+AZE	Azerbaijan	1
+BHS	Bahamas, The	0
+BHR	Bahrain	0
+BGD	Bangladesh	1
+BRB	Barbados	0
+BLR	Belarus	1
+BEL	Belgium	0
+BLZ	Belize	1
+BEN	Benin	1
+BMU	Bermuda	0
+BTN	Bhutan	1
+BOL	Bolivia	1
+BIH	Bosnia and Herzegovina	1
+BWA	Botswana	1
+BRA	Brazil	1
+VGB	British Virgin Islands	0
+BRN	Brunei Darussalam	0
+BGR	Bulgaria	1
+BFA	Burkina Faso	1
+BDI	Burundi	1
+CPV	Cabo Verde	1
+KHM	Cambodia	1
+CMR	Cameroon	1
+CAN	Canada	0
+CYM	Cayman Islands	0
+CAF	Central African Republic	1
+TCD	Chad	1
+CHI	Channel Islands	0
+CHL	Chile	0
+CHN	China	1
+COL	Colombia	1
+COM	Comoros	1
+COD	Congo, Dem. Rep.	1
+COG	Congo, Rep.	1
+CRI	Costa Rica	1
+CIV	Côte d'Ivoire	1
+HRV	Croatia	1
+CUB	Cuba	1
+CUW	Curaçao	0
+CYP	Cyprus	0
+CZE	Czech Republic	0
+DNK	Denmark	0
+DJI	Djibouti	1
+DMA	Dominica	1
+DOM	Dominican Republic	1
+ECU	Ecuador	1
+EGY	Egypt, Arab Rep.	1
+SLV	El Salvador	1
+GNQ	Equatorial Guinea	1
+ERI	Eritrea	1
+EST	Estonia	0
+ETH	Ethiopia	1
+FRO	Faroe Islands	0
+FJI	Fiji	1
+FIN	Finland	0
+FRA	France	0
+PYF	French Polynesia	0
+GAB	Gabon	1
+GMB	Gambia, The	1
+GEO	Georgia	1
+DEU	Germany	0
+GHA	Ghana	1
+GIB	Gibraltar	0
+GRC	Greece	0
+GRL	Greenland	0
+GRD	Grenada	1
+GUM	Guam	0
+GTM	Guatemala	1
+GIN	Guinea	1
+GNB	Guinea-Bissau	1
+GUY	Guyana	1
+HTI	Haiti	1
+HND	Honduras	1
+HKG	Hong Kong SAR, China	0
+HUN	Hungary	0
+ISL	Iceland	0
+IND	India	1
+IDN	Indonesia	1
+IRN	Iran, Islamic Rep.	1
+IRQ	Iraq	1
+IRL	Ireland	0
+IMN	Isle of Man	0
+ISR	Israel	0
+ITA	Italy	0
+JAM	Jamaica	1
+JPN	Japan	0
+JOR	Jordan	1
+KAZ	Kazakhstan	1
+KEN	Kenya	1
+KIR	Kiribati	1
+PRK	Korea, Dem. People's Rep.	1
+KOR	Korea, Rep.	0
+XKX	Kosovo	1
+KWT	Kuwait	0
+KGZ	Kyrgyz Republic	1
+LAO	Lao PDR	1
+LVA	Latvia	0
+LBN	Lebanon	1
+LSO	Lesotho	1
+LBR	Liberia	1
+LBY	Libya	1
+LIE	Liechtenstein	0
+LTU	Lithuania	0
+LUX	Luxembourg	0
+MAC	Macao SAR, China	0
+MKD	Macedonia, FYR	1
+MDG	Madagascar	1
+MWI	Malawi	1
+MYS	Malaysia	1
+MDV	Maldives	1
+MLI	Mali	1
+MLT	Malta	0
+MHL	Marshall Islands	1
+MRT	Mauritania	1
+MUS	Mauritius	1
+MEX	Mexico	1
+FSM	Micronesia, Fed. Sts.	1
+MDA	Moldova	1
+MCO	Monaco	0
+MNG	Mongolia	1
+MNE	Montenegro	1
+MAR	Morocco	1
+MOZ	Mozambique	1
+MMR	Myanmar	1
+NAM	Namibia	1
+NRU	Nauru	1
+NPL	Nepal	1
+NLD	Netherlands	0
+NCL	New Caledonia	0
+NZL	New Zealand	0
+NIC	Nicaragua	1
+NER	Niger	1
+NGA	Nigeria	1
+MNP	Northern Mariana Islands	0
+NOR	Norway	0
+OMN	Oman	0
+PAK	Pakistan	1
+PLW	Palau	0
+PAN	Panama	1
+PNG	Papua New Guinea	1
+PRY	Paraguay	1
+PER	Peru	1
+PHL	Philippines	1
+POL	Poland	0
+PRT	Portugal	0
+PRI	Puerto Rico	0
+QAT	Qatar	0
+ROU	Romania	1
+RUS	Russian Federation	1
+RWA	Rwanda	1
+WSM	Samoa	1
+SMR	San Marino	0
+STP	São Tomé and Principe	1
+SAU	Saudi Arabia	0
+SEN	Senegal	1
+SRB	Serbia	1
+SYC	Seychelles	0
+SLE	Sierra Leone	1
+SGP	Singapore	0
+SXM	Sint Maarten (Dutch part)	0
+SVK	Slovak Republic	0
+SVN	Slovenia	0
+SLB	Solomon Islands	1
+SOM	Somalia	1
+ZAF	South Africa	1
+SSD	South Sudan	1
+ESP	Spain	0
+LKA	Sri Lanka	1
+KNA	St. Kitts and Nevis	0
+LCA	St. Lucia	1
+MAF	St. Martin (French part)	0
+VCT	St. Vincent and the Grenadines	1
+SDN	Sudan	1
+SUR	Suriname	1
+SWZ	Swaziland	1
+SWE	Sweden	0
+CHE	Switzerland	0
+SYR	Syrian Arab Republic	1
+TWN	Taiwan, China	0
+TJK	Tajikistan	1
+TZA	Tanzania	1
+THA	Thailand	1
+TLS	Timor-Leste	1
+TGO	Togo	1
+TON	Tonga	1
+TTO	Trinidad and Tobago	0
+TUN	Tunisia	1
+TUR	Turkey	1
+TKM	Turkmenistan	1
+TCA	Turks and Caicos Islands	0
+TUV	Tuvalu	1
+UGA	Uganda	1
+UKR	Ukraine	1
+ARE	United Arab Emirates	0
+GBR	United Kingdom	0
+USA	United States	0
+URY	Uruguay	0
+UZB	Uzbekistan	1
+VUT	Vanuatu	1
+VEN	Venezuela, RB	1
+VNM	Vietnam	1
+VIR	Virgin Islands (U.S.)	0
+PSE	West Bank and Gaza	1
+YEM	Yemen, Rep.	1
+ZMB	Zambia	1
+ZWE	Zimbabwe	1
