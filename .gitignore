@@ -100,10 +100,6 @@ ENV/
 # mypy
 .mypy_cache/
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 3a82fa7ca34443eb888ea48e92e4b2b849d133c0
 # My additions
 *.pyc
 *.pyo
@@ -113,8 +109,3 @@ ENV/
 db.sqlite3
 **/migrations/**
 !**/migrations
-<<<<<<< HEAD
-!**/migrations/__init__.py
-=======
-!**/migrations/__init__.py
->>>>>>> 3a82fa7ca34443eb888ea48e92e4b2b849d133c0
