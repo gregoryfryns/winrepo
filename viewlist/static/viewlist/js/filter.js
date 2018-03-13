@@ -1,19 +1,22 @@
-$('#search').keyup($.debounce(400, function() {
-	var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join(')(?=.*\\b') + ').*$',
+var applyFilter = function() {
+	var val = '^(?=.*\\b' + $.trim($('#search').val()).split(/\s+/).join(')(?=.*\\b') + ').*$',
+	  underRepOnly = $('#underrepresented-countries').prop("checked"),
+		$tr,
 		text;
-	
+
 	try {
 		reg = RegExp(val, 'i');
 
 		$('#results-table tr:gt(0)').show().filter(function(index) {
 			text = "";
-			// concatenate all searchable fields
-			$(this).find('.searchable').each(function(){
+			$tr = $(this);
+			// concatenate all searchable fields into text variable
+			$tr.find('.searchable').each(function(){
                text += " " + $.trim($(this).text());
             });
-			return !reg.test(text);
+			return (underRepOnly && !$tr.find('td.under-represented').length) || !reg.test(text);
 		}).hide();
-		
+
 		$('#search-container').removeClass('has-error');
 		$('#search-message').text( $('#results-table tr:gt(0):visible').length + ' entries found');
 	}
@@ -21,7 +24,10 @@ $('#search').keyup($.debounce(400, function() {
 		$('#search-message').text('Error - please enter a valid string - ' + val);
 		$('#search-container').addClass('has-error');
 	}
-}));
+}
+
+$('#search').keyup($.debounce(400, applyFilter));
+$('#underrepresented-countries').change(applyFilter);
 
 if ($('#back-to-top').length) {
     var scrollTrigger = 600, // px

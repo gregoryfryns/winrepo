@@ -14,9 +14,13 @@
 <div id="search-container" class="form-group">
 	<div id="search-form" class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces...">
+		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
 	</div>
 	<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+	<div class="form-check">
+    <input type="checkbox" class="form-check-input" id="underrepresented-countries">
+    <label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+  </div>
 </div>
 
 <div class="table-responsive">
@@ -43,7 +47,7 @@
 				{% endif %}
 			</td>
 			<td class="searchable">{{ profile.institution }}</td>
-			<td class="searchable">{{ profile.country }}</td>
+			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
 			<td class="searchable">{{ profile.position }}</td>
 			<td>
 				<dl>
@@ -63,7 +67,7 @@
 	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
 	<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
 	</div>
-	
+
 	<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
 	<script src="{% static 'viewlist/js/filter.js' %}"></script>
 
