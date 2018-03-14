@@ -14,26 +14,30 @@
 <div id="search-container" class="form-group">
 	<div id="search-form" class="input-group">
 		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces...">
+		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
 	</div>
 	<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+	<div class="form-check">
+		<input type="checkbox" class="form-check-input" id="underrepresented-countries">
+		<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+    </div>
 </div>
 
 <div class="table-responsive">
 	<table id="results-table" class="table"><tbody>
 	<tr>
 		<th>Name</th>
-		<th></th>
-		<th>Institution/Company</th>
+			<th></th>
+		<!-- <th>Institution/Company</th> -->
 		<th>Country</th>
-		<th>Position</th>
-		<th>Field of Research</th>
+		<!-- <th>Position</th> -->
+		<th style="display:none;">Field of Research</th>
 		<th>Keywords</th>
 		<th>Details</th>
 	</tr>
     {% for profile in profile_list %}
 		<tr>
-			<td class="searchable">{{ profile.name }}</td>
+			<td> <p class="searchable">{{ profile.name }}<p class="searchable">{{ profile.position }}</p><p class="searchable">{{ profile.institution }}</p></td>
 			<td>
 				{% if profile.email %}
 				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
@@ -42,10 +46,10 @@
 				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
 			</td>
-			<td class="searchable">{{ profile.institution }}</td>
-			<td class="searchable">{{ profile.country }}</td>
-			<td class="searchable">{{ profile.position }}</td>
-			<td>
+			<!-- <td class="searchable">{{ profile.institution }}</td> -->
+			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
+			<!-- <td class="searchable">{{ profile.position }}</td> -->
+			<td style="display:none;">
 				<dl>
 					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
 					<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>

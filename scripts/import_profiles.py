@@ -1,8 +1,9 @@
 from viewlist.models import Profile, Country
+import csv
+from datetime import datetime
+
 from django.db import IntegrityError
 from django.core.exceptions import ValidationError
-from datetime import datetime
-import csv
 
 incorrect_countries = {}
 with open('scripts/win.tsv', newline='', encoding="utf8") as csvfile:
@@ -11,6 +12,7 @@ with open('scripts/win.tsv', newline='', encoding="utf8") as csvfile:
 
         pd = datetime.strptime(row[0]+' UTC', '%d/%m/%Y %H:%M:%S %Z')
         countryResults = Country.objects.filter(name=row[3])
+        
         if countryResults:
             p = Profile(
                     name = row[1],

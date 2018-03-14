@@ -1,6 +1,7 @@
+import csv
+
 from viewlist.models import Country
 from django.db import IntegrityError
-import csv
 
 with open('scripts/countries_list.tsv', newline='', encoding="utf8") as csvfile:
     spamreader = list(csv.reader(csvfile, delimiter='\t', quotechar='|'))[1:]

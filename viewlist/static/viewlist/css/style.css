@@ -22,15 +22,19 @@ body {
 	font-size: medium;
 }
 
+.btn-primary {
+	background-color: #5bc4bd !important;
+	border-color: #009688 !important;
+}
+
 #search-container {
 	margin:auto;
-	max-width:600px
+	max-width:600px;
 }
 
 #results-table .btn {
 	margin: 4px;
-	background-color: #5bc4bd;
-	border-color: #009688;;
+
 }
 
 #results-table td {
@@ -46,6 +50,15 @@ body {
 #results-table dl.researchDetails dd {
 	margin-left: 90px;
 }
+
+#profile-quotes .quote-icon {
+	color: red;
+}
+
+#profile-quotes .quote-reviewer {
+	font-weight: bold;
+}
+
 
 #back-to-top {
     position: fixed;
@@ -68,3 +81,9 @@ body {
 #back-to-top.show {
     opacity: 1;
 }
+
+/* .list-group-item .strong { */
+  /* display:inline-block; */
+  /* width:500px; */
+  /* text-align:right; */
+/* } */

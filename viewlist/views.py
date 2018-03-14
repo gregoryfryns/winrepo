@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
+# from django.forms import modelformset_factory
 
 from .models import Profile, Recommendation
 
@@ -33,7 +34,7 @@ class UpdateProfile(generic.UpdateView):
     ]
 
     def get_success_url(self):
-        return reverse('viewlist:detail', args=(self.object.id,))
+        return reverse('viewlist:detail', args=(self.object.id,))  
 
 class CreateProfile(generic.CreateView):
     model = Profile
@@ -55,6 +56,26 @@ class CreateProfile(generic.CreateView):
     def get_success_url(self):
         return reverse('viewlist:index')
 
+# def create_profile(request):
+    # profile_formset = modelformset_factory(Profile, fields = [
+        # 'name', 
+        # 'email', 
+        # 'webpage', 
+        # 'institution',
+        # 'country',
+        # 'position',
+        # 'grad_date',
+        # 'brain_structure',
+        # 'modalities',
+        # 'methods',
+        # 'domain',
+        # 'keywords',
+    # ], localized_fields = ('grad_date',))
+    # return render(request, 'viewlist/edit_profile.html', {'formset': profile_formset})
+    
+# def submit_profile(request):
+    
+        
 class UpdateRecommendation(generic.UpdateView):
     model = Recommendation
     fields = [

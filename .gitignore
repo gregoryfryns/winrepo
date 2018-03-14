@@ -106,6 +106,6 @@ ENV/
 *.mo
 *~
 .coverage
-db.sqlite3
 **/migrations/**
 !**/migrations
+*.sqlite3

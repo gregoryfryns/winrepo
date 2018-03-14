@@ -36,6 +36,7 @@ class Recommendation(models.Model):
     reviewer_name = models.CharField(max_length=100, blank=False)
     reviewer_email = models.EmailField(blank=False)
     reviewer_position = models.CharField(max_length=30, blank=False)
+    reviewer_institution = models.CharField(max_length=100, blank=False)
     seen_at_conf = models.BooleanField()
     comment = models.CharField(max_length=500, blank=False)
     publish_date = models.DateTimeField(auto_now_add=True)
