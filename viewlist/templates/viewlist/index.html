@@ -28,16 +28,20 @@
 	<tr>
 		<th>Name</th>
 			<th></th>
-		<!-- <th>Institution/Company</th> -->
 		<th>Country</th>
-		<!-- <th>Position</th> -->
 		<th style="display:none;">Field of Research</th>
 		<th>Keywords</th>
 		<th>Details</th>
 	</tr>
     {% for profile in profile_list %}
 		<tr>
-			<td> <p class="searchable">{{ profile.name }}<p class="searchable">{{ profile.position }}</p><p class="searchable">{{ profile.institution }}</p></td>
+			<td> 
+				<h4 class="searchable">{{ profile.name }}</h4>
+				<h4><small>
+					<p class="searchable">{{ profile.position }}</p>
+					<p class="searchable">{{ profile.institution }}</p>
+				</small></h4>
+			</td>
 			<td>
 				{% if profile.email %}
 				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
@@ -46,10 +50,8 @@
 				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
 			</td>
-			<td class="searchable">{{ profile.institution }}</td>
 			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
-			<td class="searchable">{{ profile.position }}</td>
-			<td>
+			<td style="display:none;">
 				<dl>
 					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
 					<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>

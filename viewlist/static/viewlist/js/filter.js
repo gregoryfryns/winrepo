@@ -28,6 +28,10 @@ var applyFilter = function() {
 
 $('#search').keyup($.debounce(400, applyFilter));
 $('#underrepresented-countries').change(applyFilter);
+$( document ).ready(function() {
+	applyFilter();
+	//other stuff?
+});
 
 if ($('#back-to-top').length) {
     var scrollTrigger = 600, // px
