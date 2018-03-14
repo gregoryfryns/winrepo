@@ -18,9 +18,15 @@
 	</div>
 	<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
 	<div class="form-check">
+<<<<<<< HEAD
 		<input type="checkbox" class="form-check-input" id="underrepresented-countries">
 		<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
     </div>
+=======
+    <input type="checkbox" class="form-check-input" id="underrepresented-countries">
+    <label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+  </div>
+>>>>>>> b733c3bea688a2023481dca69b11145296cf9e4c
 </div>
 
 <div class="table-responsive">
@@ -46,10 +52,17 @@
 				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
 			</td>
+<<<<<<< HEAD
 			<!-- <td class="searchable">{{ profile.institution }}</td> -->
 			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
 			<!-- <td class="searchable">{{ profile.position }}</td> -->
 			<td style="display:none;">
+=======
+			<td class="searchable">{{ profile.institution }}</td>
+			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
+			<td class="searchable">{{ profile.position }}</td>
+			<td>
+>>>>>>> b733c3bea688a2023481dca69b11145296cf9e4c
 				<dl>
 					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
 					<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
@@ -67,7 +80,7 @@
 	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
 	<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
 	</div>
-	
+
 	<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
 	<script src="{% static 'viewlist/js/filter.js' %}"></script>
 
