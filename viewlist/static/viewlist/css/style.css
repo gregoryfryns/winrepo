@@ -27,6 +27,16 @@ body {
 	border-color: #009688 !important;
 }
 
+.btn-secondary {
+	background-color: #fafafa !important;
+	border-color: #ebebeb !important;
+	color: #009688 !important;
+}
+
+.btn-secondary.disabled {
+	color: #ababab !important;
+}
+
 #search-container {
 	margin:auto;
 	max-width:600px;
