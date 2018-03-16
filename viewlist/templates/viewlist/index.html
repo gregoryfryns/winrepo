@@ -28,31 +28,32 @@
 	<tr>
 		<th style="display:none;">ID</th>
 		<th>Name</th>
-			<th></th>
-		<th>Country</th>
+		<th>Position</th>
 		<th style="display:none;">Field of Research</th>
 		<th>Keywords</th>
-		<th>Details</th>
+		<!--<th>Details</th>-->
 	</tr>
     {% for profile in profile_list %}
 		<tr>
 			<td class="profile_id" style="display:none;">{{ profile.id }}</td>
-			<td> 
+			<td>
 				<h4 class="searchable">{{ profile.name }}</h4>
-				<h4><small>
-					<p class="searchable">{{ profile.position }}</p>
-					<p class="searchable">{{ profile.institution }}</p>
-				</small></h4>
 			</td>
 			<td>
+				<p class="searchable">{{ profile.position }}</p>
+				<!--<p class="searchable">{{ profile.institution }} (<abbr title="{{ profile.country }}">{{ profile.country.code }}<abbr>)</p>-->
+				<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
+				<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>
+			</td>
+			<!--<td>
 				{% if profile.email %}
 				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
 				{% endif %}
 				{% if profile.webpage %}
 				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
 				{% endif %}
-			</td>
-			<td class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}">{{ profile.country }}</td>
+			</td>-->
+
 			<td style="display:none;">
 				<dl>
 					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
@@ -62,7 +63,7 @@
 				</dl>
 			</td>
 			<td class="searchable">{{ profile.keywords}}</td>
-			<td><a class="details" href="{% url 'viewlist:detail' profile.id %}">More details</a></td>
+			<td><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resume.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
 		</tr>
     {% endfor %}
     </tbody></table>
