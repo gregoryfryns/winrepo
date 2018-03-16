@@ -14,8 +14,8 @@ var applyFilter = function() {
 			$tr = $(this);
 			// concatenate all searchable fields into a single string
 			text = $tr.find('.searchable').toArray().map(el => el.textContent.trim()).join(' ');
-			
-			if ((underRepOnly && !$tr.find('td.under-represented').length) || !reg.test(text))
+
+			if ((underRepOnly && !$tr.find('.under-represented').length) || !reg.test(text))
 				return true;
 			else
 				resultsList.push($tr.find('.profile_id:eq(0)').text());

@@ -68,6 +68,10 @@ p, div{
 	margin-left: 90px;
 }
 
+#results-table abbr {
+	font-size: smaller;
+	color: #555555;
+}
 #profile-quotes .quote-icon {
 	color: red;
 }

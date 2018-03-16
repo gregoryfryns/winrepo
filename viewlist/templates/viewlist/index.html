@@ -41,7 +41,8 @@
 			</td>
 			<td>
 				<p class="searchable">{{ profile.position }}</p>
-				<p class="searchable">{{ profile.institution }} ({{profile.country.code }})</p>
+				<!--<p class="searchable">{{ profile.institution }} (<abbr title="{{ profile.country }}">{{ profile.country.code }}<abbr>)</p>-->
+				<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
 				<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>
 			</td>
 			<!--<td>
@@ -62,7 +63,7 @@
 				</dl>
 			</td>
 			<td class="searchable">{{ profile.keywords}}</td>
-			<td><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static "viewlist/images/resume.svg" %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+			<td><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resume.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
 		</tr>
     {% endfor %}
     </tbody></table>
