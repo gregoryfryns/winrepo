@@ -11,9 +11,9 @@
 
 {% block content %}
 <h1>{{ profile.name }}</h1>
-<a href="#" id="previous-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-up" %} Previous</a>
-<a href="#" id="next-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-down" %} Next</a>
-<span id="page-number"></span>
+<!-- <a href="#" id="previous-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-up" %} Previous</a> -->
+<!-- <a href="#" id="next-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-down" %} Next</a> -->
+<!-- <span id="page-number"></span> -->
 <div id="profile-id" style="display: none;">{{ profile.id }}</div>
 <p>{{ profile.position }} - {{ profile.institution }} - {{ profile.country }}</p>
 
@@ -34,7 +34,19 @@
 </div>
 <h3>Keywords</h3>
 <div>{{ profile.keywords }}</div>
-				
+
+<nav id="filtered-list-navigation" aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a id="previous-btn" class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item disabled"><span id="page-number"></span></li>
+    <li class="page-item disabled">
+      <a id="next-btn" class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+
 <h2>{{ profile.recommendation_set.all|length }} Recommendations </h2>
 <a href="{% url 'viewlist:recommend' profile.id %}" class="btn btn-primary" role="button">{% bootstrap_icon "star" %} Write a recommendation</a>
 <ul id="profile-quotes" class="list-unstyled">

@@ -36,6 +36,10 @@ body {
 .btn-secondary.disabled {
 	color: #ababab !important;
 }
+nav #page-number {
+	cursor: default;
+	width: 240px;
+}
 
 #search-container {
 	margin:auto;
