@@ -1,8 +1,9 @@
 /* @import url('https://github.com/adobe-fonts/Source-Sans-Pro'); */
 
 body {
-	background-color: #e0f2f1;
 	/*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
+	background-color: #e0f2f1;
+	background-image: url("../images/textured_bg5.png");
 	font-family: "Source-Sans-Pro","Source Sans Pro",serif;
 }
 
@@ -13,6 +14,7 @@ p, div{
 .page-container {
 	background-color: #ffffff;
 	padding-top: 20px;
+	box-shadow: 0.1em 0.1em 0.3em 0.3em #eee;
 }
 
 .jumbotron {
@@ -43,6 +45,7 @@ p, div{
 .btn-secondary.disabled {
 	color: #ababab !important;
 }
+
 nav #page-number {
 	cursor: default;
 	width: 240px;
