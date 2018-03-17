@@ -45,7 +45,7 @@
 				<h4 class="searchable">{{ profile.name }}</h4>
 			</td>
 			<td>
-				<p class="searchable{% if 'Senior' in profile.position or 'Professor' in profile.position or 'Lecturer' in profile.position or 'Director' in profile.position or 'Principal' in profile.position%} senior{% endif %}">{{ profile.position }}</p>
+				<p class="searchable{% if profile.is_senior %} senior{% endif %}">{{ profile.position }}</p>
 				<!--<p class="searchable">{{ profile.institution }} (<abbr title="{{ profile.country }}">{{ profile.country.code }}<abbr>)</p>-->
 				<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
 				<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>

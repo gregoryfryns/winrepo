@@ -6,19 +6,42 @@ class Country(models.Model):
     name = models.CharField(max_length=60, blank=False)
     is_under_represented = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = "countries"
+        
     def __str__(self):
         return self.name
-        
-    def set_is_under_represented(self, val):
-        self.is_under_represented = val
+
 
 class Profile(models.Model):
+    PHD = 'PhD student'
+    MDR = 'Medical Doctor'
+    PDR = 'Post-doctoral researcher'
+    SRE = 'Senior researcher/ scientist'
+    LEC = 'Lecturer'
+    ATP = 'Assistant Professor'
+    ACP = 'Associate Professor'
+    PRF = 'Professor'
+    DIR = 'Group leader/ Director/ Head of Department'
+    
+    POSITION_CHOICES = (
+        (PHD, 'PhD student'),
+        (MDR, 'Medical Doctor'),
+        (PDR, 'Post-doctoral researcher'),
+        (SRE, 'Senior researcher/ scientist'),
+        (LEC, 'Lecturer'),
+        (ATP, 'Assistant Professor'),
+        (ACP, 'Associate Professor'),
+        (PRF, 'Professor'),
+        (DIR, 'Group leader/ Director/ Head of Department')
+    )
+    
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(unique=True, blank=True)
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    position = models.CharField(max_length=30, blank=False)
+    position = models.CharField(max_length=30, choices=POSITION_CHOICES, blank=False)
     grad_date = models.DateField(null=True, blank=True)
     brain_structure = models.CharField(max_length=80, blank=True)
     modalities = models.CharField(max_length=80, blank=True)
@@ -29,7 +52,12 @@ class Profile(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return ' - '.join([self.name, self.position, self.institution])
+        return self.name
+        
+    @property
+    def is_senior(self):
+        senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
+        return any(keyword in self.position for keyword in senior_keywords)
 
 class Recommendation(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -43,4 +71,4 @@ class Recommendation(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s said '%s' to %s" % (self.reviewer_name, self.comment, self.profile.name)
+        return self.comment[:50]

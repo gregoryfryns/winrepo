@@ -1,10 +1,10 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
-# from django.forms import modelformset_factory
 
 from .models import Profile, Recommendation
+from .forms import CreateProfileForm
 
 class IndexView(generic.ListView):
     template_name = 'viewlist/index.html'
@@ -36,28 +36,9 @@ class UpdateProfile(generic.UpdateView):
     def get_success_url(self):
         return reverse('viewlist:detail', args=(self.object.id,))  
 
-class CreateProfile(generic.CreateView):
-    model = Profile
-    fields = [
-        'name', 
-        'email', 
-        'webpage', 
-        'institution',
-        'country',
-        'position',
-        'grad_date',
-        'brain_structure',
-        'modalities',
-        'methods',
-        'domain',
-        'keywords',
-    ]
-
-    def get_success_url(self):
-        return reverse('viewlist:index')
-
-# def create_profile(request):
-    # profile_formset = modelformset_factory(Profile, fields = [
+# class CreateProfile(generic.CreateView):
+    # model = Profile
+    # fields = [
         # 'name', 
         # 'email', 
         # 'webpage', 
@@ -70,11 +51,21 @@ class CreateProfile(generic.CreateView):
         # 'methods',
         # 'domain',
         # 'keywords',
-    # ], localized_fields = ('grad_date',))
-    # return render(request, 'viewlist/edit_profile.html', {'formset': profile_formset})
-    
-# def submit_profile(request):
-    
+    # ]
+
+    # def get_success_url(self):
+        # return reverse('viewlist:index')
+class CreateProfile(generic.FormView):
+    template_name = 'viewlist/edit_profile.html'
+    form_class = CreateProfileForm
+    success_url = reverse_lazy('viewlist:index')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        # form.send_email()
+        form.save()
+        return super().form_valid(form)
         
 class UpdateRecommendation(generic.UpdateView):
     model = Recommendation
