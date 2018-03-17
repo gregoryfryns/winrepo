@@ -2,6 +2,7 @@
 var applyFilter = function() {
 	var val = '^(?=.*\\b' + $.trim($('#search').val()).split(/\s+/).join(')(?=.*\\b') + ').*$',
 	  underRepOnly = $('#underrepresented-countries').prop("checked"),
+		seniorOnly = $('#senior-only').prop("checked"),
 		resultsList = [],
 		$tr,
 		text;
@@ -15,8 +16,8 @@ var applyFilter = function() {
 			// concatenate all searchable fields into a single string
 			text = $tr.find('.searchable').toArray().map(el => el.textContent.trim()).join(' ');
 
-			if ((underRepOnly && !$tr.find('.under-represented').length) || !reg.test(text))
-				return true;
+			if ((underRepOnly && !$tr.find('.under-represented').length) || (seniorOnly && !$tr.find('.senior').length) || !reg.test(text))
+					return true; // will be hidden
 			else
 				resultsList.push($tr.find('.profile_id:eq(0)').text());
 				return false;
@@ -36,6 +37,7 @@ var applyFilter = function() {
 
 $('#search').keyup($.debounce(400, applyFilter));
 $('#underrepresented-countries').change(applyFilter);
+$('#senior-only').change(applyFilter);
 $( document ).ready(function() {
 	applyFilter();
 	//other stuff?
