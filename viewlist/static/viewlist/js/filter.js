@@ -16,11 +16,15 @@ var applyFilter = function() {
 			// concatenate all searchable fields into a single string
 			text = $tr.find('.searchable').toArray().map(el => el.textContent.trim()).join(' ');
 
-			if ((underRepOnly && !$tr.find('.under-represented').length) || (seniorOnly && !$tr.find('.senior').length) || !reg.test(text))
-					return true; // will be hidden
-			else
+			if ((underRepOnly && !$tr.find('.under-represented').length)
+					|| (seniorOnly && !$tr.find('.senior').length)
+					|| !reg.test(text)) {
+				return true; // will be hidden
+			}
+			else {
 				resultsList.push($tr.find('.profile_id:eq(0)').text());
 				return false;
+			}
 		}).hide();
 
 		$('#search-container').removeClass('has-error');
