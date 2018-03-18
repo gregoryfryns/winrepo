@@ -73,6 +73,7 @@ p, div{
 	background-color: #009688;
 	border: none;
 	color: #e2f1af;
+	font-weight: bold;
 }
 
 .nav-tabs>li>a {
@@ -80,13 +81,15 @@ p, div{
 }
 
 .nav-tabs>li>a:hover {
-	background-color: #009688;
+	background-color: #efefef;
 	border: none;
-	color: #e2f1af;
+	color: #009688;
+	font-weight: bold;
 }
 
 a {
 	color: #555;
+	font-size: 1.2em;
 }
 
 /* .list-group-item .strong { */
