@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 	'viewlist.apps.ViewlistConfig',
+	'about.apps.AboutConfig',
     'captcha',
     'bootstrap3',
     'django.contrib.admin',
@@ -120,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
-    
+
 # reCaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6Lc5TE0UAAAAAB3fNH4UEY_oHUbHMi2V1zzSs967'
 RECAPTCHA_PRIVATE_KEY = '6Lc5TE0UAAAAAJo3eVFEZycFj0HI_ccMDXGGzZRm'

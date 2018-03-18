@@ -46,47 +46,6 @@ p, div{
 	color: #ababab !important;
 }
 
-nav #page-number {
-	cursor: default;
-	width: 240px;
-}
-
-#search-container {
-	margin:auto;
-	max-width:600px;
-}
-
-#results-table .btn {
-	margin: 4px;
-
-}
-
-#results-table td {
-	white-space: normal;
-}
-
-#results-table dl.researchDetails dt {
-	width: 70px;
-	color: #a7a7a7;
-	font-size: small;
-}
-
-#results-table dl.researchDetails dd {
-	margin-left: 90px;
-}
-
-#results-table abbr {
-	font-size: smaller;
-	color: #555555;
-}
-#profile-quotes .quote-icon {
-	color: red;
-}
-
-#profile-quotes .quote-reviewer {
-	font-weight: bold;
-}
-
 
 #back-to-top {
     position: fixed;
