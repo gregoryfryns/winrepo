@@ -116,6 +116,7 @@ nav #page-number {
 	border: none;
 	color: #e2f1af;
 	font-weight: bold;
+	transition: color 0.4s ease 0s;
 }
 
 .nav-tabs>li>a {
@@ -127,6 +128,7 @@ nav #page-number {
 	border: none;
 	color: #009688;
 	font-weight: bold;
+	transition: color 0.4s ease 0s;
 }
 
 a {
