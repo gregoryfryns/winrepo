@@ -32,15 +32,16 @@
 {% bootstrap_messages %}
 
 <body>
-	<div id="nav-tabs">
-		{% block sidebar %}
-				<ul class="nav nav-tabs">
-						<li><a href="/about/">About</a></li>
-						<li><a href="#">How to use</a></li>
+	<div class="container">
+		<div id="nav-tabs">
+			{% block sidebar %}
+					<ul class="nav nav-tabs">
+						<li><a href="/about/">Home</a></li>
 						<li class="active"><a href="/list/">Repository</a></li>
-  					<li><a href="/admin/">Admin</a></li>
-				</ul>
-		{% endblock %}
+	  				<li><a href="/admin/">Admin</a></li>
+					</ul>
+			{% endblock %}
+		</div>
 	</div>
   <!--  <div id="sidebar">
         <ul>

@@ -12,7 +12,7 @@ p, div{
 }
 
 .page-container {
-	background-color: #ffffff;
+	background-color: rgba(255,255,255,0.9);
 	padding-top: 20px;
 	box-shadow: 0em 0em 0.3em 0.3em #efefef;
 }
