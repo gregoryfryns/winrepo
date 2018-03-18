@@ -69,6 +69,26 @@ p, div{
     opacity: 1;
 }
 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	background-color: #009688;
+	border: none;
+	color: #e2f1af;
+}
+
+.nav-tabs>li>a {
+	border: none
+}
+
+.nav-tabs>li>a:hover {
+	background-color: #009688;
+	border: none;
+	color: #e2f1af;
+}
+
+a {
+	color: #555;
+}
+
 /* .list-group-item .strong { */
   /* display:inline-block; */
   /* width:500px; */
