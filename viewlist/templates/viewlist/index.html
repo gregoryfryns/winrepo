@@ -1,95 +1,89 @@
-{% extends "viewlist/includes/base.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap3 %}
 {% load static %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block other_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'viewlist/css/style.css' %}" />
+{% endblock %}
 
-{% bootstrap_messages %}
-
+{% block nav-repository %}
+	<li class="active"><a href="{% url 'viewlist:index' %}">Repository</a></li>
+{% endblock %}
 
 {% block content %}
-{% if profile_list %}
-<div id="search-container" class="form-group">
-		<div class="row" id="search-results">
-			<div class="col-sm-9">
-				<div id="search-form" class="input-group">
-					<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-					<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
+
+	{% if profile_list %}
+		<div id="search-container" class="form-group">
+				<div class="row" id="search-results">
+					<div class="col-sm-8">
+						<div id="search-form" class="input-group">
+							<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+							<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
+						</div>
+					</div>
+					<div id="search-entries" class="col-sm-4">
+						<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+					</div>
 				</div>
+				<div class="form-check">
+				<input type="checkbox" class="form-check-input" id="underrepresented-countries">
+				<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
 			</div>
-			<div id="search-entries" class="col-sm-3">
-				<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+				<div class="form-check">
+				<input type="checkbox" class="form-check-input" id="senior-only">
+				<label class="form-check-label" for="senior-only">Senior Positions Only</label>
 			</div>
 		</div>
-		<div class="form-check">
-    	<input type="checkbox" class="form-check-input" id="underrepresented-countries">
-    	<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
-  	</div>
-		<div class="form-check">
-    	<input type="checkbox" class="form-check-input" id="senior-only">
-    	<label class="form-check-label" for="senior-only">Senior Positions Only</label>
-  	</div>
-</div>
 
+		<div class="table-responsive">
+			<table id="results-table" class="table"><tbody>
+			<tr>
+				<th style="display:none;">ID</th>
+				<th class="col-md-3">Name</th>
+				<th class="col-md-4">Position</th>
+				<th style="display:none;">Field of Research</th>
+				<th class="col-md-4 hidden-xs">Keywords</th>
+				<th class="col-md-1">Details</th>
+			</tr>
+			
+			{% for profile in profile_list %}
+				<tr>
+					<td class="profile_id" style="display:none;">{{ profile.id }}</td>
+					<td class="col-md-3">
+						<h4 class="searchable">{{ profile.name }}</h4>
+					</td>
+					<td class="col-md-4">
+						<p class="searchable{% if profile.is_senior %} senior{% endif %}">{{ profile.position }}</p>
+						<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
+						<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>
+					</td>
 
-<div class="table-responsive">
-	<table id="results-table" class="table"><tbody>
-	<tr>
-		<th style="display:none;">ID</th>
-		<th class="col-md-3">Name</th>
-		<th class="col-md-4">Position</th>
-		<th style="display:none;">Field of Research</th>
-		<th class="col-md-4 hidden-xs">Keywords</th>
-		<th class="col-md-1">Details</th>
-		<!--<th>Details</th>-->
-	</tr>
-    {% for profile in profile_list %}
-		<tr>
-			<td class="profile_id" style="display:none;">{{ profile.id }}</td>
-			<td class="col-md-3">
-				<h4 class="searchable">{{ profile.name }}</h4>
-			</td>
-			<td class="col-md-4">
-				<p class="searchable{% if profile.is_senior %} senior{% endif %}">{{ profile.position }}</p>
-				<!--<p class="searchable">{{ profile.institution }} (<abbr title="{{ profile.country }}">{{ profile.country.code }}<abbr>)</p>-->
-				<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
-				<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>
-			</td>
-			<!--<td>
-				{% if profile.email %}
-				<a href="mailto:{{ profile.email }}" class="btn btn-primary">{% bootstrap_icon "envelope" %}</a>
-				{% endif %}
-				{% if profile.webpage %}
-				<a href="{{ profile.webpage }}" class="btn btn-primary" target="_blank">{% bootstrap_icon "user" %}</a>
-				{% endif %}
-			</td>-->
+					<td style="display:none;">
+						<dl>
+							<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
+							<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
+							<dt>Modalities</dt><dd class="searchable">{{ profile.modalities }}</dd>
+							<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
+						</dl>
+					</td>
+					<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
+					<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+				</tr>
+			{% endfor %}
+			
+			</tbody></table>
+		</div>
 
-			<td style="display:none;">
-				<dl>
-					<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
-					<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
-					<dt>Modalities</dt><dd class="searchable">{{ profile.modalities }}</dd>
-					<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
-				</dl>
-			</td>
-			<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
-			<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
-		</tr>
-    {% endfor %}
-    </tbody></table>
-    </div>
+		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+		<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
+		</div>
 
-	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
-	<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
-	</div>
+		<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
+		<script src="{% static 'viewlist/js/index.js' %}"></script>
 
-	<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
-	<script src="{% static 'viewlist/js/filter.js' %}"></script>
-
-{% else %}
-    <p>No profiles to show.</p>
-{% endif %}
+	{% else %}
+		<p>No profiles to show.</p>
+	{% endif %}
 
 {% endblock %}

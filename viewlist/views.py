@@ -8,7 +8,8 @@ from .forms import CreateProfileForm
 
 class IndexView(generic.ListView):
     template_name = 'viewlist/index.html'
-
+    selected_tab = 'repository'
+        
     def get_queryset(self):
         """Return the latest profiles first"""
         return Profile.objects.order_by('-publish_date')

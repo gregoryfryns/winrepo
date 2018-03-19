@@ -1,16 +1,16 @@
-{% extends "about/includes/base.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap3 %}
 {% load static %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block other_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'about/css/style.css' %}" />
+{% endblock %}
 
-{% bootstrap_messages %}
-
+{% block nav-home %}<li class="active"><a href="{% url 'about:index' %}">Home</a></li>{% endblock %}
 
 {% block content %}
-<div id="text-container" class="about-text">
-    <p>Hello, world. You're at the about index.</p>
-</div>
+	<div id="text-container" class="about-text">
+		<p>Hello, world. You're at the about index.</p>
+	</div>
 {% endblock %}

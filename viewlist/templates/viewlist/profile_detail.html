@@ -3,13 +3,16 @@
 {% load bootstrap3 %}
 {% load static %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block other_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'viewlist/css/style.css' %}" />
+{% endblock %}
 
-{% bootstrap_messages %}
-
+{% block nav-repository %}
+	<li class="active"><a href="{% url 'viewlist:index' %}">Repository</a></li>
+{% endblock %}
 
 {% block content %}
+
 <h1>{{ profile.name }}</h1>
 <!-- <a href="#" id="previous-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-up" %} Previous</a> -->
 <!-- <a href="#" id="next-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-down" %} Next</a> -->
@@ -66,7 +69,7 @@
 </li>
 {% endfor %}
 </ul>
-<div class="small">Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+<!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
 Noticed something wrong in your profile? Send email with instructions to update it by clicking <a href="{% url 'viewlist:edit' profile.id %}">here</a>.
 
 <script src="{% static 'viewlist/js/profile_detail.js' %}"></script>

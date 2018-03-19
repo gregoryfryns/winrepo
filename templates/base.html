@@ -1,0 +1,49 @@
+{% load bootstrap3 %}
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Gregory Fryns">
+	<meta name="description" content="Listing of women working in Neuroscience">
+	<meta name="keywords" content="Women,Neuroscience,brain,research">
+	<meta name="viewport" content="width=device-width">
+    <title>{% block title %}Women in Neuroscience Repo{% endblock %}</title>
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	{% bootstrap_css %}
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />   
+	{% block other_css %}{% endblock %}
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	{% bootstrap_javascript jquery=1 %}
+	{% bootstrap_messages %}
+	
+</head>
+
+
+
+<body>
+	<div class="container">
+		<div id="nav-pills">
+			{% block nav %}
+					<ul class="nav nav-pills">
+						{% block nav-home %}<li><a href="{% url 'about:index' %}">Home</a></li>{% endblock %}
+						{% block nav-repository %}<li><a href="{% url 'viewlist:index' %}">Repository</a></li>{% endblock %}
+						<li><a href="/admin/">Admin</a></li>
+					</ul>
+			{% endblock %}
+		</div>
+	</div>
+
+	<div class="container page-container">
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+	</div>
+</body>
+</html>
