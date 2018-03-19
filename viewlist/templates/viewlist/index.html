@@ -41,7 +41,7 @@
 		<th class="col-md-3">Name</th>
 		<th class="col-md-4">Position</th>
 		<th style="display:none;">Field of Research</th>
-		<th class="col-md-4">Keywords</th>
+		<th class="col-md-4 hidden-xs">Keywords</th>
 		<th class="col-md-1">Details</th>
 		<!--<th>Details</th>-->
 	</tr>
@@ -74,8 +74,8 @@
 					<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
 				</dl>
 			</td>
-			<td class="searchable" class="col-md-4">{{ profile.keywords}}</td>
-			<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resume.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+			<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
+			<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
 		</tr>
     {% endfor %}
     </tbody></table>
