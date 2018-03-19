@@ -56,8 +56,9 @@ class UpdateProfile(generic.UpdateView):
 
     # def get_success_url(self):
         # return reverse('viewlist:index')
+        
 class CreateProfile(generic.FormView):
-    template_name = 'viewlist/edit_profile.html'
+    template_name = 'viewlist/profile_form.html'
     form_class = CreateProfileForm
     success_url = reverse_lazy('viewlist:index')
 

@@ -1,14 +1,15 @@
-{% extends "viewlist/includes/base.html" %}
+{% extends "base.html" %}
 
 {% load bootstrap3 %}
 {% load static %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block other_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'viewlist/css/style.css' %}" />
+{% endblock %}
 
-{% bootstrap_messages %}
-
-{% block nav-repository %}<li class="active"><a href="{% url 'viewlist:index' %}">Repository</a></li>{% endblock %}
+{% block nav-repository %}
+	<li class="active"><a href="{% url 'viewlist:index' %}">Repository</a></li>
+{% endblock %}
 
 {% block content %}
 
