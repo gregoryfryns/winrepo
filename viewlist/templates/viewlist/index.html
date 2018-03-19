@@ -12,39 +12,46 @@
 {% block content %}
 {% if profile_list %}
 <div id="search-container" class="form-group">
-	<div id="search-form" class="input-group">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-		<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
-	</div>
-	<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
-	<div class="form-check">
-    <input type="checkbox" class="form-check-input" id="underrepresented-countries">
-    <label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
-  </div>
-	<div class="form-check">
-    <input type="checkbox" class="form-check-input" id="senior-only">
-    <label class="form-check-label" for="senior-only">Senior Positions Only</label>
-  </div>
+		<div class="row" id="search-results">
+			<div class="col-sm-9">
+				<div id="search-form" class="input-group">
+					<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+					<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
+				</div>
+			</div>
+			<div id="search-entries" class="col-sm-3">
+				<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+			</div>
+		</div>
+		<div class="form-check">
+    	<input type="checkbox" class="form-check-input" id="underrepresented-countries">
+    	<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+  	</div>
+		<div class="form-check">
+    	<input type="checkbox" class="form-check-input" id="senior-only">
+    	<label class="form-check-label" for="senior-only">Senior Positions Only</label>
+  	</div>
 </div>
+
 
 <div class="table-responsive">
 	<table id="results-table" class="table"><tbody>
 	<tr>
 		<th style="display:none;">ID</th>
-		<th>Name</th>
-		<th>Position</th>
+		<th class="col-md-3">Name</th>
+		<th class="col-md-4">Position</th>
 		<th style="display:none;">Field of Research</th>
-		<th>Keywords</th>
-		<th></th>
+		<th class="col-md-4">Keywords</th>
+		<th class="col-md-1">Details</th>
 		<!--<th>Details</th>-->
 	</tr>
     {% for profile in profile_list %}
 		<tr>
 			<td class="profile_id" style="display:none;">{{ profile.id }}</td>
-			<td>
+			<td class="col-md-3">
 				<h4 class="searchable">{{ profile.name }}</h4>
 			</td>
-			<td>
+			<td class="col-md-4">
 				<p class="searchable{% if profile.is_senior %} senior{% endif %}">{{ profile.position }}</p>
 				<!--<p class="searchable">{{ profile.institution }} (<abbr title="{{ profile.country }}">{{ profile.country.code }}<abbr>)</p>-->
 				<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
@@ -67,8 +74,8 @@
 					<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
 				</dl>
 			</td>
-			<td class="searchable">{{ profile.keywords}}</td>
-			<td><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resume.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+			<td class="searchable" class="col-md-4">{{ profile.keywords}}</td>
+			<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resume.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
 		</tr>
     {% endfor %}
     </tbody></table>

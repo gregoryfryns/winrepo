@@ -54,7 +54,15 @@ nav #page-number {
 
 #search-container {
 	margin:auto;
-	max-width:600px;
+	max-width: 600px;
+}
+
+#search-results {
+	padding-bottom: 8px;
+}
+
+#search-entries {
+	padding-left:0px;
 }
 
 #results-table .btn {
@@ -74,6 +82,14 @@ nav #page-number {
 
 #results-table dl.researchDetails dd {
 	margin-left: 90px;
+}
+
+#results-table td.col-md-1 {
+	text-align: center;
+}
+
+#results-table th.col-md-1 {
+	text-align: center;
 }
 
 #results-table abbr {
