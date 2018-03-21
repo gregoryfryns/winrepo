@@ -7,9 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'viewlist/css/style.css' %}" />
 {% endblock %}
 
-{% block nav-repository %}
-	<li class="active"><a href="{% url 'viewlist:index' %}">Repository</a></li>
-{% endblock %}
+{% block nav-repository-classes %}active{% endblock %}
 
 {% block content %}
 
@@ -55,12 +53,12 @@
 <ul id="profile-quotes" class="list-unstyled">
 {% for recommendation in profile.recommendation_set.all %}
 <li class="quote">
-	<span class="quote-icon">{% bootstrap_icon "heart" %}</span> 
+	<span class="quote-icon">{% bootstrap_icon "heart" %}</span>
 	<span class="quote-reviewer">{{ recommendation.reviewer_name }}</span>
 	<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
 	<span class="quote-seen-at-conf">
 		{% if recommendation.seen_at_conf %}
-			<img src="{% static "viewlist/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" /> 
+			<img src="{% static "viewlist/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
 		{% else %}
 			<img src="{% static "viewlist/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
 		{% endif %}

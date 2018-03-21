@@ -17,28 +17,34 @@
     <![endif]-->
 	{% bootstrap_css %}
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />   
+	<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
 	{% block other_css %}{% endblock %}
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	{% bootstrap_javascript jquery=1 %}
 	{% bootstrap_messages %}
-	
+
+
 </head>
 
 
 
 <body>
-	<div class="container">
-		<div id="nav-pills">
-			{% block nav %}
-					<ul class="nav nav-pills">
-						{% block nav-home %}<li><a href="{% url 'about:index' %}">Home</a></li>{% endblock %}
-						{% block nav-repository %}<li><a href="{% url 'viewlist:index' %}">Repository</a></li>{% endblock %}
-						<li><a href="/admin/">Admin</a></li>
-					</ul>
-			{% endblock %}
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div id="navbar-nav">
+				{% block nav %}
+						<ul class="nav navbar-nav">
+							<li class="{% block nav-home-classes %}{% endblock %}"><a href="{% url 'about:index' %}">Home</a></li>
+							<li class="{% block nav-repository-classes %}{% endblock %}">
+			          <a href="{% url 'viewlist:index' %}">Repository</a> </li>
+							<li class="{% block nav-create-classes %}{% endblock %}">
+								<a href="{% url 'viewlist:create' %}">Enter New</a> </li>
+							<li><a href="/admin/">Admin</a></li>
+						</ul>
+				{% endblock %}
+			</div>
 		</div>
-	</div>
+</nav>
 
 	<div class="container page-container">
     <div id="content">

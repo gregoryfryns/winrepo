@@ -1,11 +1,8 @@
+
 body {
 	/*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
 	background-color: #e0f2f1;
 	background-image: url("../images/textured_bg5.png");
-	/* font-family: "Source-Sans-Pro","Source Sans Pro",serif; */
-}
-
-p, div{
 	font-family: 'Lato',sans-serif;
 }
 
@@ -45,32 +42,31 @@ p, div{
 	color: #ababab;
 }
 
-.nav-pills {
-	margin: 15px;
-}
-
-.nav-pills>li {
-	margin-right: 5px;
-}
-
-.nav-pills>li>a {
-	border: none;
-	color: #555;
-	font-size: 1.2em;
-}
-
-.nav-pills>li>a:hover {
-	background-color: #efefef;
-	border: none;
-	color: #009688;
-	font-weight: bold;
-	transition: color 0.4s ease 0s;
-}
-
-.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+.navbar-default {
 	background-color: #009688;
-	border: none;
+	font-size: 1.2em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #efefef;
+}
+
+.navbar-default .navbar-nav>.active>a {
+	background-color: #009688;
 	color: #e2f1af;
 	font-weight: bold;
-	transition: color 0.4s ease 0s;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	background-color: rgba(255,255,255,0.2);
+	border: none;
+	color: #efefef;
+}
+
+.navbar-default .navbar-nav>.active>a:hover {
+	background-color: rgba(255,255,255,0.2);
+	border: none;
+	color: #e2f1af;
 }
