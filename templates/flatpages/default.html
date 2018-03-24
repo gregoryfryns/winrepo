@@ -10,7 +10,7 @@
 	<meta name="description" content="Listing of women working in Neuroscience">
 	<meta name="keywords" content="Women,Neuroscience,brain,research">
 	<meta name="viewport" content="width=device-width">
-    <title>{% block title %}Women in Neuroscience Repo{% endblock %}</title>
+  <title>{{ flatpage.title }}</title>
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -39,9 +39,7 @@
 			          <a href="{% url 'viewlist:index' %}">Repository</a> </li>
 							<li class="{% block nav-create-classes %}{% endblock %}">
 								<a href="{% url 'viewlist:create' %}">Enter New</a> </li>
-							<li class="{% block nav-FAQs-classes %}{% endblock %}">
-									<a href="{% url 'FAQs' %}">FAQs</a></li>
-							<li class="{% block nav-about-classes %}{% endblock %}">
+							<li class="actives">
 								<a href="{% url 'about' %}">About</a></li>
 							<li><a href="/admin/">Admin</a></li>
 						</ul>
@@ -52,7 +50,7 @@
 
 	<div class="container page-container">
     <div id="content">
-        {% block content %}{% endblock %}
+        {% block content %}<p>Hello from "default.html" template</p>{{ flatpage.content }}{% endblock %}
     </div>
 	</div>
 </body>

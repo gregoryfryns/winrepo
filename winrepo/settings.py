@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'django.contrib.sites',
+	'django.contrib.flatpages',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'winrepo.urls'
@@ -122,10 +125,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"), 
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 
 # reCaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6Lc5TE0UAAAAAB3fNH4UEY_oHUbHMi2V1zzSs967'
 RECAPTCHA_PRIVATE_KEY = '6Lc5TE0UAAAAAJo3eVFEZycFj0HI_ccMDXGGzZRm'
 NOCAPTCHA = True
+
+# Sites settings
+SITE_ID = 2
