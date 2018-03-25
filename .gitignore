@@ -108,4 +108,3 @@ ENV/
 .coverage
 **/migrations/**
 !**/migrations
-*.sqlite3

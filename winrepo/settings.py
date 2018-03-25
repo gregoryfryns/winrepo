@@ -31,8 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-	'viewlist.apps.ViewlistConfig',
-	'about.apps.AboutConfig',
+	'profiles.apps.ProfilesConfig',
     'captcha',
     'bootstrap3',
     'django.contrib.admin',

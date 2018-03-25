@@ -18,9 +18,9 @@ from django.urls import include, path
 from django.contrib.flatpages import views
 
 urlpatterns = [
-	path('list/', include('viewlist.urls')),
-    path('home/', include('about.urls')),
+	path('list/', include('profiles.urls')),
     path('admin/', admin.site.urls),
-    path('FAQs/', views.flatpage, {'url': '/FAQs/'}, name='FAQs'),
-    path('about-us/', views.flatpage, {'url': '/about-us/'}, name='about'),
+    path('faq/', views.flatpage, {'url': '/faq/'}, name='faq'),
+    path('about/', views.flatpage, {'url': '/about/'}, name='about'),
+    path('', views.flatpage, {'url': '/home/'}, name='home'),
 ]

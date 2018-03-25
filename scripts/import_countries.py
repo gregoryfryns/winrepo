@@ -1,6 +1,6 @@
 import csv
 
-from viewlist.models import Country
+from profiles.models import Country
 from django.db import IntegrityError
 
 with open('scripts/countries_list.tsv', newline='', encoding="utf8") as csvfile:

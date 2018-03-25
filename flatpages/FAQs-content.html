@@ -5,7 +5,7 @@
 
 <dd>
 
-<p>Visit our <a href="{% url 'list' %}">Repository</a> and use the search bar to narrow your search.
+<p>Visit our <a href="{% url 'profiles:index' %}">Repository</a> and use the search bar to narrow your search.
   Keywords should be separated by white spaces and can mix words from different fields
   (e.g. 'machine learning London' or 'neuron computational modeling'). You can filter
   results to display only profiles from under-represented countries (list based on the
@@ -34,7 +34,7 @@ also have things to say and they might be more approachable/committed.</p>
 </dd>
 
 <dt>Write a recommendation</dt>
-<dd>Visit the <a href="{% url 'list' %}">Repository</a> and enter the researcher's name
+<dd>Visit the <a href="{% url 'profiles:index' %}">Repository</a> and enter the researcher's name
   in the search bar. Click on 'Details' to view their profile. A button then allows to write
   a recommendation. Only 'Senior' scientists can write recommendations, which is why the 'Position'
    list only include more advanced positions. When recommending a researcher, please make sure
@@ -46,7 +46,7 @@ also have things to say and they might be more approachable/committed.</p>
 
 
 <dt>Enter or update your information</dt>
-<dd>To enter your name on the repository, fill in the form in the <a href="{% url 'viewlist:create' %}">Enter New</a> page. At
+<dd>To enter your name on the repository, fill in the form in the <a href="{% url 'profiles:create' %}">Enter New</a> page. At
   the moment, editing your information can be done by contacting Jessica Schrouff, mentioning the exact information to modify.
 </dd>
 

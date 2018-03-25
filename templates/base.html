@@ -1,7 +1,5 @@
 {% load bootstrap3 %}
 {% load static %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,35 +23,36 @@
 
 
 </head>
-
-
-
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div id="navbar-nav">
 				{% block nav %}
-						<ul class="nav navbar-nav">
-							<li class="{% block nav-home-classes %}{% endblock %}"><a href="{% url 'about:index' %}">Home</a></li>
-							<li class="{% block nav-repository-classes %}{% endblock %}">
-			          <a href="{% url 'viewlist:index' %}">Repository</a> </li>
-							<li class="{% block nav-create-classes %}{% endblock %}">
-								<a href="{% url 'viewlist:create' %}">Enter New</a> </li>
-							<li class="{% block nav-FAQs-classes %}{% endblock %}">
-									<a href="{% url 'FAQs' %}">FAQs</a></li>
-							<li class="{% block nav-about-classes %}{% endblock %}">
-								<a href="{% url 'about' %}">About</a></li>
-							<li><a href="/admin/">Admin</a></li>
-						</ul>
+					<ul class="nav navbar-nav">
+						<li class="{% block nav-home-classes %}{% endblock %}">
+							<a href="{% url 'home' %}">Home</a>
+						</li>
+						<li class="{% block nav-repository-classes %}{% endblock %}">
+							<a href="{% url 'profiles:index' %}">Repository</a>
+						</li>
+						<li class="{% block nav-create-classes %}{% endblock %}">
+							<a href="{% url 'profiles:create' %}">Enter New</a>
+						</li>
+						<li class="{% block nav-faq-classes %}{% endblock %}">
+								<a href="{% url 'faq' %}">FAQ</a>
+						</li>
+						<li class="{% block nav-about-classes %}{% endblock %}">
+							<a href="{% url 'about' %}">About</a>
+						</li>
+					</ul>
 				{% endblock %}
 			</div>
 		</div>
-</nav>
-
+	</nav>
 	<div class="container page-container">
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+		<div id="content">
+			{% block content %}{% endblock %}
+		</div>
 	</div>
 </body>
 </html>

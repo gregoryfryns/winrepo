@@ -7,7 +7,7 @@ from .models import Profile, Recommendation
 from .forms import CreateProfileForm
 
 class IndexView(generic.ListView):
-    template_name = 'viewlist/index.html'
+    template_name = 'profiles/index.html'
     selected_tab = 'repository'
         
     def get_queryset(self):
@@ -35,7 +35,7 @@ class UpdateProfile(generic.UpdateView):
     ]
 
     def get_success_url(self):
-        return reverse('viewlist:detail', args=(self.object.id,))  
+        return reverse('profiles:detail', args=(self.object.id,))  
 
 # class CreateProfile(generic.CreateView):
     # model = Profile
@@ -55,12 +55,12 @@ class UpdateProfile(generic.UpdateView):
     # ]
 
     # def get_success_url(self):
-        # return reverse('viewlist:index')
+        # return reverse('profiles:index')
         
 class CreateProfile(generic.FormView):
-    template_name = 'viewlist/profile_form.html'
+    template_name = 'profiles/profile_form.html'
     form_class = CreateProfileForm
-    success_url = reverse_lazy('viewlist:index')
+    success_url = reverse_lazy('profiles:index')
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
@@ -80,7 +80,7 @@ class UpdateRecommendation(generic.UpdateView):
     ]
 
     def get_success_url(self):
-        return reverse('viewlist:detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
 
 class CreateRecommendation(generic.CreateView):
     model = Recommendation
@@ -93,7 +93,7 @@ class CreateRecommendation(generic.CreateView):
     ]
 
     def get_success_url(self):
-        return reverse('viewlist:detail', kwargs={'pk': self.kwargs['pk']})
+        return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
 
     def form_valid(self, form):
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])

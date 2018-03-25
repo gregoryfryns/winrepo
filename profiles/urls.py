@@ -3,7 +3,7 @@ from django.conf.urls import url
 
 from . import views
 
-app_name = 'viewlist'
+app_name = 'profiles'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.ProfileDetail.as_view(), name='detail'),

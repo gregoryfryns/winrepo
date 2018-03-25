@@ -37,7 +37,7 @@ class Profile(models.Model):
     )
     
     name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField(blank=True)
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)

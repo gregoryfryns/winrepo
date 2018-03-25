@@ -1,10 +1,9 @@
 {% extends "base.html" %}
 
-{% load bootstrap3 %}
 {% load static %}
 
 {% block other_css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'viewlist/css/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
 {% endblock %}
 
 {% block nav-repository-classes %}active{% endblock %}
@@ -66,7 +65,7 @@
 						</dl>
 					</td>
 					<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
-					<td class="col-md-1"><a class="details" href="{% url 'viewlist:detail' profile.id %}"><img src="{% static 'viewlist/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+					<td class="col-md-1"><a class="details" href="{% url 'profiles:detail' profile.id %}"><img src="{% static 'profiles/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
 				</tr>
 			{% endfor %}
 
@@ -77,8 +76,8 @@
 		<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
 		</div>
 
-		<script src="{% static 'viewlist/js/jquery.ba-throttle-debounce.min.js' %}"></script>
-		<script src="{% static 'viewlist/js/index.js' %}"></script>
+		<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
+		<script src="{% static 'profiles/js/index.js' %}"></script>
 
 	{% else %}
 		<p>No profiles to show.</p>

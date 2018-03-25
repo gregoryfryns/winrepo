@@ -1,4 +1,4 @@
-from viewlist.models import Profile, Country
+from profiles.models import Profile, Country
 import csv
 from datetime import datetime
 
