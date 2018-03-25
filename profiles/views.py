@@ -36,26 +36,6 @@ class UpdateProfile(generic.UpdateView):
 
     def get_success_url(self):
         return reverse('profiles:detail', args=(self.object.id,))  
-
-# class CreateProfile(generic.CreateView):
-    # model = Profile
-    # fields = [
-        # 'name', 
-        # 'email', 
-        # 'webpage', 
-        # 'institution',
-        # 'country',
-        # 'position',
-        # 'grad_date',
-        # 'brain_structure',
-        # 'modalities',
-        # 'methods',
-        # 'domain',
-        # 'keywords',
-    # ]
-
-    # def get_success_url(self):
-        # return reverse('profiles:index')
         
 class CreateProfile(generic.FormView):
     template_name = 'profiles/profile_form.html'

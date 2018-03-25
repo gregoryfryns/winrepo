@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load bootstrap3 %}
 {% load static %}
 
 {% block other_css %}
@@ -12,7 +13,7 @@
 
 <form action="" method="post">
 	{% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     <input type="submit" value="Submit" />
 </form>
 
