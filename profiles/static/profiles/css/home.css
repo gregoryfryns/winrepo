@@ -1,5 +1,6 @@
 .navbar-default {
 	padding-bottom: 0px;
+	margin-bottom:0px;
 }
 
 .page-container {
@@ -8,6 +9,7 @@
 	padding-right: 0px;
 	box-shadow: 0em 0em 0em 0em #ffffff;
 	border-radius: 0px
+	width: 100%;
 }
 
 .container {
