@@ -1,11 +1,17 @@
-<h2>How to:</h2>
+<ol>
+<li><a href="#search">How do I search the repository?</a></li>
+<li><a href="#resources">What if I don't find a suitable candidate?</a></li>
+<li><a href="#recommend">How do I make a recommendation?</a></li>
+<li><a href="#enter">How can I enter the repository?</a></li>
+<li><a href="#edit">How can I edit my information?</a></li>
+</ol>
 
 <dl>
-<dt>Find a speaker</dt>
+<dt><a name = "search">How do I search the repository?</a></dt>
 
 <dd>
 
-<p>Visit our <a href="{% url 'profiles:index' %}">Repository</a> and use the search bar to narrow your search.
+<p>Visit our <a href="/list/">Repository</a> and use the search bar to narrow your search.
   Keywords should be separated by white spaces and can mix words from different fields
   (e.g. 'machine learning London' or 'neuron computational modeling'). You can filter
   results to display only profiles from under-represented countries (list based on the
@@ -22,7 +28,10 @@
 invited as speakers but they need to be invited as speaker to get known. This cycle
 can be broken by taking a chance and inviting someone less recognized. Don't forget that younger scientists
 also have things to say and they might be more approachable/committed.</p>
+</dd>
 
+<dt><a name = "resources">What if I don't find a suitable candidate?</a></dt>
+<dd>
 <p>If you cannot identify potential speakers for your event, check out these other great resources:
   <ul>
     <li><a href="https://anneslist.net">Anne's list</a>, list of women in systems cognitive neuroscience.</li>
@@ -33,22 +42,24 @@ also have things to say and they might be more approachable/committed.</p>
 </p>
 </dd>
 
-<dt>Write a recommendation</dt>
-<dd>Visit the <a href="{% url 'profiles:index' %}">Repository</a> and enter the researcher's name
+<dt><a name="recommend">How do I make a recommendation?</a></dt>
+<dd>
+<pp>Visit the <a href="/list/">Repository</a> and enter the researcher's name
   in the search bar. Click on 'Details' to view their profile. A button then allows to write
   a recommendation. Only 'Senior' scientists can write recommendations, which is why the 'Position'
-   list only include more advanced positions. When recommending a researcher, please make sure
+   list only includes more advanced positions. Recommendations must be positive. When recommending a researcher, please make sure
    to include whether you have seen this person talk at an event before, and where and when that was
-   (as videos of the event might be available). Also include any potential conflicts of interest, disclosing
-   any personal relationship with the scientist (e.g. colleague, close friend, student, ...). At the
- moment, it is NOT possible to edit a recommendation.
+   (as videos of the event might be available). Also include any potential conflicts of interest, disclosing any personal relationship with the scientist (e.g. colleague, close friend, student, ...). At the
+ moment, it is NOT possible to edit a recommendation.</pp>
 </dd>
 
 
-<dt>Enter or update your information</dt>
-<dd>To enter your name on the repository, fill in the form in the <a href="{% url 'profiles:create' %}">Enter New</a> page. At
-  the moment, editing your information can be done by contacting Jessica Schrouff, mentioning the exact information to modify.
-</dd>
+<dt><a name="enter">How can I enter the repository?</a></dt>
+<dd><p>To enter your name on the repository, fill in the form in the <a href="/list/create">Enter New</a> page.</p> </dd>
+
+<dt><a name="edit">How can I edit my information?</a></dt>
+<dd><p>At the moment, editing your information can be done by contacting Jessica Schrouff, mentioning the exact information to modify.
+</p></dd>
 
 
 </dl>
