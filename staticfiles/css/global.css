@@ -47,6 +47,9 @@ body {
 	font-size: 1.2em;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	width: 100%;
+	border-radius: 0px;
+	border: none;
 }
 
 .navbar-default .navbar-nav>li>a {

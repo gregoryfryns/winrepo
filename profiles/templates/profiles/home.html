@@ -2,8 +2,20 @@
 
 {% load static %}
 
+{% block other_css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}" />
+{% endblock %}
+
 {% block nav-home-classes %}active{% endblock %}
 
 {% block content %}
-<p>New Home</p>
+<div class="container">
+  <div class="row" id="front-page">
+    <div class="col-sm-6">
+      <a href="{% url 'profiles:index' %}" ><button class="repo-btn">View Repository</button></a>
+    </div>
+    <div class="col-sm-6">
+      <a href="{% url 'profiles:create' %}" ><button class="enter-btn">Create profile</button></a>
+    </div>
+</div>
 {% endblock %}
