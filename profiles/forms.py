@@ -4,15 +4,17 @@ from captcha.fields import ReCaptchaField
 
 from .models import Profile, Recommendation
 
-class ModelFormWithCaptcha(ModelForm):
+class CaptchaForm(Form):
     captcha = ReCaptchaField(attrs={'theme' : 'clean',})
+
     
-class FormWithSendEmail(Form):
+class SendEmailForm(Form):
     def send_email(self):
         # send email using the self.cleaned_data dictionary
         pass
     
-class CreateProfileForm(ModelFormWithCaptcha, FormWithSendEmail):
+    
+class CreateProfileForm(CaptchaForm, SendEmailForm, ModelForm):
     class Meta:
         model = Profile
         fields = [

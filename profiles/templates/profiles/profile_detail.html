@@ -3,11 +3,16 @@
 {% load bootstrap3 %}
 {% load static %}
 
-{% block other_css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
-{% endblock %}
+{% block title %}
+	{{ block.super }} - Profile Details
+{% endblock title %}
 
-{% block nav-repository-classes %}active{% endblock %}
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
+{% endblock css %}
+
+{% block nav-repository-classes %}active{% endblock nav-repository-classes %}
 
 {% block content %}
 
@@ -72,4 +77,4 @@ Noticed something wrong in your profile? Send email with instructions to update 
 
 <script src="{% static 'profiles/js/profile_detail.js' %}"></script>
 
-{% endblock %}
+{% endblock content %}

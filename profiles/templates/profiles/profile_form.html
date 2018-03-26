@@ -3,18 +3,29 @@
 {% load bootstrap3 %}
 {% load static %}
 
-{% block other_css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
-{% endblock %}
+{% block title %}
+	{{ block.super }} - Edit Profile
+{% endblock title %}
 
-{% block nav-create-classes %}active{% endblock %}
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
+{% endblock css %}
+
+{% block nav-create-classes %}active{% endblock nav-create-classes %}
 
 {% block content %}
+
 
 <form action="" method="post">
 	{% csrf_token %}
     {% bootstrap_form form %}
-    <input type="submit" value="Submit" />
-</form>
+	
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        Submit
+    </button>
+    {% endbuttons %}
+  </form>
 
-{% endblock %}
+{% endblock content %}

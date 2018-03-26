@@ -8,16 +8,22 @@
 	<meta name="description" content="Listing of women working in Neuroscience">
 	<meta name="keywords" content="Women,Neuroscience,brain,research">
 	<meta name="viewport" content="width=device-width">
-    <title>{% block title %}Women in Neuroscience Repo{% endblock %}</title>
+    <title>{% block title %}Women in Neuroscience Repo{% endblock title %}</title>
 	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	{% bootstrap_css %}
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
-	{% block other_css %}{% endblock %}
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	
+	{% block fonts %}
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
+		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	{% endblock fonts %}
+	
+	{% block css %}
+		{% bootstrap_css %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
+	{% endblock css %}
+
 	{% bootstrap_javascript jquery=1 %}
 	{% bootstrap_messages %}
 
@@ -29,29 +35,29 @@
 			<div id="navbar-nav">
 				{% block nav %}
 					<ul class="nav navbar-nav">
-						<li class="{% block nav-home-classes %}{% endblock %}">
+						<li class="{% block nav-home-classes %}{% endblock nav-home-classes %}">
 							<a href="{% url 'profiles:home' %}">Home</a>
 						</li>
-						<li class="{% block nav-repository-classes %}{% endblock %}">
+						<li class="{% block nav-repository-classes %}{% endblock nav-repository-classes %}">
 							<a href="{% url 'profiles:index' %}">Repository</a>
 						</li>
-						<li class="{% block nav-create-classes %}{% endblock %}">
+						<li class="{% block nav-create-classes %}{% endblock nav-create-classes %}">
 							<a href="{% url 'profiles:create' %}">Create profile</a>
 						</li>
-						<li class="{% block nav-faq-classes %}{% endblock %}">
+						<li class="{% block nav-faq-classes %}{% endblock nav-faq-classes %}">
 								<a href="{% url 'faq' %}">FAQ</a>
 						</li>
-						<li class="{% block nav-about-classes %}{% endblock %}">
+						<li class="{% block nav-about-classes %}{% endblock nav-about-classes %}">
 							<a href="{% url 'about' %}">About</a>
 						</li>
 					</ul>
-				{% endblock %}
+				{% endblock nav %}
 			</div>
 		</div>
 	</nav>
 	<div class="container page-container">
 		<div id="content">
-			{% block content %}{% endblock %}
+			{% block content %}{% endblock content %}
 		</div>
 	</div>
 </body>

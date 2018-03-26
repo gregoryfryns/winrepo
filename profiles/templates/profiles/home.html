@@ -2,11 +2,12 @@
 
 {% load static %}
 
-{% block other_css %}
+{% block css %}
+	{{ block.super }}
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}" />
 {% endblock %}
 
-{% block nav-home-classes %}active{% endblock %}
+{% block nav-home-classes %}active{% endblock nav-home-classes %}
 
 {% block content %}
 <div class="container">
@@ -18,4 +19,4 @@
       <a href="{% url 'profiles:create' %}" ><button class="enter-btn">Create profile</button></a>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

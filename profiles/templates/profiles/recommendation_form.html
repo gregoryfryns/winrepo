@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 
+{% load bootstrap3 %}
 {% load static %}
 
-{% block other_css %}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
-{% endblock %}
+{% block title %}
+	{{ block.super }} - Recommend
+{% endblock title %}
 
-{% block nav-repository-classes %}active{% endblock %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
+{% endblock css %}
+
+{% block nav-repository-classes %}active{% endblock nav-repository-classes %}
 
 {% block content %}
 
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save" />
+<form action="" method="post">
+	{% csrf_token %}
+    {% bootstrap_form form %}
+	
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
+    {% endbuttons %}
 </form>
 
-{% endblock %}
+{% endblock content %}
