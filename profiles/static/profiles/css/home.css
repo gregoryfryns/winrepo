@@ -11,65 +11,94 @@
 }
 
 .container {
-	background-image: url("../../profiles/images/HandsBrain.jpg");
+	background-image: url("../../profiles/images/banner2.png");
 	background-color: #009688;
-    position: relative;
-    width: 100%;
-	height: 400px;
+	background-size:100% auto;
+  position: relative;
+  width: 100%;
+	height: 500px;
 	background-size: cover;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	font-size: 16px;
 }
 
 #front-page {
-	height:400px;
+	height:inherit;
+	padding-top: 100px;
 }
 
-#front-page th.col-md-6 {
-	text-align: center;
+.row {
+	margin-right: 0px;
+	margin-left: 0px;
 }
 
 .repo-btn {
 	line-height: 50px;
-	position: absolute;
-	top: 50%;
-	left: 65%;
-	background-color: #555;
-	transform: translate(0px, 200px);
-	-ms-transform: translate(0px, 200px); /* IE 9 */
-	-webkit-transform: translate(0px, 200px);
+	background-color: rgba(255,255,255,0.1);
 	color: white;
 	font-size: 16px;
 	padding: 12px 24px;
-	border: none;
+	border-width: 2px;
+	border-color: white;
 	cursor: pointer;
 	border-radius: 4px;
 	text-align: center;
-	display: block;
 	width: 185px;
 }
 
 .enter-btn {
 	line-height: 50px;
-	position: absolute;
-	top: 50%;
-	left: 10%;
-	background-color: #555;
-	transform: translate(0px, 200px);
-	-ms-transform: translate(0px, 200px); /* IE 9 */
-    -webkit-transform: translate(0px, 200px);
+	background-color: rgba(255,255,255,0.1);
 	color: white;
 	font-size: 16px;
 	padding: 12px 24px;
-	border: none;
+	border-width: 2px;
+	border-color: white;
 	cursor: pointer;
 	border-radius: 4px;
 	text-align: center;
-	display: block;
 	width: 185px;
 }
 
 
-#front-page .btn:hover {
+.repo-btn:hover {
 	background-color: black;
+}
+
+.enter-btn:hover {
+	background-color: black;
+}
+
+#intro-container {
+	width:100%;
+	background-color: rgba(255,255,255);
+	border-style: solid;
+	border-top-width: 5px;
+	border-bottom-width: 5px;
+	border-left: none;
+	border-right: none;
+	border-color: #009688;
+}
+
+#text-container {
+	background-color: rgba(255,255,255);
+	text-align: center;
+	border-radius: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 18px;
+}
+
+#list-stats {
+	background-color: rgba(255,255,255);
+	width: 100%;
+	text-align: center;
+	border-radius: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 18px;
 }
 
 #back-to-top {
