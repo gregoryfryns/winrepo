@@ -12,16 +12,27 @@
 {% block content %}
 <div class="container">
   <div class="row" id="front-page">
-    <div class="col-sm-6">
+    <div class="col-sm-2 col-sm-offset-3">
       <a href="{% url 'profiles:index' %}" ><button class="repo-btn">View Repository</button></a>
     </div>
-    <div class="col-sm-6">
+		<div class="col-sm-2"></div>
+    <div class="col-sm-2">
       <a href="{% url 'profiles:create' %}" ><button class="enter-btn">Create profile</button></a>
     </div>
 </div>
 
-<div class = "page-container">
-  <p>Hello World</p>
-  <p>There are {{ nb_all }} profiles in the DB, {{ nb_senior }} of them are senior.</p>
+<div class="row" id="intro-container">
+	<div  class="col-lg-8 col-lg-offset-2" id="text-container">
+	  <p>Female neuroscientists are still under-represented in various neuroscience
+			conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
+			suitable female speakers for conferences
+			can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
+			The aim of this project is to promote female neuroscientists through a repository
+			and recommendations provided by senior researchers.</p>
+	</div>
+</div>
+
+<div class = "row" id="list-stats">
+	<p>There are {{ nb_all }} profiles in the DB, {{ nb_senior }} of them are senior.</p>
 </div>
 {% endblock content %}

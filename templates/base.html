@@ -13,12 +13,12 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
 	{% block fonts %}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	{% endblock fonts %}
-	
+
 	{% block css %}
 		{% bootstrap_css %}
 		<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
@@ -32,7 +32,15 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div id="navbar-nav">
+			<div class="navbar-header">
+      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+			<div id="navbar-nav" class="navbar-collapse collapse">
 				{% block nav %}
 					<ul class="nav navbar-nav">
 						<li class="{% block nav-home-classes %}{% endblock nav-home-classes %}">
