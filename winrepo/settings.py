@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+   	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'winrepo.urls'
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'winrepo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates')), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +85,15 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'gfryns$winrepo',
+#         'USER': 'gfryns',
+#         'PASSWORD': 'winrepo@DB',
+#         'HOST': 'gfryns.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -134,3 +142,6 @@ NOCAPTCHA = True
 
 # Sites settings
 SITE_ID = 2
+
+# static files
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
