@@ -108,3 +108,5 @@ ENV/
 .coverage
 **/migrations/**
 !**/migrations
+.vscode/*
+pylintrc
