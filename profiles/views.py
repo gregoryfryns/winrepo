@@ -1,14 +1,18 @@
+from functools import reduce
+from operator import and_, or_
+
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views import generic
+from django.db.models import Q
+
 
 from .models import Profile, Recommendation
 from .forms import CreateProfileForm
 
 class IndexView(generic.ListView):
     template_name = 'profiles/index.html'
-    selected_tab = 'repository'
 
     def get_queryset(self):
         """Return the latest profiles first"""
@@ -82,4 +86,12 @@ class CreateRecommendation(generic.CreateView):
 def Home(request):
     #return HttpResponse("Hello, world. You're at the polls index.")
     # template = loader.get_template('about/index.html')
-    return render(request, 'profiles/home.html')
+
+    senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
+    nb_senior = Profile.objects.filter(reduce(or_, [Q(position__icontains=q) for q in senior_keywords])).count()
+    nb_all = Profile.objects.count()
+    context = {
+        'nb_senior': nb_senior,
+        'nb_all': nb_all,
+    }
+    return render(request, 'profiles/home.html', context)
