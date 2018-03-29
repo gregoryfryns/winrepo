@@ -57,7 +57,7 @@ DJI	Djibouti	1
 DMA	Dominica	1
 DOM	Dominican Republic	1
 ECU	Ecuador	1
-EGY	Egypt, Arab Rep.	1
+EGY	Egypt	1
 SLV	El Salvador	1
 GNQ	Equatorial Guinea	1
 ERI	Eritrea	1
@@ -69,7 +69,7 @@ FIN	Finland	0
 FRA	France	0
 PYF	French Polynesia	0
 GAB	Gabon	1
-GMB	Gambia, The	1
+GMB	Gambia	1
 GEO	Georgia	1
 DEU	Germany	0
 GHA	Ghana	1
@@ -84,7 +84,7 @@ GNB	Guinea-Bissau	1
 GUY	Guyana	1
 HTI	Haiti	1
 HND	Honduras	1
-HKG	Hong Kong SAR, China	0
+HKG	Hong Kong	0
 HUN	Hungary	0
 ISL	Iceland	0
 IND	India	1
@@ -106,7 +106,7 @@ KOR	Korea, South	0
 XKX	Kosovo	1
 KWT	Kuwait	0
 KGZ	Kyrgyz Republic	1
-LAO	Lao PDR	1
+LAO	Lao	1
 LVA	Latvia	0
 LBN	Lebanon	1
 LSO	Lesotho	1
@@ -115,8 +115,8 @@ LBY	Libya	1
 LIE	Liechtenstein	0
 LTU	Lithuania	0
 LUX	Luxembourg	0
-MAC	Macao SAR, China	0
-MKD	Macedonia, FYR	1
+MAC	Macao	0
+MKD	Macedonia	1
 MDG	Madagascar	1
 MWI	Malawi	1
 MYS	Malaysia	1
@@ -210,10 +210,10 @@ USA	United States	0
 URY	Uruguay	0
 UZB	Uzbekistan	1
 VUT	Vanuatu	1
-VEN	Venezuela, RB	1
+VEN	Venezuela	1
 VNM	Vietnam	1
 VIR	Virgin Islands (U.S.)	0
 PSE	West Bank and Gaza	1
-YEM	Yemen, Rep.	1
+YEM	Yemen	1
 ZMB	Zambia	1
 ZWE	Zimbabwe	1
