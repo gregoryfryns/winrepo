@@ -17,15 +17,20 @@
 
 			var data = google.visualization.arrayToDataTable([
 				['Position', 'Entries in Repository'],
-				['PhD Student', {{ nb_students }} ],
-				['Post-doctoral researcher', {{ nb_postdoc }} ],
-				['Senior researcher', {{ nb_senior }} ],
+				['PhD', {{ nb_students }} ],
+				['Postdoc', {{ nb_postdoc }} ],
+				['Senior', {{ nb_senior }} ],
 				['Other', {{ nb_all }} - {{ nb_senior }} - {{ nb_postdoc }} - {{ nb_students }} ],
 			]);
 
 			var options = {
 				title: 'Career stages represented',
-				colors: ['#000f96','#089600','#440096','555555']
+				colors: ['#000f96','#089600','#440096','555555'],
+				fontName: 'Lato',
+				fontSize: 14,
+				height: 300,
+				legend: {position:'right',textStyle:{fontSize: 14}},
+				titleTextStyle: {color: '#555555',fontName: 'Lato',fontSize: 18}
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -54,7 +59,9 @@
           ['RU', 700]
         ]);
 
-        var options = {};
+        var options = {
+					colorAxis: {colors: ['#e2f1af', '#009688']},
+				};
 
         var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 

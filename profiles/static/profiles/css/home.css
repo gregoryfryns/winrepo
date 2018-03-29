@@ -13,11 +13,15 @@
 .container {
 	background-image: url("../../profiles/images/banner2.png");
 	background-color: #009688;
-	background-size:100% auto;
   position: relative;
   width: 100%;
 	height: 500px;
-	background-size: cover;
+	background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 	padding-top: 0px;
 	padding-left: 0px;
 	padding-right: 0px;
@@ -99,12 +103,32 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 	font-size: 18px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#entries-container {
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 #entrie-number {
-	color: rgb(125,125,125);
-	font-size: 24px;
+	color: rgb(100,100,100);
+	font-size: 30px;
 	vertical-align: center;
+	font-weight: bold;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#piechart-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#map-container {
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 #back-to-top {

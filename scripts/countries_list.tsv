@@ -89,7 +89,7 @@ HUN	Hungary	0
 ISL	Iceland	0
 IND	India	1
 IDN	Indonesia	1
-IRN	Iran, Islamic Rep.	1
+IRN	Iran	1
 IRQ	Iraq	1
 IRL	Ireland	0
 IMN	Isle of Man	0
@@ -101,8 +101,8 @@ JOR	Jordan	1
 KAZ	Kazakhstan	1
 KEN	Kenya	1
 KIR	Kiribati	1
-PRK	Korea, Dem. People's Rep.	1
-KOR	Korea, Rep.	0
+PRK	Korea, North	1
+KOR	Korea, South	0
 XKX	Kosovo	1
 KWT	Kuwait	0
 KGZ	Kyrgyz Republic	1
@@ -189,7 +189,7 @@ SWZ	Swaziland	1
 SWE	Sweden	0
 CHE	Switzerland	0
 SYR	Syrian Arab Republic	1
-TWN	Taiwan, China	0
+TWN	Taiwan	0
 TJK	Tajikistan	1
 TZA	Tanzania	1
 THA	Thailand	1
