@@ -24,6 +24,8 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}" />
 	{% endblock css %}
 
+	{% block page-specific %} {% endblock page-specific%}
+
 	{% bootstrap_javascript jquery=1 %}
 	{% bootstrap_messages %}
 

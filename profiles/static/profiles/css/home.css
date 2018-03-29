@@ -101,6 +101,12 @@
 	font-size: 18px;
 }
 
+#entrie-number {
+	color: rgb(125,125,125);
+	font-size: 24px;
+	vertical-align: center;
+}
+
 #back-to-top {
     position: fixed;
     bottom: 40px;

@@ -84,14 +84,19 @@ class CreateRecommendation(generic.CreateView):
         return super(CreateRecommendation, self).form_valid(form)
 
 def Home(request):
-    #return HttpResponse("Hello, world. You're at the polls index.")
-    # template = loader.get_template('about/index.html')
-
+    # Get stats on database for Home page:
+    # Career stage
     senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
     nb_senior = Profile.objects.filter(reduce(or_, [Q(position__icontains=q) for q in senior_keywords])).count()
+    nb_students = Profile.objects.filter(position__icontains='PhD student').count()
+    nb_postdoc = Profile.objects.filter(position__icontains='Post-doc').count()
     nb_all = Profile.objects.count()
+    # Number of entries per country
+    
     context = {
         'nb_senior': nb_senior,
         'nb_all': nb_all,
+        'nb_students' : nb_students,
+        'nb_postdoc' : nb_postdoc,
     }
     return render(request, 'profiles/home.html', context)
