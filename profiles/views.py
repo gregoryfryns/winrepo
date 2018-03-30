@@ -84,7 +84,7 @@ class CreateRecommendation(generic.CreateView):
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
         return super(CreateRecommendation, self).form_valid(form)
 
-def Home(request):
+def home(request):
     # Get stats on database for Home page:
     # Career stage
     senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
@@ -100,6 +100,7 @@ def Home(request):
         'nb_all': nb_all,
         'nb_students' : nb_students,
         'nb_postdoc' : nb_postdoc,
+        'nb_other' : nb_all - nb_senior - nb_students - nb_postdoc,
         'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)

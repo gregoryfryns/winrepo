@@ -5,7 +5,7 @@ from . import views
 
 app_name = 'profiles'
 urlpatterns = [
-    path('', views.Home, name='home'),
+    path('', views.home, name='home'),
     path('list/', views.IndexView.as_view(), name='index'),
     path('list/<int:pk>/', views.ProfileDetail.as_view(), name='detail'),
     path('list/<int:pk>/edit', views.UpdateProfile.as_view(), name='edit'),
