@@ -5,10 +5,11 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views import generic
-from django.db.models import Q
+from django.db.models import Q, Count
+import pdb;
 
 
-from .models import Profile, Recommendation
+from .models import Profile, Recommendation, Country
 from .forms import CreateProfileForm
 
 class IndexView(generic.ListView):
@@ -92,11 +93,13 @@ def Home(request):
     nb_postdoc = Profile.objects.filter(position__icontains='Post-doc').count()
     nb_all = Profile.objects.count()
     # Number of entries per country
-    
+    country_stats = Profile.objects.all().values('country__name').annotate(total=Count('id'))
+
     context = {
         'nb_senior': nb_senior,
         'nb_all': nb_all,
         'nb_students' : nb_students,
         'nb_postdoc' : nb_postdoc,
+        'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)

@@ -49,15 +49,7 @@
       google.charts.setOnLoadCallback(drawRegionsMap);
 
       function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-          ['Country', 'Entries'],
-          ['Germany', 200],
-          ['United States', 300],
-          ['Brazil', 400],
-          ['Canada', 500],
-          ['France', 600],
-          ['RU', 700]
-        ]);
+        var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
 
         var options = {
 					colorAxis: {colors: ['#e2f1af', '#009688']},
