@@ -32,6 +32,9 @@ ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com']
 
 INSTALLED_APPS = [
 	'profiles.apps.ProfilesConfig',
+    'multiselectfield',
+    # 'floppyforms',
+    'crispy_forms',
     'captcha',
     'bootstrap3',
     'django.contrib.admin',
@@ -142,6 +145,8 @@ NOCAPTCHA = True
 
 # Sites settings
 SITE_ID = 2
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # static files
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")

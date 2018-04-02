@@ -16,6 +16,15 @@
 
 {% block content %}
 
+{% comment %} {% if messages %}
+<ul class="messages">
+	{% for message in messages %}
+	<li{% if message.tags %} class="text-{{ message.tags }}" {% endif %}>{{ message }}</li>
+		{% endfor %}
+</ul>
+{% endif %} {% endcomment %}
+
+
 <h1>{{ profile.name }}</h1>
 <!-- <a href="#" id="previous-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-up" %} Previous</a> -->
 <!-- <a href="#" id="next-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-down" %} Next</a> -->

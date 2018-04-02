@@ -3,6 +3,8 @@
 {% load bootstrap3 %}
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 	{{ block.super }} - Edit Profile
 {% endblock title %}
@@ -16,16 +18,17 @@
 
 {% block content %}
 
-
-<form action="" method="post">
-	{% csrf_token %}
-    {% bootstrap_form form %}
-	
-    {% buttons %}
-    <button type="submit" class="btn btn-primary">
-        Submit
-    </button>
-    {% endbuttons %}
-  </form>
-
+<div class="col-lg-6 col-lg-offset-3">
+    <form action="" method="post">
+        {% csrf_token %}
+        {% comment %} {% bootstrap_form form %} {% endcomment %}
+        {{ form|crispy }}
+        
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+        {% endbuttons %}
+    </form>
+</div>
 {% endblock content %}

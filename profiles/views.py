@@ -5,12 +5,13 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views import generic
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
 import pdb;
 
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileForm
+from .forms import CreateProfileModelForm
 
 class IndexView(generic.ListView):
     template_name = 'profiles/index.html'
@@ -22,7 +23,8 @@ class IndexView(generic.ListView):
 class ProfileDetail(generic.DetailView):
     model = Profile
 
-class UpdateProfile(generic.UpdateView):
+
+class UpdateProfile(SuccessMessageMixin, generic.UpdateView):
     model = Profile
     fields = [
         'name',
@@ -38,14 +40,17 @@ class UpdateProfile(generic.UpdateView):
         'domain',
         'keywords',
     ]
+    success_message = "The profile for %(name)s was updated successfully"
 
     def get_success_url(self):
         return reverse('profiles:detail', args=(self.object.id,))
 
-class CreateProfile(generic.FormView):
+
+class CreateProfile(SuccessMessageMixin, generic.FormView):
     template_name = 'profiles/profile_form.html'
-    form_class = CreateProfileForm
+    form_class = CreateProfileModelForm
     success_url = reverse_lazy('profiles:index')
+    success_message = "The profile for %(name)s was created successfully"
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
