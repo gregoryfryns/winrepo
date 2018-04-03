@@ -38,6 +38,20 @@
 	font-size: smaller;
 	color: #555555;
 }
+
+#recommend-icon {
+	font-size: 20px;
+	color: #009688;
+}
+
+#recommend-btn {
+	color: white;
+}
+
+#recommended-icon {
+	color: #009688;
+}
+
 #profile-quotes .quote-icon {
 	color: red;
 }
@@ -45,6 +59,8 @@
 #profile-quotes .quote-reviewer {
 	font-weight: bold;
 }
+
+
 
 /* nav or .nav? */
 nav #page-number {

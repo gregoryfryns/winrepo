@@ -42,10 +42,11 @@
 			<tr>
 				<th style="display:none;">ID</th>
 				<th class="col-md-3">Name</th>
-				<th class="col-md-4">Position</th>
+				<th class="col-md-3">Position</th>
 				<th style="display:none;">Field of Research</th>
 				<th class="col-md-4 hidden-xs">Keywords</th>
 				<th class="col-md-1">Details</th>
+				<th class="col-md-1 hidden-xs">Recommend</th>
 			</tr>
 
 			{% for profile in profile_list %}
@@ -54,7 +55,7 @@
 					<td class="col-md-3">
 						<h4 class="searchable">{{ profile.name }}</h4>
 					</td>
-					<td class="col-md-4">
+					<td class="col-md-3">
 						<p class="searchable{% if profile.is_senior %} senior{% endif %}">{{ profile.position }}</p>
 						<p class="searchable">{{ profile.institution }} (<small>{{ profile.country.code }}</small>)</p>
 						<p class="searchable{% if profile.country.is_under_represented %} under-represented{% endif %}" style="display: none;">{{ profile.country }}</p>
@@ -70,6 +71,7 @@
 					</td>
 					<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
 					<td class="col-md-1"><a class="details" href="{% url 'profiles:detail' profile.id %}"><img src="{% static 'profiles/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
+					<td class="col-md-1 hidden-xs"><a class="recommend" href="{% url 'profiles:recommend' profile.id %}"><span class="far fa-thumbs-up" id="recommend-icon"></span> </a></td>
 				</tr>
 			{% endfor %}
 
