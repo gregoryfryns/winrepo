@@ -46,7 +46,7 @@
 				<th style="display:none;">Field of Research</th>
 				<th class="col-md-4 hidden-xs">Keywords</th>
 				<th class="col-md-1">Details</th>
-				<th class="col-md-1 hidden-xs">Recommend</th>
+				<th class="col-md-1 hidden-xs">Recommendations</th>
 			</tr>
 
 			{% for profile in profile_list %}
@@ -71,7 +71,9 @@
 					</td>
 					<td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td>
 					<td class="col-md-1"><a class="details" href="{% url 'profiles:detail' profile.id %}"><img src="{% static 'profiles/images/resumeTeal.svg' %}" alt="More details"  title="More details" style="width:30px" /> </a></td>
-					<td class="col-md-1 hidden-xs"><a class="recommend" href="{% url 'profiles:recommend' profile.id %}"><span class="far fa-thumbs-up" id="recommend-icon"></span> </a></td>
+					<td class="col-md-1 hidden-xs">{{ profile.recommendation_set.all|length }}
+						<a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a>
+					</td>
 				</tr>
 			{% endfor %}
 

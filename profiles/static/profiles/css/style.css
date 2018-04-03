@@ -3,13 +3,13 @@
 	max-width: 600px;
 }
 
-#search-results {
-	padding-bottom: 8px;
+#search.form-control:active {
+	border-color: #009688;
+	box-shadow: inset 0 1px 1px #009688;;
 }
 
-#results-table .btn {
-	margin: 4px;
-
+#search-results {
+	padding-bottom: 8px;
 }
 
 #results-table td {
@@ -40,8 +40,13 @@
 }
 
 #recommend-icon {
-	font-size: 20px;
-	color: #009688;
+	font-size: 18px;
+	color: white;
+}
+
+#results-table .btn:hover{
+	background: #e2f1af;
+	border-color: #efefef;
 }
 
 #recommend-btn {
