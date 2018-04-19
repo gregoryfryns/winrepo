@@ -27,12 +27,14 @@ var applyFilter = function() {
 			}
 		}).hide();
 
-		$('#search-container').removeClass('has-error');
-		$('#search-message').text( $('#results-table tr:gt(0):visible').length + ' entries found');
+		$('input#search').removeClass('is-invalid');
+		$('#search-message').removeClass('text-danger')
+							.text( $('#results-table tr:gt(0):visible').length + ' entries found');
 	}
 	catch (e) {
-		$('#search-message').text('Please enter a valid string');
-		$('#search-container').addClass('has-error');
+		$('input#search').addClass('is-invalid');
+		$('#search-message').addClass('text-danger')
+							.text('Please enter a valid string');
 	}
 	if (typeof(Storage) !== "undefined")
 		window.sessionStorage.setItem("resultsList", JSON.stringify(resultsList));

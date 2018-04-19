@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% load bootstrap3 %}
+{% load bootstrap4 %}
 {% load static %}
 
 {% block title %}
 	{{ block.super }} - Profile Details
 {% endblock title %}
 
-{% block css %}
+ {% block css %}
 	{{ block.super }}
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
 {% endblock css %}
@@ -26,17 +26,15 @@
 
 
 <h1>{{ profile.name }}</h1>
-<!-- <a href="#" id="previous-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-up" %} Previous</a> -->
-<!-- <a href="#" id="next-btn" class="btn btn-secondary btn-sm disabled" role="button" aria-disabled="true">{% bootstrap_icon "chevron-down" %} Next</a> -->
-<!-- <span id="page-number"></span> -->
+
 <div id="profile-id" style="display: none;">{{ profile.id }}</div>
 <p>{{ profile.position }} - {{ profile.institution }} - {{ profile.country }}</p>
 
 {% if profile.email %}
-<a href="mailto:{{ profile.email }}" class="btn btn-primary" role="button">{% bootstrap_icon "envelope" %}</a>
+<a href="mailto:{{ profile.email }}" class="btn btn-primary" role="button"><i class="fas fa-envelope"></i></a>
 {% endif %}
 {% if profile.webpage %}
-<a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank">{% bootstrap_icon "user" %}</a>
+<a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a>
 {% endif %}
 <div class="card">
 <h3>Field of Research</h3>
@@ -55,7 +53,7 @@
     <li class="page-item disabled">
       <a id="previous-btn" class="page-link" href="#" tabindex="-1">Previous</a>
     </li>
-    <li class="page-item disabled"><span id="page-number"></span></li>
+    <li class="page-item disabled"><span id="page-number" class="page-link"></span></li>
     <li class="page-item disabled">
       <a id="next-btn" class="page-link" href="#">Next</a>
     </li>
@@ -84,6 +82,9 @@
 <!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
 Noticed something wrong in your profile? Send email with instructions to update it by clicking <a href="{% url 'profiles:edit' profile.id %}">here</a>.
 
-<script src="{% static 'profiles/js/profile_detail.js' %}"></script>
-
 {% endblock content %}
+
+{% block footer_scripts %} 
+	{{ block.super }}
+	<script src="{% static 'profiles/js/profile_detail.js' %}"></script>
+{% endblock footer_scripts %}

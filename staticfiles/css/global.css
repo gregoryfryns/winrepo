@@ -42,34 +42,26 @@ body {
 	color: #ababab;
 }
 
-.navbar-default {
+/* change the background color */
+.navbar-custom {
 	background-color: #009688;
 	font-size: 1.2em;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	width: 100%;
-	border-radius: 0px;
-	border: none;
 }
-
-.navbar-default .navbar-nav>li>a {
-	color: #efefef;
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
 }
-
-.navbar-default .navbar-nav>.active>a {
-	background-color: #009688;
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.8);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link {
 	color: #e2f1af;
-	font-weight: bold;
 }
 
-.navbar-default .navbar-nav>li>a:hover {
-	background-color: rgba(255,255,255,0.2);
-	border: none;
-	color: #efefef;
-}
-
-.navbar-default .navbar-nav>.active>a:hover {
-	background-color: rgba(255,255,255,0.2);
-	border: none;
-	color: #e2f1af;
+.navbar-custom .nav-item:hover .nav-link {
+	background-color: rgba(255,255,255,.2);
+    color: #efefef;
 }

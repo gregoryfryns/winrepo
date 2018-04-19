@@ -13,8 +13,8 @@ import pdb;
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm
 
-class IndexView(generic.ListView):
-    template_name = 'profiles/index.html'
+class ListProfiles(generic.ListView):
+    template_name = 'profiles/list.html'
 
     def get_queryset(self):
         """Return the latest profiles first"""

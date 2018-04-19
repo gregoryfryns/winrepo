@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     # 'floppyforms',
     'crispy_forms',
     'captcha',
-    'bootstrap3',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

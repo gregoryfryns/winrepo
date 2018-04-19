@@ -7,15 +7,15 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}" />
 {% endblock css%}
 
-{% block scripts %}
+{% block header_scripts %}
 	 {{ block.super }}
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawChart);
+		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
+		google.charts.setOnLoadCallback(drawPieChart);
+		google.charts.setOnLoadCallback(drawRegionsMap);
 
-		function drawChart() {
-
+		function drawPieChart() {
 			var data = google.visualization.arrayToDataTable([
 				['Position', 'Entries in Repository'],
 				['PhD', {{ nb_students }} ],
@@ -34,34 +34,24 @@
 				titleTextStyle: {color: '#555555',fontName: 'Lato',fontSize: 18}
 			};
 
-			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			var pieChart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-			chart.draw(data, options);
+			pieChart.draw(data, options);
 		}
-	</script>
-
-	<script type="text/javascript">
-		google.charts.load('current', {
-			'packages':['geochart'],
-			// Note: you will need to get a mapsApiKey for your project.
-			// See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-			'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'
-		});
-		google.charts.setOnLoadCallback(drawRegionsMap);
 
 		function drawRegionsMap() {
-			var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
+				var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
 
 			var options = {
-				colorAxis: {colors: ['#e2f1af', '#009688']},
+				colorAxis: { colors: ['#e2f1af', '#009688'] },
 			};
 
 			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
 			chart.draw(data, options);
-		}
+		}		
 	</script>
-{% endblock scripts %}
+{% endblock header_scripts %}
 
 {% block nav-home-classes %}active{% endblock nav-home-classes %}
 
@@ -88,15 +78,15 @@
 	</div>
 </div>
 
-<div class = "row" id="list-stats">
-	<div class="col-lg-4" id="entries-container">
+<div class="row" id="list-stats">
+	<div class="col-12 col-md-10 offset-md-1" id="entries-container">
 		<p id="entrie-number"> {{ nb_all }} </p>
 		<p>entries in repository. </p>
 	</div>
-	<div class="col-lg-4" id="piechart-container">
+	<div class="col-12 col-md-10 offset-md-1" id="piechart-container">
 		<div id="piechart"></div>
 	</div>
-	<div class="col-lg-4" id="map-container">
+	<div class="col-12 col-md-10 offset-md-1" id="map-container">
 		<div id="regions_div"></div>
 	</div>
 </div>

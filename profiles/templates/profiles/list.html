@@ -11,31 +11,41 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
 {% endblock css %}
 
-{% block nav-repository-classes %}active{% endblock nav-repository-classes %}
+{% block nav-repository-classes %}{{ block.super }} active{% endblock nav-repository-classes %}
 
 {% block content %}
 	{% if profile_list %}
-		<div id="search-container" class="form-group">
-				<div class="row" id="search-results">
-					<div class="col-sm-8">
-						<div id="search-form" class="input-group">
-							<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-							<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
+		<form>
+			<div id="search-container" class="form-row">
+				<div class="col-12 col-sm-8 offset-sm-2 col-md-6">
+					<div id="search-form" class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-search"></i></span>
 						</div>
-					</div>
-					<div id="search-entries" class="col-sm-4">
-						<label id="search-message" class="help-block" for="search"> {{ profile_list|length }} entries found</label>
+						<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
 					</div>
 				</div>
-				<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="underrepresented-countries">
-				<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+				<div id="search-entries" class="col-12 col-sm-10 offset-sm-2 col-md-4 offset-md-0">
+					<label id="search-message" class="form-text" for="search"> {{ profile_list|length }} entries found</label>
+				</div>
 			</div>
-				<div class="form-check">
-				<input type="checkbox" class="form-check-input" id="senior-only">
-				<label class="form-check-label" for="senior-only">Senior Positions Only</label>
+			<div class="form-row">
+				<div id="underrepresented-countries" class="col-12 col-sm-10 offset-sm-2">
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="underrepresented-countries">
+						<label class="form-check-label" for="underrepresented-countries">Under Represented Countries Only</label>
+					</div>
+				</div>
 			</div>
-		</div>
+			<div class="form-row">
+				<div id="senior-positions" class="col-12 col-sm-10 offset-sm-2">
+					<div class="form-check">
+						<input type="checkbox" class="form-check-input" id="senior-only">
+						<label class="form-check-label" for="senior-only">Senior Positions Only</label>
+					</div>
+				</div>
+			</div>
+		</form>
 
 		<div class="table-responsive">
 			<table id="results-table" class="table"><tbody>
@@ -81,14 +91,16 @@
 		</div>
 
 		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
-		<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="glyphicon glyphicon-arrow-up"></i></a>
-		</div>
-
-		<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
-		<script src="{% static 'profiles/js/index.js' %}"></script>
+		<a href="#" id="back-to-top" title="Back to top" class="btn btn-info"><i class="fas fa-arrow-alt-circle-up"></i></a>
 
 	{% else %}
 		<p>No profiles to show.</p>
 	{% endif %}
 
 {% endblock content %}
+
+{% block footer_scripts %}
+	{{ block.super }}
+	<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
+	<script src="{% static 'profiles/js/list.js' %}"></script>
+{% endblock footer_scripts %}
