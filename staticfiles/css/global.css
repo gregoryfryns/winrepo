@@ -1,8 +1,8 @@
 
 body {
 	/*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
-	background-color: #e0f2f1;
-	background-image: url("../images/textured_bg5.png");
+	/*background-color: #e0f2f1;*/s
+	/*background-image: url("../images/textured_bg5.png");*/
 	font-family: 'Lato',sans-serif;
 }
 
@@ -11,6 +11,7 @@ body {
 	padding-top: 20px;
 	box-shadow: 0em 0em 0.3em 0.3em #efefef;
 	border-radius: 4px
+	width:100%;
 }
 
 /* .jumbotron { */
@@ -28,14 +29,14 @@ body {
 }
 
 .btn-primary {
-	background-color: #5bc4bd;
-	border-color: #009688;
+	background-color: #10898B;
+	border-color: #10898B;
 }
 
 .btn-secondary {
 	background-color: #fafafa;
 	border-color: #ebebeb;
-	color: #009688;
+	color: #10898B; /*green*/
 }
 
 .btn-secondary.disabled {
@@ -44,24 +45,26 @@ body {
 
 /* change the background color */
 .navbar-custom {
-	background-color: #009688;
+	background-color: white;
 	font-size: 1.2em;
+	color: #10898B;
 }
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
-    color: rgba(255,255,255,.8);
+    color: #10898B;
 }
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
-    color: rgba(255,255,255,.8);
+    color: #10898B;
 }
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link {
-	color: #e2f1af;
+	color: #CC063E; /*red*/
+	text-decoration: underline;
+	font-weight: bold;
 }
 
 .navbar-custom .nav-item:hover .nav-link {
-	background-color: rgba(255,255,255,.2);
-    color: #efefef;
+    color: #CC063E;
 }

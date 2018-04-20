@@ -49,32 +49,39 @@
 			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
 			chart.draw(data, options);
-		}		
+		}
 	</script>
 {% endblock header_scripts %}
 
 {% block nav-home-classes %}active{% endblock nav-home-classes %}
 
 {% block content %}
-<div class="container">
-  <div class="row" id="front-page">
-    <div class="col-sm-2 col-sm-offset-3">
-      <a href="{% url 'profiles:index' %}" ><button class="repo-btn">View Repository</button></a>
-    </div>
-		<div class="col-sm-2"></div>
-    <div class="col-sm-2">
-      <a href="{% url 'profiles:create' %}" ><button class="enter-btn">Create profile</button></a>
-    </div>
+<div class="container col-12 text-center" id="front-page">
+	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid rounded w-100" alt="Responsive image">
 </div>
 
-<div class="row" id="intro-container">
-	<div  class="col-lg-8 col-lg-offset-2" id="text-container">
-	  <p>Female neuroscientists are still under-represented in various neuroscience
-			conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
-			suitable female speakers for conferences
-			can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
-			The aim of this project is to promote female neuroscientists through a repository
-			and recommendations provided by senior researchers.</p>
+<div class="container col-12" id="text-container">
+	<div class="row m-4">
+		<div class="col-md-2 offset-md-5">
+			<h3> Women in Neuroscience </h3>
+		</div>
+	</div>
+	<div class="row">
+		<div  class="col-md-8 offset-md-2">
+			<div><p class="text-justify">Female neuroscientists are still under-represented in various neuroscience
+				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
+				suitable female speakers for conferences can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
+				The aim of this project is to promote female neuroscientists through a repository
+				and recommendations provided by senior researchers.</p></div>
+		</div>
+	</div>
+	<div class="row m-4">
+		<div class="col-md-2 offset-md-4">
+			<a href="{% url 'profiles:index' %}" class="btn header-btn m-2">View Repository</a>
+		</div>
+		<div class="col-md-2">
+			<a href="{% url 'profiles:create' %}" class="btn header-btn m-2">Create profile</a>
+		</div>
 	</div>
 </div>
 

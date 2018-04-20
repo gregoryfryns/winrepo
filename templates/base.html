@@ -33,17 +33,12 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-custom navbar-light navbar-expand-md">
+	<nav class="navbar fixed-top navbar-custom navbar-light navbar-expand-md">
 		<!-- <a class="navbar-brand" href="#">
 			<img src="img/logo.png" height="30" width="41">
 		</a> -->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			{% block nav %}
-			<ul class="navbar-nav">
+			<ul class="nav navbar-nav ml-auto">
 				<li class="nav-item {% block nav-home-classes %}{% endblock nav-home-classes %}">
 					<a class="nav-link" href="{% url 'profiles:home' %}">Home</a>
 				</li>
@@ -60,11 +55,14 @@
 					<a class="nav-link" href="{% url 'about' %}">About</a>
 				</li>
 			</ul>
-			{% endblock nav %}
 		</div>
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 	</nav>
 
-	<div class="container page-container">
+	<div class="page-container">
 		<div id="content">
 			{% block content %}{% endblock content %}
 		</div>
