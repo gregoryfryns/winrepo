@@ -62,6 +62,10 @@
 	color: white;
 }
 
+.intro-text a {
+	color: #E2D9C2;
+}
+
 #list-stats {
 	background-color: rgba(255,255,255);
 	width: 100%;

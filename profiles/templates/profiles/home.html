@@ -43,7 +43,7 @@
 				var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
 
 			var options = {
-				colorAxis: { colors: ['#e2f1af', '#009688'] },
+				colorAxis: { colors: ['#db9daf', '#cc063e'] },
 			};
 
 			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
@@ -62,17 +62,17 @@
 
 <div class="container col-12" id="text-container">
 	<div class="row m-4">
-		<div class="col-md-2 offset-md-5">
-			<h3> Women in Neuroscience </h3>
+		<div class="col-md-4 offset-md-4 text-center">
+			<h1 class="headtitle"> <span class="women">Women</span> in Neuroscience </h1>
 		</div>
 	</div>
 	<div class="row">
-		<div  class="col-md-8 offset-md-2">
-			<div><p class="text-justify">Female neuroscientists are still under-represented in various neuroscience
+		<div  class="col-md-8 offset-md-2 intro-text">
+			<p class="text-justify">Female neuroscientists are still under-represented in various neuroscience
 				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
 				suitable female speakers for conferences can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
 				The aim of this project is to promote female neuroscientists through a repository
-				and recommendations provided by senior researchers.</p></div>
+				and recommendations provided by senior researchers.</p>
 		</div>
 	</div>
 	<div class="row m-4">

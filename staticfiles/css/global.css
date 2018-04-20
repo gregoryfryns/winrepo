@@ -1,9 +1,6 @@
 
 body {
-	/*font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;*/
-	/*background-color: #e0f2f1;*/s
-	/*background-image: url("../images/textured_bg5.png");*/
-	font-family: 'Lato',sans-serif;
+	font-family:'Open Sans', 'Lato',sans-serif;
 }
 
 .page-container {
@@ -67,4 +64,14 @@ body {
 
 .navbar-custom .nav-item:hover .nav-link {
     color: #CC063E;
+}
+
+.headtitle {
+	font-family: 'Nunito', sans-serif;
+}
+
+.headtitle>.women {
+	font-family:'Pacifico',sans-serif;
+	color: #CC063E;
+	font-size: 3rem;
 }
