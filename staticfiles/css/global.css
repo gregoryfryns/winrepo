@@ -1,36 +1,32 @@
 
 body {
-	font-family:'Open Sans', 'Lato',sans-serif;
+	font-family:'Open Sans', 'Lato', sans-serif;
 }
 
 .page-container {
-	background-color: rgba(255,255,255,0.9);
-	padding-top: 70px;
-	box-shadow: 0em 0em 0.3em 0.3em #efefef;
-	border-radius: 4px;
-	width: 100%;
+	padding: 70px 50px;
 }
 
 .intro p {
 	font-size: medium;
 }
 
-/* change the background color */
+/* navbar */
 .navbar-custom {
 	background-color: white;
 	font-size: 1.2em;
 	color: #10898B;
 }
-/* change the brand and text color */
+
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: #10898B;
 }
-/* change the link color */
+
 .navbar-custom .navbar-nav .nav-link {
     color: #10898B;
 }
-/* change the color of active or hovered links */
+
 .navbar-custom .nav-item.active .nav-link {
 	color: #CC063E; /*red*/
 	text-decoration: underline;
@@ -41,6 +37,7 @@ body {
     color: #CC063E;
 }
 
+/* head */
 .headtitle {
 	font-family: 'Nunito', sans-serif;
 }
@@ -52,8 +49,8 @@ body {
 	text-shadow: 0px 0px 1px white;
 }
 
+
 .footer {
-	background-color: #10898B;
 	color: white;
 	padding: 20px 10px;
 	vertical-align: middle;

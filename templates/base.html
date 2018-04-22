@@ -63,11 +63,24 @@
 		</button>
 	</nav>
 
+	{% block page_container %}
 	<div class="page-container">
 		<div id="content">
 			{% block content %}{% endblock content %}
 		</div>
 	</div>
+	{% endblock page_container %}
+
+	{% block full_page_content %}
+	{% endblock full_page_content %}
+
+	{% block footer %}
+	<div class="row footer">
+		<div class="bg-primary col-12 text-center">
+			<p>Footer</p>
+		</div>
+	</div>
+	{% endblock footer %}
 
 	{% block footer_scripts %}
 		{% bootstrap_javascript jquery=1 %}
