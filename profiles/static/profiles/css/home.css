@@ -65,12 +65,15 @@
 }
 
 #entrie-number {
-	color: rgb(100,100,100);
-	font-size: 30px;
+	font-size: 50px;
 	vertical-align: center;
-	font-weight: bold;
-	padding-left: 0px;
-	padding-right: 0px;
+	margin-bottom: 0px;
+	margin-top: 1rem;
+}
+.entriesText {
+	font-size: 24px;
+	padding-top: 0px;
+	margin-top: 0px;
 }
 
 #chart-stats {
@@ -118,15 +121,17 @@
     color: #555555;
 }
 
+.PositionTitle {
+		font-size: 18px;
+		font-weight: bold;
+}
+
 .PhDtext {
-	font-size: 18px;
 	color: #CC063E;
-	font-weight: bold;
 }
 
 .PhDtext:hover {
 	color: #CC063E;
-	font-weight: bolder;
 }
 
 .Positiontext {
@@ -135,36 +140,27 @@
 }
 
 .PostDoctext {
-	font-size: 18px;
 	color: #E83535;
-	font-weight: bold;
 }
 
 .PostDoctext:hover {
 	color: #E83535;
-	font-weight: bolder;
 }
 
 .Seniortext {
-	font-size: 18px;
 	color: #FD9407;
-	font-weight: bold;
 }
 
 .Seniortext:hover {
 	color: #FD9407;
-	font-weight: bolder;
 }
 
 .Othertext {
-	font-size: 18px;
 	color: #999999;
-	font-weight: bold;
 }
 
 .Othertext:hover {
 	color: #999999;
-	font-weight: bolder;
 }
 
 #country-stats {

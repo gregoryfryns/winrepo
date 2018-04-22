@@ -104,8 +104,8 @@
 
 <div class="row no-gutters" id="list-stats">
 	<div class="col-12 text-center" id="entries-container">
-		<p id="entrie-number"> {{ nb_all }} </p>
-		<p>entries in repository. </p>
+		<p class="text-secondary font-weight-bold" id="entrie-number"> {{ nb_all }} </p>
+		<p class="text-primary entriesText">entries in repository. </p>
 	</div>
 </div>
 
@@ -119,7 +119,7 @@
 				</td>
 			</tr>
 		</table>
-		<a href="{% url 'profiles:index' %}" class="PhDtext">PhD</a>
+		<a href="{% url 'profiles:index' %}" class="PositionTitle PhDtext">PhD</a>
 		<p class="Positiontext">{{ nb_students }} profiles</p>
 	</div>
 	<div class="p-2 text-center donutTab">
@@ -131,7 +131,7 @@
 				</td>
 			</tr>
 		</table>
-		<a href="{% url 'profiles:index' %}" class="PostDoctext">Post-doc</a>
+		<a href="{% url 'profiles:index' %}" class="PositionTitle PostDoctext">Post-doc</a>
 		<p class="Positiontext">{{ nb_postdoc }} profiles</p>
 	</div>
 	<div class="p-2 text-center donutTab">
@@ -143,7 +143,7 @@
 				</td>
 			</tr>
 		</table>
-		<a href="{% url 'profiles:index' %}" class="Seniortext">Senior</a>
+		<a href="{% url 'profiles:index' %}" class="PositionTitle Seniortext">Senior</a>
 		<p class="Positiontext">{{ nb_senior }} profiles</p>
 	</div>
 	<div class="p-2 text-center donutTab">
@@ -155,7 +155,7 @@
 				</td>
 			</tr>
 		</table>
-		<a href="{% url 'profiles:index' %}" class="Othertext">Other</a>
+		<a href="{% url 'profiles:index' %}" class="PositionTitle Othertext">Other</a>
 		<p class="Positiontext">{{ nb_other }} profiles</p>
 	</div>
 </div>
