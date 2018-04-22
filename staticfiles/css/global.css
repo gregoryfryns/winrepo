@@ -71,7 +71,8 @@ body {
 }
 
 .headtitle>.women {
-	font-family:'Pacifico',sans-serif;
+	font-family:'Merriweather','Pacifico',sans-serif;
 	color: #CC063E;
 	font-size: 3rem;
+	text-shadow: 1px 1px 3px white;
 }

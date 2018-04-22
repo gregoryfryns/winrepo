@@ -12,31 +12,44 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
-		google.charts.setOnLoadCallback(drawPieChart);
+		google.charts.setOnLoadCallback(init);
 		google.charts.setOnLoadCallback(drawRegionsMap);
 
-		function drawPieChart() {
-			var data = google.visualization.arrayToDataTable([
-				['Position', 'Entries in Repository'],
-				['PhD', {{ nb_students }} ],
-				['Postdoc', {{ nb_postdoc }} ],
-				['Senior', {{ nb_senior }} ],
-				['Other', {{ nb_other }} ],
+		function drawPieChart(myID,val1,label,color1) {
+			var percentVal = val1/{{ nb_all }};
+			var labelVal = percentVal.toString();
+			var data = new google.visualization.DataTable();
+			data.addColumn('string','Position');
+			data.addColumn('number','Entries in Repository');
+			data.addColumn({type:'string', role:'annotation'});
+			data.addRows([
+				[label, val1, labelVal],
+				['Rest', {{ nb_all }} -  val1,''],
 			]);
 
 			var options = {
-				title: 'Career stages represented',
-				colors: ['#000f96','#089600','#440096','555555'],
-				fontName: 'Lato',
+				colors: ['#cdcdcd','#cdcdcd'],
+				fontName: 'Open Sans',
 				fontSize: 14,
-				height: 300,
-				legend: {position:'right',textStyle:{fontSize: 14}},
-				titleTextStyle: {color: '#555555',fontName: 'Lato',fontSize: 18}
+				chartArea:{left:'12%',top:0,width:'75%',height:'100%'},
+				width: 200,
+				legend: 'none',
+				pieSliceText: 'none',
+				pieHole: 0.6,
+				enableInteractivity: false,
+				slices: [{color: color1,textStyle: {color:'#555555',fontName: 'Open Sans',fontSize: 18}},
+				 {textStyle: {color:'#ffffff',fontName: 'Open Sans',fontSize: 1}}]
 			};
 
-			var pieChart = new google.visualization.PieChart(document.getElementById('piechart'));
+			var Piechart = new google.visualization.PieChart(document.getElementById(myID));
 
-			pieChart.draw(data, options);
+			Piechart.draw(data, options);
+		}
+		function init() {
+	    drawPieChart('chartPhD',{{ nb_students }},'PhD students','red');
+			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','blue');
+			drawPieChart('chartSenior',{{ nb_senior }},'Senior','green');
+			drawPieChart('chartOther',{{ nb_other }},'Other','#888888');
 		}
 
 		function drawRegionsMap() {
@@ -75,25 +88,76 @@
 				and recommendations provided by senior researchers.</p>
 		</div>
 	</div>
-	<div class="row m-4">
-		<div class="col-md-2 offset-md-4">
-			<a href="{% url 'profiles:index' %}" class="btn header-btn m-2">View Repository</a>
+	<div class="d-flex flex-wrap justify-content-center">
+		<div class="p-2">
+			<a href="{% url 'profiles:index' %}" class="btn header-btn">View Repository</a>
 		</div>
-		<div class="col-md-2">
-			<a href="{% url 'profiles:create' %}" class="btn header-btn m-2">Create profile</a>
+		<div class="p-2">
+			<a href="{% url 'profiles:create' %}" class="btn header-btn">Create profile</a>
 		</div>
 	</div>
 </div>
 
 <div class="row" id="list-stats">
-	<div class="col-12 col-md-10 offset-md-1" id="entries-container">
+	<div class="col-12 text-center" id="entries-container">
 		<p id="entrie-number"> {{ nb_all }} </p>
 		<p>entries in repository. </p>
 	</div>
-	<div class="col-12 col-md-10 offset-md-1" id="piechart-container">
-		<div id="piechart"></div>
+</div>
+
+<div class="d-flex flex-wrap justify-content-center align-items-start" id="chart-stats">
+	<div class="p-2 text-center donutTab">
+		<table>
+			<tr>
+				<td class="donutCell">
+					<div id="chartPhD" class="donutDiv"></div>
+					<div class="centerLabel"> {{ pct_students }}%</div>
+				</td>
+			</tr>
+		</table>
+		<a href="{% url 'profiles:index' %}" class="PhDtext">PhD</a>
+		<p class="Positiontext">{{ nb_students }} profiles</p>
 	</div>
-	<div class="col-12 col-md-10 offset-md-1" id="map-container">
+	<div class="p-2 text-center donutTab">
+		<table>
+			<tr>
+				<td class="donutCell">
+					<div id="chartPostDoc" class="donutDiv"></div>
+					<div class="centerLabel">{{ pct_postdoc }}%</div>
+				</td>
+			</tr>
+		</table>
+		<a href="{% url 'profiles:index' %}" class="PostDoctext">Post-doc</a>
+		<p class="Positiontext">{{ nb_postdoc }} profiles</p>
+	</div>
+	<div class="p-2 text-center donutTab">
+		<table>
+			<tr>
+				<td class="donutCell">
+					<div id="chartSenior" class="donutDiv"></div>
+					<div class="centerLabel">{{ pct_senior }}%</div>
+				</td>
+			</tr>
+		</table>
+		<a href="{% url 'profiles:index' %}" class="Seniortext">Senior</a>
+		<p class="Positiontext">{{ nb_senior }} profiles</p>
+	</div>
+	<div class="p-2 text-center donutTab">
+		<table>
+			<tr>
+				<td class="donutCell">
+					<div id="chartOther" class="donutDiv"></div>
+					<div class="centerLabel">{{ pct_other }}%</div>
+				</td>
+			</tr>
+		</table>
+		<a href="{% url 'profiles:index' %}" class="Othertext">Other</a>
+		<p class="Positiontext">{{ nb_other }} profiles</p>
+	</div>
+</div>
+
+<div class="row" id="country-stats">
+	<div class="col-12 col-md-8 offset-md-2" id="map-container">
 		<div id="regions_div"></div>
 	</div>
 </div>

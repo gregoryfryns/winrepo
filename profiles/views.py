@@ -113,6 +113,10 @@ def home(request):
         'nb_students' : nb_students,
         'nb_postdoc' : nb_postdoc,
         'nb_other' : nb_all - nb_senior - nb_students - nb_postdoc,
+        'pct_students' : round(100*(nb_students/nb_all)),
+        'pct_postdoc' : round(100*(nb_postdoc/nb_all)),
+        'pct_senior' : round(100*(nb_senior/nb_all)),
+        'pct_other' : round(100*((nb_all - nb_senior - nb_students - nb_postdoc)/nb_all)),
         'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)
