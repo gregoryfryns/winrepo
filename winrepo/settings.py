@@ -146,7 +146,22 @@ NOCAPTCHA = True
 # Sites settings
 SITE_ID = 2
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+BOOTSTRAP4 = {
+
+    # The URL to the jQuery JavaScript file
+    'jquery_url': '//code.jquery.com/jquery.min.js',
+
+    # The Bootstrap base URL
+    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/',
+
+    # The complete URL to the Bootstrap CSS file (None means derive it from base_url)
+    'css_url':  STATIC_URL + 'css/bootstrap-winrepo.min.css',
+
+    # The complete URL to the Bootstrap JavaScript file (None means derive it from base_url)
+    'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
+}
 
 # static files
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")

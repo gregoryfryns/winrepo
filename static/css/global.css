@@ -15,6 +15,21 @@ body {
 	font-size: medium;
 }
 
+/* .btn-primary {
+	background-color: #10898B;
+	border-color: #10898B;
+}
+
+.btn-secondary {
+	background-color: #fafafa;
+	border-color: #ebebeb;
+	color: #10898B; /*green*/
+}
+
+.btn-secondary.disabled {
+	color: #ababab;
+} */
+
 /* change the background color */
 .navbar-custom {
 	background-color: white;

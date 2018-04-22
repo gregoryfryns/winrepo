@@ -29,6 +29,35 @@
 	color: #555555;
 }
 
+#recommend-icon {
+	font-size: 18px;
+	color: white;
+}
+
+#results-table .btn:hover{
+	background: #e2f1af;
+	border-color: #efefef;
+}
+
+#recommend-btn {
+	color: white;
+}
+
+#recommended-icon {
+	color: #009688;
+}
+
+#profile-quotes .quote-icon {
+	color: red;
+}
+
+#profile-quotes .quote-reviewer {
+	font-weight: bold;
+}
+
+
+
+/* nav or .nav? */
 nav #page-number {
 	cursor: default;
 	width: 240px;

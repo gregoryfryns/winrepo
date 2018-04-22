@@ -1,0 +1,179 @@
+.navbar-default {
+	margin-bottom: 0px
+}
+
+.page-container {
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	box-shadow: 0em 0em 0em 0em #ffffff;
+	border-radius: 0px;
+}
+
+.container {
+	background-color: white;
+  width: 100%;
+	padding-top: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	font-size: 16px;
+}
+
+#front-page {
+}
+
+.row {
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.header-btn {
+	background-color: #10898B;
+	color: white;
+	font-size: 16px;
+	padding: 12px 24px;
+	border-width: 2px;
+	border-color: white;
+	/* cursor: pointer; */
+	border-radius: 50px;
+	text-align: center;
+	width: 180px;
+	/* height:50px; */
+}
+
+.header-btn:hover {
+	background-color: rgba(255,255,255,0.12);
+	color: white;
+}
+
+#intro-container {
+	width:100%;
+	background-color: #10898B;
+	border-style: none;
+}
+
+#text-container {
+	background-color: #10898B;
+	text-align: center;
+	border-radius: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 18px;
+	color: white;
+}
+
+.intro-text a {
+	color: #E2D9C2;
+}
+
+#list-stats {
+	background-color: #fff;
+	width: 100%;
+	text-align: center;
+	border-radius: 0px;
+	font-size: 18px;
+	padding: 20px 0px;
+}
+
+#entries-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#entrie-number {
+	color: rgb(100,100,100);
+	font-size: 30px;
+	vertical-align: center;
+	font-weight: bold;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#chart-stats {
+	background-color: #fff;
+	width: 100%;
+	text-align: center;
+	border-radius: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 18px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#piechart-container {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.donutTab {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.donutCell
+{
+    position: relative;
+}
+
+.donutDiv
+{
+    width: 100%;
+    height: 100%;
+}
+
+.centerLabel
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+		transform: translate(-50%,-50%);
+		-ms-transform: translate(-50%,-50%);
+    text-align: center;
+    font-size: 16px;
+    color: '#333333';
+}
+
+.PhDtext {
+	font-size: 18px;
+	color: red;
+	font-weight: bold;
+}
+
+#country-stats {
+	background-color: white;
+	width: 100%;
+	text-align: center;
+	border-radius: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-size: 18px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#map-container {
+	max-width: 800px;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    background: #cacaca;
+    color: #fafafa;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #009688;
+}
+
+#back-to-top.show {
+    opacity: 1;
+}
