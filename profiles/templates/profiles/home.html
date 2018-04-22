@@ -13,7 +13,6 @@
 	<script type="text/javascript">
 		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
 		google.charts.setOnLoadCallback(init);
-		google.charts.setOnLoadCallback(drawRegionsMap);
 
 		function drawPieChart(myID,val1,label,color1) {
 			var percentVal = val1/{{ nb_all }};
@@ -46,12 +45,6 @@
 
 			Piechart.draw(data, options);
 		}
-		function init() {
-	    drawPieChart('chartPhD',{{ nb_students }},'PhD students','#CC063E');
-			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','#E83535');
-			drawPieChart('chartSenior',{{ nb_senior }},'Senior','#FD9407');
-			drawPieChart('chartOther',{{ nb_other }},'Other','#999999');
-		}
 
 		function drawRegionsMap() {
 				var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
@@ -64,6 +57,15 @@
 
 			chart.draw(data, options);
 		}
+
+		function init() {
+		    drawPieChart('chartPhD',{{ nb_students }},'PhD students','#CC063E');
+			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','#E83535');
+			drawPieChart('chartSenior',{{ nb_senior }},'Senior','#FD9407');
+			drawPieChart('chartOther',{{ nb_other }},'Other','#999999');
+			drawRegionsMap();
+		}
+
 	</script>
 {% endblock header_scripts %}
 
@@ -73,19 +75,19 @@
 {% endblock page_container %}
 
 {% block full_page_content %}
-<div class="container col-12 text-center" id="front-page">
+<div class="container-fluid p-0" id="hero-image">
 	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid rounded w-100" alt="Responsive image">
 </div>
 
-<div class="container col-12" id="text-container">
-	<div class="row no-gutters m-4">
+<div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
+	<div class="row no-gutters p-4">
 		<div class="col-md-4 offset-md-4 text-center">
 			<h1 class="headtitle"> <span class="women">Women</span> in Neuroscience </h1>
 		</div>
 	</div>
-	<div class="row no-gutters">
-		<div  class="col-md-10 offset-md-1 pl-4 pr-4 intro-text">
-			<p class="text-justify">Female neuroscientists are still under-represented in various neuroscience
+	<div class="row no-gutters pl-4 pr-4">
+		<div  class="col-md-10 offset-md-1 intro-text">
+			<p class="h5 text-justify">Female neuroscientists are still under-represented in various neuroscience
 				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
 				suitable female speakers for conferences can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
 				The aim of this project is to promote female neuroscientists through a repository
@@ -102,67 +104,67 @@
 	</div>
 </div>
 
-<div class="row no-gutters" id="list-stats">
-	<div class="col-12 text-center" id="entries-container">
-		<p class="text-secondary font-weight-bold" id="entrie-number"> {{ nb_all }} </p>
-		<p class="text-primary entriesText">entries in repository. </p>
+<div class="container-fluid" id="stats">
+	<div class="text-center m-4" id="entries-container">
+		<p class="text-secondary font-weight-bold" id="entries-number"> {{ nb_all }} </p>
+		<p class="text-primary" id="entries-text">entries in repository. </p>
 	</div>
-</div>
 
-<div class="d-flex flex-wrap justify-content-center align-items-start" id="chart-stats">
-	<div class="p-2 text-center donutTab">
-		<table>
-			<tr>
-				<td class="donutCell">
-					<div id="chartPhD" class="donutDiv"></div>
-					<div class="centerLabel"> {{ pct_students }}%</div>
-				</td>
-			</tr>
-		</table>
-		<a href="{% url 'profiles:index' %}" class="PositionTitle PhDtext">PhD</a>
-		<p class="Positiontext">{{ nb_students }} profiles</p>
+	<div class="d-flex flex-wrap justify-content-center align-items-start m-4" id="chart-stats">
+		<div class="p-2 text-center donutTab">
+			<table>
+				<tr>
+					<td class="donutCell">
+						<div id="chartPhD" class="donutDiv"></div>
+						<div class="donutValue"> {{ pct_students }}%</div>
+					</td>
+				</tr>
+			</table>
+			<a href="{% url 'profiles:index' %}" class="position-title text-secondary" id="PhDtext">PhD</a>
+			<p class="position-text">{{ nb_students }} profiles</p>
+		</div>
+		<div class="p-2 text-center donutTab">
+			<table>
+				<tr>
+					<td class="donutCell">
+						<div id="chartPostDoc" class="donutDiv"></div>
+						<div class="donutValue">{{ pct_postdoc }}%</div>
+					</td>
+				</tr>
+			</table>
+			<a href="{% url 'profiles:index' %}" class="position-title text-tertiary" id="PostDoctext">Post-doc</a>
+			<p class="position-text">{{ nb_postdoc }} profiles</p>
+		</div>
+		<div class="p-2 text-center donutTab">
+			<table>
+				<tr>
+					<td class="donutCell">
+						<div id="chartSenior" class="donutDiv"></div>
+						<div class="donutValue">{{ pct_senior }}%</div>
+					</td>
+				</tr>
+			</table>
+			<a href="{% url 'profiles:index' %}" class="position-title text-quaternary" id="Seniortext">Senior</a>
+			<p class="position-text">{{ nb_senior }} profiles</p>
+		</div>
+		<div class="p-2 text-center donutTab">
+			<table>
+				<tr>
+					<td class="donutCell">
+						<div id="chartOther" class="donutDiv"></div>
+						<div class="donutValue">{{ pct_other }}%</div>
+					</td>
+				</tr>
+			</table>
+			<a href="{% url 'profiles:index' %}" class="position-title text-senary" id="Othertext">Other</a>
+			<p class="position-text">{{ nb_other }} profiles</p>
+		</div>
 	</div>
-	<div class="p-2 text-center donutTab">
-		<table>
-			<tr>
-				<td class="donutCell">
-					<div id="chartPostDoc" class="donutDiv"></div>
-					<div class="centerLabel">{{ pct_postdoc }}%</div>
-				</td>
-			</tr>
-		</table>
-		<a href="{% url 'profiles:index' %}" class="PositionTitle PostDoctext">Post-doc</a>
-		<p class="Positiontext">{{ nb_postdoc }} profiles</p>
-	</div>
-	<div class="p-2 text-center donutTab">
-		<table>
-			<tr>
-				<td class="donutCell">
-					<div id="chartSenior" class="donutDiv"></div>
-					<div class="centerLabel">{{ pct_senior }}%</div>
-				</td>
-			</tr>
-		</table>
-		<a href="{% url 'profiles:index' %}" class="PositionTitle Seniortext">Senior</a>
-		<p class="Positiontext">{{ nb_senior }} profiles</p>
-	</div>
-	<div class="p-2 text-center donutTab">
-		<table>
-			<tr>
-				<td class="donutCell">
-					<div id="chartOther" class="donutDiv"></div>
-					<div class="centerLabel">{{ pct_other }}%</div>
-				</td>
-			</tr>
-		</table>
-		<a href="{% url 'profiles:index' %}" class="PositionTitle Othertext">Other</a>
-		<p class="Positiontext">{{ nb_other }} profiles</p>
-	</div>
-</div>
 
-<div class="row no-gutters" id="country-stats">
-	<div class="col-12 col-md-8 offset-md-2" id="map-container">
-		<div id="regions_div"></div>
+	<div class="row no-gutters m-4" id="country-stats">
+		<div class="col-12 col-md-8 offset-md-2" id="map-container">
+			<div id="regions_div"></div>
+		</div>
 	</div>
 </div>
 {% endblock full_page_content %}

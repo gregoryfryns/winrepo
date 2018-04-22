@@ -1,17 +1,5 @@
-.navbar-default {
-	margin-bottom: 0px
-}
-
-.container {
-	background-color: white;
-  width: 100%;
-	padding-top: 0px;
-	padding-left: 0px;
-	padding-right: 0px;
+.container-fluid {
 	font-size: 16px;
-}
-
-#front-page {
 }
 
 .header-btn {
@@ -30,72 +18,21 @@
 	color: white;
 }
 
-#intro-container {
-	width:100%;
-	background-color: #10898B;
-	border-style: none;
-}
-
-#text-container {
-	background-color: #10898B;
-	text-align: center;
-	border-radius: 0px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	font-size: 18px;
-	color: white;
-}
-
 .intro-text a {
 	color: #E2D9C2;
 }
 
-#list-stats {
-	background-color: #fff;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	font-size: 18px;
-	padding: 20px 0px;
-}
-
-#entries-container {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-#entrie-number {
-	font-size: 50px;
-	vertical-align: center;
+/* Stats */
+#entries-number {
+	font-size: 2.6em;
 	margin-bottom: 0px;
 	margin-top: 1rem;
 }
-.entriesText {
-	font-size: 24px;
+
+#entries-text {
+	font-size: 1.4em;
 	padding-top: 0px;
 	margin-top: 0px;
-}
-
-#chart-stats {
-	background-color: #fff;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	font-size: 18px;
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-#piechart-container {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-.donutTab {
-	padding-left: 0px;
-	padding-right: 0px;
 }
 
 .donutCell
@@ -103,13 +40,7 @@
     position: relative;
 }
 
-.donutDiv
-{
-    width: 100%;
-    height: 100%;
-}
-
-.centerLabel
+.donutValue
 {
     position: absolute;
     left: 50%;
@@ -121,61 +52,16 @@
     color: #555555;
 }
 
-.PositionTitle {
+.position-title {
 		font-size: 18px;
 		font-weight: bold;
 }
 
-.PhDtext {
-	color: #CC063E;
-}
-
-.PhDtext:hover {
-	color: #CC063E;
-}
-
-.Positiontext {
+.position-text {
 	font-size: 14px;
 	color: #555555;
 }
 
-.PostDoctext {
-	color: #E83535;
-}
-
-.PostDoctext:hover {
-	color: #E83535;
-}
-
-.Seniortext {
-	color: #FD9407;
-}
-
-.Seniortext:hover {
-	color: #FD9407;
-}
-
-.Othertext {
-	color: #999999;
-}
-
-.Othertext:hover {
-	color: #999999;
-}
-
-#country-stats {
-	background-color: white;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	padding: 20px 0px;
-	font-size: 18px;
-}
-
 #map-container {
 	max-width: 800px;
-}
-
-#back-to-top.show {
-    opacity: 1;
 }
