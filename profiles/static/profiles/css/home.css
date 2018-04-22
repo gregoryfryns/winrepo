@@ -131,13 +131,56 @@
 		-ms-transform: translate(-50%,-50%);
     text-align: center;
     font-size: 16px;
-    color: '#333333';
+    color: #555555;
 }
 
 .PhDtext {
 	font-size: 18px;
-	color: red;
+	color: #CC063E;
 	font-weight: bold;
+}
+
+.PhDtext:hover {
+	color: #CC063E;
+	font-weight: bolder;
+}
+
+.Positiontext {
+	font-size: 14px;
+	color: #555555;
+}
+
+.PostDoctext {
+	font-size: 18px;
+	color: #E83535;
+	font-weight: bold;
+}
+
+.PostDoctext:hover {
+	color: #E83535;
+	font-weight: bolder;
+}
+
+.Seniortext {
+	font-size: 18px;
+	color: #FD9407;
+	font-weight: bold;
+}
+
+.Seniortext:hover {
+	color: #FD9407;
+	font-weight: bolder;
+}
+
+.Othertext {
+	font-size: 18px;
+	color: #999999;
+	font-weight: bold;
+}
+
+.Othertext:hover {
+	color: #999999;
+	font-weight: bolder;
 }
 
 #country-stats {

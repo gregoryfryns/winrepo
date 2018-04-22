@@ -46,8 +46,16 @@ body {
 }
 
 .headtitle>.women {
-	font-family:'Merriweather','Pacifico',sans-serif;
+	font-family:'Pacifico',sans-serif;
 	color: #CC063E;
 	font-size: 3rem;
-	text-shadow: 1px 1px 3px white;
+	text-shadow: 0px 0px 1px white;
+}
+
+.footer {
+	background-color: #10898B;
+	color: white;
+	padding: 20px 10px;
+	vertical-align: middle;
+	height: 100px;
 }

@@ -28,11 +28,12 @@
 			]);
 
 			var options = {
-				colors: ['#cdcdcd','#cdcdcd'],
+				colors: ['#dedede','#dedede'],
 				fontName: 'Open Sans',
 				fontSize: 14,
-				chartArea:{left:'12%',top:0,width:'75%',height:'100%'},
-				width: 200,
+				chartArea:{left:'10%',top:0,width:'80%',height:'100%'},
+				width: 120,
+				height: 120,
 				legend: 'none',
 				pieSliceText: 'none',
 				pieHole: 0.6,
@@ -46,10 +47,10 @@
 			Piechart.draw(data, options);
 		}
 		function init() {
-	    drawPieChart('chartPhD',{{ nb_students }},'PhD students','red');
-			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','blue');
-			drawPieChart('chartSenior',{{ nb_senior }},'Senior','green');
-			drawPieChart('chartOther',{{ nb_other }},'Other','#888888');
+	    drawPieChart('chartPhD',{{ nb_students }},'PhD students','#CC063E');
+			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','#E83535');
+			drawPieChart('chartSenior',{{ nb_senior }},'Senior','#FD9407');
+			drawPieChart('chartOther',{{ nb_other }},'Other','#999999');
 		}
 
 		function drawRegionsMap() {
@@ -159,6 +160,12 @@
 <div class="row" id="country-stats">
 	<div class="col-12 col-md-8 offset-md-2" id="map-container">
 		<div id="regions_div"></div>
+	</div>
+</div>
+
+<div class="row footer">
+	<div class="col-12 text-center">
+		<p>Footer</p>
 	</div>
 </div>
 {% endblock content %}
