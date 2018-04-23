@@ -2,6 +2,19 @@
 	font-size: 16px;
 }
 
+#intro-text {
+	max-width: 800px;
+	margin: auto;
+}
+#intro-text a {
+	color: #E2D9C2;
+}
+
+.header-buttons {
+	max-width: 500px;
+	margin: auto;
+}
+
 .header-btn {
 	color: white;
 	padding: 12px 24px;
@@ -14,10 +27,6 @@
 .header-btn:hover {
 	background-color: rgba(255,255,255,0.12);
 	color: white;
-}
-
-.intro-text a {
-	color: #E2D9C2;
 }
 
 /* Stats */
