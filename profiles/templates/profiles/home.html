@@ -47,10 +47,13 @@
 		}
 
 		function drawRegionsMap() {
-				var data = google.visualization.arrayToDataTable([['Country', 'Total']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
+				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
 
 			var options = {
-				colorAxis: { colors: ['#db9daf', '#cc063e'] },
+				// colorAxis: { colors: ['#db9daf', '#cc063e'] },
+				colorAxis: { colors: ['#a0c1c1', '#10898B'] },
+				legend: 'none',
+				tooltip: {isHtml: true},
 			};
 
 			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
@@ -87,11 +90,12 @@
 	</div>
 	<div class="row no-gutters p-4">
 		<div  class="col-md-10 offset-md-1" id="intro-text" >
-			<p class="h5 text-justify">Female neuroscientists are still under-represented in various neuroscience
-				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>). Identifying
-				suitable female speakers for conferences can be a challenge, despite some <a href="{% url 'faq' %}">great initiatives</a>.
-				The aim of this project is to promote female neuroscientists through a repository
-				and recommendations provided by senior researchers.</p>
+			<p class="h5 text-justify">Despite some effort from the community and
+				<a href="{% url 'faq' %}">great initiatives</a>, female neuroscientists are
+				still under-represented in various neuroscience
+				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>).
+				The aim of this Women in Neuroscience Repository is to help you identify
+				and recommend female neuroscientists for conferences, symposia or collaborations.</p>
 		</div>
 	</div>
 	<div class="d-flex flex-wrap justify-content-around header-buttons">
@@ -167,4 +171,17 @@
 		</div>
 	</div>
 </div>
+
+<div class="container-fluid">
+	<div class="row no-gutters m-4 pt-4">
+		<div class="col-12 col-md-8 offset-md-2 text-center">
+			<h2 class="text-secondary">Going to a conference soon?</h2>
+			<p class="getSlideText text-justify">Download our slide and insert it at the end of your presentation!
+				It will raise awareness on the issue of gender equity in neuroscience and show that there are resources to
+				help conference organizers. In addition, it will encourage senior researchers to submit recommendations of their peers.</p>
+			<a href="#" class="btn header-btn slide-btn text-center">Download slide</a>
+		</div>
+	</div>
+</div>
+
 {% endblock full_page_content %}

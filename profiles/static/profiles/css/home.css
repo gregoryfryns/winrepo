@@ -72,3 +72,40 @@
 #map-container {
 	max-width: 800px;
 }
+
+.google-visualization-tooltip {
+  border: 3px solid #E83535!important;
+  border-radius: 20px !important;
+	font-size: 14px !important;
+	font-family: 'Open Sans' !important;
+	position: absolute !important;
+	width: 130px !important;
+	z-index:+1 !important;
+}
+
+.google-visualization-tooltip-item-list {
+  list-style-type: none;
+  margin: 5px!important;
+}
+
+.google-visualization-tooltip-item {
+  margin: 5px!important;
+  padding: 0!important;
+}
+
+.google-visualization-tooltip > ul > li > span {
+	color: #555555 !important;
+}
+
+.getSlideText {
+	color: #555555;
+}
+
+.slide-btn {
+	background-color: #CC063E;
+	border: none;
+}
+
+.slide-btn:hover {
+	background-color: rgba(204,6,62,0.88);
+}
