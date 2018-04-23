@@ -81,7 +81,12 @@
 <div class="container-fluid p-0" id="hero-image">
 	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid rounded w-100" alt="Responsive image">
 </div>
-
+<div class="container-fluid" id="home-search">
+	<div class="input-group bg-white rounded p-1 mx-auto">
+		<input type="text" class="form-control" placeholder="Search here..." aria-label="Search">
+		<button type="submit" class="btn btn-secondary pl-4 pr-4">Search</button>
+	</div>
+</div>
 <div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
 	<div class="row no-gutters p-4">
 		<div class="col-md-4 offset-md-4 text-center">
@@ -107,7 +112,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="container-fluid" id="stats">
 	<div class="text-center m-4" id="entries-container">
 		<p class="text-secondary font-weight-bold" id="entries-number"> {{ nb_all }} </p>

@@ -2,6 +2,19 @@
 	font-size: 16px;
 }
 
+#home-search {
+	height: 0;
+}
+
+#home-search>div {
+	transform: translate(0, -50%);
+	max-width: 600px;
+}
+
+#home-search input {
+	border: none;
+}
+
 #intro-text {
 	max-width: 800px;
 	margin: auto;
