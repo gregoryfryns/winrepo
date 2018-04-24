@@ -83,8 +83,8 @@
 </div>
 <div class="container-fluid" id="home-search">
 	<div class="input-group bg-white rounded p-1 mx-auto">
-		<input type="text" class="form-control" placeholder="Search here..." aria-label="Search">
-		<button type="submit" class="btn btn-secondary pl-4 pr-4">Search</button>
+		<input type="text" id="search-input" class="form-control" placeholder="Search here..." aria-label="Search">
+		<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
 	</div>
 </div>
 <div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
@@ -189,3 +189,7 @@
 </div>
 
 {% endblock full_page_content %}
+
+{% block footer_scripts %} {{ block.super }}
+	<script src="{% static 'profiles/js/home.js' %}"></script> 
+{% endblock footer_scripts %}
