@@ -1,7 +1,7 @@
 // Filter list
 var applyFilter = function() {
 	var val = '^(?=.*\\b' + $.trim($('#search').val()).split(/\s+/).join(')(?=.*\\b') + ').*$',
-	  underRepOnly = $('#underrepresented-countries').prop("checked"),
+	  	underRepOnly = $('#underrepresented-countries').prop("checked"),
 		seniorOnly = $('#senior-only').prop("checked"),
 		resultsList = [],
 		$tr,
@@ -11,7 +11,6 @@ var applyFilter = function() {
 		reg = RegExp(val, 'i');
 
 		$('#results-table tr:gt(0)').show().filter(function(index) {
-			// text = "";
 			$tr = $(this);
 			// concatenate all searchable fields into a single string
 			text = $tr.find('.searchable').toArray().map(el => el.textContent.trim()).join(' ');
@@ -19,7 +18,7 @@ var applyFilter = function() {
 			if ((underRepOnly && !$tr.find('.under-represented').length)
 					|| (seniorOnly && !$tr.find('.senior').length)
 					|| !reg.test(text)) {
-				return true; // will be hidden
+				return true; // row will be hidden
 			}
 			else {
 				resultsList.push($tr.find('.profile_id:eq(0)').text());
@@ -36,15 +35,20 @@ var applyFilter = function() {
 		$('#search-message').addClass('text-danger')
 							.text('Please enter a valid string');
 	}
-	if (typeof(Storage) !== "undefined")
+	if (typeof(Storage) !== "undefined") {
 		window.sessionStorage.setItem("resultsList", JSON.stringify(resultsList));
-
+		window.sessionStorage.setItem("searchTerms", ($('#search').val()));
+	}
 }
 
 $('#search').keyup($.debounce(400, applyFilter));
 $('#underrepresented-countries').change(applyFilter);
 $('#senior-only').change(applyFilter);
+
 $( document ).ready(function() {
+	if (typeof(Storage) !== "undefined" && window.sessionStorage.getItem("searchTerms")) {
+		$('#search').val(window.sessionStorage.getItem("searchTerms"));
+	}
 	applyFilter();
 	//other stuff?
 });

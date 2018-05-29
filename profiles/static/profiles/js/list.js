@@ -1,7 +1,7 @@
 // Filter list
 var applyFilter = function() {
 	var val = '^(?=.*\\b' + $.trim($('#search').val()).split(/\s+/).join(')(?=.*\\b') + ').*$',
-	  	underRepOnly = $('#underrepresented-countries').prop("checked"),
+		underRepOnly = $('#underrepresented-only').prop("checked"),
 		seniorOnly = $('#senior-only').prop("checked"),
 		resultsList = [],
 		$tr,
@@ -10,7 +10,7 @@ var applyFilter = function() {
 	try {
 		reg = RegExp(val, 'i');
 
-		$('#results-table tr:gt(0)').show().filter(function(index) {
+		$('#results-table tr').show().filter(function() {
 			$tr = $(this);
 			// concatenate all searchable fields into a single string
 			text = $tr.find('.searchable').toArray().map(el => el.textContent.trim()).join(' ');
@@ -28,7 +28,7 @@ var applyFilter = function() {
 
 		$('input#search').removeClass('is-invalid');
 		$('#search-message').removeClass('text-danger')
-							.text( $('#results-table tr:gt(0):visible').length + ' entries found');
+			.html('<span class="text-primary font-weight-bold">' + $('#results-table tr:visible').length + '</span> entries found');
 	}
 	catch (e) {
 		$('input#search').addClass('is-invalid');

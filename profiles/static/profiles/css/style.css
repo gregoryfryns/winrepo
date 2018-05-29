@@ -1,9 +1,14 @@
-#search-results {
-	padding-bottom: 8px;
+#list-search {
+    padding-top: 65px;
+    background-color: #e6e6e6;
 }
 
 #results-table td {
 	white-space: normal;
+}
+
+#results-table td.details-grey {
+    color: #a5a5a5;
 }
 
 #results-table dl.researchDetails dt {
@@ -12,7 +17,7 @@
 	font-size: small;
 }
 
-#results-table dl.researchDetails dd {
+/* #results-table dl.researchDetails dd {
 	margin-left: 90px;
 }
 
@@ -22,11 +27,10 @@
 
 #results-table th.col-md-1 {
 	text-align: center;
-}
+} */
 
-#results-table abbr {
-	font-size: smaller;
-	color: #555555;
+#results-table a.details {
+	border-radius: 50px;
 }
 
 nav #page-number {
@@ -43,7 +47,12 @@ nav #page-number {
     color: #fafafa;
     cursor: pointer;
     border: 0;
-    border-radius: 2px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    font-size: 42px;
+    line-height: 50px;
     text-decoration: none;
     transition: opacity 0.2s ease-out;
     opacity: 0;

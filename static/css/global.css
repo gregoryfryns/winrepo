@@ -3,6 +3,10 @@ body {
 	font-family:'Open Sans', 'Lato', sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-family:'Nunito', 'Lato', sans-serif;
+}
+
 .page-container {
 	padding: 70px 50px;
 }
@@ -12,27 +16,21 @@ body {
 }
 
 /* navbar */
-.navbar-custom {
+.navbar-custom  {
 	background-color: white;
-	font-size: 1.2em;
-	color: #10898B;
 }
-
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
     color: #10898B;
 }
-
 .navbar-custom .navbar-nav .nav-link {
     color: #10898B;
 }
-
 .navbar-custom .nav-item.active .nav-link {
 	color: #CC063E; /*red*/
 	text-decoration: underline;
 	font-weight: bold;
 }
-
 .navbar-custom .nav-item:hover .nav-link {
     color: #CC063E;
 }
@@ -43,16 +41,12 @@ body {
 }
 
 .headtitle>.women {
-	font-family:'Pacifico',sans-serif;
+	font-family: 'Pacifico',sans-serif;
 	color: #CC063E;
 	font-size: 3rem;
 	text-shadow: 0px 0px 1px white;
 }
 
-
-.footer {
-	color: white;
-	padding: 20px 10px;
-	vertical-align: middle;
-	height: 100px;
+.page-footer a {
+	color: #fff;
 }

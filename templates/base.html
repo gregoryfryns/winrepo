@@ -14,6 +14,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+	<link rel="shortcut icon" type="image/png" href="{% static 'images/win_brain.png' %}" />
+
 	{% block fonts %}
 		<link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans|Pacifico|Merriweather:blackitalic" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
@@ -35,9 +37,9 @@
 </head>
 <body>
 	<nav class="navbar fixed-top navbar-custom navbar-light shadow-sm navbar-expand-md">
-		<!-- <a class="navbar-brand" href="#">
-			<img src="img/logo.png" height="30" width="41">
-		</a> -->
+		<a class="navbar-brand" href="{% url 'profiles:home' %}">
+			<img src="{% static 'images/logo_white_bg.png' %}" height="38px">
+		</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="nav navbar-nav ml-auto">
 				<li class="nav-item {% block nav-home-classes %}{% endblock nav-home-classes %}">
@@ -63,6 +65,10 @@
 		</button>
 	</nav>
 
+	{% block full_page_content %}
+		<div class="full_page" class="w-100 bg-white"></div>
+	{% endblock full_page_content %}
+
 	{% block page_container %}
 	<div class="page-container">
 		<div id="content">
@@ -71,15 +77,36 @@
 	</div>
 	{% endblock page_container %}
 
-	{% block full_page_content %}
-	{% endblock full_page_content %}
-
 	{% block footer %}
-	<div class="row footer">
-		<div class="bg-primary col-12 text-center">
-			<p>Footer</p>
+	<footer class="page-footer font-small bg-primary text-white p-4 mt-4">
+		<div class="d-flex flex-wrap justify-content-center">
+			<ul class="list-unstyled list-inline">
+				<li class="list-inline-item">
+					<a class="btn btn-lg mx-1">
+						<i class="fab fa-facebook-f"></i>
+					</a>
+				</li>
+				<li class="list-inline-item">
+					<a class="btn btn-lg mx-1">
+						<i class="fab fa-twitter"></i>
+					</a>
+				</li>
+				<li class="list-inline-item">
+					<a class="btn btn-lg mx-1">
+						<i class="fab fa-google-plus"></i>
+					</a>
+				</li>
+				<li class="list-inline-item">
+					<a class="btn btn-lg mx-1">
+						<i class="fab fa-linkedin-in"></i>
+					</a>
+				</li>
+			</ul>
+			<span class="w-100 text-center"><b>Contact us</b></span>
+			<span class="w-100 text-center">Women in Neuroscience</span>
+			<span class="w-100 text-center"><a href="mailto:bla@bla.org">womeninneuroscience@bla.org</a></span>
 		</div>
-	</div>
+	</footer>
 	{% endblock footer %}
 
 	{% block footer_scripts %}

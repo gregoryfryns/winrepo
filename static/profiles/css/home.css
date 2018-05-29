@@ -1,20 +1,42 @@
-.navbar-default {
-	margin-bottom: 0px
-}
-
 .container-fluid {
 	font-size: 16px;
 }
 
-.header-btn {
-	color: white;
-	font-size: 16px;
+#home-search {
+	height: 0;
+}
+
+#home-search>div {
+	transform: translate(0, -50%);
+	max-width: 600px;
+}
+
+#home-search input {
+	border: none;
+}
+
+#intro-text {
+	max-width: 800px;
+	margin: auto;
+}
+
+#intro-text a {
+	color: #E2D9C2;
+}
+
+.pill-btn {
 	padding: 12px 24px;
-	border-width: 2px;
-	border-color: white;
 	border-radius: 50px;
-	text-align: center;
 	width: 180px;
+}
+
+.header-buttons {
+	max-width: 500px;
+	margin: auto;
+}
+
+.header-btn {
+	border-color: white;
 }
 
 .header-btn:hover {
@@ -22,88 +44,27 @@
 	color: white;
 }
 
-#intro-container {
-	width:100%;
-	background-color: #10898B;
-	border-style: none;
-}
-
-#text-container {
-	background-color: #10898B;
-	text-align: center;
-	border-radius: 0px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	font-size: 18px;
-	color: white;
-}
-
-.intro-text a {
-	color: #E2D9C2;
-}
-
-#list-stats {
-	background-color: #fff;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	font-size: 18px;
-	padding: 20px 0px;
-}
-
-#entries-container {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
-#entrie-number {
-	font-size: 50px;
-	vertical-align: center;
-	margin-bottom: 0px;
-	margin-top: 1rem;
-}
-
-.entriesText {
-	font-size: 24px;
-	padding-top: 0px;
-	margin-top: 0px;
-}
-
-#chart-stats {
-	background-color: #fff;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	padding: 20px 0px;
-	font-size: 18px;
-}
-
+/* Stats */
 .donutCell
 {
     position: relative;
 }
 
-.donutDiv
-{
-    width: 100%;
-    height: 100%;
-}
-
-.centerLabel
+.donutValue
 {
     position: absolute;
     left: 50%;
     top: 50%;
-		transform: translate(-50%,-50%);
-		-ms-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
     text-align: center;
     font-size: 16px;
     color: #555555;
 }
 
 .position-title {
-		font-size: 18px;
-		font-weight: bold;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 .position-text {
@@ -111,19 +72,30 @@
 	color: #555555;
 }
 
-#country-stats {
-	background-color: white;
-	width: 100%;
-	text-align: center;
-	border-radius: 0px;
-	padding: 20px 0px;
-	font-size: 18px;
-}
-
 #map-container {
 	max-width: 800px;
 }
 
-#back-to-top.show {
-    opacity: 1;
+/* .google-visualization-tooltip {
+	border: 3px solid #E83535 !important;
+	border-radius: 20px !important;
+	font-size: 14px !important;
+	font-family: 'Open Sans' !important;
+	position: absolute !important;
+	width: 130px !important;
+	z-index:+1 !important;
 }
+
+.google-visualization-tooltip-item-list {
+	list-style-type: none;
+	margin: 5px !important;
+}
+
+.google-visualization-tooltip-item {
+	margin: 5px !important;
+	padding: 0 !important;
+}
+
+.google-visualization-tooltip > ul > li > span {
+	color: #555555 !important;
+} */

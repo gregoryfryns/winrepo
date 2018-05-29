@@ -19,6 +19,7 @@
 	max-width: 800px;
 	margin: auto;
 }
+
 #intro-text a {
 	color: #E2D9C2;
 }
@@ -75,7 +76,7 @@
 	max-width: 800px;
 }
 
-.google-visualization-tooltip {
+/* .google-visualization-tooltip {
 	border: 3px solid #E83535 !important;
 	border-radius: 20px !important;
 	font-size: 14px !important;
@@ -83,7 +84,6 @@
 	position: absolute !important;
 	width: 130px !important;
 	z-index:+1 !important;
-	transform: translate(0px, 40px);
 }
 
 .google-visualization-tooltip-item-list {
@@ -98,4 +98,4 @@
 
 .google-visualization-tooltip > ul > li > span {
 	color: #555555 !important;
-}
+} */

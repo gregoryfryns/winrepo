@@ -7,8 +7,11 @@ h1, h2, h3, h4, h5, h6 {
 	font-family:'Nunito', 'Lato', sans-serif;
 }
 
+.full_page {
+	padding: 65px 0px 0px 0px;
+}
 .page-container {
-	padding: 70px 50px;
+	padding: 20px 50px 70px 50px;
 }
 
 .intro p {
@@ -47,11 +50,6 @@ h1, h2, h3, h4, h5, h6 {
 	text-shadow: 0px 0px 1px white;
 }
 
-
-.footer {
-	margin-top: 50px;
-	color: white;
-	padding: 20px 10px;
-	vertical-align: middle;
-	height: 100px;
+.page-footer a {
+	color: #fff;
 }

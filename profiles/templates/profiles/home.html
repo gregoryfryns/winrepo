@@ -53,7 +53,7 @@
 				// colorAxis: { colors: ['#db9daf', '#cc063e'] },
 				colorAxis: { colors: ['#a0c1c1', '#10898B'] },
 				legend: 'none',
-				tooltip: {isHtml: true},
+				tooltip: {isHtml: false},
 			};
 
 			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
@@ -79,7 +79,7 @@
 
 {% block full_page_content %}
 <div class="container-fluid p-0" id="hero-image">
-	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid rounded w-100" alt="Responsive image">
+	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid w-100" alt="Responsive image">
 </div>
 <div class="container-fluid" id="home-search">
 	<div class="input-group bg-white rounded p-1 mx-auto">
@@ -128,7 +128,7 @@
 					</td>
 				</tr>
 			</table>
-			<a href="{% url 'profiles:index' %}" class="position-title text-secondary" id="PhDtext">PhD</a>
+			<span class="position-title text-secondary" id="PhDtext">PhD</span>
 			<p class="position-text">{{ nb_students }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
@@ -140,7 +140,7 @@
 					</td>
 				</tr>
 			</table>
-			<a href="{% url 'profiles:index' %}" class="position-title text-tertiary" id="PostDoctext">Post-doc</a>
+			<span class="position-title text-tertiary" id="PostDoctext">Post-doc</span>
 			<p class="position-text">{{ nb_postdoc }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
@@ -152,7 +152,7 @@
 					</td>
 				</tr>
 			</table>
-			<a href="{% url 'profiles:index' %}" class="position-title text-quaternary" id="Seniortext">Senior</a>
+			<span class="position-title text-quaternary" id="Seniortext">Senior</span>
 			<p class="position-text">{{ nb_senior }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
@@ -164,7 +164,7 @@
 					</td>
 				</tr>
 			</table>
-			<a href="{% url 'profiles:index' %}" class="position-title text-senary" id="Othertext">Other</a>
+			<span class="position-title text-senary" id="Othertext">Other</span>
 			<p class="position-text">{{ nb_other }} profiles</p>
 		</div>
 	</div>
