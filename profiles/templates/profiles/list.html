@@ -14,7 +14,7 @@
 {% block nav-repository-classes %}{{ block.super }} active{% endblock nav-repository-classes %}
 
 {% block full_page_content %}
-	<div id="list-search" class="w-100">
+	<div id="list-search" class="w-100 grey-bg">
 		<form>
 			<div id="search-container" class="form-row p-2">
 				<div class="col-12 col-sm-8 offset-sm-2">
@@ -27,9 +27,8 @@
 						<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
 					</div>
 				</div>
-
 			</div>
-			<div class="form-row p-2">
+			<div class="form-row p-2 text-muted">
 				<div id="underrepresented-countries" class="col-12 col-sm-10 offset-sm-2 col-lg-4 offset-lg-2">
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="underrepresented-only">
@@ -49,7 +48,7 @@
 
 {% block content %}
 	{% if profile_list %}
-		<div class="container">
+		<div class="container text-muted">
 			<div id="search-entries">
 				<span id="search-message">
 					<span class="text-primary font-weight-bold">{{ profile_list|length }}</span> entries found</span>
@@ -94,7 +93,7 @@
 								{% endif %}
 							</td>
 							<td class="col-3">
-								<a class="btn pill-btn text-white btn-secondary details" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+								<a class="btn pill-btn text-white btn-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
 							</td>
 						</tr>
 					{% endfor %}

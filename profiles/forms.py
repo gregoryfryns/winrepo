@@ -24,7 +24,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'brain_structure',
             'modalities',
             'methods',
-            'domain',
+            'domains',
             'keywords',
         ]
         labels = {

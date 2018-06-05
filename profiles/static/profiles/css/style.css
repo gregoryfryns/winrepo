@@ -1,15 +1,14 @@
 #list-search {
     padding-top: 65px;
-    background-color: #e6e6e6;
 }
 
 #results-table td {
 	white-space: normal;
 }
 
-#results-table td.details-grey {
+/* #results-table td.details-grey {
     color: #a5a5a5;
-}
+} */
 
 #results-table dl.researchDetails dt {
 	width: 70px;
@@ -29,7 +28,7 @@
 	text-align: center;
 } */
 
-#results-table a.details {
+.pill-btn {
 	border-radius: 50px;
 }
 
@@ -63,4 +62,12 @@ nav #page-number {
 
 #back-to-top.show {
     opacity: 1;
+}
+
+#field-of-research-list>div {
+    border-right: 1px solid #ccc;
+}
+
+#field-of-research-list>div:last-child {
+   border-right: none;
 }
