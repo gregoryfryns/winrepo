@@ -25,7 +25,7 @@ SECRET_KEY = '!c=(kdg^mg^1(6@8d+be*8i=+qqvs#edj3&nl3@g0&4a!4e&sa'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com', 'winrepo.org']
 
 
 # Application definition
