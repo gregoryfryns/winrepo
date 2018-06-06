@@ -1,5 +1,9 @@
 #list-search {
-    padding-top: 65px;
+    padding-top: 85px;
+}
+
+#search-message>span {
+  font-size:18px;
 }
 
 #results-table td {
@@ -9,6 +13,10 @@
 /* #results-table td.details-grey {
     color: #a5a5a5;
 } */
+
+#name {
+  color: #444;
+}
 
 #results-table dl.researchDetails dt {
 	width: 70px;
@@ -57,7 +65,7 @@ nav #page-number {
     opacity: 0;
 }
 #back-to-top:hover {
-    background: #009688;
+    background: #10898B;
 }
 
 #back-to-top.show {

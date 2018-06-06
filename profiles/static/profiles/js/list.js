@@ -28,7 +28,7 @@ var applyFilter = function() {
 
 		$('input#search').removeClass('is-invalid');
 		$('#search-message').removeClass('text-danger')
-			.html('<span class="text-primary font-weight-bold">' + $('#results-table tr:visible').length + '</span> entries found');
+			.html('<span class="text-secondary font-weight-bold">' + $('#results-table tr:visible').length + '</span> entries found');
 	}
 	catch (e) {
 		$('input#search').addClass('is-invalid');

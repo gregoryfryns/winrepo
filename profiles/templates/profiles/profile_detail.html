@@ -25,33 +25,41 @@
 {% endif %} {% endcomment %}
 
 
-<h2 class="text-primary font-weight-bold">{{ profile.name }}</h1>
-<p class="m-1 text-muted"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
-<p class="m-1 text-muted"><i class="fas fa-university"></i> {{ profile.institution }}</p>
-<p class="m-1 text-muted"><i class="fas fa-user"></i> {{ profile.position }}</p>
-
-{% if profile.email %}
-<a class="btn pill-btn text-white btn-secondary" href="mailto:{{ profile.email }}" target="_blank">
-	<i class="fas fa-envelope"></i> Contact
-</a>
-{% endif %} 
-{% if profile.webpage %}
-<a class="btn pill-btn text-white btn-secondary" href="{{ profile.webpage }}" target="_blank">
-	<i class="fas fa-user"></i> View Personal Page
-</a>
-<a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a>
-{% endif %}
+<h2 class="text-primary font-weight-bold text-center">{{ profile.name }}</h2>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 col-md-3 offset-md-3 text-muted details-grey">
+			<p><i class="fas fa-user"></i> {{ profile.position }}</p>
+			<p><i class="fas fa-university"></i> {{ profile.institution }}</p>
+			<p><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
+		</div>
+		<div class="col-12 col-md-3 text-right">
+			{% if profile.email %}
+			<p><a class="btn pill-btn text-white btn-secondary" href="mailto:{{ profile.email }}" target="_blank">
+				<i class="fas fa-envelope"></i> Contact
+			</a></p>
+			{% endif %}
+			{% if profile.webpage %}
+			<p><a class="btn pill-btn text-white btn-secondary" href="{{ profile.webpage }}" target="_blank">
+				<i class="fas fa-user"></i> View Personal Page
+			</a></p>
+			<!-- <p><a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a></p> -->
+			{% endif %}
+			<p><a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a></p>
+		</div>
+	</div>
+</div>
 
 <div id="field-of-research">
-	<h5 class="text-primary font-weight-bold">
+	<h5 class="text-primary font-weight-bold mt-4">
 		<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
 		Field of Research
-	</h2>
+	</h5>
 	<div id="field-of-research-list" class="w-100 p-4 d-flex flex-row grey-bg">
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Brain Area</h6>
 				<ul class="list-group list-group-flush">
-					{% for structure in profile.brain_structure_labels %} 
+					{% for structure in profile.brain_structure_labels %}
 					<li class="list-group-item text-muted grey-bg" style="border: none; padding: 0;">{{ structure }} </li>
 					{% endfor %}
 				</ul>
@@ -81,12 +89,51 @@
 				</ul>
 		</div>
 	</div>
-	<div class="w-100 pl-5 pr-5 pb-2 grey-bg">
-		<h6 class="text-secondary font-weight-bold">Other Keywords</h6>
-		<p class="text-muted">{{ profile.keywords }}</p>
-	</div>
 </div>
 
+{% if profile.keywords %}
+<h5 class="text-primary font-weight-bold mt-4">
+	<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
+	Other keywords
+</h5>
+<div>
+	<p>{{ profile.keywords }}</p>
+</div>
+{% endif %}
+
+<div class="row">
+	<div class="col-12 col-md-8">
+		<h5 class="text-primary font-weight-bold mt-4">
+			<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
+				Recommendations
+		</h5>
+	</div>
+	<div class="col-12 col-md-4 text-right">
+		<a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button">Recommend</a>
+	</div>
+</div>
+<ul id="profile-quotes" class="list-unstyled">
+{% for recommendation in profile.recommendation_set.all %}
+<div class="p-2">
+	<div id="field-of-research-list" class="grey-bg p-1">
+		<li class="quote">
+			<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
+			<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
+			<span class="quote-seen-at-conf">
+				{% if recommendation.seen_at_conf %}
+					<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
+				{% else %}
+					<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
+				{% endif %}
+			</span>
+			<blockquote><p>{{ recommendation.comment }}</p></blockquote>
+		</li>
+	</div>
+</div>
+{% endfor %}
+</ul>
+<!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
+Noticed something wrong in your profile? Send email with instructions to update it by clicking <a href="{% url 'profiles:edit' profile.id %}">here</a>.
 
 <nav id="filtered-list-navigation" aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
@@ -100,31 +147,9 @@
   </ul>
 </nav>
 
-<h2>{{ profile.recommendation_set.all|length }} Recommendations </h2>
-<a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-btn"></span> Write a recommendation</a>
-<ul id="profile-quotes" class="list-unstyled">
-{% for recommendation in profile.recommendation_set.all %}
-<li class="quote">
-	<span class="far fa-thumbs-up" id="recommended-icon"></span>
-	<span class="quote-reviewer">{{ recommendation.reviewer_name }}</span>
-	<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
-	<span class="quote-seen-at-conf">
-		{% if recommendation.seen_at_conf %}
-			<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
-		{% else %}
-			<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
-		{% endif %}
-	</span>
-	<blockquote><p>{{ recommendation.comment }}</p></blockquote>
-</li>
-{% endfor %}
-</ul>
-<!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
-Noticed something wrong in your profile? Send email with instructions to update it by clicking <a href="{% url 'profiles:edit' profile.id %}">here</a>.
-
 {% endblock content %}
 
-{% block footer_scripts %} 
+{% block footer_scripts %}
 	{{ block.super }}
 	<script src="{% static 'profiles/js/profile_detail.js' %}"></script>
 {% endblock footer_scripts %}
