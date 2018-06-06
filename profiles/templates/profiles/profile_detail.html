@@ -24,31 +24,31 @@
 </ul>
 {% endif %} {% endcomment %}
 
-
 <h2 class="text-primary font-weight-bold text-center">{{ profile.name }}</h2>
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-12 col-md-3 offset-md-3 text-muted details-grey">
-			<p><i class="fas fa-user"></i> {{ profile.position }}</p>
-			<p><i class="fas fa-university"></i> {{ profile.institution }}</p>
-			<p><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
+	<div class="row no-gutters">
+		<div class="col-12 col-md-4 offset-md-4 text-muted details-grey">
+			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
+			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
+			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 		</div>
-		<div class="col-12 col-md-3 text-right">
+		<div class="col-12 col-md-4">
 			{% if profile.email %}
-			<p><a class="btn pill-btn text-white btn-secondary" href="mailto:{{ profile.email }}" target="_blank">
+			<p class="m-1"><a class="btn pill-btn text-white btn-secondary" href="mailto:{{ profile.email }}" target="_blank">
 				<i class="fas fa-envelope"></i> Contact
 			</a></p>
 			{% endif %}
 			{% if profile.webpage %}
-			<p><a class="btn pill-btn text-white btn-secondary" href="{{ profile.webpage }}" target="_blank">
+			<p class="m-1"><a class="btn pill-btn text-white btn-secondary" href="{{ profile.webpage }}" target="_blank">
 				<i class="fas fa-user"></i> View Personal Page
 			</a></p>
 			<!-- <p><a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a></p> -->
 			{% endif %}
-			<p><a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a></p>
+			<p class="m-1"><a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a></p>
 		</div>
 	</div>
 </div>
+
 
 <div id="field-of-research">
 	<h5 class="text-primary font-weight-bold mt-4">
@@ -108,9 +108,9 @@
 				Recommendations
 		</h5>
 	</div>
-	<div class="col-12 col-md-4 text-right">
-		<a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button">Recommend</a>
-	</div>
+	<!--<div class="col-12 col-md-4 text-right pt-3 pr-4">
+		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a>
+	</div>-->
 </div>
 <ul id="profile-quotes" class="list-unstyled">
 {% for recommendation in profile.recommendation_set.all %}
