@@ -78,12 +78,12 @@
 {% endblock page_container %}
 
 {% block full_page_content %}
-<div class="container-fluid p-0" id="hero-image">
-	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid w-100" alt="Responsive image">
+<div class="container-fluid p-0">
+	<img src="{% static 'profiles/images/banner2.png' %}" class="img-fluid"  id="hero-image" alt="Responsive image">
 </div>
 <div class="container-fluid" id="home-search">
 	<div class="input-group bg-white rounded p-1 mx-auto">
-		<input type="text" id="search-input" class="form-control" placeholder="Search here..." aria-label="Search">
+		<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search">
 		<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
 	</div>
 </div>
@@ -183,7 +183,7 @@
 			<p class="text-dark text-justify">Download our slide and insert it at the end of your presentation!
 				It will raise awareness on the issue of gender equity in neuroscience and show that there are resources to
 				help conference organizers. In addition, it will encourage senior researchers to submit recommendations of their peers.</p>
-			<a href="#" class="btn pill-btn slide-btn text-white btn-secondary">Download slide</a>
+			<a href="{% static 'images/slide.pdf' %}" class="btn pill-btn slide-btn text-white btn-secondary" download="WinRepo_Slide">Download slide</a>
 		</div>
 	</div>
 </div>
@@ -191,5 +191,5 @@
 {% endblock full_page_content %}
 
 {% block footer_scripts %} {{ block.super }}
-	<script src="{% static 'profiles/js/home.js' %}"></script> 
+	<script src="{% static 'profiles/js/home.js' %}"></script>
 {% endblock footer_scripts %}
