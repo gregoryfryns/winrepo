@@ -6,23 +6,35 @@
   font-size:18px;
 }
 
+.entries-number {
+  border-bottom: 2px solid #888888;
+}
+
+.table-entry {
+  border-bottom: 1px solid #afafaf;
+}
+
+.num-rec {
+  font-size: 24px;
+}
+
+
+/*
 #results-table td {
 	white-space: normal;
 }
-
-/* #results-table td.details-grey {
+#results-table td.details-grey {
     color: #a5a5a5;
-} */
-
-#name {
-  color: #444;
 }
-
 #results-table dl.researchDetails dt {
 	width: 70px;
 	color: #a7a7a7;
 	font-size: small;
 }
+*/
+
+
+
 
 /* #results-table dl.researchDetails dd {
 	margin-left: 90px;
