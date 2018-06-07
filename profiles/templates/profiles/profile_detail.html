@@ -24,24 +24,26 @@
 </ul>
 {% endif %} {% endcomment %}
 
-<h2 class="text-primary font-weight-bold text-center">{{ profile.name }}</h2>
 <div class="container-fluid">
 	<div class="row no-gutters">
-		<div class="col-12 col-md-4 offset-md-4 text-muted details-grey">
+		<div class="col-12 col-md-4 text-muted details-grey">
+			<h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
 			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
 			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
 			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 		</div>
-		<div class="col-12 col-md-4">
+		<div class="col-12 col-md-2 offset-md-6 text-muted align-bottom text-center">
 			{% if profile.email %}
-			<p class="m-1"><a class="btn pill-btn text-white btn-secondary" href="mailto:{{ profile.email }}" target="_blank">
-				<i class="fas fa-envelope"></i> Contact
-			</a></p>
+				<p class="m-1"><a class="text-secondary" href="mailto:{{ profile.email }}" target="_blank">
+					<i class="fas fa-envelope"></i> Contact</a></p>
+			{% else %}
+				<p class="m-1">Contact not provided. </p>
 			{% endif %}
 			{% if profile.webpage %}
-			<p class="m-1"><a class="btn pill-btn text-white btn-secondary" href="{{ profile.webpage }}" target="_blank">
-				<i class="fas fa-user"></i> View Personal Page
-			</a></p>
+				<p class="m-1"><a class="text-secondary" href="{{ profile.webpage }}" target="_blank">
+					<i class="fas fa-user"></i> Personal webpage</a></p>
+			{% else %}
+				<p class="m-1">Wepage not provided.</p>
 			<!-- <p><a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a></p> -->
 			{% endif %}
 			<p class="m-1"><a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a></p>
@@ -112,28 +114,36 @@
 		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a>
 	</div>-->
 </div>
-<ul id="profile-quotes" class="list-unstyled">
-{% for recommendation in profile.recommendation_set.all %}
-<div class="p-2">
-	<div id="field-of-research-list" class="grey-bg p-1">
-		<li class="quote">
-			<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
-			<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
-			<span class="quote-seen-at-conf">
-				{% if recommendation.seen_at_conf %}
-					<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
-				{% else %}
-					<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
-				{% endif %}
-			</span>
-			<blockquote><p>{{ recommendation.comment }}</p></blockquote>
-		</li>
-	</div>
-</div>
-{% endfor %}
-</ul>
+{% if profile.recommendation_set.all %}
+	<ul id="profile-quotes" class="list-unstyled">
+	{% for recommendation in profile.recommendation_set.all %}
+		<div class="p-2">
+			<div id="field-of-research-list" class="grey-bg p-1">
+				<li class="quote">
+					<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
+					<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
+					<span class="quote-seen-at-conf">
+						{% if recommendation.seen_at_conf %}
+							<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
+						{% else %}
+							<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
+						{% endif %}
+					</span>
+					<blockquote><p>{{ recommendation.comment }}</p></blockquote>
+				</li>
+			</div>
+		</div>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p class="m-1">No recommendations yet. </p>
+	<p class="m-1">Have you seen <b>{{ profile.name }}</b> at
+		a conference? If so, consider <a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing</a> her one.</p>
+{% endif %}
 <!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
-Noticed something wrong in your profile? Send email with instructions to update it by clicking <a href="{% url 'profiles:edit' profile.id %}">here</a>.
+<div class = "mt-4">
+<p class="m-1">Something incorrect in your profile? Send us an <a href="mailto:admin@winrepo.org">email</a> with instructions to update it.</p>
+</div>
 
 <nav id="filtered-list-navigation" aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
