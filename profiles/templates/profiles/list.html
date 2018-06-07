@@ -14,7 +14,7 @@
 {% block nav-repository-classes %}{{ block.super }} active{% endblock nav-repository-classes %}
 
 {% block full_page_content %}
-	<div id="list-search" class="w-100">
+	<div id="list-search" class="w-100 grey-bg">
 		<form>
 			<div id="search-container" class="form-row p-2">
 				<div class="col-12 col-sm-8 offset-sm-2">
@@ -27,7 +27,6 @@
 						<input id="search" class="form-control" type="text" placeholder="Enter keywords separated with spaces..." />
 					</div>
 				</div>
-
 			</div>
 			<div class="form-row p-2">
 				<div id="underrepresented-countries" class="col-12 col-sm-10 offset-sm-2 col-lg-4 offset-lg-2">
@@ -50,9 +49,8 @@
 {% block content %}
 	{% if profile_list %}
 		<div class="container">
-			<div id="search-entries">
-				<span id="search-message">
-					<span class="text-primary font-weight-bold">{{ profile_list|length }}</span> entries found</span>
+			<div>
+					<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profile_list|length }}</span> entries found. </span>
 			</div>
 			<table id="results-table" class="table">
 				<tbody>
@@ -69,13 +67,13 @@
 					{% for profile in profile_list %}
 						<tr>
 							<td class="profile_id" style="display:none;">{{ profile.id }}</td>
-							<td class="col-3">
-								<h4 class="searchable text-primary">{{ profile.name }}</h4>
+							<td class="col-2">
+								<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
 							</td>
-							<td class="col-4 details-grey">
-								<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
-								<p class="m-1 searchable"><i class="fas fa-university"></i> {{ profile.institution }}</p>
+							<td class="col-4 details-grey text-muted">
 								<p class="m-1 searchable{% if profile.is_senior %} senior{% endif %}"><i class="fas fa-user"></i> {{ profile.position }}</p>
+								<p class="m-1 searchable"><i class="fas fa-university"></i> {{ profile.institution }}</p>
+								<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 							</td>
 
 							<td style="display:none;">
@@ -86,15 +84,15 @@
 									<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
 								</dl>
 							</td>
-							<!-- <td class="searchable col-md-4 hidden-xs">{{ profile.keywords}}</td> -->
+							<td class="searchable col-2 hidden-xs">{{ profile.keywords}}</td>
 							<td class="col-2 hidden-xs">
 								{% if profile.recommendation_set.all|length %}
-								<span class="text-primary"><i class="fas fa-comment"></i> {{ profile.recommendation_set.all|length }}</span>
+								<span><i class="fas fa-comment text-senary"></i> {{ profile.recommendation_set.all|length }}</span>
 									<!-- <a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a> -->
 								{% endif %}
 							</td>
-							<td class="col-3">
-								<a class="btn pill-btn text-white btn-secondary details" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+							<td class="col-2">
+								<a class="btn pill-btn btn-outline-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
 							</td>
 						</tr>
 					{% endfor %}

@@ -37,7 +37,7 @@ class UpdateProfile(SuccessMessageMixin, generic.UpdateView):
         'brain_structure',
         'modalities',
         'methods',
-        'domain',
+        'domains',
         'keywords',
     ]
     success_message = "The profile for %(name)s was updated successfully"

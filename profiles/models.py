@@ -97,7 +97,7 @@ class Profile(models.Model):
     brain_structure = MultiSelectField(choices=STRUCTURE_CHOICES, blank=True)
     modalities = MultiSelectField(choices=MODALITIES_CHOICES, blank=True)
     methods = MultiSelectField(choices=METHODS_CHOICES, blank=True)
-    domain = MultiSelectField(choices=DOMAIN_CHOICES, blank=True)
+    domains = MultiSelectField(choices=DOMAIN_CHOICES, blank=True)
     keywords = models.CharField(max_length=250, blank=True)
     publish_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -109,6 +109,18 @@ class Profile(models.Model):
     def is_senior(self):
         senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
         return any(keyword in self.position for keyword in senior_keywords)
+
+    def brain_structure_labels(self):
+        return [dict(self.STRUCTURE_CHOICES).get(item, item) for item in self.brain_structure]
+
+    def modalities_labels(self):
+        return [dict(self.MODALITIES_CHOICES).get(item, item) for item in self.modalities]
+
+    def methods_labels(self):
+        return [dict(self.METHODS_CHOICES).get(item, item) for item in self.methods]
+
+    def domains_labels(self):
+        return [dict(self.DOMAIN_CHOICES).get(item, item) for item in self.domains]
 
 class Recommendation(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)

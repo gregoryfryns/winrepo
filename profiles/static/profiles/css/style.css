@@ -1,14 +1,21 @@
 #list-search {
-    padding-top: 65px;
-    background-color: #e6e6e6;
+    padding-top: 85px;
+}
+
+#search-message>span {
+  font-size:18px;
 }
 
 #results-table td {
 	white-space: normal;
 }
 
-#results-table td.details-grey {
+/* #results-table td.details-grey {
     color: #a5a5a5;
+} */
+
+#name {
+  color: #444;
 }
 
 #results-table dl.researchDetails dt {
@@ -29,7 +36,7 @@
 	text-align: center;
 } */
 
-#results-table a.details {
+.pill-btn {
 	border-radius: 50px;
 }
 
@@ -58,9 +65,17 @@ nav #page-number {
     opacity: 0;
 }
 #back-to-top:hover {
-    background: #009688;
+    background: #10898B;
 }
 
 #back-to-top.show {
     opacity: 1;
+}
+
+#field-of-research-list>div {
+    border-right: 1px solid #ccc;
+}
+
+#field-of-research-list>div:last-child {
+   border-right: none;
 }

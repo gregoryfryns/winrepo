@@ -22,7 +22,7 @@ with open('scripts/win.tsv', newline='', encoding="utf8") as csvfile:
                     position = row[5],
                     webpage = row[6],
                     brain_structure = row[8],
-                    domain = row[9],
+                    domains = row[9],
                     modalities = row[10],
                     methods = row[11],
                     keywords = row[12],
