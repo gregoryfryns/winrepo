@@ -10,7 +10,7 @@ class Country(models.Model):
 
     class Meta:
         verbose_name_plural = "countries"
-        
+
     def __str__(self):
         return self.name
 
@@ -25,7 +25,7 @@ class Profile(models.Model):
     ACP = 'Associate Professor'
     PRF = 'Professor'
     DIR = 'Group leader/ Director/ Head of Department'
-    
+
     POSITION_CHOICES = (
         (PHD, 'PhD student'),
         (MDR, 'Medical Doctor'),
@@ -45,7 +45,7 @@ class Profile(models.Model):
         ('R', 'Region'),
         ('W', 'Whole Brain')
     )
-    
+
     MODALITIES_CHOICES = (
         ('EP', 'Electrophysiology (EEG, MEG, ECoG)'),
         ('MR', 'MRI'),
@@ -104,7 +104,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.name
-        
+
     @property
     def is_senior(self):
         senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
@@ -123,10 +123,32 @@ class Profile(models.Model):
         return [dict(self.DOMAIN_CHOICES).get(item, item) for item in self.domains]
 
 class Recommendation(models.Model):
+    PHD = 'PhD student'
+    MDR = 'Medical Doctor'
+    PDR = 'Post-doctoral researcher'
+    SRE = 'Senior researcher/ scientist'
+    LEC = 'Lecturer'
+    ATP = 'Assistant Professor'
+    ACP = 'Associate Professor'
+    PRF = 'Professor'
+    DIR = 'Group leader/ Director/ Head of Department'
+
+    POSITION_CHOICES = (
+        (PHD, 'PhD student'),
+        (MDR, 'Medical Doctor'),
+        (PDR, 'Post-doctoral researcher'),
+        (SRE, 'Senior researcher/ scientist'),
+        (LEC, 'Lecturer'),
+        (ATP, 'Assistant Professor'),
+        (ACP, 'Associate Professor'),
+        (PRF, 'Professor'),
+        (DIR, 'Group leader/ Director/ Head of Department')
+    )
+
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=100, blank=False)
     reviewer_email = models.EmailField(blank=False)
-    reviewer_position = models.CharField(max_length=30, blank=False)
+    reviewer_position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
     seen_at_conf = models.BooleanField()
     comment = models.TextField(blank=False)

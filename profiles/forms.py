@@ -14,7 +14,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
     class Meta:
         model = Profile
         fields = [
-            'name', 
+            'name',
             'institution',
             'country',
             'email',
@@ -44,15 +44,30 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'webpage': _('Make sure people can look you up easily by providing a link to a personal website, profile or institution site.'),
             'position': _('Please choose your \'highest\' title from the proposed options to ease future searches'),
             'grad_date': _('Leave empty if no PhD (yet). Day unimportant if not remembered, just put the 1st.'),
-            'modalities': _('Please preferentially choose from the proposed options to ease future searches. There are free keywords at the end of the questionnaire to input specialized information.'),
-            'methods': _('Please preferentially choose from the proposed options to ease future searches. There are free keywords at the end of the questionnaire to input specialized information.'),
-            'domain': _('Please preferentially choose from the proposed options to ease future searches. There are free keywords at the end of the questionnaire to input specialized information.'),
+            'domain': _('There are free keywords at the end of the questionnaire to input further information.'),
         }
         # widgets = {
         #     'name'
         # }
-
-
+class RecommendModelForm(CaptchaForm, forms.ModelForm):
+    class Meta:
+        model = Recommendation
+        fields = [
+            'reviewer_name',
+            'reviewer_institution',
+            'reviewer_position',
+            'seen_at_conf',
+            'comment',
+        ]
+        labels = {
+            'reviewer_name': _('Full Name'),
+            'reviewer_institution': _('Institution/Company'),
+            'seen_at_conf': _('I saw one of her talks'),
+        }
+        help_texts = {
+            'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
+            'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
+        }
 # class CreateProfileForm(CaptchaForm, forms.Form):
 #     name = forms.CharField(
 #         max_length=100, label='Full Name', help_text='Please provide your full name')

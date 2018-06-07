@@ -16,7 +16,7 @@
 {% block nav-repository-classes %}active{% endblock nav-repository-classes %}
 
 {% block content %}
-<p> Writing a recommendation for: {{ profile.name }}</p>
+<p> Writing a recommendation for: <b>{{ profile.name }}</b></p>
 <form action="" method="post">
 	{% csrf_token %}
     {% bootstrap_form form %}

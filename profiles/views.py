@@ -11,7 +11,7 @@ import pdb;
 
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileModelForm
+from .forms import CreateProfileModelForm, RecommendModelForm
 
 class ListProfiles(generic.ListView):
     template_name = 'profiles/list.html'
@@ -73,16 +73,9 @@ class CreateProfile(SuccessMessageMixin, generic.FormView):
 #     def get_success_url(self):
 #         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
 
-
-class CreateRecommendation(generic.CreateView):
-    model = Recommendation
-    fields = [
-        'reviewer_name',
-        'reviewer_email',
-        'reviewer_position',
-        'seen_at_conf',
-        'comment',
-    ]
+class CreateRecommendation(SuccessMessageMixin, generic.FormView):
+    template_name = 'profiles/recommendation_form.html'
+    form_class = RecommendModelForm
 
     def get_success_url(self):
         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
