@@ -7,8 +7,11 @@ h1, h2, h3, h4, h5, h6 {
 	font-family:'Nunito', 'Lato', sans-serif;
 }
 
+.full_page {
+	padding: 65px 0px 0px 0px;
+}
 .page-container {
-	padding: 70px 50px;
+	padding: 20px 50px 70px 50px;
 }
 
 .intro p {
@@ -21,18 +24,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
-    color: #10898B;
+    color: #555;
 }
 .navbar-custom .navbar-nav .nav-link {
-    color: #10898B;
+    color: #555;
 }
 .navbar-custom .nav-item.active .nav-link {
-	color: #CC063E; /*red*/
+	color: #10898B; /*red #CC063E*/
 	text-decoration: underline;
 	font-weight: bold;
 }
 .navbar-custom .nav-item:hover .nav-link {
-    color: #CC063E;
+    color: #10898B;
 }
 
 /* head */
@@ -49,4 +52,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .page-footer a {
 	color: #fff;
+}
+
+.grey-bg {
+    background-color: #e6e6e6;
 }
