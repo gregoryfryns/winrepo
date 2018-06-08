@@ -10,9 +10,6 @@ h1, h2, h3, h4, h5, h6 {
 .full_page {
 	padding: 65px 0px 0px 0px;
 }
-.page-container {
-	padding: 20px 50px 70px 50px;
-}
 
 .intro p {
 	font-size: medium;
@@ -55,5 +52,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .grey-bg {
-    background-color: #e6e6e6;
+	background-color: #e6e6e6;
+	color: #444;
 }

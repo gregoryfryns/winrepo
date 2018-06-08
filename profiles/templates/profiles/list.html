@@ -29,13 +29,13 @@
 				</div>
 			</div>
 			<div class="form-row p-2">
-				<div id="underrepresented-countries" class="col-12 col-sm-8 offset-sm-4 col-lg-4 offset-lg-3">
+				<div id="underrepresented-countries" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-3">
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="underrepresented-only">
 						<label class="form-check-label" for="underrepresented-only">Under Represented Countries Only</label>
 					</div>
 				</div>
-				<div id="senior-positions" class="col-12 col-sm-8 offset-sm-4 col-lg-4 offset-lg-0">
+				<div id="senior-positions" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-0">
 					<div class="form-check">
 						<input type="checkbox" class="form-check-input" id="senior-only">
 						<label class="form-check-label" for="senior-only">Senior Positions Only</label>
@@ -47,71 +47,52 @@
 {% endblock full_page_content %}
 
 {% block content %}
-<div class="container-fluid">
-	<div class="row no-gutters">
-		<div class="col-12 col-md-10 offset-md-1 col-xs-12 offset-xs-0">
-			{% if profile_list %}
-				<div class="container">
-					<div class = "row pb-3 mt-4 no-gutters entries-number">
-							<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profile_list|length }}</span> entries found. </span>
-					</div>
-					<!--<table id="results-table" class="table">
-						<tbody>
-							<tr>
-								<th style="display:none;">ID</th>
-								<th class="col-md-3">Name</th>
-								<th class="col-md-3">Position</th>
-								<th style="display:none;">Field of Research</th>
-								<th class="col-md-4 hidden-xs">Keywords</th>
-								<th class="col-md-1">Details</th>
-								<th class="col-md-1 hidden-xs">Recommendations</th>
-							</tr> -->
-					<div id="results-table">
-						{% for profile in profile_list %}
-							<div class="table-entry">
-								<div class="row mt-4 mb-4 no-gutters">
-										<div class="profile_id" style="display:none;">{{ profile.id }}</div>
-										<div class="col-xs-6 col-sm-4 col-lg-3">
-											<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
-										</div>
-										<div class="col-sm-4 col-lg-3 details-grey text-muted d-none d-sm-block">
-											<p class="m-1 searchable{% if profile.is_senior %} senior{% endif %}"><i class="fas fa-user"></i> {{ profile.position }}</p>
-											<p class="m-1 searchable"><i class="fas fa-university"></i> {{ profile.institution }}</p>
-											<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
-										</div>
-
-										<div style="display:none;">
-											<dl>
-												<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
-												<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
-												<dt>Modalities</dt><dd class="searchable">{{ profile.modalities }}</dd>
-												<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
-											</dl>
-										</div>
-										<div class="searchable col-lg-3 mt-1 d-none d-lg-block">{{ profile.keywords}}</div>
-										<div class="col-md-1 mt-1 d-none d-md-block text-primary">
-											{% if profile.recommendation_set.all|length %}
-											<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
-												<!-- <a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a> -->
-											{% endif %}
-										</div>
-										<div class="col-xs-6 col-sm-4 col-md-2 mt-1 text-xs-left text-sm-right">
-											<a class="btn pill-btn btn-outline-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
-										</div>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-				<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
-				<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
-
-			{% else %}
-				<p>No matching entries.</p>
-			{% endif %}
+	{% if profile_list %}
+		<div class = "pb-3 no-gutters entries-number">
+			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profile_list|length }}</span> entries found. </span>
 		</div>
-	</div>
-</div>
+		<div id="results-table">
+			{% for profile in profile_list %}
+				<div class="table-entry">
+					<div class="row mt-4 mb-4 no-gutters">
+						<div class="profile_id d-none">{{ profile.id }}</div>
+						<div class="col-xs-12 col-sm-4 col-lg-3">
+							<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
+						</div>
+						<div class="col-xs-12 col-sm-4 col-lg-3 details-grey text-muted">
+							<p class="m-1 searchable{% if profile.is_senior %} senior{% endif %}"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
+							<p class="m-1 searchable"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
+							<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
+						</div>
+
+						<div class="d-none">
+							<dl>
+								<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
+								<dt>Domain</dt><dd class="searchable">{{ profile.domain }}</dd>
+								<dt>Modalities</dt><dd class="searchable">{{ profile.modalities }}</dd>
+								<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
+							</dl>
+						</div>
+						<div class="searchable col-lg-3 mt-1 d-none d-lg-block">{{ profile.keywords}}</div>
+						<div class="col-md-1 mt-1 d-none d-md-block text-primary">
+							{% if profile.recommendation_set.all|length %}
+							<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
+								<!-- <a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a> -->
+							{% endif %}
+						</div>
+						<div class="col-xs-12 col-sm-4 col-md-2 mt-1 text-xs-left text-sm-right">
+							<a class="btn pill-btn btn-outline-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+						</div>	
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+		<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
+
+	{% else %}
+		<p>No matching entries.</p>
+	{% endif %}
 {% endblock content %}
 
 {% block footer_scripts %}

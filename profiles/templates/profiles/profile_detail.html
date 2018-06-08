@@ -57,16 +57,16 @@
 
 
 <div id="field-of-research">
-	<h5 class="text-primary font-weight-bold mt-4">
+	<h5 class="text-primary font-weight-bold mt-5">
 		<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
 		Field of Research
 	</h5>
-	<div id="field-of-research-list" class="w-100 p-4 d-flex flex-row grey-bg">
+	<div id="field-of-research-list" class="w-100 p-4 mt-3 d-flex flex-row grey-bg rounded">
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Brain Area</h6>
 				<ul class="list-group list-group-flush">
 					{% for structure in profile.brain_structure_labels %}
-					<li class="list-group-item text-muted grey-bg" style="border: none; padding: 0;">{{ structure }} </li>
+					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ structure }} </li>
 					{% endfor %}
 				</ul>
 		</div>
@@ -74,7 +74,7 @@
 			<h6 class="text-secondary font-weight-bold">Domain</h6>
 				<ul class="list-group list-group-flush">
 					{% for domain in profile.domains_labels %}
-					<li class="list-group-item text-muted grey-bg" style="border: none; padding: 0;">{{ domain }} </li>
+					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ domain }} </li>
 					{% endfor %}
 				</ul>
 		</div>
@@ -82,7 +82,7 @@
 			<h6 class="text-secondary font-weight-bold">Modalities</h6>
 				<ul class="list-group list-group-flush">
 					{% for modality in profile.modalities_labels %}
-					<li class="list-group-item text-muted grey-bg" style="border: none; padding: 0;">{{ modality }} </li>
+					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ modality }} </li>
 					{% endfor %}
 				</ul>
 		</div>
@@ -90,7 +90,7 @@
 			<h6 class="text-secondary font-weight-bold">Methods</h6>
 				<ul class="list-group list-group-flush">
 					{% for method in profile.methods_labels %}
-					<li class="list-group-item text-muted grey-bg" style="border: none; padding: 0;">{{ method }} </li>
+					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ method }} </li>
 					{% endfor %}
 				</ul>
 		</div>
@@ -98,53 +98,49 @@
 </div>
 
 {% if profile.keywords %}
-<h5 class="text-primary font-weight-bold mt-4">
-	<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
-	Other keywords
-</h5>
-<div>
-	<p>{{ profile.keywords }}</p>
+<div id="keywords">
+	<h5 class="text-primary font-weight-bold mt-5">
+		<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
+		Other keywords
+	</h5>
+	<div class="grey-bg p-4 mt-3 rounded">
+		<p>{{ profile.keywords }}</p>
+	</div>
 </div>
 {% endif %}
 
-<div class="row">
-	<div class="col-12 col-md-8">
-		<h5 class="text-primary font-weight-bold mt-4">
-			<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
-				Recommendations
-		</h5>
-	</div>
+<div id="recommendations">
+	<h5 class="text-primary font-weight-bold mt-5">
+		<span class="text-secondary"><i class="fas fa-chevron-circle-right"></i></span>
+			Recommendations
+	</h5>
 	<!--<div class="col-12 col-md-4 text-right pt-3 pr-4">
 		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a>
 	</div>-->
+	{% if profile.recommendation_set.all %}
+	<span class="text-primary float-right" style="margin-top:-34px;"><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
+		<ul id="profile-quotes" class="list-unstyled">
+		{% for recommendation in profile.recommendation_set.all %}
+			<li class="quote grey-bg p-4 mt-3 rounded">
+				<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
+				<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
+				<span class="quote-seen-at-conf">
+					{% if recommendation.seen_at_conf %}
+						<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
+					{% else %}
+						<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
+					{% endif %}
+				</span>
+				<blockquote><p>{{ recommendation.comment }}</p></blockquote>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p class="m-1">No recommendations yet. </p>
+	{% endif %}
+	<p class="m-1">Have you seen <b>{{ profile.name }}</b> at
+		a conference? If so, consider <a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her a recommendation.</a></p>
 </div>
-{% if profile.recommendation_set.all %}
-	<ul id="profile-quotes" class="list-unstyled">
-	{% for recommendation in profile.recommendation_set.all %}
-		<div class="p-2">
-			<div id="field-of-research-list" class="grey-bg p-1">
-				<li class="quote">
-					<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
-					<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
-					<span class="quote-seen-at-conf">
-						{% if recommendation.seen_at_conf %}
-							<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
-						{% else %}
-							<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
-						{% endif %}
-					</span>
-					<blockquote><p>{{ recommendation.comment }}</p></blockquote>
-				</li>
-			</div>
-		</div>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p class="m-1">No recommendations yet. </p>
-{% endif %}
-<p class="m-1">Have you seen <b>{{ profile.name }}</b> at
-	a conference? If so, consider <a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her a recommendation.</a></p>
-
 <!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
 <div class = "mt-5">
 <p class="m-1 text-muted">Something incorrect in your profile? Send us an <a href="mailto:admin@winrepo.org">email</a> with instructions to update it.</p>
