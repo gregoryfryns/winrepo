@@ -1,9 +1,23 @@
 #list-search {
-    padding-top: 85px;
+    padding-top: 100px;
+    padding-bottom: 30px;
 }
 
 #search-message>span {
   font-size:18px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#search {
+  line-height: 2.5rem;
+  border: white;
+  border-left: #e6e6e6;
+}
+
+.input-group-text {
+  line-height: 2.5rem;
+  border: white;
 }
 
 .entries-number {
