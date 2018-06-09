@@ -30,27 +30,31 @@
 
 <div class="container-fluid">
 	<div class="row no-gutters">
-		<div class="col-12 col-md-4 offset-md-1 text-muted details-grey">
+		<div class="col-12 col-md-8 text-muted details-grey">
 			<h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
 			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
 			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
 			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 		</div>
-		<div class="col-12 col-md-2 offset-md-5 pt-4 text-muted align-bottom text-right">
-			{% if profile.email %}
-				<p class="m-1"><a class="text-secondary" href="mailto:{{ profile.email }}">
-					<i class="fas fa-envelope"></i> Contact</a></p>
-			{% else %}
-			<p class="m-1 text-muted"><i class="fas fa-envelope"></i> Contact</p>
-			{% endif %}
-			{% if profile.webpage %}
-				<p class="m-1"><a class="text-secondary" href="{{ profile.webpage }}" target="_blank">
-					<i class="fas fa-user"></i> Personal webpage</a></p>
-			{% else %}
-				<p class="m-1 text-muted"><i class="fas fa-user"></i> Personal webpage</p>
-			<!-- <p><a href="{{ profile.webpage }}" class="btn btn-primary" role="button" target="_blank"><i class="fas fa-user"></i></a></p> -->
-			{% endif %}
-			<p class="m-1"><a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}">Recommend</a></p>
+		<div class="col-12 col-md-4 text-muted align-bottom text-right">
+				<p class="m-1">
+					{% if profile.email %}
+						<a class="btn pill-btn text-white btn-secondary mr-2" href="mailto:{{ profile.email }}">
+							<i class="fas fa-envelope"></i></a>
+					{% else %}
+					<a class="btn pill-btn text-white btn-senary disabled mr-2" href="mailto:{{ profile.email }}" aria-disabled="true">
+						<i class="fas fa-envelope"></i></a>
+					{% endif %}
+					{% if profile.webpage %}
+						<a class="btn pill-btn text-white btn-secondary mr-2" href="{{ profile.webpage }}" target="_blank">
+							<i class="fas fa-external-link-alt"></i></a>
+					{% else %}
+						<a class="btn pill-btn text-white btn-senary disabled mr-2" href="{{ profile.webpage }}" target="_blank" aria-disabled="true">
+							<i class="fas fa-external-link-alt"></i></a>
+					{% endif %}
+					<a class="btn pill-btn text-white btn-secondary" href="{% url 'profiles:recommend' profile.id %}">
+					<i class="fas fa-comment"></i></a>
+				</p>
 		</div>
 	</div>
 </div>
