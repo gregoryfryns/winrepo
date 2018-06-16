@@ -32,43 +32,12 @@
   font-size: 24px;
 }
 
-
-/*
-#results-table td {
-	white-space: normal;
-}
-#results-table td.details-grey {
-    color: #a5a5a5;
-}
-#results-table dl.researchDetails dt {
-	width: 70px;
-	color: #a7a7a7;
-	font-size: small;
-}
-*/
-
-
-
-
-/* #results-table dl.researchDetails dd {
-	margin-left: 90px;
+#results-nav a.pill-btn {
+  width: 110px;
 }
 
-#results-table td.col-md-1 {
-	text-align: center;
-}
-
-#results-table th.col-md-1 {
-	text-align: center;
-} */
-
-.pill-btn {
-	border-radius: 50px;
-}
-
-nav #page-number {
-	cursor: default;
-	width: 240px;
+#page-number {
+  line-height: 2.9em;
 }
 
 #back-to-top {

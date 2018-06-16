@@ -32,10 +32,11 @@
 	<div class="row no-gutters">
 		<div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
 			<h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
-			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
+			<p class="m-1"><span class="float-left"><i class="fas fa-user"></i></span> {{ profile.position }}</p>
 			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
 			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 			{% if profile.grad_year %}<p class="m-1"><i class="fas fa-graduation-cap"></i> {{ profile.grad_month_labels }} {{ profile.grad_year }}</p>{% endif %}
+			<div id="profile-id" class="d-none">{{ profile.id }}</div><!-- Used to pass profile ID to jQuery in profile_details.js -->
 		</div>
 		<div class="col-xs-6 col-sm-4 col-md-3">
 			<div class="d-flex flex-column">
@@ -118,41 +119,54 @@
 		<ul id="profile-quotes" class="list-unstyled">
 		{% for recommendation in profile.recommendation_set.all %}
 			<li class="quote grey-bg p-4 mt-3 rounded">
-				<span class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}</span>
-				<span class="quote-institution">{{ recommendation.reviewer_institution }} ({{ recommendation.reviewer_position }})</span>
-				<span class="quote-seen-at-conf">
+				<h5 class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}
+				<small class="text-secondary">({{ recommendation.reviewer_position }} - {{ recommendation.reviewer_institution }})</small>
+				</h5>
+				<!-- <span class="quote-seen-at-conf">
 					{% if recommendation.seen_at_conf %}
 						<img src="{% static "profiles/images/lecture.svg" %}" alt="Seen at conference"  title="Seen at conference" style="width:20px" />
 					{% else %}
 						<img src="{% static "profiles/images/lecture_bw.svg" %}" alt="Not seen at conference"  title="Not seen at conference" style="width:20px" />
 					{% endif %}
-				</span>
+				</span> -->
 				<blockquote><p>{{ recommendation.comment }}</p></blockquote>
 			</li>
 		{% endfor %}
 		</ul>
+		<div class="d-flex justify-content-end"><a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+			<i class="fas fa-comment"></i> Recommend</a>
+		</div>
 	{% else %}
-		<p class="m-1">No recommendations yet. </p>
+		<div class="m-1 pt-4">
+		<p>No recommendations have been made for {{ profile.name }} yet.</p>
+		<p>Have you seen her at a conference? If so, please consider
+			<b><a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her one.</a></b>
+		</p>
+		</div>
 	{% endif %}
-	<p class="m-1">Have you seen <b>{{ profile.name }}</b> at
-		a conference? If so, consider <a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her a recommendation.</a></p>
+	<p class="m-1"></p>
 </div>
 <!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
 <div class = "mt-5">
-<p class="m-1 text-muted">Something incorrect in your profile? Send us an <a href="mailto:admin@winrepo.org?subject=Winrepo - update profile {{ profile.id }} ({{ profile.name }})">email</a> with instructions to update it.</p>
+<p class="m-1 text-muted small">Noticed something incorrect in your profile? <b><a href="mailto:admin@winrepo.org?subject=Winrepo - update profile {{ profile.id }} ({{ profile.name }})"> Send us an email</a></b> with instructions so we can update it!</p>
 </div>
 
-<nav id="filtered-list-navigation" aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a id="previous-btn" class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item disabled"><span id="page-number" class="page-link"></span></li>
-    <li class="page-item disabled">
-      <a id="next-btn" class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+<div id="results-nav" class="border-top pt-2 mt-4 w-100 text-muted">
+	<div class="float-left">
+		<a class="btn btn-outline-primary pill-btn m-1" href="{% url 'profiles:index' %}">Back to list</a>
+	</div>
+	<div id="filtered-list-navigation" class="float-right">
+		<ul class="nav justify-content-end">
+			<li>
+				<a id="previous-btn" class="btn btn-outline-primary pill-btn m-1 disabled" href="#">Previous</a>
+			</li>
+			<li><span id="page-number" class="m-1 ml-2 mr-2">Result <span id="current-result" class="text-secondary font-weight-bold">1</span> of <span id="total-results"></span></span></li>
+			<li>	
+				<a id="next-btn" class="btn btn-outline-primary pill-btn m-1 disabled" href="#">Next</a>
+			</li>
+		</ul>
+	</div>
+</div>
 
 {% endblock content %}
 

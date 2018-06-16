@@ -60,17 +60,6 @@ class CreateProfile(SuccessMessageMixin, generic.FormView):
         form.save()
         return super().form_valid(form)
 
-
-# class UpdateRecommendation(generic.UpdateView):
-#     model = Recommendation
-#     fields = [
-#         'reviewer_name',
-#         'reviewer_email',
-#         'reviewer_position',
-#         'seen_at_conf',
-#         'comment',
-#     ]
-
 #     def get_success_url(self):
 #         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
 
@@ -88,6 +77,7 @@ class CreateRecommendation(SuccessMessageMixin, generic.FormView):
 
     def form_valid(self, form):
         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+        form.save()
         return super(CreateRecommendation, self).form_valid(form)
 
 def home(request):

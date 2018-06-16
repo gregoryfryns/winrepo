@@ -61,3 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 .link-secondary {
 	color: #CC063E;
 }
+
+.pill-btn {
+	border-radius: 50px;
+}

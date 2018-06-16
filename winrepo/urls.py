@@ -22,5 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('faq/', views.flatpage, {'url': '/faq/'}, name='faq'),
     path('about/', views.flatpage, {'url': '/about/'}, name='about'),
-    # path('', views.flatpage, {'url': '/home/'}, name='home'),
 ]

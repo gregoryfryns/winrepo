@@ -38,7 +38,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'brain_structure': _('Field of Research - Brain Structure'),
             'modalities': _('Field of Research - Modalities'),
             'methods': _('Field of Research - Methods'),
-            'domain': _('Field of Research - Domain'),
+            'domains': _('Field of Research - Domain'),
             'keywords': _('Field of Research - Keywords'),
         }
         help_texts = {
@@ -47,11 +47,10 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'position': _('Please choose your \'highest\' title from the proposed options to ease future searches.'),
             'grad_month': _('Leave empty if no PhD (yet).'),
             'grad_year': _('Please enter the full year (4 digits). Leave empty if no PhD (yet).'),
-            'domain': _('There are free keywords at the end of the questionnaire to input further information.'),
+            'domains': _('There are free keywords at the end of the questionnaire to input further information.'),
+            'keywords': _('Optionally you can add some more specific terms to describe your field of research, separated by commas.'),
         }
-        # widgets = {
-        #     'name'
-        # }
+
 class RecommendModelForm(CaptchaForm, forms.ModelForm):
     class Meta:
         model = Recommendation
