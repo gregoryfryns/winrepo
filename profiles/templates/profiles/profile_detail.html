@@ -32,7 +32,7 @@
 	<div class="row no-gutters">
 		<div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
 			<h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
-			<p class="m-1"><span class="float-left"><i class="fas fa-user"></i></span> {{ profile.position }}</p>
+			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
 			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
 			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
 			{% if profile.grad_year %}<p class="m-1"><i class="fas fa-graduation-cap"></i> {{ profile.grad_month_labels }} {{ profile.grad_year }}</p>{% endif %}
@@ -155,12 +155,12 @@
 	<div class="float-left">
 		<a class="btn btn-outline-primary pill-btn m-1" href="{% url 'profiles:index' %}">Back to list</a>
 	</div>
-	<div id="filtered-list-navigation" class="float-right">
+	<div id="filtered-list-navigation" class="float-right" style="display:none;">
 		<ul class="nav justify-content-end">
 			<li>
 				<a id="previous-btn" class="btn btn-outline-primary pill-btn m-1 disabled" href="#">Previous</a>
 			</li>
-			<li><span id="page-number" class="m-1 ml-2 mr-2">Result <span id="current-result" class="text-secondary font-weight-bold">1</span> of <span id="total-results"></span></span></li>
+			<li><span id="page-number" class="m-1 ml-2 mr-2">Result <span id="current-result" class="text-secondary font-weight-bold"></span> of <span id="total-results"></span></span></li>
 			<li>	
 				<a id="next-btn" class="btn btn-outline-primary pill-btn m-1 disabled" href="#">Next</a>
 			</li>

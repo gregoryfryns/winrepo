@@ -80,6 +80,11 @@ class CreateRecommendation(SuccessMessageMixin, generic.FormView):
         form.save()
         return super(CreateRecommendation, self).form_valid(form)
 
+def safe_div(x,y):
+    if y == 0:
+        return 0
+    return x / y
+
 def home(request):
     # Get stats on database for Home page:
     # Career stage
@@ -97,10 +102,10 @@ def home(request):
         'nb_students' : nb_students,
         'nb_postdoc' : nb_postdoc,
         'nb_other' : nb_all - nb_senior - nb_students - nb_postdoc,
-        'pct_students' : round(100*(nb_students/nb_all)),
-        'pct_postdoc' : round(100*(nb_postdoc/nb_all)),
-        'pct_senior' : round(100*(nb_senior/nb_all)),
-        'pct_other' : round(100*((nb_all - nb_senior - nb_students - nb_postdoc)/nb_all)),
+        'pct_students' : round(100*safe_div(nb_students, nb_all)),
+        'pct_postdoc' : round(100*safe_div(nb_postdoc, nb_all)),
+        'pct_senior' : round(100*safe_div(nb_senior, nb_all)),
+        'pct_other' : round(100*safe_div((nb_all - nb_senior - nb_students - nb_postdoc), nb_all)),
         'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)

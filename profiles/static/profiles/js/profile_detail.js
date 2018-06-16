@@ -16,9 +16,7 @@ $( document ).ready(function() {
 	$('#current-result').text(resultIndex+1);
 	$('#total-results').text(resultsList.length);
 	
-	if (resultIndex < 0)
-		$('#filtered-list-navigation').hide();
-	else
+	if (resultIndex >= 0)
 		$('#filtered-list-navigation').show();
 
 });
