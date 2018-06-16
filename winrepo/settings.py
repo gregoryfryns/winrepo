@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!c=(kdg^mg^1(6@8d+be*8i=+qqvs#edj3&nl3@g0&4a!4e&sa'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com', 'www.winrepo.org']
 
@@ -33,7 +34,6 @@ ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com', 'www.winrepo.org']
 INSTALLED_APPS = [
 	'profiles.apps.ProfilesConfig',
     'multiselectfield',
-    # 'floppyforms',
     'crispy_forms',
     'captcha',
     'bootstrap4',
@@ -91,10 +91,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'gfryns$winrepo',
-#         'USER': 'gfryns',
-#         'PASSWORD': 'winrepo@DB',
-#         'HOST': 'gfryns.mysql.pythonanywhere-services.com',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
 #     }
 # }
 
@@ -139,12 +139,12 @@ STATICFILES_DIRS = [
 ]
 
 # reCaptcha settings
-RECAPTCHA_PUBLIC_KEY = '6Lc5TE0UAAAAAB3fNH4UEY_oHUbHMi2V1zzSs967'
-RECAPTCHA_PRIVATE_KEY = '6Lc5TE0UAAAAAJo3eVFEZycFj0HI_ccMDXGGzZRm'
+RECAPTCHA_PUBLIC_KEY = '6LexSF8UAAAAAPPx-PzA1GX7LRf3syZw264Aaoue'
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 NOCAPTCHA = True
 
 # Sites settings
-SITE_ID = 2
+SITE_ID = config('SITE_ID', cast=int)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
