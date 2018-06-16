@@ -38,6 +38,21 @@ class Profile(models.Model):
         (DIR, 'Group leader/ Director/ Head of Department')
     )
 
+    MONTHS_CHOICES = (
+        ('01', 'January'),
+        ('02', 'February'),
+        ('03', 'March'),
+        ('04', 'April'),
+        ('05', 'May'),
+        ('06', 'June'),
+        ('07', 'July'),
+        ('08', 'August'),
+        ('09', 'September'),
+        ('10', 'October'),
+        ('11', 'November'),
+        ('12', 'December')
+    )
+
     STRUCTURE_CHOICES = (
         ('N', 'Neuron'),
         ('L', 'Layer'),
@@ -53,7 +68,7 @@ class Profile(models.Model):
         ('DT', 'DTI'),
         ('BH', 'Behavioural'),
         ('ET', 'Eye Tracking'),
-        ('BS', 'Brain Simulation'),
+        ('BS', 'Brain Stimulation'),
         ('GT', 'Genetics'),
         ('FN', 'fNIRS')
     )
@@ -93,7 +108,8 @@ class Profile(models.Model):
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
-    grad_date = models.DateField(null=True, blank=True)
+    grad_month = models.CharField(max_length=2, choices=MONTHS_CHOICES, blank=True)
+    grad_year = models.CharField(max_length=2, blank=True)
     brain_structure = MultiSelectField(choices=STRUCTURE_CHOICES, blank=True)
     modalities = MultiSelectField(choices=MODALITIES_CHOICES, blank=True)
     methods = MultiSelectField(choices=METHODS_CHOICES, blank=True)
@@ -121,6 +137,9 @@ class Profile(models.Model):
 
     def domains_labels(self):
         return [dict(self.DOMAIN_CHOICES).get(item, item) for item in self.domains]
+
+    def grad_month_labels(self):
+        return dict(self.MONTHS_CHOICES).get(self.grad_month)
 
 class Recommendation(models.Model):
     PHD = 'PhD student'

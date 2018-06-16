@@ -30,35 +30,27 @@
 
 <div class="container-fluid">
 	<div class="row no-gutters">
-		<div class="col-12 col-md-8 text-muted details-grey">
+		<div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
 			<h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
 			<p class="m-1"><i class="fas fa-user"></i> {{ profile.position }}</p>
 			<p class="m-1"><i class="fas fa-university"></i> {{ profile.institution }}</p>
 			<p class="m-1"><i class="fas fa-map-marker-alt"></i> {{ profile.country }}</p>
+			{% if profile.grad_year %}<p class="m-1"><i class="fas fa-graduation-cap"></i> {{ profile.grad_month_labels }} {{ profile.grad_year }}</p>{% endif %}
 		</div>
-		<div class="col-12 col-md-4 text-muted align-bottom text-right">
-				<p class="m-1">
-					{% if profile.email %}
-						<a class="btn pill-btn text-white btn-secondary mr-2" href="mailto:{{ profile.email }}">
-							<i class="fas fa-envelope"></i></a>
-					{% else %}
-					<a class="btn pill-btn text-white btn-senary disabled mr-2" href="mailto:{{ profile.email }}" aria-disabled="true">
-						<i class="fas fa-envelope"></i></a>
-					{% endif %}
-					{% if profile.webpage %}
-						<a class="btn pill-btn text-white btn-secondary mr-2" href="{{ profile.webpage }}" target="_blank">
-							<i class="fas fa-external-link-alt"></i></a>
-					{% else %}
-						<a class="btn pill-btn text-white btn-senary disabled mr-2" href="{{ profile.webpage }}" target="_blank" aria-disabled="true">
-							<i class="fas fa-external-link-alt"></i></a>
-					{% endif %}
-					<a class="btn pill-btn text-white btn-secondary" href="{% url 'profiles:recommend' profile.id %}">
-					<i class="fas fa-comment"></i></a>
-				</p>
+		<div class="col-xs-6 col-sm-4 col-md-3">
+			<div class="d-flex flex-column">
+				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.email == "" %} disabled{% endif %}" href="mailto:{{ profile.email }}">
+					<i class="fas fa-envelope"></i> Send Email</a>
+
+				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
+					<i class="fas fa-address-card"></i> View Page</a>
+
+				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+					<i class="fas fa-comment"></i> Recommend</a>
+			</div>
 		</div>
 	</div>
 </div>
-
 
 <div id="field-of-research">
 	<h5 class="text-primary font-weight-bold mt-5">
@@ -68,35 +60,35 @@
 	<div id="field-of-research-list" class="w-100 p-4 mt-3 d-flex flex-row grey-bg rounded">
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Brain Area</h6>
-				<ul class="list-group list-group-flush">
-					{% for structure in profile.brain_structure_labels %}
-					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ structure }} </li>
-					{% endfor %}
-				</ul>
+			<ul class="list-group list-group-flush">
+				{% for structure in profile.brain_structure_labels %}
+				<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ structure }} </li>
+				{% endfor %}
+			</ul>
 		</div>
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Domain</h6>
-				<ul class="list-group list-group-flush">
-					{% for domain in profile.domains_labels %}
-					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ domain }} </li>
-					{% endfor %}
-				</ul>
+			<ul class="list-group list-group-flush">
+				{% for domain in profile.domains_labels %}
+				<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ domain }} </li>
+				{% endfor %}
+			</ul>
 		</div>
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Modalities</h6>
-				<ul class="list-group list-group-flush">
-					{% for modality in profile.modalities_labels %}
-					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ modality }} </li>
-					{% endfor %}
-				</ul>
+			<ul class="list-group list-group-flush">
+				{% for modality in profile.modalities_labels %}
+				<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ modality }} </li>
+				{% endfor %}
+			</ul>
 		</div>
 		<div class="w-25 p-2 text-center">
 			<h6 class="text-secondary font-weight-bold">Methods</h6>
-				<ul class="list-group list-group-flush">
-					{% for method in profile.methods_labels %}
-					<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ method }} </li>
-					{% endfor %}
-				</ul>
+			<ul class="list-group list-group-flush">
+				{% for method in profile.methods_labels %}
+				<li class="list-group-item grey-bg" style="border: none; padding: 0;">{{ method }} </li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 </div>
@@ -147,7 +139,7 @@
 </div>
 <!-- Icons made by <a href="https://www.flaticon.com/authors/popcorns-arts" title="Icon Pond">Icon Pond</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a> -->
 <div class = "mt-5">
-<p class="m-1 text-muted">Something incorrect in your profile? Send us an <a href="mailto:admin@winrepo.org">email</a> with instructions to update it.</p>
+<p class="m-1 text-muted">Something incorrect in your profile? Send us an <a href="mailto:admin@winrepo.org?subject=Winrepo - update profile {{ profile.id }} ({{ profile.name }})">email</a> with instructions to update it.</p>
 </div>
 
 <nav id="filtered-list-navigation" aria-label="Page navigation example">
