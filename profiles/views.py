@@ -7,7 +7,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
-import pdb;
+import pdb
 
 
 from .models import Profile, Recommendation, Country
