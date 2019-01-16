@@ -20,13 +20,15 @@
 
 {% block content %}
 
-{% comment %} {% if messages %}
+{% if messages %}
 <ul class="messages">
 	{% for message in messages %}
-	<li{% if message.tags %} class="text-{{ message.tags }}" {% endif %}>{{ message }}</li>
-		{% endfor %}
+	<div class="alert alert-success">
+		<strong>{{ message|escape }}</strong>
+	</div>
+	{% endfor %}
 </ul>
-{% endif %} {% endcomment %}
+{% endif %}
 
 <div class="container-fluid">
 	<div class="row no-gutters">

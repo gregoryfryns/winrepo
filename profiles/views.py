@@ -47,7 +47,7 @@ class UpdateProfile(SuccessMessageMixin, generic.UpdateView):
         return reverse('profiles:detail', args=(self.object.id,))
 
 
-class CreateProfile(SuccessMessageMixin, generic.FormView):
+class CreateProfile(SuccessMessageMixin, generic.CreateView):
     template_name = 'profiles/profile_form.html'
     form_class = CreateProfileModelForm
     success_url = reverse_lazy('profiles:index')
@@ -58,7 +58,7 @@ class CreateProfile(SuccessMessageMixin, generic.FormView):
         # It should return an HttpResponse.
         # form.send_email()
         form.save()
-        return super().form_valid(form)
+        return super().form_valid(form) 
 
 #     def get_success_url(self):
 #         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
