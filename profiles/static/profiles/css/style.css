@@ -28,6 +28,11 @@
   border-bottom: 1px solid #cdcdcd;
 }
 
+.table-entry .keywords-list {
+  max-height: 120px;
+  overflow: hidden;
+}
+
 .num-rec {
   font-size: 24px;
 }
