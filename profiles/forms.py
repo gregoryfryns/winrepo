@@ -12,7 +12,7 @@ class CaptchaForm(forms.Form):
     captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
 
 
-class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
+class CreateProfileModelForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = [
