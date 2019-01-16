@@ -33,17 +33,36 @@
     {% endfor %}
 {% endif %}
 
-<div class="col-lg-6 col-lg-offset-3">
-    <form action="" method="post">
-        {% csrf_token %}
-        {% comment %} {% bootstrap_form form %} {% endcomment %}
-        {{ form|crispy }}
-        
-        {% buttons %}
-        <button type="submit" class="btn btn-primary pill-btn">
-            Submit
-        </button>
-        {% endbuttons %}
-    </form>
+<div class="col-lg-10 col-lg-offset-1">
+	<form action="" method="post">
+ 		{% csrf_token %}
+		{% comment %} {% bootstrap_form form %} {% endcomment %}
+		{{ form.name|as_crispy_field }}
+		{{ form.institution|as_crispy_field }}
+		{{ form.country|as_crispy_field }}
+		{{ form.position|as_crispy_field }}
+		{{ form.email|as_crispy_field }}
+		{{ form.webpage|as_crispy_field }}
+	 	<div class="form-row">
+		 	<div class="form-group col-md-6 mb-0">
+			 	{{ form.grad_month|as_crispy_field }}
+		 	</div>
+		 	<div class="form-group col-md-6 mb-0">
+			 	{{ form.grad_year|as_crispy_field }}
+		 	</div>
+	 	</div>
+	 {{ form.brain_structure|as_crispy_field }}
+	 {{ form.modalities|as_crispy_field }}
+	 {{ form.methods|as_crispy_field }}
+	 {{ form.domains|as_crispy_field }}
+	 {{ form.keywords|as_crispy_field }}
+	 {% buttons %}
+	 <div class="col-lg-4 col-lg-offset-4">
+		 <button type="submit" class="btn btn-primary pill-btn">
+			 Submit
+		 </button>
+	 </div>
+	 {% endbuttons %}
+	</form>
 </div>
 {% endblock content %}

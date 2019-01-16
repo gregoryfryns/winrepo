@@ -35,8 +35,8 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'institution': _('Institution/Company'),
             'email': _('Email Address'),
             'webpage': _('Linked In or web page'),
-            'grad_month': _('Month PhD was obtained'),
-            'grad_year': _('Year PhD was obtained'),
+            'grad_month': _('Date PhD was obtained: Month'),
+            'grad_year': _('Year'),
             'brain_structure': _('Field of Research - Brain Structure'),
             'modalities': _('Field of Research - Modalities'),
             'methods': _('Field of Research - Methods'),
@@ -44,11 +44,11 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'keywords': _('Field of Research - Keywords'),
         }
         help_texts = {
-            'country': _('Country of current institution'),
+            'country': _('Country of the institution'),
             'webpage': _('Make sure people can look you up easily by providing a link to a personal website, profile or institution site.'),
             'position': _('Please choose your \'highest\' title from the proposed options to ease future searches.'),
             'grad_month': _('Leave empty if no PhD (yet).'),
-            'grad_year': _('Please enter the full year (4 digits). Leave empty if no PhD (yet).'),
+            'grad_year': _('Please enter the full year (4 digits).'),
             'domains': _('There are free keywords at the end of the questionnaire to input further information.'),
             'keywords': _('Optionally you can add some more specific terms to describe your field of research, separated by commas.'),
         }
