@@ -63,6 +63,7 @@ class Profile(models.Model):
 
     MODALITIES_CHOICES = (
         ('EP', 'Electrophysiology (EEG, MEG, ECoG)'),
+        ('OE', 'Other electrophysiology'),
         ('MR', 'MRI'),
         ('PE', 'PET'),
         ('DT', 'DTI'),
@@ -70,7 +71,8 @@ class Profile(models.Model):
         ('ET', 'Eye Tracking'),
         ('BS', 'Brain Stimulation'),
         ('GT', 'Genetics'),
-        ('FN', 'fNIRS')
+        ('FN', 'fNIRS'),
+        ('LE','Lesions and Inactivations'),
     )
 
     METHODS_CHOICES = (
@@ -79,27 +81,35 @@ class Profile(models.Model):
         ('PM', 'Predictive Models'),
         ('DC', 'DCM'),
         ('CT', 'Connectivity'),
-        ('CM', 'Computational Modeling')
+        ('CM', 'Computational Modeling'),
+        ('AM', 'Animal Models')
     )
 
     DOMAIN_CHOICES = (
         ('CG', 'Cognition (general)'),
-        ('SL', 'Sleep'),
-        ('CN', 'Consciousness'),
         ('MM', 'Memory'),
-        ('SS', 'Sensory'),
+        ('SS', 'Sensory systems'),
+        ('MO', 'Motor Systems'),
         ('LG', 'Language'),
         ('EM', 'Emotion'),
         ('PN', 'Pain'),
         ('LE', 'Learning'),
+        ('AT', 'Attention'),
+        ('DE', 'Decision Making'),
         ('DV', 'Developmental'),
+        ('SL', 'Sleep'),
+        ('CN', 'Consciousness'),
         ('CL', 'Clinical (general)'),
         ('DM', 'Dementia'),
         ('PK', 'Parkinson'),
+        ('DD', 'Other degenerative diseases'),
         ('PS', 'Psychiatry'),
         ('AD', 'Addiction'),
         ('ON', 'Oncology'),
-        ('DD', 'Degenerative diseases'),
+        ('EV', 'Evolutionary'),
+        ('CM', 'Cellular and Molecular'),
+        ('BI', 'Bioinformatics / Neuroinformatics'),
+        ('NC', 'Neuropharmacology / Neurochemistry')
     )
 
     name = models.CharField(max_length=100, blank=False)
