@@ -4,7 +4,9 @@ from operator import and_, or_
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
-from django.views import generic
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
 import pdb
@@ -13,18 +15,18 @@ import pdb
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
 
-class ListProfiles(generic.ListView):
+class ListProfiles(ListView):
     template_name = 'profiles/list.html'
 
     def get_queryset(self):
         """Return the latest profiles first"""
         return Profile.objects.order_by('-publish_date')
 
-class ProfileDetail(generic.DetailView):
+class ProfileDetail(DetailView):
     model = Profile
 
 
-class UpdateProfile(SuccessMessageMixin, generic.UpdateView):
+class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
     fields = [
         'name',
@@ -47,10 +49,10 @@ class UpdateProfile(SuccessMessageMixin, generic.UpdateView):
         return reverse('profiles:detail', args=(self.object.id,))
 
 
-class CreateProfile(SuccessMessageMixin, generic.CreateView):
+class CreateProfile(SuccessMessageMixin, CreateView):
     template_name = 'profiles/profile_form.html'
     form_class = CreateProfileModelForm
-    success_url = reverse_lazy('profiles:index')
+    # success_url = reverse_lazy('profiles:index')
     success_message = "The profile for %(name)s was created successfully"
 
     def form_valid(self, form):
@@ -60,10 +62,10 @@ class CreateProfile(SuccessMessageMixin, generic.CreateView):
         form.save()
         return super().form_valid(form) 
 
-#     def get_success_url(self):
-#         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
+    def get_success_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.object.pk})
 
-class CreateRecommendation(SuccessMessageMixin, generic.FormView):
+class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'
     form_class = RecommendModelForm
 
