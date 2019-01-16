@@ -108,8 +108,8 @@ class Profile(models.Model):
         ('ON', 'Oncology'),
         ('EV', 'Evolutionary'),
         ('CM', 'Cellular and Molecular'),
-        ('BI', 'Bioinformatics / Neuroinformatics'),
-        ('NC', 'Neuropharmacology / Neurochemistry')
+        ('BI', 'Bioinformatics'),
+        ('NC', 'Neuropharmacology')
     )
 
     name = models.CharField(max_length=100, blank=False)
