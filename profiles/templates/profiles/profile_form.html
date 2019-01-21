@@ -56,12 +56,11 @@
 	 {{ form.methods|as_crispy_field }}
 	 {{ form.domains|as_crispy_field }}
 	 {{ form.keywords|as_crispy_field }}
+	 {{ form.captcha }}
 	 {% buttons %}
-	 <div class="col-lg-4 col-lg-offset-4">
-		 <button type="submit" class="btn btn-primary pill-btn">
-			 Submit
-		 </button>
-	 </div>
+	 <button type="submit" class="btn btn-primary pill-btn">
+		 Submit
+	 </button>
 	 {% endbuttons %}
 	</form>
 </div>
