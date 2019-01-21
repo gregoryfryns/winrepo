@@ -135,8 +135,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
+    os.path.join(BASE_DIR, "static"),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static-collected")
 
 # reCaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6LexSF8UAAAAAPPx-PzA1GX7LRf3syZw264Aaoue'
@@ -163,5 +165,4 @@ BOOTSTRAP4 = {
     'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
 }
 
-# static files
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+

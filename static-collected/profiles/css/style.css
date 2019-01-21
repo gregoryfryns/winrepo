@@ -1,0 +1,81 @@
+#list-search {
+    padding-top: 100px;
+    padding-bottom: 30px;
+}
+
+#search-message>span {
+  font-size:18px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#search {
+  line-height: 2.5rem;
+  border: white;
+  border-left: #e6e6e6;
+}
+
+.input-group-text {
+  line-height: 2.5rem;
+  border: white;
+}
+
+.entries-number {
+  border-bottom: 1px solid #ababab;
+}
+
+.table-entry {
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.table-entry .keywords-list {
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.num-rec {
+  font-size: 24px;
+}
+
+#results-nav a.pill-btn {
+  width: 110px;
+}
+
+#page-number {
+  line-height: 2.9em;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    background: #cacaca;
+    color: #fafafa;
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    font-size: 42px;
+    line-height: 50px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #10898B;
+}
+
+#back-to-top.show {
+    opacity: 1;
+}
+
+#field-of-research-list>div {
+    border-right: 1px solid #ccc;
+}
+
+#field-of-research-list>div:last-child {
+   border-right: none;
+}
