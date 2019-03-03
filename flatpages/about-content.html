@@ -89,12 +89,12 @@ section .section-title {
 }
 
 #board .card {
-    width: 16rem;
+    width: 15rem;
     height: 18rem;
 }
 
-#board .backside .card .card-text{
-    font-size: 13.5px;
+.backside .card .card-text{
+    font-size: 0.8rem;
     margin:0;
     position: absolute;
     top: 50%;
@@ -103,27 +103,17 @@ section .section-title {
     transform: translate(-50%, -50%)
 }
 
-#cont .backside .card .card-text{
-    font-size: 12.5px;
-    margin:0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -30%;
-    transform: translate(-50%, -50%)
-}
-
-#cont .frontside .card-title{
-    font-size:20px
+.frontside .card-title{
+    font-size:1.3rem
     }
     
-#cont .frontside .card-text{
-    font-size:16px
+.frontside .card-text{
+    font-size:0.9rem
     }
 
 .frontside .card .card-body img {
-    width: 120px;
-    height: 120px;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
 }
 
@@ -156,7 +146,7 @@ section .section-title {
                         <div class="backside">
                             <div class="card">
                                 <div class="card-body text-center mt-4">
-                                    <p class="card-text" style="font-size: 12.5px;">Gregory is a highly qualified computer science engineer with 10+ years experience in customer support and process improvement.</p>
+                                    <p class="card-text">Gregory is a highly qualified computer science engineer with 10+ years experience in customer support and process improvement.</p>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +169,7 @@ section .section-title {
                         <div class="backside">
                             <div class="card">
                                 <div class="card-body text-center mt-4">
-                                    <p class="card-text"" >Laetitia is a freelance designer based in France. She creates visual identities, including logos, flyers, posters, websites, based on the unique needs of her clients. 
+                                    <p class="card-text">Laetitia is a freelance designer based in France. She creates visual identities, including logos, flyers, posters, websites, based on the unique needs of her clients. 
                                     To find out more, see her portfolio at <a href ="www.lbgraphiste.fr">www.lbgraphiste.fra</a></p>
                                 </div>
                             </div>
@@ -268,7 +258,7 @@ section .section-title {
     <div class="container">
         <div class="row">
             <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -292,7 +282,7 @@ section .section-title {
                 </div>
             </div>
 	    <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -316,7 +306,7 @@ section .section-title {
                 </div>
             </div>
 	    <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -340,7 +330,7 @@ section .section-title {
                 </div>
             </div>
         <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -364,7 +354,7 @@ section .section-title {
                 </div>
             </div>
         <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -388,7 +378,7 @@ section .section-title {
                 </div>
             </div> 
         <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
@@ -412,14 +402,14 @@ section .section-title {
                 </div>
             </div>
         <!-- Team member -->
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
                             <div class="card">
                                 <div class="card-body text-center">
                                     <p><img class=" img-fluid" src="../static/images/Pic_AL.jpg" alt="card image"></p>
-                                    <h4 class="card-title">Ana Luisa</h4>
+                                    <h4 class="card-title">Ana Luísa Pinho</h4>
                                     <p class="card-text">Postdoctoral Researcher at NeuroSpin (Inria/CEA-Saclay), Paris, France</p>
                                 </div>
                             </div>
@@ -436,29 +426,31 @@ section .section-title {
                 </div>
             </div>
         <!-- Team member -->
-            <!--<div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
                 <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
                     <div class="mainflip">
                         <div class="frontside">
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="" alt="card image"></p>
-                                    <h4 class="card-title">Eliana</h4>
-                                    <p class="card-text">Postdoc at CIMeC in TheFairLab, Italy</p>
+                                    <p><img class=" img-fluid" src="../static/images/Pic_EV.jpg" alt="card image"></p>
+                                    <h4 class="card-title">Eliana Vassena</h4>
+                                    <p class="card-text">Marie Curie fellow at the Donders Institute for Brain, Cognition and Behaviour (Nijmegen, NL)</p>
                                 </div>
                             </div>
                         </div>
                         <div class="backside">
                             <div class="card">
                                 <div class="card-body text-center mt-4">
-                                    <p class="card-text">Gabriella obtained her PhD at KULeuven in the Laboratory for Cognitive Neurology. Her primary research program focuses 
-                                    on the semantic representations of written words, spoken words and pictures in the human brain. By means of fMRI, she is currently investigating the role of the tasks in the semantic processing.</p>
+                                    <p class="card-text">Eliana is interested in motivation and decision-making, and how the brain handles effortful and challenging situations. 
+                                        During her PhD and postdoc she has used neuroimaging (fMRI, fNIRS, EEG-fMRI), neurostimulation (TMS) and computational modelling to study 
+                                        the contribution of the prefrontal cortex to these processes. Currently, she works on translating neurocomputational models of motivation 
+                                        to neuropsychiatric populations</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>-->            
+            </div>        
 	</div>
     </div>
 </section>
