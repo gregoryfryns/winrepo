@@ -71,7 +71,7 @@
 								<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
 							</dl>
 						</div>
-						<div class="searchable keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domain %}{{ profile.domain }}, {% endif %}{{ profile.keywords}}</div>
+						<div class="searchable keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
 						<div class="col-md-1 mt-1 d-none d-md-block text-primary">
 							{% if profile.recommendation_set.all|length %}
 							<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
