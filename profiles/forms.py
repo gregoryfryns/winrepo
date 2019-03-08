@@ -3,13 +3,13 @@ from django.utils.translation import gettext_lazy as _
 
 # import floppyforms.__future__ as forms
 from captcha.fields import ReCaptchaField
-# from captcha.widgets import ReCaptchaV2Invisible
+from captcha.widgets import ReCaptchaV3
 
 from .models import Profile, Recommendation
 
 class CaptchaForm(forms.Form):
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
-    captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
+    captcha = ReCaptchaField(widget=ReCaptchaV3)
+    # captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
