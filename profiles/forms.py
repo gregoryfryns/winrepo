@@ -9,7 +9,6 @@ from .models import Profile, Recommendation
 
 class CaptchaForm(forms.Form):
     captcha = ReCaptchaField(widget=ReCaptchaV3)
-    # captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
