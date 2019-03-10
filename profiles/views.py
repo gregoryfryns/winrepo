@@ -22,6 +22,10 @@ class ListProfiles(ListView):
     paginate_by = 20
     ordering = ['-publish_date']
 
+    def get_queryset(self):
+        searched_fields = ['name']
+        search_terms = self.request.GET.get('s').split(' ')
+        return Profile.objects.filter(reduce(and_, (Q(name__icontains=x) | Q(position__icontains=x) for x in search_terms)))
 
 class ProfileDetail(DetailView):
     model = Profile
