@@ -2,7 +2,7 @@ from functools import reduce
 from operator import and_, or_
 
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect, HttpResponse
+# from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
@@ -17,10 +17,11 @@ from .forms import CreateProfileModelForm, RecommendModelForm
 
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
+    context_object_name = 'profiles'
+    model = Profile
+    paginate_by = 20
+    ordering = ['-publish_date']
 
-    def get_queryset(self):
-        """Return the latest profiles first"""
-        return Profile.objects.order_by('-publish_date')
 
 class ProfileDetail(DetailView):
     model = Profile

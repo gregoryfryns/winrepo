@@ -47,13 +47,13 @@
 {% endblock full_page_content %}
 
 {% block content %}
-	{% if profile_list %}
+	{% if profiles %}
 		<div class = "pb-3 no-gutters entries-number">
-			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profile_list|length }}</span> entries found. </span>
+			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profiles|length }}</span> entries found. </span>
 		</div>
-		<div id="results-table">
-			{% for profile in profile_list %}
-				<div class="table-entry">
+		<div id="results-table" class="infinite-container">
+			{% for profile in profiles %}
+				<div class="table-entry infinite-item">
 					<div class="row mt-4 mb-4 no-gutters">
 						<div class="profile_id d-none">{{ profile.id }}</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3">
@@ -85,6 +85,14 @@
 				</div>
 			{% endfor %}
 		</div>
+
+		{% if page_obj.has_next %}
+			<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+	  	{% endif %}
+
+		<div class="loading" style="display: none;">
+			Loading...
+		</div>
 		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
 		<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
 
@@ -97,4 +105,16 @@
 	{{ block.super }}
 	<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
 	<script src="{% static 'profiles/js/list.js' %}"></script>
+	<!-- from https://simpleisbetterthancomplex.com/tutorial/2017/03/13/how-to-create-infinite-scroll-with-django.html -->
+	<script>
+		var infinite = new Waypoint.Infinite({
+			element: $('.infinite-container')[0],
+			onBeforePageLoad: function () {
+			  $('.loading').show();
+			},
+			onAfterPageLoad: function ($items) {
+			  $('.loading').hide();
+			}
+		});
+	</script>
 {% endblock footer_scripts %}
