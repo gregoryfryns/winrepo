@@ -87,7 +87,7 @@
 		</div>
 
 		{% if page_obj.has_next %}
-			<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+			<a class="infinite-more-link" href="?{% if search_terms %}s={{ search_terms }}&{% endif %}page={{ page_obj.next_page_number }}">More</a>
 	  	{% endif %}
 
 		<div class="loading" style="display: none;">

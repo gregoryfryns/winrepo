@@ -24,8 +24,19 @@ class ListProfiles(ListView):
 
     def get_queryset(self):
         searched_fields = ['name']
-        search_terms = self.request.GET.get('s').split(' ')
-        return Profile.objects.filter(reduce(and_, (Q(name__icontains=x) | Q(position__icontains=x) for x in search_terms)))
+        s = self.request.GET.get('s')
+        if s is not None:
+            search_terms = s.split(' ')
+            profiles_list = Profile.objects.filter(reduce(and_, (Q(name__icontains=x) | Q(position__icontains=x) for x in search_terms)))
+        else:
+            profiles_list = Profile.objects.all()
+        
+        return profiles_list
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['search_terms'] = self.request.GET.get('s')
+        return data
 
 class ProfileDetail(DetailView):
     model = Profile
