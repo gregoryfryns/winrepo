@@ -49,7 +49,7 @@
 {% block content %}
 	{% if profiles %}
 		<div class = "pb-3 no-gutters entries-number">
-			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profiles|length }}</span> entries found. </span>
+			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ page_obj.paginator.count }}</span> entries found. </span>
 		</div>
 		<div id="results-table" class="infinite-container">
 			{% for profile in profiles %}

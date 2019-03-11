@@ -41,15 +41,15 @@ var applyFilter = function() {
 	}
 }
 
-$('#search').keyup($.debounce(400, applyFilter));
-$('#underrepresented-countries').change(applyFilter);
-$('#senior-only').change(applyFilter);
+// $('#search').keyup($.debounce(400, applyFilter));
+// $('#underrepresented-countries').change(applyFilter);
+// $('#senior-only').change(applyFilter);
 
 $( document ).ready(function() {
 	if (typeof(Storage) !== "undefined" && window.sessionStorage.getItem("searchTerms")) {
 		$('#search').val(window.sessionStorage.getItem("searchTerms"));
 	}
-	applyFilter();
+	// applyFilter();
 	//other stuff?
 });
 
