@@ -15,29 +15,31 @@
 
 {% block full_page_content %}
 	<div id="list-search" class="w-100 grey-bg">
-		<form>
+		<form method="get">
 			<div id="search-container" class="form-row p-2">
 				<div class="col-12 col-sm-6 offset-sm-3">
 					<div id="search-form" class="input-group bg-white rounded">
-						<div class="input-group-prepend">
+						<div class="input-group-prepend p-1 w-100">
+							<!-- class="input-group bg-white rounded p-1 mx-auto" -->
 							<span class="input-group-text text-secondary bg-white">
 								<i class="fas fa-search"></i>
 							</span>
+							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" {% if search.search_terms %}value="{{ search.search_terms }}"{% endif %}/>
+							<input id="search-btn" type="submit" value="Search" class="btn btn-secondary pl-4 pr-4 rounded mx-auto">
 						</div>
-						<input id="search" class="form-control" type="text" placeholder="Enter keywords, e.g. 'Attention MEG France'" />
 					</div>
 				</div>
 			</div>
 			<div class="form-row p-2">
 				<div id="underrepresented-countries" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-3">
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="underrepresented-only">
+						<input type="checkbox" class="form-check-input" id="underrepresented-only" name="ur" {% if search.is_underrepresented %}checked{% endif %}>
 						<label class="form-check-label" for="underrepresented-only">Under Represented Countries Only</label>
 					</div>
 				</div>
 				<div id="senior-positions" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-0">
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="senior-only">
+						<input type="checkbox" class="form-check-input" id="senior-only" name="senior" {% if search.is_senior %}checked{% endif %}>
 						<label class="form-check-label" for="senior-only">Senior Positions Only</label>
 					</div>
 				</div>
@@ -60,9 +62,9 @@
 							<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
 						</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3 details-grey text-muted">
-							<p class="m-1 searchable{% if profile.is_senior %} senior{% endif %}"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
+							<p class="m-1 searchable"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
 							<p class="m-1 searchable"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
-							<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
+							<p class="m-1 searchable"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
 						</div>
 
 						<div class="d-none">
@@ -103,18 +105,5 @@
 
 {% block footer_scripts %}
 	{{ block.super }}
-	<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
 	<script src="{% static 'profiles/js/list.js' %}"></script>
-	<!-- from https://simpleisbetterthancomplex.com/tutorial/2017/03/13/how-to-create-infinite-scroll-with-django.html -->
-	<script>
-		var infinite = new Waypoint.Infinite({
-			element: $('.infinite-container')[0],
-			onBeforePageLoad: function () {
-			  $('.loading').show();
-			},
-			onAfterPageLoad: function ($items) {
-			  $('.loading').hide();
-			}
-		});
-	</script>
 {% endblock footer_scripts %}

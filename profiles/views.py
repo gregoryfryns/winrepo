@@ -2,7 +2,6 @@ from functools import reduce
 from operator import and_, or_
 
 from django.shortcuts import get_object_or_404, render
-# from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
@@ -24,18 +23,37 @@ class ListProfiles(ListView):
 
     def get_queryset(self):
         searched_fields = ['name']
-        s = self.request.GET.get('s')
-        if s is not None:
-            search_terms = s.split(' ')
-            profiles_list = Profile.objects.filter(reduce(and_, (Q(name__icontains=x) | Q(position__icontains=x) for x in search_terms)))
-        else:
-            profiles_list = Profile.objects.all()
-        
+        st = self.request.GET.get('s')
+        is_underrepresented = self.request.GET.get('ur') == 'on'
+        is_senior = self.request.GET.get('senior') == 'on'
+
+        # position, structure, modalities, methods, domain
+        q_build = ~Q(pk=None) # always true
+        if st is not None:
+            search_terms = st.split(' ')
+            # each search term must be contained in one of the listed fields
+            q_build = reduce(and_, (Q(name__icontains=x) | Q(institution__icontains=x) | Q(position__icontains=x) | Q(brain_structure__icontains=x) | Q(country__name__icontains=x) | Q(keywords__icontains=x) for x in search_terms))
+
+        if is_underrepresented:
+            q_build = and_(Q(country__is_under_represented=True), q_build)
+
+        if is_senior:
+            senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
+            # position must contain one of the words in the list
+            q_build = and_(reduce(or_, (Q(position__icontains=x) for x in senior_profiles_keywords)), q_build)
+
+        profiles_list = Profile.objects.filter(q_build)
+
         return profiles_list
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data['search_terms'] = self.request.GET.get('s')
+        data['search'] = {
+            'search_terms': self.request.GET.get('s'),
+            'is_underrepresented': self.request.GET.get('ur') == 'on',
+            'is_senior': self.request.GET.get('senior') == 'on',
+        }
+        
         return data
 
 class ProfileDetail(DetailView):
