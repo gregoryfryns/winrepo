@@ -24,7 +24,7 @@
 							<span class="input-group-text text-secondary bg-white">
 								<i class="fas fa-search"></i>
 							</span>
-							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" {% if search.search_terms %}value="{{ search.search_terms }}"{% endif %}/>
+							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" autofocus {% if search.search_terms %}value="{{ search.search_terms }}"  onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"{% endif %}/>
 							<input id="search-btn" type="submit" value="Search" class="btn btn-secondary pl-4 pr-4 rounded mx-auto">
 						</div>
 					</div>
