@@ -30,5 +30,6 @@ var infinite = new Waypoint.Infinite({
 	},
 	onAfterPageLoad: function ($items) {
 	  $('.loading').hide();
-	}
+    },
+    offset: 150
 });
