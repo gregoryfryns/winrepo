@@ -27,7 +27,7 @@ class ListProfiles(ListView):
         is_underrepresented = self.request.GET.get('ur') == 'on'
         is_senior = self.request.GET.get('senior') == 'on'
 
-        q_build = ~Q(pk=None) # always true
+        q_st = ~Q(pk=None) # always true
         if s is not None:
             # split search terms and filter empty words (in case of successive spaces)
             search_terms = list(filter(None, s.split(' ')))
@@ -50,17 +50,24 @@ class ListProfiles(ListView):
                     Q(keywords__icontains=st),
                  ] + matching_structures + matching_modalities + matching_methods + matching_domains
 
-                q_build = and_(reduce(or_, st_conditions), q_build)
+                q_st = and_(reduce(or_, st_conditions), q_st)
+
+            
 
         if is_underrepresented:
-            q_build = and_(Q(country__is_under_represented=True), q_build)
+            q_ur = Q(country__is_under_represented=True)
+        else:
+            q_ur = ~Q(pk=None) # always true
 
         if is_senior:
             senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
             # position must contain one of the words in the list (case insensitive)
-            q_build = and_(reduce(or_, (Q(position__icontains=x) for x in senior_profiles_keywords)), q_build)
+            q_senior = reduce(or_, (Q(position__icontains=x) for x in senior_profiles_keywords))
+        else:
+            q_senior = ~Q(pk=None) # always true
 
-        profiles_list = Profile.objects.filter(q_build)
+        profiles_list = Profile.objects.filter(q_st, q_ur, q_senior)
+
 
         return profiles_list
 
@@ -71,7 +78,7 @@ class ListProfiles(ListView):
             'is_underrepresented': self.request.GET.get('ur') == 'on',
             'is_senior': self.request.GET.get('senior') == 'on',
         }
-        
+
         return data
 
 class ProfileDetail(DetailView):

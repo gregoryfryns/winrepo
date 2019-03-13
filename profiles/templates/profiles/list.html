@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load my_tags %}
 
 {% block title %}
 	{{ block.super }} - Repository
@@ -50,7 +51,7 @@
 
 {% block content %}
 	{% if profiles %}
-		<div class = "pb-3 no-gutters entries-number">
+		<div class="pb-3 no-gutters entries-number">
 			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ page_obj.paginator.count }}</span> entries found. </span>
 		</div>
 		<div id="results-table" class="infinite-container">
@@ -89,18 +90,19 @@
 		</div>
 
 		{% if page_obj.has_next %}
-			<a class="infinite-more-link" href="?{% if search_terms %}s={{ search_terms }}&{% endif %}page={{ page_obj.next_page_number }}">More</a>
+			<a class="infinite-more-link" href="?{% param_replace page=page_obj.next_page_number %}">More</a>
 	  	{% endif %}
 
 		<div class="loading" style="display: none;">
 			Loading...
 		</div>
-		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
-		<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
-
+		
 	{% else %}
 		<p>No matching entries.</p>
 	{% endif %}
+
+	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+	<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
 {% endblock content %}
 
 {% block footer_scripts %}
