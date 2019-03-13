@@ -1,3 +1,4 @@
+import re
 from functools import reduce
 from operator import and_, or_
 
@@ -9,7 +10,6 @@ from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
 import pdb
-
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
@@ -23,23 +23,41 @@ class ListProfiles(ListView):
 
     def get_queryset(self):
         searched_fields = ['name']
-        st = self.request.GET.get('s')
+        s = self.request.GET.get('s')
         is_underrepresented = self.request.GET.get('ur') == 'on'
         is_senior = self.request.GET.get('senior') == 'on'
 
-        # position, structure, modalities, methods, domain
         q_build = ~Q(pk=None) # always true
-        if st is not None:
-            search_terms = st.split(' ')
-            # each search term must be contained in one of the listed fields
-            q_build = reduce(and_, (Q(name__icontains=x) | Q(institution__icontains=x) | Q(position__icontains=x) | Q(brain_structure__icontains=x) | Q(country__name__icontains=x) | Q(keywords__icontains=x) for x in search_terms))
+        if s is not None:
+            # split search terms and filter empty words (in case of successive spaces)
+            search_terms = list(filter(None, s.split(' ')))
+
+            for st in search_terms:
+                st_regex = re.compile(f'.*{st}.*', re.IGNORECASE)
+
+                # matching_positions = list(x[0] for x in Profile.get_position_choices() if st_regex.match(x[1]))
+                matching_structures = list(Q(brain_structure__contains=x[0]) for x in Profile.get_structure_choices() if st_regex.match(x[1]))
+                matching_modalities = list(Q(modalities__contains=x[0]) for x in Profile.get_modalities_choices() if st_regex.match(x[1]))
+                matching_methods = list(Q(methods__contains=x[0]) for x in Profile.get_methods_choices() if st_regex.match(x[1]))
+                matching_domains = list(Q(domains__contains=x[0]) for x in Profile.get_domains_choices() if st_regex.match(x[1]))
+
+                st_conditions = [
+                    Q(name__icontains=st),
+                    Q(institution__icontains=st),
+                    Q(position__icontains=st),
+                    Q(brain_structure__icontains=st),
+                    Q(country__name__icontains=st),
+                    Q(keywords__icontains=st),
+                 ] + matching_structures + matching_modalities + matching_methods + matching_domains
+
+                q_build = and_(reduce(or_, st_conditions), q_build)
 
         if is_underrepresented:
             q_build = and_(Q(country__is_under_represented=True), q_build)
 
         if is_senior:
             senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
-            # position must contain one of the words in the list
+            # position must contain one of the words in the list (case insensitive)
             q_build = and_(reduce(or_, (Q(position__icontains=x) for x in senior_profiles_keywords)), q_build)
 
         profiles_list = Profile.objects.filter(q_build)

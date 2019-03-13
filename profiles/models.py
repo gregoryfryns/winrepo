@@ -85,7 +85,7 @@ class Profile(models.Model):
         ('AM', 'Animal Models')
     )
 
-    DOMAIN_CHOICES = (
+    DOMAINS_CHOICES = (
         ('CG', 'Cognition (general)'),
         ('MM', 'Memory'),
         ('SS', 'Sensory systems'),
@@ -111,6 +111,26 @@ class Profile(models.Model):
         ('BI', 'Bioinformatics'),
         ('NC', 'Neuropharmacology')
     )
+    
+    @classmethod
+    def get_position_choices(cls):
+        return cls.POSITION_CHOICES
+
+    @classmethod
+    def get_structure_choices(cls):
+        return cls.STRUCTURE_CHOICES
+
+    @classmethod
+    def get_modalities_choices(cls):
+        return cls.MODALITIES_CHOICES
+
+    @classmethod
+    def get_methods_choices(cls):
+        return cls.METHODS_CHOICES
+
+    @classmethod
+    def get_domains_choices(cls):
+        return cls.DOMAINS_CHOICES
 
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(blank=True)
@@ -123,7 +143,7 @@ class Profile(models.Model):
     brain_structure = MultiSelectField(choices=STRUCTURE_CHOICES, blank=True)
     modalities = MultiSelectField(choices=MODALITIES_CHOICES, blank=True)
     methods = MultiSelectField(choices=METHODS_CHOICES, blank=True)
-    domains = MultiSelectField(choices=DOMAIN_CHOICES, blank=True)
+    domains = MultiSelectField(choices=DOMAINS_CHOICES, blank=True)
     keywords = models.CharField(max_length=250, blank=True)
     publish_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
@@ -131,10 +151,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
-    @property
-    def is_senior(self):
-        senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
-        return any(keyword in self.position for keyword in senior_keywords)
+    # @property
+    # def is_senior(self):
+    #     senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
+    #     return any(keyword in self.position for keyword in senior_keywords)
 
     def brain_structure_labels(self):
         return [dict(self.STRUCTURE_CHOICES).get(item, item) for item in self.brain_structure]
@@ -146,10 +166,11 @@ class Profile(models.Model):
         return [dict(self.METHODS_CHOICES).get(item, item) for item in self.methods]
 
     def domains_labels(self):
-        return [dict(self.DOMAIN_CHOICES).get(item, item) for item in self.domains]
+        return [dict(self.DOMAINS_CHOICES).get(item, item) for item in self.domains]
 
     def grad_month_labels(self):
         return dict(self.MONTHS_CHOICES).get(self.grad_month)
+
 
 class Recommendation(models.Model):
     PHD = 'PhD student'
