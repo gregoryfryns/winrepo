@@ -25,7 +25,7 @@
 							<span class="input-group-text text-secondary bg-white">
 								<i class="fas fa-search"></i>
 							</span>
-							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" autofocus {% if search.search_terms %}value="{{ search.search_terms }}"  onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"{% endif %}/>
+							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" autofocus {% if request.GET.s %}value="{{ request.GET.s }}"  onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"{% endif %}/>
 							<input id="search-btn" type="submit" value="Search" class="btn btn-secondary pl-4 pr-4 rounded mx-auto">
 						</div>
 					</div>
@@ -34,13 +34,13 @@
 			<div class="form-row p-2">
 				<div id="underrepresented-countries" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-3">
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="underrepresented-only" name="ur" {% if search.is_underrepresented %}checked{% endif %}>
+						<input type="checkbox" class="form-check-input" id="underrepresented-only" name="ur" {% if request.GET.ur %}checked{% endif %}>
 						<label class="form-check-label" for="underrepresented-only">Under Represented Countries Only</label>
 					</div>
 				</div>
 				<div id="senior-positions" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-0">
 					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="senior-only" name="senior" {% if search.is_senior %}checked{% endif %}>
+						<input type="checkbox" class="form-check-input" id="senior-only" name="senior"{% if request.GET.senior %} checked{% endif %}>
 						<label class="form-check-label" for="senior-only">Senior Positions Only</label>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 		<div class="loading" style="display: none;">
 			Loading...
 		</div>
-		
+
 	{% else %}
 		<p>No matching entries.</p>
 	{% endif %}

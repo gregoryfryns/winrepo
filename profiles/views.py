@@ -71,15 +71,6 @@ class ListProfiles(ListView):
 
         return profiles_list
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        data['search'] = {
-            'search_terms': self.request.GET.get('s'),
-            'is_underrepresented': self.request.GET.get('ur') == 'on',
-            'is_senior': self.request.GET.get('senior') == 'on',
-        }
-
-        return data
 
 class ProfileDetail(DetailView):
     model = Profile
