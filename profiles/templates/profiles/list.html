@@ -60,21 +60,21 @@
 					<div class="row mt-4 mb-4 no-gutters">
 						<div class="profile_id d-none">{{ profile.id }}</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3">
-							<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
+							<h5 class="text-primary font-weight-bold">{{ profile.name }}</h5>
 						</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3 details-grey text-muted">
-							<p class="m-1 searchable"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
-							<p class="m-1 searchable"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
-							<p class="m-1 searchable"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
+							<p class="m-1"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
+							<p class="m-1"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
+							<p class="m-1"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
 						</div>
 
 						<div class="d-none">
 							<dl>
-								<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
-								<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
+								<dt>Brain Area</dt><dd>{{ profile.brain_structure }}</dd>
+								<dt>Methods</dt><dd>{{ profile.methods }}</dd>
 							</dl>
 						</div>
-						<div class="searchable keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
+						<div class="keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
 						<div class="col-md-1 mt-1 d-none d-md-block text-primary">
 							{% if profile.recommendation_set.all|length %}
 							<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
