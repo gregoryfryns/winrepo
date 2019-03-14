@@ -20,6 +20,10 @@
 	border: none;
 }
 
+#home-search input:focus {
+	box-shadow: none;
+}
+
 #intro-text {
 	max-width: 800px;
 	margin: auto;
