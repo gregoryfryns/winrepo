@@ -9,7 +9,7 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}?v=2" />
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}?v=3" />
 {% endblock css %}
 
 {% block nav-repository-classes %}{{ block.super }} active{% endblock nav-repository-classes %}
@@ -53,7 +53,7 @@
 		<div id="results-table" class="infinite-container">
 			{% for profile in profiles %}
 				<div class="table-entry infinite-item">
-					<div class="row mt-4 mb-4 no-gutters">
+					<div class="row my-4 no-gutters">
 						<div class="profile_id d-none">{{ profile.id }}</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3">
 							<h5 class="text-primary font-weight-bold">{{ profile.name }}</h5>
@@ -71,14 +71,14 @@
 							</dl>
 						</div>
 						<div class="keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
-						<div class="col-md-1 mt-1 d-none d-md-block text-primary">
+						<div class="col-md-1 mt-1 pl-4 d-none d-md-block text-primary">
 							{% if profile.recommendation_set.all|length %}
 							<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
-								<!-- <a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a> -->
 							{% endif %}
 						</div>
-						<div class="col-xs-12 col-sm-4 col-md-2 mt-1 text-xs-left text-sm-right">
-							<a class="btn pill-btn btn-outline-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+						<div class="actions col-xs-12 col-sm-4 col-md-2 text-xs-left text-sm-right">
+							<a class="btn pill-btn btn-outline-secondary w-75 m-2" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+							<a class="btn pill-btn btn-outline-secondary w-75 m-2" href="{% url 'profiles:recommend' profile.id %}">Recommend</a>
 						</div>
 					</div>
 				</div>
