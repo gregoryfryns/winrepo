@@ -19,7 +19,6 @@ class ListProfiles(ListView):
     context_object_name = 'profiles'
     model = Profile
     paginate_by = 20
-    ordering = ['-publish_date']
 
     def get_queryset(self):
         searched_fields = ['name']
@@ -66,7 +65,7 @@ class ListProfiles(ListView):
         else:
             q_senior = ~Q(pk=None) # always true
 
-        profiles_list = Profile.objects.filter(q_st, q_ur, q_senior)
+        profiles_list = Profile.objects.filter(q_st, q_ur, q_senior).order_by('-publish_date')
 
 
         return profiles_list
