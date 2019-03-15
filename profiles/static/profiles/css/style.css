@@ -3,10 +3,17 @@
   padding-bottom: 30px;
 }
 
+<<<<<<< HEAD
 #list-search .custom-control-label:before {
   background-color:#fafafa;
 }
 #list-search .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+=======
+#list-search .custom-control-label:before{
+  background-color:#fafafa;
+}
+#list-search .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+>>>>>>> e4a8c5fac7dcf5ab3fa5c4b84492316f8d565513
   background-color:#1c898a;
 }
 
