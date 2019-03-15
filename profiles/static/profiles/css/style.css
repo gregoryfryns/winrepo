@@ -1,6 +1,13 @@
 #list-search {
-    padding-top: 100px;
-    padding-bottom: 30px;
+  padding-top: 100px;
+  padding-bottom: 30px;
+}
+
+#list-search .custom-control-label:before{
+  background-color:#fafafa;
+}
+#list-search .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color:#1c898a;
 }
 
 #search-message>span {
