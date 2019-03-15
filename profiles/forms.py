@@ -8,7 +8,7 @@ from captcha.widgets import ReCaptchaV3
 from .models import Profile, Recommendation
 
 class CaptchaForm(forms.Form):
-    captcha = ReCaptchaField(widget=ReCaptchaV3)
+    captcha = ReCaptchaField(widget=ReCaptchaV3, label=False)
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
@@ -66,6 +66,7 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_name': _('Full Name'),
             'reviewer_institution': _('Institution/Company'),
             'seen_at_conf': _('I saw one of her talks'),
+            'comment': _('')
         }
         help_texts = {
             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
