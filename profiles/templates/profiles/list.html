@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load my_tags %}
 
 {% block title %}
 	{{ block.super }} - Repository
@@ -8,36 +9,34 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/style.css' %}?v=3" />
 {% endblock css %}
 
 {% block nav-repository-classes %}{{ block.super }} active{% endblock nav-repository-classes %}
 
 {% block full_page_content %}
 	<div id="list-search" class="w-100 grey-bg">
-		<form>
+		<form method="get">
 			<div id="search-container" class="form-row p-2">
 				<div class="col-12 col-sm-6 offset-sm-3">
 					<div id="search-form" class="input-group bg-white rounded">
-						<div class="input-group-prepend">
-							<span class="input-group-text text-secondary bg-white">
-								<i class="fas fa-search"></i>
-							</span>
+						<div class="input-group-prepend p-1 w-100">
+							<input id="search" class="form-control" type="search" placeholder="Enter keywords, e.g. 'Attention MEG France'" name="s" autofocus {% if request.GET.s %}value="{{ request.GET.s }}"  onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"{% endif %}/>
+							<input id="search-btn" type="submit" value="Search" class="btn btn-secondary pl-4 pr-4 rounded mx-auto">
 						</div>
-						<input id="search" class="form-control" type="text" placeholder="Enter keywords, e.g. 'Attention MEG France'" />
 					</div>
 				</div>
 			</div>
 			<div class="form-row p-2">
 				<div id="underrepresented-countries" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-3">
 					<div class="form-check custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" id="underrepresented-only">
+						<input type="checkbox" class="custom-control-input" id="underrepresented-only" name="ur" {% if request.GET.ur %}checked{% endif %}>
 						<label class="custom-control-label" for="underrepresented-only">Under Represented Countries Only</label>
 					</div>
 				</div>
 				<div id="senior-positions" class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-0">
 					<div class="form-check custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input" id="senior-only">
+						<input type="checkbox" class="custom-control-input" id="senior-only" name="senior"{% if request.GET.senior %} checked{% endif %}>
 						<label class="custom-control-label" for="senior-only">Senior Positions Only</label>
 					</div>
 				</div>
@@ -47,54 +46,62 @@
 {% endblock full_page_content %}
 
 {% block content %}
-	{% if profile_list %}
-		<div class = "pb-3 no-gutters entries-number">
-			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ profile_list|length }}</span> entries found. </span>
+	{% if profiles %}
+		<div class="pb-3 no-gutters entries-number">
+			<span id="search-message"> <span class="text-secondary font-weight-bold"> {{ page_obj.paginator.count }}</span> entries found. </span>
 		</div>
-		<div id="results-table">
-			{% for profile in profile_list %}
-				<div class="table-entry">
-					<div class="row mt-4 mb-4 no-gutters">
+		<div id="results-table" class="infinite-container">
+			{% for profile in profiles %}
+				<div class="table-entry infinite-item">
+					<div class="row my-4 no-gutters">
 						<div class="profile_id d-none">{{ profile.id }}</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3">
-							<h5 class="searchable text-primary font-weight-bold">{{ profile.name }}</h5>
+							<h5 class="text-primary font-weight-bold">{{ profile.name }}</h5>
 						</div>
 						<div class="col-xs-12 col-sm-4 col-lg-3 details-grey text-muted">
-							<p class="m-1 searchable{% if profile.is_senior %} senior{% endif %}"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
-							<p class="m-1 searchable"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
-							<p class="m-1 searchable{% if profile.country.is_under_represented %} under-represented{% endif %}"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
+							<p class="m-1"><i class="fas fa-user"></i> <span>{{ profile.position }}</span></p>
+							<p class="m-1"><i class="fas fa-university"></i> <span>{{ profile.institution }}</span></p>
+							<p class="m-1"><i class="fas fa-map-marker-alt"></i> <span>{{ profile.country }}</span></p>
 						</div>
 
 						<div class="d-none">
 							<dl>
-								<dt>Brain Area</dt><dd class="searchable">{{ profile.brain_structure }}</dd>
-								<dt>Methods</dt><dd class="searchable">{{ profile.methods }}</dd>
+								<dt>Brain Area</dt><dd>{{ profile.brain_structure }}</dd>
+								<dt>Methods</dt><dd>{{ profile.methods }}</dd>
 							</dl>
 						</div>
-						<div class="searchable keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
-						<div class="col-md-1 mt-1 d-none d-md-block text-primary">
+						<div class="keywords-list col-lg-3 mt-1 d-none d-lg-block">{%if profile.modalities %}{{ profile.modalities }}, {% endif %} {%if profile.domains %}{{ profile.domains }}, {% endif %}{{ profile.keywords}}</div>
+						<div class="col-md-1 mt-1 pl-4 d-none d-md-block text-primary">
 							{% if profile.recommendation_set.all|length %}
 							<span><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
-								<!-- <a href="{% url 'profiles:recommend' profile.id %}" class="btn btn-primary" role="button"><span class="far fa-thumbs-up" id="recommend-icon"></span></a> -->
 							{% endif %}
 						</div>
-						<div class="col-xs-12 col-sm-4 col-md-2 mt-1 text-xs-left text-sm-right">
-							<a class="btn pill-btn btn-outline-secondary" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+						<div class="actions col-xs-12 col-sm-4 col-md-2 text-xs-left text-sm-right">
+							<a class="btn pill-btn btn-outline-secondary w-75 m-2" href="{% url 'profiles:detail' profile.id %}">View Profile</a>
+							<a class="btn pill-btn btn-outline-secondary w-75 m-2" href="{% url 'profiles:recommend' profile.id %}">Recommend</a>
 						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
-		<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
-		<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
+
+		{% if page_obj.has_next %}
+			<a class="infinite-more-link" href="?{% param_replace page=page_obj.next_page_number %}">More</a>
+	  	{% endif %}
+
+		<div class="loading" style="display: none;">
+			Loading...
+		</div>
 
 	{% else %}
 		<p>No matching entries.</p>
 	{% endif %}
+
+	<!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+	<a href="#" id="back-to-top" title="Back to top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
 {% endblock content %}
 
 {% block footer_scripts %}
 	{{ block.super }}
-	<script src="{% static 'profiles/js/jquery.ba-throttle-debounce.min.js' %}"></script>
-	<script src="{% static 'profiles/js/list.js' %}"></script>
+	<script src="{% static 'profiles/js/list.js' %}?v=2"></script>
 {% endblock footer_scripts %}

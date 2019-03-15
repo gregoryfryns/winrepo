@@ -18,5 +18,4 @@ $( document ).ready(function() {
 	
 	if (resultIndex >= 0)
 		$('#filtered-list-navigation').show();
-
 });

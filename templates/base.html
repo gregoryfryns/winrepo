@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135954731-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-135954731-1');
+	</script>
 	<meta charset="utf-8">
 	<meta name="author" content="Gregory Fryns">
 	<meta name="description" content="Listing of women working in Neuroscience">
@@ -81,7 +89,7 @@
 	<footer class="page-footer font-small bg-primary text-white p-4 mt-4">
 		<div class="d-flex flex-wrap justify-content-center">
 			<div class="col-12 col-md-4 text-md-left text-sm-center" style="vertical-align:middle;line-height:1.5rem">
-				<span class="font-weight-bold mx-1 align-middle">Women in Neuroscience Repository</soan>
+				<span class="font-weight-bold mx-1 align-middle">Women in Neuroscience Repository</span>
 			</div>
 			<div class="col-12 col-md-4 text-center">
 			</div>
@@ -99,6 +107,8 @@
 
 	{% block footer_scripts %}
 		{% bootstrap_javascript jquery=1 %}
+		<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+		<script src="{% static 'js/infinite.min.js' %}"></script>
 	{% endblock footer_scripts %}
 </body>
 </html>

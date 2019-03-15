@@ -4,7 +4,7 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}?v=2" />
 {% endblock css%}
 
 {% block header_scripts %}
@@ -82,10 +82,10 @@
 	<img src="{% static 'profiles/images/banner2.jpg' %}" class="img-fluid"  id="hero-image" alt="Responsive image">
 </div>
 <div class="container-fluid" id="home-search">
-	<div class="input-group bg-white rounded p-1 mx-auto">
-		<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search">
-		<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
-	</div>
+		<form action="list" method="get" class="input-group bg-white rounded p-1 mx-auto">
+			<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search" name="s" autofocus>
+			<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
+		</form>
 </div>
 <div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
 	<div class="row no-gutters p-4">
@@ -190,6 +190,3 @@
 
 {% endblock full_page_content %}
 
-{% block footer_scripts %} {{ block.super }}
-	<script src="{% static 'profiles/js/home.js' %}"></script>
-{% endblock footer_scripts %}

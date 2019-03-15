@@ -22,6 +22,14 @@
   border-left: #e6e6e6;
 }
 
+#search:focus {
+  box-shadow: none;
+}
+
+#search-form .input-group-prepend {
+  height: 3em;
+}
+
 .input-group-text {
   line-height: 2.5rem;
   border: white;
@@ -38,6 +46,10 @@
 .table-entry .keywords-list {
   max-height: 120px;
   overflow: hidden;
+}
+
+.table-entry .actions a {
+  font-size: .9em;
 }
 
 .num-rec {

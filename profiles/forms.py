@@ -63,8 +63,8 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'comment',
         ]
         labels = {
-            'reviewer_name': _('Full Name'),
-            'reviewer_institution': _('Institution/Company'),
+            'reviewer_name': _('Your full name'),
+            'reviewer_institution': _('Your Institution/Company'),
             'seen_at_conf': _('I saw one of her talks'),
             'comment': _('')
         }

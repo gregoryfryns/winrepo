@@ -11,13 +11,17 @@
 	height: 0;
 }
 
-#home-search>div {
+#home-search>form {
 	transform: translate(0, -50%);
 	max-width: 600px;
 }
 
 #home-search input {
 	border: none;
+}
+
+#home-search input:focus {
+	box-shadow: none;
 }
 
 #intro-text {
@@ -80,27 +84,3 @@
 #map-container {
 	max-width: 800px;
 }
-
-/* .google-visualization-tooltip {
-	border: 3px solid #E83535 !important;
-	border-radius: 20px !important;
-	font-size: 14px !important;
-	font-family: 'Open Sans' !important;
-	position: absolute !important;
-	width: 130px !important;
-	z-index:+1 !important;
-}
-
-.google-visualization-tooltip-item-list {
-	list-style-type: none;
-	margin: 5px !important;
-}
-
-.google-visualization-tooltip-item {
-	margin: 5px !important;
-	padding: 0 !important;
-}
-
-.google-visualization-tooltip > ul > li > span {
-	color: #555555 !important;
-} */
