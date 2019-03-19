@@ -80,7 +80,20 @@
 	{% block page_container %}
 	<div id="page-container" class="row no-gutters">
 		<div id="content" class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8">
-			{% block content %}{% endblock content %}
+			{% block messages %}
+				{% if messages %}
+					<ul class="messages">
+						{% for message in messages %}
+						<div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+							<strong>{{ message|escape }}</strong>
+						</div>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endblock messages %}
+			
+			{% block content %}
+			{% endblock content %}
 		</div>
 	</div>
 	{% endblock page_container %}

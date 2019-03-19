@@ -167,12 +167,15 @@ def home(request):
 class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'
     form_class = RecommendModelForm
-    # success_message = 'Your recommendation has been submitted successfully!'
+    success_message = 'Your recommendation has been submitted successfully!'
 
     def form_valid(self, form):
         recommendation = form.save()
-        profile_id = recommendation.profile.id
-        return HttpResponseRedirect(reverse('profiles:detail', kwargs={'pk': profile_id}))
+        self.profile_id = recommendation.profile.id
+        return super(CreateRecommendation, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.profile_id})
 
     def get_initial(self):
         initial = super(CreateRecommendation, self).get_initial()
@@ -180,7 +183,6 @@ class CreateRecommendation(SuccessMessageMixin, FormView):
         if profile_id is not None:
             profile = get_object_or_404(Profile, pk=profile_id)
             initial.update({ 'profile': profile })
-            # context['profile'] = get_object_or_404(Profile, pk=profile_id)
         return initial
 
 

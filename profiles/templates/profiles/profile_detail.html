@@ -20,16 +20,6 @@
 
 {% block content %}
 
-{% if messages %}
-<ul class="messages">
-	{% for message in messages %}
-	<div class="alert alert-success">
-		<strong>{{ message|escape }}</strong>
-	</div>
-	{% endfor %}
-</ul>
-{% endif %}
-
 <div class="container-fluid">
 	<div class="row no-gutters">
 		<div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
