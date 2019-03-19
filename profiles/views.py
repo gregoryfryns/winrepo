@@ -188,3 +188,18 @@ class ProfilesAutocomplete(Select2QuerySetView):
             profiles = profiles.filter(qs)
 
         return profiles
+
+class CountriesAutocomplete(Select2QuerySetView):
+    def get_queryset(self):
+        countries = Country.objects.all()
+
+        # If search terms in request, split each word and search for them in name & institution
+        if self.q:
+            qs = ~Q(pk=None) # always true
+            search_terms = list(filter(None, self.q.split(' ')))
+            for st in search_terms:
+                qs = and_(Q(name__icontains=st), qs)
+
+            countries = countries.filter(qs)
+
+        return countries

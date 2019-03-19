@@ -51,6 +51,15 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'domains': _('There are free keywords at the end of the questionnaire to input further information.'),
             'keywords': _('Optionally you can add some more specific terms to describe your field of research, separated by commas.'),
         }
+        widgets = {
+            'country': ModelSelect2(
+                url='profiles:countries_autocomplete',
+                attrs={
+                    # 'data-minimum-input-length': 2,
+                    'data-placeholder': 'Search Country...',
+                },
+            )
+        }
 
 class RecommendModelForm(CaptchaForm, forms.ModelForm):
     class Meta:
@@ -98,11 +107,10 @@ class RecommendModelForm2(forms.ModelForm):
             'profile': ModelSelect2(
                 url='profiles:profiles_autocomplete',
                 attrs={
-                    'data-html': True,
                     'data-minimum-input-length': 3,
                     'data-placeholder': 'Search Profile...',
                 },
-                )
+            )
         }
 
     # def clean(self):

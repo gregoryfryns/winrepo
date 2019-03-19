@@ -144,6 +144,7 @@ NOCAPTCHA = True
 # Sites settings
 SITE_ID = config('SITE_ID', cast=int)
 
+# Apps settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 BOOTSTRAP4 = {
@@ -161,4 +162,4 @@ BOOTSTRAP4 = {
     'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
 }
 
-
+SELECT2_CSS = ''

@@ -65,3 +65,8 @@
 	</form>
 </div>
 {% endblock content %}
+
+{% block footer_scripts %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock footer_scripts %}
