@@ -91,3 +91,11 @@
 #field-of-research-list>div:last-child {
    border-right: none;
 }
+
+.modelselect2 {
+  height: auto!important;
+} 
+
+.modelselect2>span {
+  height: 100%!important;
+}
