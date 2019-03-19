@@ -14,5 +14,7 @@ urlpatterns = [
     # path('submit', views.submit_create, name='submit_create'),
     # path('editfunc', views.edit_profile, name='editfunc'),
     # path('<int:pk>/submit', views.submit_edit, name='submit_edit'),
-    path('list/<int:pk>/recommend', views.CreateRecommendation.as_view(), name='recommend'),
+    path('list/<int:pk>/recommend', views.CreateRecommendation.as_view(), name='recommend_profile'),
+    path('list/recommend', views.CreateRecommendation2.as_view(), name='recommend'),
+    path('profiles-autocomplete', views.ProfilesAutocomplete.as_view(), name='profiles_autocomplete')
 ]

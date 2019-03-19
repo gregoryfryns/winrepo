@@ -3,16 +3,18 @@ from functools import reduce
 from operator import and_, or_
 
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
-import pdb
+
+from dal.autocomplete import Select2QuerySetView
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileModelForm, RecommendModelForm
+from .forms import CreateProfileModelForm, RecommendModelForm, RecommendModelForm2
 
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
@@ -26,6 +28,7 @@ class ListProfiles(ListView):
         is_underrepresented = self.request.GET.get('ur') == 'on'
         is_senior = self.request.GET.get('senior') == 'on'
 
+        # create filter on search terms
         q_st = ~Q(pk=None) # always true
         if s is not None:
             # split search terms and filter empty words (in case of successive spaces)
@@ -51,13 +54,13 @@ class ListProfiles(ListView):
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
-            
-
+        #  create filter on under-represented countries
         if is_underrepresented:
             q_ur = Q(country__is_under_represented=True)
         else:
             q_ur = ~Q(pk=None) # always true
 
+        # create filter on senior profiles
         if is_senior:
             senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
             # position must contain one of the words in the list (case insensitive)
@@ -65,8 +68,8 @@ class ListProfiles(ListView):
         else:
             q_senior = ~Q(pk=None) # always true
 
+        # apply filters
         profiles_list = Profile.objects.filter(q_st, q_ur, q_senior).order_by('-publish_date')
-
 
         return profiles_list
 
@@ -160,3 +163,28 @@ def home(request):
         'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)
+
+class CreateRecommendation2(SuccessMessageMixin, FormView):
+    template_name = 'profiles/recommendation_form.html'
+    form_class = RecommendModelForm2
+    # success_message = 'Your recommendation has been submitted successfully!'
+
+    def form_valid(self, form):
+        recommendation = form.save()
+        profile_id = recommendation.profile.id
+        return HttpResponseRedirect(reverse('profiles:detail', kwargs={'pk': profile_id}))
+
+class ProfilesAutocomplete(Select2QuerySetView):
+    def get_queryset(self):
+        profiles = Profile.objects.all()
+
+        # If search terms in request, split each word and search for them in name & institution
+        if self.q:
+            qs = ~Q(pk=None) # always true
+            search_terms = list(filter(None, self.q.split(' ')))
+            for st in search_terms:
+                qs = and_(or_(Q(name__icontains=st), Q(institution__icontains=st)), qs)
+
+            profiles = profiles.filter(qs)
+
+        return profiles

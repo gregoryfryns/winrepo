@@ -1,6 +1,6 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{% load bootstrap4 %}
 {% load static %}
 
 {% block title %}
@@ -16,16 +16,21 @@
 {% block nav-repository-classes %}active{% endblock nav-repository-classes %}
 
 {% block content %}
+{% if profile %} 
 <p> Writing a recommendation for: <b>{{ profile.name }}</b></p>
+{% endif %}
 <form action="" method="post">
 	{% csrf_token %}
-    {% bootstrap_form form %}
+    {{ form|crispy }}
 
-    {% buttons %}
     <button type="submit" class="btn btn-primary pill-btn">
         Save
     </button>
-    {% endbuttons %}
 </form>
 
 {% endblock content %}
+
+{% block footer_scripts %}
+    {{ block.super }}
+    {{ form.media }}
+{% endblock footer_scripts %}

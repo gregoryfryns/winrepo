@@ -1,9 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-# import floppyforms.__future__ as forms
 from captcha.fields import ReCaptchaField
-# from captcha.widgets import ReCaptchaV2Invisible
+from dal.autocomplete import ModelSelect2
 
 from .models import Profile, Recommendation
 
@@ -72,3 +71,47 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
             'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
         }
+
+class RecommendModelForm2(forms.ModelForm):
+    class Meta:
+        model = Recommendation
+        fields = [
+            'profile',
+            'reviewer_name',
+            'reviewer_institution',
+            'reviewer_position',
+            'seen_at_conf',
+            'comment',
+        ]
+        labels = {
+            'profile': _('Recommended Person'),
+            'reviewer_name': _('Your full name'),
+            'reviewer_institution': _('Your Institution/Company'),
+            'seen_at_conf': _('I saw one of her talks'),
+        }
+        help_texts = {
+            'profile': _('Name of the person you would like to recommend'),
+            'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
+            'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
+        }
+        widgets = {
+            'profile': ModelSelect2(
+                url='profiles:profiles_autocomplete',
+                attrs={
+                    'data-html': True,
+                    'data-minimum-input-length': 3,
+                    'data-placeholder': 'Search Profile...',
+                },
+                )
+        }
+
+    # def clean(self):
+    #     cleaned_data = super(RecommendModelForm2, self).clean()
+    #     profile = cleaned_data.get('profile')
+    #     reviewer_name = cleaned_data.get('reviewer_name')
+    #     try:
+    #         already_exist_info = Recommendation.objects.get(profile=int(profile), reviewer_name=reviewer_name)
+    #         raise forms.ValidationError(_('You have already recommended that person'), code='aready_recommended')
+    #     except:
+    #         pass
+    #     return cleaned_data

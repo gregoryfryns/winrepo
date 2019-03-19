@@ -48,7 +48,7 @@
 				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
 					<i class="fas fa-address-card"></i> View Page</a>
 
-				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend_profile' profile.id %}">
 					<i class="fas fa-comment"></i> Recommend</a>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 			Recommendations
 	</h5>
 	<!--<div class="col-12 col-md-4 text-right pt-3 pr-4">
-		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a>
+		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">Recommend</a>
 	</div>-->
 	{% if profile.recommendation_set.all %}
 	<span class="text-primary float-right" style="margin-top:-34px;"><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
@@ -135,14 +135,14 @@
 			</li>
 		{% endfor %}
 		</ul>
-		<div class="d-flex justify-content-end"><a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+		<div class="d-flex justify-content-end"><a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend_profile' profile.id %}">
 			<i class="fas fa-comment"></i> Recommend</a>
 		</div>
 	{% else %}
 		<div class="m-1 pt-4">
 		<p>No recommendations have been made for {{ profile.name }} yet.</p>
 		<p>Have you seen her at a conference? If so, please consider
-			<b><a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her one.</a></b>
+			<b><a href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">writing her one.</a></b>
 		</p>
 		</div>
 	{% endif %}
