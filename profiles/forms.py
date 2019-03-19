@@ -61,27 +61,27 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             )
         }
 
-class RecommendModelForm(CaptchaForm, forms.ModelForm):
-    class Meta:
-        model = Recommendation
-        fields = [
-            'reviewer_name',
-            'reviewer_institution',
-            'reviewer_position',
-            'seen_at_conf',
-            'comment',
-        ]
-        labels = {
-            'reviewer_name': _('Your full name'),
-            'reviewer_institution': _('Your Institution/Company'),
-            'seen_at_conf': _('I saw one of her talks'),
-        }
-        help_texts = {
-            'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
-            'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
-        }
+# class RecommendModelForm(CaptchaForm, forms.ModelForm):
+#     class Meta:
+#         model = Recommendation
+#         fields = [
+#             'reviewer_name',
+#             'reviewer_institution',
+#             'reviewer_position',
+#             'seen_at_conf',
+#             'comment',
+#         ]
+#         labels = {
+#             'reviewer_name': _('Your full name'),
+#             'reviewer_institution': _('Your Institution/Company'),
+#             'seen_at_conf': _('I saw one of her talks'),
+#         }
+#         help_texts = {
+#             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
+#             'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
+#         }
 
-class RecommendModelForm2(forms.ModelForm):
+class RecommendModelForm(CaptchaForm, forms.ModelForm):
     class Meta:
         model = Recommendation
         fields = [

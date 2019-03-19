@@ -11,7 +11,7 @@ urlpatterns = [
     path('list/<int:pk>/edit', views.UpdateProfile.as_view(), name='edit'),
     path('list/create', views.CreateProfile.as_view(), name='create'),
     path('list/<int:pk>/recommend', views.CreateRecommendation.as_view(), name='recommend_profile'),
-    path('list/recommend', views.CreateRecommendation2.as_view(), name='recommend'),
+    path('list/recommend', views.CreateRecommendation.as_view(), name='recommend'),
     path('profiles-autocomplete', views.ProfilesAutocomplete.as_view(), name='profiles_autocomplete'),
     path('countries-autocomplete', views.CountriesAutocomplete.as_view(), name='countries_autocomplete'),
 ]

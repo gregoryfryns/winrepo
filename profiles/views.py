@@ -14,7 +14,7 @@ from django.db.models import Q, Count
 from dal.autocomplete import Select2QuerySetView
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileModelForm, RecommendModelForm, RecommendModelForm2
+from .forms import CreateProfileModelForm, RecommendModelForm
 
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
@@ -117,22 +117,22 @@ class CreateProfile(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('profiles:detail', kwargs={'pk': self.object.pk})
 
-class CreateRecommendation(SuccessMessageMixin, FormView):
-    template_name = 'profiles/recommendation_form.html'
-    form_class = RecommendModelForm
+# class CreateRecommendation(SuccessMessageMixin, FormView):
+#     template_name = 'profiles/recommendation_form.html'
+#     form_class = RecommendModelForm
 
-    def get_success_url(self):
-        return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
+#     def get_success_url(self):
+#         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['profile'] = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['profile'] = get_object_or_404(Profile, pk=self.kwargs['pk'])
+#         return context
 
-    def form_valid(self, form):
-        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        form.save()
-        return super(CreateRecommendation, self).form_valid(form)
+#     def form_valid(self, form):
+#         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
+#         form.save()
+#         return super(CreateRecommendation, self).form_valid(form)
 
 def safe_div(x,y):
     if y == 0:
@@ -164,15 +164,25 @@ def home(request):
     }
     return render(request, 'profiles/home.html', context)
 
-class CreateRecommendation2(SuccessMessageMixin, FormView):
+class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'
-    form_class = RecommendModelForm2
+    form_class = RecommendModelForm
     # success_message = 'Your recommendation has been submitted successfully!'
 
     def form_valid(self, form):
         recommendation = form.save()
         profile_id = recommendation.profile.id
         return HttpResponseRedirect(reverse('profiles:detail', kwargs={'pk': profile_id}))
+
+    def get_initial(self):
+        initial = super(CreateRecommendation, self).get_initial()
+        profile_id = self.kwargs.get('pk')
+        if profile_id is not None:
+            profile = get_object_or_404(Profile, pk=profile_id)
+            initial.update({ 'profile': profile })
+            # context['profile'] = get_object_or_404(Profile, pk=profile_id)
+        return initial
+
 
 class ProfilesAutocomplete(Select2QuerySetView):
     def get_queryset(self):
