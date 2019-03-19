@@ -84,14 +84,14 @@
 				{% if messages %}
 					<ul class="messages">
 						{% for message in messages %}
-						<div class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}">
+						<div class="alert{% if message.tags == 'success' %} alert-success{% else %} alert-info{% endif %}">
 							<strong>{{ message|escape }}</strong>
 						</div>
 						{% endfor %}
 					</ul>
 				{% endif %}
 			{% endblock messages %}
-			
+
 			{% block content %}
 			{% endblock content %}
 		</div>

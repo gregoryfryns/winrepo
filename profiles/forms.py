@@ -12,6 +12,8 @@ class CaptchaForm(forms.Form):
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
+    use_required_attribute = False
+
     class Meta:
         model = Profile
         fields = [
@@ -61,27 +63,15 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             )
         }
 
-# class RecommendModelForm(CaptchaForm, forms.ModelForm):
-#     class Meta:
-#         model = Recommendation
-#         fields = [
-#             'reviewer_name',
-#             'reviewer_institution',
-#             'reviewer_position',
-#             'seen_at_conf',
-#             'comment',
-#         ]
-#         labels = {
-#             'reviewer_name': _('Your full name'),
-#             'reviewer_institution': _('Your Institution/Company'),
-#             'seen_at_conf': _('I saw one of her talks'),
-#         }
-#         help_texts = {
-#             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
-#             'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
-#         }
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if email and Profile.objects.filter(email=email).exists():
+            raise forms.ValidationError(_('This email is already being used'), code='duplicate_email')
+        return email
 
 class RecommendModelForm(forms.ModelForm):
+    use_required_attribute = False
+
     class Meta:
         model = Recommendation
         fields = [
@@ -113,13 +103,10 @@ class RecommendModelForm(forms.ModelForm):
             )
         }
 
-    # def clean(self):
-    #     cleaned_data = super(RecommendModelForm2, self).clean()
-    #     profile = cleaned_data.get('profile')
-    #     reviewer_name = cleaned_data.get('reviewer_name')
-    #     try:
-    #         already_exist_info = Recommendation.objects.get(profile=int(profile), reviewer_name=reviewer_name)
-    #         raise forms.ValidationError(_('You have already recommended that person'), code='aready_recommended')
-    #     except:
-    #         pass
-    #     return cleaned_data
+    def clean(self):
+        cleaned_data = super(RecommendModelForm, self).clean()
+        profile = cleaned_data.get('profile')
+        reviewer_name = cleaned_data.get('reviewer_name')
+        if profile and reviewer_name and Recommendation.objects.filter(profile=profile, reviewer_name=reviewer_name).exists():
+            raise forms.ValidationError(_('You have already recommended that person!'), code='aready_recommended')
+        return cleaned_data

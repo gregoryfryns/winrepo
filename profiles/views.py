@@ -77,7 +77,6 @@ class ListProfiles(ListView):
 class ProfileDetail(DetailView):
     model = Profile
 
-
 class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
     fields = [
@@ -104,35 +103,37 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
 class CreateProfile(SuccessMessageMixin, CreateView):
     template_name = 'profiles/profile_form.html'
     form_class = CreateProfileModelForm
-    # success_url = reverse_lazy('profiles:index')
     success_message = "The profile for %(name)s was created successfully"
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         # form.send_email()
         form.save()
-        return super().form_valid(form) 
+        return super(CreateProfile, self).form_valid(form) 
 
     def get_success_url(self):
         return reverse('profiles:detail', kwargs={'pk': self.object.pk})
 
-# class CreateRecommendation(SuccessMessageMixin, FormView):
-#     template_name = 'profiles/recommendation_form.html'
-#     form_class = RecommendModelForm
+class CreateRecommendation(SuccessMessageMixin, FormView):
+    template_name = 'profiles/recommendation_form.html'
+    form_class = RecommendModelForm
+    success_message = 'Your recommendation has been submitted successfully!'
 
-#     def get_success_url(self):
-#         return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
+    def form_valid(self, form):
+        recommendation = form.save()
+        self.profile_id = recommendation.profile.id
+        return super(CreateRecommendation, self).form_valid(form)
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['profile'] = get_object_or_404(Profile, pk=self.kwargs['pk'])
-#         return context
+    def get_success_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.profile_id})
 
-#     def form_valid(self, form):
-#         form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-#         form.save()
-#         return super(CreateRecommendation, self).form_valid(form)
+    def get_initial(self):
+        initial = super(CreateRecommendation, self).get_initial()
+        profile_id = self.kwargs.get('pk')
+        if profile_id is not None:
+            profile = get_object_or_404(Profile, pk=profile_id)
+            initial.update({ 'profile': profile })
+        return initial
+
 
 def safe_div(x,y):
     if y == 0:
@@ -163,27 +164,6 @@ def home(request):
         'country_stats': country_stats,
     }
     return render(request, 'profiles/home.html', context)
-
-class CreateRecommendation(SuccessMessageMixin, FormView):
-    template_name = 'profiles/recommendation_form.html'
-    form_class = RecommendModelForm
-    success_message = 'Your recommendation has been submitted successfully!'
-
-    def form_valid(self, form):
-        recommendation = form.save()
-        self.profile_id = recommendation.profile.id
-        return super(CreateRecommendation, self).form_valid(form)
-
-    def get_success_url(self):
-        return reverse('profiles:detail', kwargs={'pk': self.profile_id})
-
-    def get_initial(self):
-        initial = super(CreateRecommendation, self).get_initial()
-        profile_id = self.kwargs.get('pk')
-        if profile_id is not None:
-            profile = get_object_or_404(Profile, pk=profile_id)
-            initial.update({ 'profile': profile })
-        return initial
 
 
 class ProfilesAutocomplete(Select2QuerySetView):

@@ -16,6 +16,14 @@
 {% block nav-repository-classes %}active{% endblock nav-repository-classes %}
 
 {% block content %}
+{% if form.errors %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
 {% if profile %} 
 <p> Writing a recommendation for: <b>{{ profile.name }}</b></p>
 {% endif %}
