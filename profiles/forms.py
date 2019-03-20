@@ -86,6 +86,7 @@ class RecommendModelForm(forms.ModelForm):
             'profile': _('Recommended Person'),
             'reviewer_name': _('Your full name'),
             'reviewer_institution': _('Your Institution/Company'),
+            'reviewer_position': _('Your Position'),
             'seen_at_conf': _('I saw one of her talks'),
         }
         help_texts = {
