@@ -99,3 +99,7 @@
 .modelselect2>span {
   height: 100%!important;
 }
+
+li.quote .quote-date {
+  line-height: 1.6rem;
+}

@@ -112,7 +112,8 @@
 		{% for recommendation in profile.recommendation_set.all %}
 			<li class="quote grey-bg p-4 mt-3 rounded">
 				<h5 class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}
-				<small class="text-secondary">({{ recommendation.reviewer_position }} - {{ recommendation.reviewer_institution }})</small>
+				<small>({{ recommendation.reviewer_position }} - {{ recommendation.reviewer_institution }})</small>
+				<small class="text-muted float-right quote-date">{{ recommendation.publish_date|date:"M d, Y" }}</small>
 				</h5>
 				<!-- <span class="quote-seen-at-conf">
 					{% if recommendation.seen_at_conf %}
