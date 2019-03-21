@@ -69,7 +69,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             raise forms.ValidationError(_('This email is already being used'), code='duplicate_email')
         return email
 
-class RecommendModelForm(forms.ModelForm):
+class RecommendModelForm(CaptchaForm, forms.ModelForm):
     use_required_attribute = False
 
     class Meta:
