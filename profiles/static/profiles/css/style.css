@@ -92,6 +92,11 @@
    border-right: none;
 }
 
+li.quote .quote-date {
+  line-height: 1.6rem;
+}
+
+/* Autocomplete fields  */
 .modelselect2 {
   height: auto!important;
 } 
@@ -100,6 +105,6 @@
   height: 100%!important;
 }
 
-li.quote .quote-date {
-  line-height: 1.6rem;
+.select2-selection {
+  border: 1px solid #ced4da!important;
 }

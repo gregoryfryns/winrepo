@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-{% load bootstrap4 %}
 {% load static %}
 
 {% load crispy_forms_tags %}
@@ -28,7 +27,6 @@
 <div class="col-lg-10 col-lg-offset-1">
 	<form action="" method="post">
  		{% csrf_token %}
-		{% comment %} {% bootstrap_form form %} {% endcomment %}
 		{{ form.name|as_crispy_field }}
 		{{ form.institution|as_crispy_field }}
 		{{ form.country|as_crispy_field }}
@@ -49,11 +47,11 @@
 	 {{ form.domains|as_crispy_field }}
 	 {{ form.keywords|as_crispy_field }}
 	 {{ form.captcha }}
-	 {% buttons %}
+
 	 <button type="submit" class="btn btn-primary pill-btn">
 		 Submit
 	 </button>
-	 {% endbuttons %}
+
 	</form>
 </div>
 {% endblock content %}
