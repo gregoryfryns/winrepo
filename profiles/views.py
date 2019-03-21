@@ -1,4 +1,5 @@
 import re
+import random
 from functools import reduce
 from operator import and_, or_
 
@@ -151,7 +152,8 @@ def home(request):
     # Number of entries per country
     country_stats = Profile.objects.all().values('country__name').annotate(total=Count('id'))
 
-    context = {
+    context = {}
+    context['profiles'] = {
         'nb_senior': nb_senior,
         'nb_all': nb_all,
         'nb_students' : nb_students,
@@ -163,6 +165,12 @@ def home(request):
         'pct_other' : round(100*safe_div((nb_all - nb_senior - nb_students - nb_postdoc), nb_all)),
         'country_stats': country_stats,
     }
+
+    context['recommendations'] = {
+        'total': Recommendation.objects.count(),
+        'sample': random.sample(list(Recommendation.objects.all().order_by('-id')[:100]), 6),
+    }
+
     return render(request, 'profiles/home.html', context)
 
 

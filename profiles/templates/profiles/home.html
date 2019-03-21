@@ -4,7 +4,7 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}?v=2" />
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}?v=3" />
 {% endblock css%}
 
 {% block header_scripts %}
@@ -15,7 +15,7 @@
 		google.charts.setOnLoadCallback(init);
 
 		function drawPieChart(myID,val1,label,color1) {
-			var percentVal = val1/{{ nb_all }};
+			var percentVal = val1/{{ profiles.nb_all }};
 			var labelVal = percentVal.toString();
 			var data = new google.visualization.DataTable();
 			data.addColumn('string','Position');
@@ -23,7 +23,7 @@
 			data.addColumn({type:'string', role:'annotation'});
 			data.addRows([
 				[label, val1, labelVal],
-				['Rest', {{ nb_all }} -  val1,''],
+				['Rest', {{ profiles.nb_all }} -  val1,''],
 			]);
 
 			var options = {
@@ -47,7 +47,7 @@
 		}
 
 		function drawRegionsMap() {
-				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for entry in country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
+				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for entry in profiles.country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
 
 			var options = {
 				// colorAxis: { colors: ['#db9daf', '#cc063e'] },
@@ -62,10 +62,10 @@
 		}
 
 		function init() {
-		    drawPieChart('chartPhD',{{ nb_students }},'PhD students','#CC063E');
-			drawPieChart('chartPostDoc',{{ nb_postdoc }},'Post-doc','#E83535');
-			drawPieChart('chartSenior',{{ nb_senior }},'Senior','#FD9407');
-			drawPieChart('chartOther',{{ nb_other }},'Other','#999999');
+		    drawPieChart('chartPhD',{{ profiles.nb_students }},'PhD students','#CC063E');
+			drawPieChart('chartPostDoc',{{ profiles.nb_postdoc }},'Post-doc','#E83535');
+			drawPieChart('chartSenior',{{ profiles.nb_senior }},'Senior','#FD9407');
+			drawPieChart('chartOther',{{ profiles.nb_other }},'Other','#999999');
 			drawRegionsMap();
 		}
 
@@ -96,9 +96,9 @@
 	<div class="row no-gutters p-4">
 		<div  class="col-md-10 offset-md-1" id="intro-text" >
 			<p class="h5 text-justify">Despite some effort from the community and
-				<a href="{% url 'faq' %}#heading-resources">great initiatives</a>, female neuroscientists are
+				<a class="text-quinary" href="{% url 'faq' %}#heading-resources">great initiatives</a>, female neuroscientists are
 				still under-represented in various neuroscience
-				conferences (<a href="https://biaswatchneuro.com/">BiasWatchNeuro</a>).
+				conferences (<a class="text-quinary" href="https://biaswatchneuro.com/">BiasWatchNeuro</a>).
 				The aim of this Women in Neuroscience Repository is to help you identify
 				and recommend female neuroscientists for conferences, symposia or collaborations.</p>
 		</div>
@@ -115,9 +115,36 @@
 		</div>
 	</div>
 </div>
+
+<div id="reco-carousel" class="container-fluid carousel bg-light slide" data-ride="carousel" data-interval="60000">
+  <ol class="carousel-indicators">
+	{% for reco in recommendations.sample %}
+    <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active">{% endif %}</li>
+	{% endfor %}
+  </ol>
+  <div class="carousel-inner m-auto">
+  {% for reco in recommendations.sample %}
+    <div class="carousel-item p-4{% if forloop.first %} active{% endif %}">
+	<blockquote class="blockquote text-center">
+		<p class="mb-0"><span class="quote-icon"><i class="fas fa-quote-left"></i></span> {{ reco.comment|truncatechars:255 }}</p>
+		<footer class="blockquote-footer">{{ reco.reviewer_name }}, about <a class="text-secondary" href="{% url 'profiles:detail' reco.profile.id %}">{{ reco.profile.name }}</a></footer>
+	</blockquote>
+    </div>
+  {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#reco-carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#reco-carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
 <div class="container-fluid" id="stats">
 	<div class="text-center m-4" id="entries-container">
-		<p class="h1 text-secondary font-weight-bold mb-0" id="entries-number"> {{ nb_all }} </p>
+		<p class="h1 text-secondary font-weight-bold mb-0" id="entries-number"> {{ profiles.nb_all }} </p>
 		<p class="h5 text-primary" id="entries-text">entries in repository. </p>
 	</div>
 
@@ -127,48 +154,48 @@
 				<tr>
 					<td class="donutCell">
 						<div id="chartPhD" class="donutDiv"></div>
-						<div class="donutValue"> {{ pct_students }}%</div>
+						<div class="donutValue"> {{ profiles.pct_students }}%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-secondary" id="PhDtext">PhD</span>
-			<p class="position-text">{{ nb_students }} profiles</p>
+			<p class="position-text">{{ profiles.nb_students }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartPostDoc" class="donutDiv"></div>
-						<div class="donutValue">{{ pct_postdoc }}%</div>
+						<div class="donutValue">{{ profiles.pct_postdoc }}%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-tertiary" id="PostDoctext">Post-doc</span>
-			<p class="position-text">{{ nb_postdoc }} profiles</p>
+			<p class="position-text">{{ profiles.nb_postdoc }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartSenior" class="donutDiv"></div>
-						<div class="donutValue">{{ pct_senior }}%</div>
+						<div class="donutValue">{{ profiles.pct_senior }}%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-quaternary" id="Seniortext">Senior</span>
-			<p class="position-text">{{ nb_senior }} profiles</p>
+			<p class="position-text">{{ profiles.nb_senior }} profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartOther" class="donutDiv"></div>
-						<div class="donutValue">{{ pct_other }}%</div>
+						<div class="donutValue">{{ profiles.pct_other }}%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-senary" id="Othertext">Other</span>
-			<p class="position-text">{{ nb_other }} profiles</p>
+			<p class="position-text">{{ profiles.nb_other }} profiles</p>
 		</div>
 	</div>
 
