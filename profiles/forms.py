@@ -3,13 +3,12 @@ from django.utils.translation import gettext_lazy as _
 
 # import floppyforms.__future__ as forms
 from captcha.fields import ReCaptchaField
-# from captcha.widgets import ReCaptchaV2Invisible
+from captcha.widgets import ReCaptchaV3
 
 from .models import Profile, Recommendation
 
 class CaptchaForm(forms.Form):
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
-    captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
+    captcha = ReCaptchaField(widget=ReCaptchaV3, label=False)
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
@@ -67,6 +66,7 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_name': _('Your full name'),
             'reviewer_institution': _('Your Institution/Company'),
             'seen_at_conf': _('I saw one of her talks'),
+            'comment': _('')
         }
         help_texts = {
             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
