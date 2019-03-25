@@ -3,12 +3,12 @@ from django.utils.translation import gettext_lazy as _
 
 from captcha.fields import ReCaptchaField
 from dal.autocomplete import ModelSelect2
+from captcha.widgets import ReCaptchaV3
 
 from .models import Profile, Recommendation
 
 class CaptchaForm(forms.Form):
-    # captcha = ReCaptchaField(widget=ReCaptchaV2Invisible)
-    captcha = ReCaptchaField(label="", attrs={'theme' : 'clean',})
+    captcha = ReCaptchaField(widget=ReCaptchaV3, label=False)
 
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
@@ -88,6 +88,7 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_institution': _('Your Institution/Company'),
             'reviewer_position': _('Your Position'),
             'seen_at_conf': _('I saw one of her talks'),
+            'comment': _('')
         }
         help_texts = {
             'profile': _('Name of the person you would like to recommend'),

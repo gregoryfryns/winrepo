@@ -137,9 +137,11 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, "static-collected")
 
 # reCaptcha settings
-RECAPTCHA_PUBLIC_KEY = '6LexSF8UAAAAAPPx-PzA1GX7LRf3syZw264Aaoue'
+RECAPTCHA_PUBLIC_KEY = '6Lc8d5YUAAAAAGeYG5ilVvTNiV8GgwGUxmDFpEhG'
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
-NOCAPTCHA = True
+NOCAPTCHA = False
+RECAPTCHA_USE_SSL = False
+RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 # Sites settings
 SITE_ID = config('SITE_ID', cast=int)
@@ -163,3 +165,5 @@ BOOTSTRAP4 = {
 }
 
 SELECT2_CSS = ''
+
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
