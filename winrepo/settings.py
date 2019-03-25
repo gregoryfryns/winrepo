@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'bootstrap4',
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,6 +146,7 @@ RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 # Sites settings
 SITE_ID = config('SITE_ID', cast=int)
 
+# Apps settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 BOOTSTRAP4 = {
@@ -161,4 +164,6 @@ BOOTSTRAP4 = {
     'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
 }
 
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+SELECT2_CSS = ''
+
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

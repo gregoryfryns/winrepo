@@ -20,16 +20,6 @@
 
 {% block content %}
 
-{% if messages %}
-<ul class="messages">
-	{% for message in messages %}
-	<div class="alert alert-success">
-		<strong>{{ message|escape }}</strong>
-	</div>
-	{% endfor %}
-</ul>
-{% endif %}
-
 <div class="container-fluid">
 	<div class="row no-gutters">
 		<div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
@@ -48,7 +38,7 @@
 				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
 					<i class="fas fa-address-card"></i> View Page</a>
 
-				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend_profile' profile.id %}">
 					<i class="fas fa-comment"></i> Recommend</a>
 			</div>
 		</div>
@@ -114,7 +104,7 @@
 			Recommendations
 	</h5>
 	<!--<div class="col-12 col-md-4 text-right pt-3 pr-4">
-		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend' profile.id %}" target="_blank">Recommend</a>
+		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">Recommend</a>
 	</div>-->
 	{% if profile.recommendation_set.all %}
 	<span class="text-primary float-right" style="margin-top:-34px;"><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
@@ -122,7 +112,8 @@
 		{% for recommendation in profile.recommendation_set.all %}
 			<li class="quote grey-bg p-4 mt-3 rounded">
 				<h5 class="quote-reviewer text-secondary font-weight-bold">{{ recommendation.reviewer_name }}
-				<small class="text-secondary">({{ recommendation.reviewer_position }} - {{ recommendation.reviewer_institution }})</small>
+				<small>({{ recommendation.reviewer_position }} - {{ recommendation.reviewer_institution }})</small>
+				<small class="text-muted float-right quote-date">{{ recommendation.publish_date|date:"M d, Y" }}</small>
 				</h5>
 				<!-- <span class="quote-seen-at-conf">
 					{% if recommendation.seen_at_conf %}
@@ -135,14 +126,14 @@
 			</li>
 		{% endfor %}
 		</ul>
-		<div class="d-flex justify-content-end"><a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend' profile.id %}">
+		<div class="d-flex justify-content-end"><a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend_profile' profile.id %}">
 			<i class="fas fa-comment"></i> Recommend</a>
 		</div>
 	{% else %}
 		<div class="m-1 pt-4">
 		<p>No recommendations have been made for {{ profile.name }} yet.</p>
 		<p>Have you seen her at a conference? If so, please consider
-			<b><a href="{% url 'profiles:recommend' profile.id %}" target="_blank">writing her one.</a></b>
+			<b><a href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">writing her one.</a></b>
 		</p>
 		</div>
 	{% endif %}
@@ -172,9 +163,6 @@
 
 {% endblock content %}
 
-{% block footer_scripts %}
+{% comment %} {% block footer_scripts %}
 	{{ block.super }}
-	<!--
-	<script src="{% static 'profiles/js/profile_detail.js' %}"></script>
-	-->
-{% endblock footer_scripts %}
+{% endblock footer_scripts %} {% endcomment %}

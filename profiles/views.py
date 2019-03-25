@@ -1,15 +1,18 @@
 import re
+import random
 from functools import reduce
 from operator import and_, or_
 
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
-import pdb
+
+from dal.autocomplete import Select2QuerySetView
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
@@ -26,6 +29,7 @@ class ListProfiles(ListView):
         is_underrepresented = self.request.GET.get('ur') == 'on'
         is_senior = self.request.GET.get('senior') == 'on'
 
+        # create filter on search terms
         q_st = ~Q(pk=None) # always true
         if s is not None:
             # split search terms and filter empty words (in case of successive spaces)
@@ -51,13 +55,13 @@ class ListProfiles(ListView):
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
-            
-
+        #  create filter on under-represented countries
         if is_underrepresented:
             q_ur = Q(country__is_under_represented=True)
         else:
             q_ur = ~Q(pk=None) # always true
 
+        # create filter on senior profiles
         if is_senior:
             senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
             # position must contain one of the words in the list (case insensitive)
@@ -65,15 +69,14 @@ class ListProfiles(ListView):
         else:
             q_senior = ~Q(pk=None) # always true
 
+        # apply filters
         profiles_list = Profile.objects.filter(q_st, q_ur, q_senior).order_by('-publish_date')
-
 
         return profiles_list
 
 
 class ProfileDetail(DetailView):
     model = Profile
-
 
 class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
@@ -101,15 +104,12 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
 class CreateProfile(SuccessMessageMixin, CreateView):
     template_name = 'profiles/profile_form.html'
     form_class = CreateProfileModelForm
-    # success_url = reverse_lazy('profiles:index')
     success_message = "The profile for %(name)s was created successfully"
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         # form.send_email()
         form.save()
-        return super().form_valid(form) 
+        return super(CreateProfile, self).form_valid(form) 
 
     def get_success_url(self):
         return reverse('profiles:detail', kwargs={'pk': self.object.pk})
@@ -117,19 +117,24 @@ class CreateProfile(SuccessMessageMixin, CreateView):
 class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'
     form_class = RecommendModelForm
-
-    def get_success_url(self):
-        return reverse('profiles:detail', kwargs={'pk': self.kwargs['pk']})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['profile'] = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        return context
+    success_message = 'Your recommendation has been submitted successfully!'
 
     def form_valid(self, form):
-        form.instance.profile = get_object_or_404(Profile, pk=self.kwargs['pk'])
-        form.save()
+        recommendation = form.save()
+        self.profile_id = recommendation.profile.id
         return super(CreateRecommendation, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.profile_id})
+
+    def get_initial(self):
+        initial = super(CreateRecommendation, self).get_initial()
+        profile_id = self.kwargs.get('pk')
+        if profile_id is not None:
+            profile = get_object_or_404(Profile, pk=profile_id)
+            initial.update({ 'profile': profile })
+        return initial
+
 
 def safe_div(x,y):
     if y == 0:
@@ -147,7 +152,8 @@ def home(request):
     # Number of entries per country
     country_stats = Profile.objects.all().values('country__name').annotate(total=Count('id'))
 
-    context = {
+    context = {}
+    context['profiles'] = {
         'nb_senior': nb_senior,
         'nb_all': nb_all,
         'nb_students' : nb_students,
@@ -159,4 +165,41 @@ def home(request):
         'pct_other' : round(100*safe_div((nb_all - nb_senior - nb_students - nb_postdoc), nb_all)),
         'country_stats': country_stats,
     }
+
+    context['recommendations'] = {
+        'total': Recommendation.objects.count(),
+        'sample': random.sample(list(Recommendation.objects.all().order_by('-id')[:100]), 6),
+    }
+
     return render(request, 'profiles/home.html', context)
+
+
+class ProfilesAutocomplete(Select2QuerySetView):
+    def get_queryset(self):
+        profiles = Profile.objects.all()
+
+        # If search terms in request, split each word and search for them in name & institution
+        if self.q:
+            qs = ~Q(pk=None) # always true
+            search_terms = list(filter(None, self.q.split(' ')))
+            for st in search_terms:
+                qs = and_(or_(Q(name__icontains=st), Q(institution__icontains=st)), qs)
+
+            profiles = profiles.filter(qs)
+
+        return profiles
+
+class CountriesAutocomplete(Select2QuerySetView):
+    def get_queryset(self):
+        countries = Country.objects.all()
+
+        # If search terms in request, split each word and search for them in name & institution
+        if self.q:
+            qs = ~Q(pk=None) # always true
+            search_terms = list(filter(None, self.q.split(' ')))
+            for st in search_terms:
+                qs = and_(Q(name__icontains=st), qs)
+
+            countries = countries.filter(qs)
+
+        return countries

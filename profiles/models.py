@@ -9,11 +9,12 @@ class Country(models.Model):
     is_under_represented = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural = "countries"
+        verbose_name_plural = 'countries'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
-
+        
 
 class Profile(models.Model):
     PHD = 'PhD student'
@@ -148,8 +149,11 @@ class Profile(models.Model):
     publish_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['name', 'institution', 'last_updated']
+
     def __str__(self):
-        return self.name
+        return f'{self.name}, {self.institution}'
 
     # @property
     # def is_senior(self):
@@ -204,6 +208,9 @@ class Recommendation(models.Model):
     comment = models.TextField(blank=False)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-last_updated']
 
     def __str__(self):
         return self.comment[:50]

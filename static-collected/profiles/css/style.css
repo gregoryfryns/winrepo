@@ -1,6 +1,17 @@
 #list-search {
-    padding-top: 100px;
-    padding-bottom: 30px;
+  padding-top: 100px;
+  padding-bottom: 30px;
+}
+
+#list-search .custom-control-label:before, #list-search .custom-control-label:after {
+  background-color:#fff;
+  border-radius: 2px;
+}
+
+#list-search .custom-checkbox .custom-control-input:checked~.custom-control-label::before,
+#list-search .custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+  background-color:#1c898a;
+  border-radius: 2px;
 }
 
 #search-message>span {
@@ -39,6 +50,10 @@
 .table-entry .keywords-list {
   max-height: 120px;
   overflow: hidden;
+}
+
+.table-entry .actions a {
+  font-size: .9em;
 }
 
 .num-rec {
@@ -86,4 +101,21 @@
 
 #field-of-research-list>div:last-child {
    border-right: none;
+}
+
+li.quote .quote-date {
+  line-height: 1.6rem;
+}
+
+/* Autocomplete fields  */
+.modelselect2 {
+  height: auto!important;
+} 
+
+.modelselect2>span {
+  height: 100%!important;
+}
+
+.select2-selection {
+  border: 1px solid #ced4da!important;
 }

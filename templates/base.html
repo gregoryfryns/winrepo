@@ -59,6 +59,9 @@
 				<li class="nav-item {% block nav-create-classes %}{% endblock nav-create-classes %}">
 					<a class="nav-link h6" href="{% url 'profiles:create' %}">Create profile</a>
 				</li>
+				<li class="nav-item {% block nav-recommend-classes %}{% endblock nav-recommend-classes %}">
+					<a class="nav-link h6" href="{% url 'profiles:recommend' %}">Recommend</a>
+				</li>
 				<li class="nav-item {% block nav-faq-classes %}{% endblock nav-faq-classes %}">
 					<a class="nav-link h6" href="{% url 'faq' %}">FAQ</a>
 				</li>
@@ -80,7 +83,20 @@
 	{% block page_container %}
 	<div id="page-container" class="row no-gutters">
 		<div id="content" class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8">
-			{% block content %}{% endblock content %}
+			{% block messages %}
+				{% if messages %}
+					<ul class="messages">
+						{% for message in messages %}
+						<div class="alert{% if message.tags == 'success' %} alert-success{% else %} alert-info{% endif %}">
+							<strong>{{ message|escape }}</strong>
+						</div>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endblock messages %}
+
+			{% block content %}
+			{% endblock content %}
 		</div>
 	</div>
 	{% endblock page_container %}
