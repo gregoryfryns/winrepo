@@ -47,7 +47,7 @@
 		}
 
 		function drawRegionsMap() {
-				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for entry in profiles.country_stats %}, ['{{ entry.country__name }}', {{ entry.total }}]{% endfor %}], false);
+				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for country in countries %}, ['{{ country.name }}', {{ country.nb_profiles }}]{% endfor %}], false);
 
 			var options = {
 				// colorAxis: { colors: ['#db9daf', '#cc063e'] },

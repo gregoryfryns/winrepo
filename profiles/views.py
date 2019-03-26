@@ -150,7 +150,8 @@ def home(request):
     nb_postdoc = Profile.objects.filter(position__icontains='Post-doc').count()
     nb_all = Profile.objects.count()
     # Number of entries per country
-    country_stats = Profile.objects.all().values('country__name').annotate(total=Count('id'))
+    country_stats = Country.objects.annotate(nb_profiles=Count('profile'))
+    country_stats = [country for country in country_stats if country.nb_profiles>0]
 
     context = {}
     context['profiles'] = {
@@ -163,8 +164,8 @@ def home(request):
         'pct_postdoc' : round(100*safe_div(nb_postdoc, nb_all)),
         'pct_senior' : round(100*safe_div(nb_senior, nb_all)),
         'pct_other' : round(100*safe_div((nb_all - nb_senior - nb_students - nb_postdoc), nb_all)),
-        'country_stats': country_stats,
     }
+    context['countries'] = country_stats
 
     context['recommendations'] = {
         'total': Recommendation.objects.count(),
