@@ -8,9 +8,11 @@ class CountryAdmin(admin.ModelAdmin):
     
 class RecommendationAdmin(admin.ModelAdmin):
     list_display = ('profile', 'reviewer_name', 'reviewer_email', 'comment')
+    search_fields = ('profile__name', 'reviewer_name', 'reviewer_email', 'comment')
     
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'position', 'institution')
+    search_fields = ('name', 'institution', 'email')
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Recommendation, RecommendationAdmin)
