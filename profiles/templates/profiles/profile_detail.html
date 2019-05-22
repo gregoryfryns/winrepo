@@ -32,13 +32,13 @@
 		</div>
 		<div class="col-xs-6 col-sm-4 col-md-3">
 			<div class="d-flex flex-column">
-				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.email == "" %} disabled{% endif %}" href="mailto:{{ profile.email }}">
+				<a class="btn pill-btn text-white btn-secondary m-1 email-btn{% if profile.email == "" %} disabled{% endif %}" href="mailto:{{ profile.email }}">
 					<i class="fas fa-envelope"></i> Send Email</a>
 
-				<a class="btn pill-btn text-white btn-secondary m-1{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
+				<a class="btn pill-btn text-white btn-secondary m-1 webpage-btn{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
 					<i class="fas fa-address-card"></i> View Page</a>
 
-				<a class="btn pill-btn btn-outline-primary m-1" href="{% url 'profiles:recommend_profile' profile.id %}">
+				<a class="btn pill-btn btn-outline-primary m-1 recommend-btn" href="{% url 'profiles:recommend_profile' profile.id %}">
 					<i class="fas fa-comment"></i> Recommend</a>
 			</div>
 		</div>
@@ -163,6 +163,7 @@
 
 {% endblock content %}
 
-{% comment %} {% block footer_scripts %}
+{% block footer_scripts %}
 	{{ block.super }}
-{% endblock footer_scripts %} {% endcomment %}
+	<script src="{% static 'profiles/js/profile-gtag.js' %}?v=1"></script>
+{% endblock footer_scripts %}
