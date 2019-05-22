@@ -111,3 +111,9 @@ ENV/
 !**/migrations
 .vscode/*
 pylintrc
+
+# os files
+.DS_Store
+
+# conda files
+Scripts

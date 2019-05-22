@@ -3,6 +3,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135954731-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'UA-135954731-1', { 'anonymize_ip': true });
+	</script>
 	<meta charset="utf-8">
 	<meta name="author" content="Gregory Fryns">
 	<meta name="description" content="Listing of women working in Neuroscience">
@@ -51,6 +59,9 @@
 				<li class="nav-item {% block nav-create-classes %}{% endblock nav-create-classes %}">
 					<a class="nav-link h6" href="{% url 'profiles:create' %}">Create profile</a>
 				</li>
+				<li class="nav-item {% block nav-recommend-classes %}{% endblock nav-recommend-classes %}">
+					<a class="nav-link h6" href="{% url 'profiles:recommend' %}">Recommend</a>
+				</li>
 				<li class="nav-item {% block nav-faq-classes %}{% endblock nav-faq-classes %}">
 					<a class="nav-link h6" href="{% url 'faq' %}">FAQ</a>
 				</li>
@@ -72,7 +83,20 @@
 	{% block page_container %}
 	<div id="page-container" class="row no-gutters">
 		<div id="content" class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8">
-			{% block content %}{% endblock content %}
+			{% block messages %}
+				{% if messages %}
+					<ul class="messages">
+						{% for message in messages %}
+						<div class="alert{% if message.tags == 'success' %} alert-success{% else %} alert-info{% endif %}">
+							<strong>{{ message|escape }}</strong>
+						</div>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endblock messages %}
+
+			{% block content %}
+			{% endblock content %}
 		</div>
 	</div>
 	{% endblock page_container %}
@@ -81,7 +105,7 @@
 	<footer class="page-footer font-small bg-primary text-white p-4 mt-4">
 		<div class="d-flex flex-wrap justify-content-center">
 			<div class="col-12 col-md-4 text-md-left text-sm-center" style="vertical-align:middle;line-height:1.5rem">
-				<span class="font-weight-bold mx-1 align-middle">Women in Neuroscience Repository</soan>
+				<span class="font-weight-bold mx-1 align-middle">Women in Neuroscience Repository</span>
 			</div>
 			<div class="col-12 col-md-4 text-center">
 			</div>
@@ -99,6 +123,8 @@
 
 	{% block footer_scripts %}
 		{% bootstrap_javascript jquery=1 %}
+		<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+		<script src="{% static 'js/infinite.min.js' %}"></script>
 	{% endblock footer_scripts %}
 </body>
 </html>
