@@ -202,12 +202,19 @@ class Recommendation(models.Model):
         (DIR, 'Group leader/ Director/ Head of Department')
     )
 
+    SKILLS_CHOICES = (('A', 'Reason A '),
+        ('B', 'Reason B'),
+        ('C', 'Reason C'),
+        ('D', 'Reason D'),
+        ('E', 'Reason E'),
+    )
+
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=100, blank=False)
-    reviewer_email = models.EmailField(blank=False)
+    reviewer_email = models.EmailField(blank=True)
     reviewer_position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
-    seen_at_conf = models.BooleanField()
+    skills = MultiSelectField(choices=SKILLS_CHOICES, max_choices=3, blank=True)
     comment = models.TextField(blank=False)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

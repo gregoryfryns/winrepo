@@ -38,7 +38,22 @@
 		{{ form.reviewer_institution|as_crispy_field }}
 		 	</div>
 	 	</div>
-		{{ form.seen_at_conf|as_crispy_field }}
+		 
+		 <div id="div_id{{ form.skills.name }}" class="form-group">
+			<label class="col-form-label">{{ form.skills.label }}</label>
+			{% for error in form.skills.errors %}
+			<strong>{{ error }}</strong>
+			{% endfor %}
+			<div class="btn-group-toggle" data-toggle="buttons">
+			{% for value, text in form.skills.field.choices %}
+			<div class="btn btn-outline-primary pill-btn mx-1">
+				<input id="id_strength_{{ forloop.counter0 }}" name="{{ form.skills.name }}" type="checkbox" value="{{ value }}"{% if value in checked_skills %} checked{% endif %}>
+				<label>{{ text }}</label>
+			</div>
+			{% endfor %}
+			<small id="hint_id_{{ form.skills.name }}" class="form-text text-muted">{{ form.skills.help_text }}</small> 
+			</div>
+		</div>
 		{{ form.comment|as_crispy_field }}
         {{ form.captcha }}
         <button type="submit" class="btn btn-primary pill-btn">

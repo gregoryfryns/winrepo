@@ -65,7 +65,8 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data['email']
-        if email and Profile.objects.filter(email=email).exists():
+        if (email is not None 
+                and Profile.objects.filter(email=email).exists()):
             raise forms.ValidationError(_('This email is already being used'), code='duplicate_email')
         return email
 
@@ -79,7 +80,7 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_name',
             'reviewer_institution',
             'reviewer_position',
-            'seen_at_conf',
+            'skills',
             'comment',
         ]
         labels = {
@@ -87,12 +88,13 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_name': _('Your full name'),
             'reviewer_institution': _('Your Institution/Company'),
             'reviewer_position': _('Your Position'),
-            'seen_at_conf': _('I saw one of her talks'),
+            'skills': _('What are her top skills?'),
             'comment': _('')
         }
         help_texts = {
             'profile': _('Name of the person you would like to recommend'),
             'reviewer_position': _('Please choose the \'closest\' title from the proposed options.'),
+            'skills': _('Endorse up to 3 skills for this person.'),
             'comment': _('Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)'),
         }
         widgets = {
@@ -109,6 +111,14 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
         cleaned_data = super(RecommendModelForm, self).clean()
         profile = cleaned_data.get('profile')
         reviewer_name = cleaned_data.get('reviewer_name')
-        if profile and reviewer_name and Recommendation.objects.filter(profile=profile, reviewer_name=reviewer_name).exists():
+        skills = cleaned_data.get('skills')
+
+        if (profile is not None
+                and reviewer_name is not None
+                and Recommendation.objects.filter(profile=profile, reviewer_name=reviewer_name).exists()):
             raise forms.ValidationError(_('You have already recommended that person!'), code='aready_recommended')
+
+        if skills is None:      # skills field will return None if too many items are selected
+            self.add_error('skills', forms.ValidationError('Please select 3 skills or less!', 'too_many_skills'))
+        
         return cleaned_data
