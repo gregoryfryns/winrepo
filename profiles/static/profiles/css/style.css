@@ -107,15 +107,42 @@ li.quote .quote-date {
   line-height: 1.6rem;
 }
 
+/* Recommendation form - skills buttons */
+#div_id_skills .btn-outline-primary:hover {
+  color: #10898B;
+  background-color: white;
+  border-color: #10898B;
+}
+
+#div_id_skills .btn-outline-primary.active:hover {
+  color: white;
+  background-color: #10898B;
+  border-color: #10898B;
+}
+
+#div_id_skills .btn-outline-danger:hover {
+  color: #dc3545;
+  background-color: white;
+  border-color: #dc3545;
+}
+
+#div_id_skills .btn-outline-danger.active:hover {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+
+
 /* Autocomplete fields  */
 .modelselect2 {
-  height: auto!important;
+  height: auto !important;
 } 
 
 .modelselect2>span {
-  height: 100%!important;
+  height: 100% !important;
 }
 
 .select2-selection {
-  border: 1px solid #ced4da!important;
+  border: 1px solid #ced4da !important;
 }
