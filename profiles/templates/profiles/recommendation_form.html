@@ -38,20 +38,18 @@
 		{{ form.reviewer_institution|as_crispy_field }}
 		 	</div>
 	 	</div>
-		 
-		 <div id="div_id{{ form.skills.name }}" class="form-group">
+
+		 <div id="div_id_skills" class="form-group">
 			<label class="col-form-label">{{ form.skills.label }}</label>
-			{% for error in form.skills.errors %}
-			<strong>{{ error }}</strong>
-			{% endfor %}
+			<small id="hint_id_skills" class="form-text text-muted">{{ form.skills.help_text|safe }}</small> 
+			{{ form.skills.errors }}
 			<div class="btn-group-toggle" data-toggle="buttons">
-			{% for value, text in form.skills.field.choices %}
-			<div class="btn btn-outline-primary pill-btn mx-1">
-				<input id="id_strength_{{ forloop.counter0 }}" name="{{ form.skills.name }}" type="checkbox" value="{{ value }}"{% if value in checked_skills %} checked{% endif %}>
-				<label>{{ text }}</label>
-			</div>
-			{% endfor %}
-			<small id="hint_id_{{ form.skills.name }}" class="form-text text-muted">{{ form.skills.help_text }}</small> 
+				{% for value, text in form.skills.field.choices %}
+					<div class="btn btn-outline-primary pill-btn m-2 px-3{% if value in form.skills.value %} active{% endif %}">
+						<input id="skills_choices_{{ forloop.counter0 }}" class="skills_checkbox" name="{{ form.skills.name }}" type="checkbox" value="{{ value }}"{% if value in form.skills.value %} checked{% endif %}>
+						<label>{{ text }}</label>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 		{{ form.comment|as_crispy_field }}
@@ -66,4 +64,5 @@
 {% block footer_scripts %}
     {{ block.super }}
     {{ form.media }}
+	<script src="{% static 'profiles/js/reco_form.js' %}"></script>
 {% endblock footer_scripts %}

@@ -88,8 +88,8 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
             'reviewer_name': _('Your full name'),
             'reviewer_institution': _('Your Institution/Company'),
             'reviewer_position': _('Your Position'),
-            'skills': _('What are her top skills?'),
-            'comment': _('')
+            'skills': _('Top skills'),
+            'comment': _('Comment')
         }
         help_texts = {
             'profile': _('Name of the person you would like to recommend'),
@@ -111,14 +111,10 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
         cleaned_data = super(RecommendModelForm, self).clean()
         profile = cleaned_data.get('profile')
         reviewer_name = cleaned_data.get('reviewer_name')
-        skills = cleaned_data.get('skills')
 
         if (profile is not None
                 and reviewer_name is not None
                 and Recommendation.objects.filter(profile=profile, reviewer_name=reviewer_name).exists()):
             raise forms.ValidationError(_('You have already recommended that person!'), code='aready_recommended')
 
-        if skills is None:      # skills field will return None if too many items are selected
-            self.add_error('skills', forms.ValidationError('Please select 3 skills or less!', 'too_many_skills'))
-        
         return cleaned_data
