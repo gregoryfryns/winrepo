@@ -167,9 +167,11 @@ def home(request):
     }
     context['countries'] = country_stats
 
+    reco = Recommendation.objects.exclude(comment__isnull=True).exclude(comment__exact='')
+    nb_reco = reco.count()
     context['recommendations'] = {
-        'total': Recommendation.objects.count(),
-        'sample': random.sample(list(Recommendation.objects.all().order_by('-id')[:100]), 6),
+        'total': nb_reco,
+        'sample': random.sample(list(reco.order_by('-id')[:100]), min(6, nb_reco)),
     }
 
     return render(request, 'profiles/home.html', context)

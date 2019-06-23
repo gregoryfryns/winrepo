@@ -215,7 +215,7 @@ class Recommendation(models.Model):
     reviewer_position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
     skills = MultiSelectField(choices=SKILLS_CHOICES, max_choices=3, blank=True)
-    comment = models.TextField(blank=False)
+    comment = models.TextField(blank=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
