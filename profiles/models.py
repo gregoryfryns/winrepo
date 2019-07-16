@@ -20,6 +20,7 @@ class Profile(models.Model):
     PHD = 'PhD student'
     MDR = 'Medical Doctor'
     PDR = 'Post-doctoral researcher'
+    JRE = 'Researcher/ scientist'
     SRE = 'Senior researcher/ scientist'
     LEC = 'Lecturer'
     ATP = 'Assistant Professor'
@@ -31,6 +32,7 @@ class Profile(models.Model):
         (PHD, 'PhD student'),
         (MDR, 'Medical Doctor'),
         (PDR, 'Post-doctoral researcher'),
+        (JRE, 'Researcher/ scientist'),
         (SRE, 'Senior researcher/ scientist'),
         (LEC, 'Lecturer'),
         (ATP, 'Assistant Professor'),
@@ -110,9 +112,10 @@ class Profile(models.Model):
         ('EV', 'Evolutionary'),
         ('CM', 'Cellular and Molecular'),
         ('BI', 'Bioinformatics'),
-        ('NC', 'Neuropharmacology')
+        ('NC', 'Neuropharmacology'),
+        ('ET', 'Ethics')
     )
-    
+
     @classmethod
     def get_position_choices(cls):
         return cls.POSITION_CHOICES
