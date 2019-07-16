@@ -18,6 +18,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
         model = Profile
         fields = [
             'name',
+            'last_name',
             'institution',
             'country',
             'email',
@@ -32,7 +33,8 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'keywords',
         ]
         labels = {
-            'name': _('Full Name'),
+            'name': _('First Name(s)'),
+            'last_name': _('Last Name(s)'),
             'institution': _('Institution/Company'),
             'email': _('Email Address'),
             'webpage': _('Linked In or web page'),
