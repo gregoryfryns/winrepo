@@ -11,11 +11,16 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q, Count
+#from django.db import transaction
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 from dal.autocomplete import Select2QuerySetView
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileModelForm, RecommendModelForm
+from .forms import CreateProfileModelForm, RecommendModelForm, CreateUserForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
@@ -78,7 +83,37 @@ class ListProfiles(ListView):
 class ProfileDetail(DetailView):
     model = Profile
 
-class UpdateProfile(SuccessMessageMixin, UpdateView):
+@login_required
+#@transaction.atomic
+def update_profile(request):
+    if request.method == 'POST':
+        user_form = CreateUserForm(request.POST, instance=request.user)
+        profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+
+            profile.save()
+
+            username = profile_form.cleaned_data.get('username')
+            password = profile_form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=password)
+            login(request, user)
+
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('index')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = CreateUserForm(instance=request.user)
+        profile_form = CreateProfileModelForm(instance=request.user.profile)
+    return render(request, 'profiles/profile_form.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+""" class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
     fields = [
         'name',
@@ -98,10 +133,10 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
     success_message = "The profile for %(name)s was updated successfully"
 
     def get_success_url(self):
-        return reverse('profiles:detail', args=(self.object.id,))
+        return reverse('profiles:detail', args=(self.object.id,)) """
 
 
-class CreateProfile(SuccessMessageMixin, CreateView):
+""" class CreateProfile(SuccessMessageMixin, CreateView):
     template_name = 'profiles/profile_form.html'
     form_class = CreateProfileModelForm
     success_message = "The profile for %(name)s was created successfully"
@@ -112,7 +147,7 @@ class CreateProfile(SuccessMessageMixin, CreateView):
         return super(CreateProfile, self).form_valid(form) 
 
     def get_success_url(self):
-        return reverse('profiles:detail', kwargs={'pk': self.object.pk})
+        return reverse('profiles:detail', kwargs={'pk': self.object.pk}) """
 
 class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'

@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
-
 from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Country(models.Model):
     code = models.CharField(max_length=3, blank=False, unique=True)
@@ -136,9 +138,10 @@ class Profile(models.Model):
     def get_domains_choices(cls):
         return cls.DOMAINS_CHOICES
 
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=False)
     last_name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(blank=True)
+    email = models.EmailField(blank=False)
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
@@ -152,6 +155,7 @@ class Profile(models.Model):
     keywords = models.CharField(max_length=250, blank=True)
     publish_date = models.DateTimeField(default=timezone.now)
     last_updated = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         ordering = ['name', 'institution', 'last_updated']
@@ -179,6 +183,14 @@ class Profile(models.Model):
     def grad_month_labels(self):
         return dict(self.MONTHS_CHOICES).get(self.grad_month)
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save() 
 
 class Recommendation(models.Model):
     PHD = 'PhD student'

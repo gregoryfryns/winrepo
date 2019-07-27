@@ -26,34 +26,42 @@
 
 <div class="col-lg-10 col-lg-offset-1">
 	<form action="" method="post">
-		{% csrf_token %}
-		 <div class="form-row">
+		{% csrf_token %}´
+		<div class="form-row">
 			<div class="form-group col-md-6 mb-0">
-				{{ form.name|as_crispy_field }}
+				{{ user_form.password1.as_crispy_field }}
 			</div>
 			<div class="form-group col-md-6 mb-0">
-				{{ form.last_name|as_crispy_field }}
+				{{ user_form.password2.as_crispy_field }}
 			</div>
 		</div>
-		{{ form.institution|as_crispy_field }}
-		{{ form.country|as_crispy_field }}
-		{{ form.position|as_crispy_field }}
-		{{ form.email|as_crispy_field }}
-		{{ form.webpage|as_crispy_field }}
+		 <div class="form-row">
+			<div class="form-group col-md-6 mb-0">
+				{{ profile_form.name.as_crispy_field }}
+			</div>
+			<div class="form-group col-md-6 mb-0">
+				{{ profile_form.last_name.as_crispy_field }}
+			</div>
+		</div>
+		{{ profile_form.institution.as_crispy_field }}
+		{{ profile_form.country.as_crispy_field }}
+		{{ profile_form.position.as_crispy_field }}
+		{{ profile_form.email.as_crispy_field }}
+		{{ profile_form.webpage.as_crispy_field }}
 	 	<div class="form-row">
 		 	<div class="form-group col-md-6 mb-0">
-			 	{{ form.grad_month|as_crispy_field }}
+			 	{{ profile_form.grad_month.as_crispy_field }}
 		 	</div>
 		 	<div class="form-group col-md-6 mb-0">
-			 	{{ form.grad_year|as_crispy_field }}
+			 	{{ profile_form.grad_year.as_crispy_field }}
 		 	</div>
 	 	</div>
-	 {{ form.brain_structure|as_crispy_field }}
-	 {{ form.modalities|as_crispy_field }}
-	 {{ form.methods|as_crispy_field }}
-	 {{ form.domains|as_crispy_field }}
-	 {{ form.keywords|as_crispy_field }}
-	 {{ form.captcha }}
+	 {{ profile_form.brain_structure.as_crispy_field }}
+	 {{ profile_form.modalities.as_crispy_field }}
+	 {{ profile_form.methods.as_crispy_field }}
+	 {{ profile_form.domains.as_crispy_field }}
+	 {{ profile_form.keywords.as_crispy_field }}
+	 {{ profile_form.captcha }}
 
 	 <button type="submit" class="btn btn-primary pill-btn">
 		 Submit

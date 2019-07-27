@@ -5,11 +5,16 @@ from captcha.fields import ReCaptchaField
 from dal.autocomplete import ModelSelect2
 from captcha.widgets import ReCaptchaV3
 
-from .models import Profile, Recommendation
+from .models import Profile, Recommendation, User
+from django.contrib.auth.forms import UserCreationForm
 
 class CaptchaForm(forms.Form):
     captcha = ReCaptchaField(widget=ReCaptchaV3, label=False)
 
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password1','password2')
 
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
     use_required_attribute = False
