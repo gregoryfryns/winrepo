@@ -21,6 +21,7 @@ from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm, CreateUserForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.db import transaction
 
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
@@ -83,9 +84,8 @@ class ListProfiles(ListView):
 class ProfileDetail(DetailView):
     model = Profile
 
-@login_required
-#@transaction.atomic
-def update_profile(request):
+#@login_required
+def create_profile(request):
     if request.method == 'POST':
         user_form = CreateUserForm(request.POST, instance=request.user)
         profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
@@ -93,7 +93,6 @@ def update_profile(request):
             user = user_form.save()
             profile = profile_form.save(commit=False)
             profile.user = user
-
             profile.save()
 
             username = profile_form.cleaned_data.get('username')

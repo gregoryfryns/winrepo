@@ -1,5 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
+from django.views.generic.base import TemplateView
 
 from . import views
 
@@ -9,8 +10,9 @@ urlpatterns = [
     path('list/', views.ListProfiles.as_view(), name='index'),
     path('list/<int:pk>/', views.ProfileDetail.as_view(), name='detail'),
     #path('list/<int:pk>/edit', views.UpdateProfile.as_view(), name='edit'),
+    url(r'^signup/$', views.create_profile, name='signup'),
     #path('list/create', views.CreateProfile.as_view(), name='create'),
-    path('list/create', views.update_profile, name='create'),
+    #path('create', views.create_profile, name='create'),
     path('list/<int:pk>/recommend', views.CreateRecommendation.as_view(), name='recommend_profile'),
     path('list/recommend', views.CreateRecommendation.as_view(), name='recommend'),
     path('profiles-autocomplete', views.ProfilesAutocomplete.as_view(), name='profiles_autocomplete'),
