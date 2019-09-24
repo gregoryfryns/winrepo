@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com', 'www.winrepo.org']
 # Application definition
 
 INSTALLED_APPS = [
-	'profiles.apps.ProfilesConfig',
+    'profiles.apps.ProfilesConfig',
     'multiselectfield',
     'crispy_forms',
     'captcha',
@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'django.contrib.sites',
-	'django.contrib.flatpages',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-   	'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'winrepo.urls'
@@ -99,16 +99,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.NumericPasswordValidator',
     },
 ]
 
@@ -157,10 +161,12 @@ BOOTSTRAP4 = {
     # The Bootstrap base URL
     'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/',
 
-    # The complete URL to the Bootstrap CSS file (None means derive it from base_url)
+    # The complete URL to the Bootstrap CSS file
+    # (None means derive it from base_url)
     'css_url':  STATIC_URL + 'css/bootstrap-winrepo.min.css',
 
-    # The complete URL to the Bootstrap JavaScript file (None means derive it from base_url)
+    # The complete URL to the Bootstrap JavaScript file
+    # (None means derive it from base_url)
     'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
 }
 

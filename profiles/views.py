@@ -4,9 +4,8 @@ from functools import reduce
 from operator import and_, or_
 
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -17,6 +16,7 @@ from dal.autocomplete import Select2QuerySetView
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
 
+
 class ListProfiles(ListView):
     template_name = 'profiles/list.html'
     context_object_name = 'profiles'
@@ -24,25 +24,43 @@ class ListProfiles(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        searched_fields = ['name']
         s = self.request.GET.get('s')
         is_underrepresented = self.request.GET.get('ur') == 'on'
         is_senior = self.request.GET.get('senior') == 'on'
 
         # create filter on search terms
-        q_st = ~Q(pk=None) # always true
+        q_st = ~Q(pk=None)  # always true
         if s is not None:
-            # split search terms and filter empty words (in case of successive spaces)
+            # split search terms and filter empty words (if successive spaces)
             search_terms = list(filter(None, s.split(' ')))
 
             for st in search_terms:
                 st_regex = re.compile(f'.*{st}.*', re.IGNORECASE)
 
-                # matching_positions = list(x[0] for x in Profile.get_position_choices() if st_regex.match(x[1]))
-                matching_structures = list(Q(brain_structure__contains=x[0]) for x in Profile.get_structure_choices() if st_regex.match(x[1]))
-                matching_modalities = list(Q(modalities__contains=x[0]) for x in Profile.get_modalities_choices() if st_regex.match(x[1]))
-                matching_methods = list(Q(methods__contains=x[0]) for x in Profile.get_methods_choices() if st_regex.match(x[1]))
-                matching_domains = list(Q(domains__contains=x[0]) for x in Profile.get_domains_choices() if st_regex.match(x[1]))
+                # matching_positions = list(
+                #   x[0]
+                #   for x in Profile.get_position_choices()
+                #   if st_regex.match(x[1]))
+                matching_structures = list(
+                    Q(brain_structure__contains=x[0])
+                    for x
+                    in Profile.get_structure_choices()
+                    if st_regex.match(x[1]))
+                matching_modalities = list(
+                    Q(modalities__contains=x[0])
+                    for x
+                    in Profile.get_modalities_choices()
+                    if st_regex.match(x[1]))
+                matching_methods = list(
+                    Q(methods__contains=x[0])
+                    for x
+                    in Profile.get_methods_choices()
+                    if st_regex.match(x[1]))
+                matching_domains = list(
+                    Q(domains__contains=x[0])
+                    for x
+                    in Profile.get_domains_choices()
+                    if st_regex.match(x[1]))
 
                 st_conditions = [
                     Q(name__icontains=st),
@@ -51,7 +69,10 @@ class ListProfiles(ListView):
                     Q(brain_structure__icontains=st),
                     Q(country__name__icontains=st),
                     Q(keywords__icontains=st),
-                 ] + matching_structures + matching_modalities + matching_methods + matching_domains
+                 ] + matching_structures \
+                   + matching_modalities \
+                   + matching_methods \
+                   + matching_domains
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
@@ -59,24 +80,30 @@ class ListProfiles(ListView):
         if is_underrepresented:
             q_ur = Q(country__is_under_represented=True)
         else:
-            q_ur = ~Q(pk=None) # always true
+            q_ur = ~Q(pk=None)  # always true
 
         # create filter on senior profiles
         if is_senior:
-            senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
-            # position must contain one of the words in the list (case insensitive)
-            q_senior = reduce(or_, (Q(position__icontains=x) for x in senior_profiles_keywords))
+            senior_profiles_keywords = ('Senior', 'Lecturer', 'Professor',
+                                        'Director', 'Principal')
+            # position must contain one of the words(case insensitive)
+            q_senior = reduce(or_, (Q(position__icontains=x)
+                                    for x
+                                    in senior_profiles_keywords))
         else:
-            q_senior = ~Q(pk=None) # always true
+            q_senior = ~Q(pk=None)  # always true
 
         # apply filters
-        profiles_list = Profile.objects.filter(q_st, q_ur, q_senior).order_by('-publish_date')
+        profiles_list = Profile.objects \
+                               .filter(q_st, q_ur, q_senior) \
+                               .order_by('-publish_date')
 
         return profiles_list
 
 
 class ProfileDetail(DetailView):
     model = Profile
+
 
 class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
@@ -109,10 +136,11 @@ class CreateProfile(SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         # form.send_email()
         form.save()
-        return super(CreateProfile, self).form_valid(form) 
+        return super(CreateProfile, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('profiles:detail', kwargs={'pk': self.object.pk})
+
 
 class CreateRecommendation(SuccessMessageMixin, FormView):
     template_name = 'profiles/recommendation_form.html'
@@ -132,44 +160,62 @@ class CreateRecommendation(SuccessMessageMixin, FormView):
         profile_id = self.kwargs.get('pk')
         if profile_id is not None:
             profile = get_object_or_404(Profile, pk=profile_id)
-            initial.update({ 'profile': profile })
+            initial.update({'profile': profile})
         return initial
 
 
-def safe_div(x,y):
+def safe_div(x, y):
     if y == 0:
         return 0
     return x / y
 
+
 def home(request):
     # Get stats on database for Home page:
     # Career stage
-    senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
-    nb_senior = Profile.objects.filter(reduce(or_, [Q(position__icontains=q) for q in senior_keywords])).count()
-    nb_students = Profile.objects.filter(position__icontains='PhD student').count()
-    nb_postdoc = Profile.objects.filter(position__icontains='Post-doc').count()
+    senior_keywords = ('Senior', 'Lecturer', 'Professor',
+                       'Director', 'Principal')
+    nb_senior = Profile.objects \
+                       .filter(reduce(or_,
+                                      [Q(position__icontains=q)
+                                       for q in senior_keywords])) \
+                       .count()
+    nb_students = Profile.objects \
+                         .filter(position__icontains='PhD student') \
+                         .count()
+    nb_postdoc = Profile.objects \
+                        .filter(position__icontains='Post-doc') \
+                        .count()
     nb_all = Profile.objects.count()
+    nb_other = nb_all - nb_senior - nb_students - nb_postdoc
+
     # Number of entries per country
     country_stats = Country.objects.annotate(nb_profiles=Count('profile'))
-    country_stats = [country for country in country_stats if country.nb_profiles>0]
+    country_stats = [country
+                     for country
+                     in country_stats
+                     if country.nb_profiles > 0]
 
     context = {}
     context['profiles'] = {
         'nb_senior': nb_senior,
         'nb_all': nb_all,
-        'nb_students' : nb_students,
-        'nb_postdoc' : nb_postdoc,
-        'nb_other' : nb_all - nb_senior - nb_students - nb_postdoc,
-        'pct_students' : round(100*safe_div(nb_students, nb_all)),
-        'pct_postdoc' : round(100*safe_div(nb_postdoc, nb_all)),
-        'pct_senior' : round(100*safe_div(nb_senior, nb_all)),
-        'pct_other' : round(100*safe_div((nb_all - nb_senior - nb_students - nb_postdoc), nb_all)),
+        'nb_students': nb_students,
+        'nb_postdoc': nb_postdoc,
+        'nb_other': nb_all - nb_senior - nb_students - nb_postdoc,
+        'pct_students': round(100*safe_div(nb_students, nb_all)),
+        'pct_postdoc': round(100*safe_div(nb_postdoc, nb_all)),
+        'pct_senior': round(100*safe_div(nb_senior, nb_all)),
+        'pct_other': round(100*safe_div(nb_other, nb_all)),
     }
     context['countries'] = country_stats
 
     context['recommendations'] = {
         'total': Recommendation.objects.count(),
-        'sample': random.sample(list(Recommendation.objects.all().order_by('-id')[:100]), 6),
+        'sample': random.sample(list(
+            Recommendation.objects
+                          .all()
+                          .order_by('-id')[:100]), 6),
     }
 
     return render(request, 'profiles/home.html', context)
@@ -179,24 +225,28 @@ class ProfilesAutocomplete(Select2QuerySetView):
     def get_queryset(self):
         profiles = Profile.objects.all()
 
-        # If search terms in request, split each word and search for them in name & institution
+        # If search terms in request, split each word and search for them
+        # in name & institution
         if self.q:
-            qs = ~Q(pk=None) # always true
+            qs = ~Q(pk=None)  # always true
             search_terms = list(filter(None, self.q.split(' ')))
             for st in search_terms:
-                qs = and_(or_(Q(name__icontains=st), Q(institution__icontains=st)), qs)
+                qs = and_(or_(Q(name__icontains=st),
+                              Q(institution__icontains=st)), qs)
 
             profiles = profiles.filter(qs)
 
         return profiles
 
+
 class CountriesAutocomplete(Select2QuerySetView):
     def get_queryset(self):
         countries = Country.objects.all()
 
-        # If search terms in request, split each word and search for them in name & institution
+        # If search terms in request, split each word and search for them
+        # in name & institution
         if self.q:
-            qs = ~Q(pk=None) # always true
+            qs = ~Q(pk=None)  # always true
             search_terms = list(filter(None, self.q.split(' ')))
             for st in search_terms:
                 qs = and_(Q(name__icontains=st), qs)
