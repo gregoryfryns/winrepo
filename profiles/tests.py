@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Profile, Country
+from .models import Profile, Country, Recommendation
 
 
 default_user = {
@@ -33,6 +33,7 @@ class ProfileIndexViewTests(TestCase):
 class ProfileDetailViewTests(TestCase):
     profile = None
     country = None
+    recommendations_count = 5
 
     def setUp(self):
         """
@@ -53,6 +54,32 @@ class ProfileDetailViewTests(TestCase):
         url = reverse('profiles:detail', args=(self.profile.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+    def test_view_incorrect(self):
+        """
+        Asking for an incorrect profile ID returns an error 404
+        """
+        url = reverse('profiles:detail', args=(self.profile.id + 10,))
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_recommendations_count(self):
+        """
+        All the recommendations are displayed in the profile detail page
+        """
+        for i in range(0, self.recommendations_count):
+            Recommendation.objects.create(profile=self.profile,
+                                          reviewer_name=f'Reviewer {i}',
+                                          reviewer_email=f'test{i}@test.com',
+                                          seen_at_conf=False,
+                                          comment='Test Comment')
+
+        url = reverse('profiles:detail', args=(self.profile.id,))
+        response = self.client.get(url)
+        self.assertEqual(response.context['profile']
+                                 .recommendation_set
+                                 .count(),
+                         self.recommendations_count)
 
 
 class ProfileListViewTests(TestCase):
