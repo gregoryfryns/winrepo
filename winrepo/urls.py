@@ -20,6 +20,7 @@ from django.contrib.flatpages import views
 urlpatterns = [
     path('', include('profiles.urls')),
     path('admin/', admin.site.urls),
+    path('robots.txt', include('robots.urls')),
     path('faq/', views.flatpage, {'url': '/faq/'}, name='faq'),
     path('about/', views.flatpage, {'url': '/about/'}, name='about'),
 ]

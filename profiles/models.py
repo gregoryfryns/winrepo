@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 from multiselectfield import MultiSelectField
 
@@ -160,6 +161,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.institution}'
+
+    def get_absolute_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.id})
 
     def brain_structure_labels(self):
         return [dict(self.STRUCTURE_CHOICES).get(item, item)
