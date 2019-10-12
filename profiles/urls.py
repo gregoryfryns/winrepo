@@ -1,8 +1,21 @@
 from django.urls import path
+from django.contrib.sitemaps.views import sitemap
 
+from .sitemaps import HomeSitemap, FaqSitemap, AboutSitemap, \
+     ListSitemap, ProfilesSitemap
 from . import views
 
+
+sitemaps = {
+    'home': HomeSitemap,
+    'list': ListSitemap,
+    'faq': FaqSitemap,
+    'about': AboutSitemap,
+    'profiles': ProfilesSitemap,
+}
+
 app_name = 'profiles'
+
 urlpatterns = [
     path('', views.home,
          name='home'),
@@ -22,4 +35,6 @@ urlpatterns = [
          name='profiles_autocomplete'),
     path('countries-autocomplete', views.CountriesAutocomplete.as_view(),
          name='countries_autocomplete'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
 ]

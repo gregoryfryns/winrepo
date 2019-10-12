@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'dal',
     'dal_select2',
+    'robots',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.flatpages',
 ]
 
@@ -149,6 +151,7 @@ RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 # Sites settings
 SITE_ID = config('SITE_ID', cast=int)
+ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24
 
 # Apps settings
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
