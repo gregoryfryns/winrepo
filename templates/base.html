@@ -25,7 +25,7 @@
 	<link rel="shortcut icon" type="image/png" href="{% static 'images/win_brain.png' %}" />
 
 	{% block fonts %}
-		<link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans|Pacifico|Merriweather:blackitalic" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito%7COpen+Sans%7CPacifico%7CMerriweather:blackitalic" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	{% endblock fonts %}
@@ -46,7 +46,7 @@
 <body>
 	<nav class="navbar fixed-top navbar-custom navbar-light shadow-sm navbar-expand-md">
 		<a class="navbar-brand" href="{% url 'profiles:home' %}">
-			<img src="{% static 'images/logo_fill_triangles_wb.png' %}" height="38px">
+			<img src="{% static 'images/logo_fill_triangles_wb.png' %}" alt="Winrepo Logo" height="38">
 		</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="nav navbar-nav ml-auto">
