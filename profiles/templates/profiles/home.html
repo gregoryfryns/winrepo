@@ -9,8 +9,8 @@
 
 {% block header_scripts %}
 	 {{ block.super }}
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
 		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
 		google.charts.setOnLoadCallback(init);
 
@@ -118,7 +118,7 @@
 <div id="reco-carousel" class="container-fluid carousel bg-light slide" data-ride="carousel" data-interval="60000">
   <ol class="carousel-indicators">
 	{% for reco in recommendations.sample %}
-    <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active">{% endif %}</li>
+    <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
 	{% endfor %}
   </ol>
   <div class="carousel-inner m-auto">
