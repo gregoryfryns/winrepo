@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import TemplateView
 
 from .sitemaps import HomeSitemap, FaqSitemap, AboutSitemap, \
      ListSitemap, ProfilesSitemap
@@ -31,6 +32,10 @@ urlpatterns = [
          name='recommend_profile'),
     path('list/recommend', views.CreateRecommendation.as_view(),
          name='recommend'),
+    path('faq/', TemplateView.as_view(template_name='profiles/FAQs.html'),
+         name='faq'),
+    path('about/', TemplateView.as_view(template_name='profiles/about.html'),
+         name='about'),
     path('profiles-autocomplete', views.ProfilesAutocomplete.as_view(),
          name='profiles_autocomplete'),
     path('countries-autocomplete', views.CountriesAutocomplete.as_view(),
