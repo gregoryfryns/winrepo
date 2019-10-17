@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
+{% block css %} 
+    {{ block.super }}
+    <style type="text/css" media="screen">
+        #accordion .btn {
+            font-size: 1.2rem
+        }
+    </style>
+{% endblock css %}
+
 {% block title %} {{ block.super }} - {{ flatpage.title}} {% endblock title %}
 
 {% block nav-faq-classes %}active{% endblock nav-faq-classes %}
