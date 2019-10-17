@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block css %} 
+    {{ block.super }}
+    <style type="text/css" media="screen">
+        #accordion .btn {
+            font-size: 1.2rem
+        }
+    </style>
+{% endblock css %}
+
+{% block title %} {{ block.super }} - FAQs {% endblock title %}
+
+{% block nav-faq-classes %}active{% endblock nav-faq-classes %}
+
+{% block content %}
+    <h2 class="text-primary font-weight-bold mb-4"> Frequently asked questions</h2>
+
+    <div id="accordion">
+    <div class="card">
+        <div class="card-header" id="heading-search">
+        <h5 class="mb-0">        
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#search" aria-expanded="true" aria-controls="search" style="white-space:normal">
+                How do I search the repository?
+            </button>
+        </h5>
+        </div>
+
+        <div id="search" class="collapse show" aria-labelledby="heading-search" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">Visit our <a href="/list/">Repository</a> and use the search bar to narrow your search.
+            Keywords should be separated by white spaces and can mix words from different fields
+            (e.g. 'machine learning London' or 'neuron computational modeling'). You can filter
+            results to display only profiles from under-represented countries (list based on the
+            <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups">World's Bank</a>
+            list of Low, Lower-Middle and Upper-Middle income economies as of August 2017).</p>
+
+            <p class="m-1">Look at the profile provided by the researcher and
+            Google them for other profiles (e.g. LinkedIn, institution, ResearchGate, …).
+            Read the recommendations if any, making sure they are sound (e.g. if Recommender A says 'great talk at OHBM 2017',
+            check the OHBM 2017 program and maybe watch the video if available). Important note: the
+            researchers are sole responsible for their profiles and we cannot guarantee authenticity.</p>
+
+            <p class="m-1">It is a vicious circle: researchers need to be known to get
+            invited as speakers but they need to be invited as speaker to get known. This cycle
+            can be broken by taking a chance and inviting someone less recognized. Don't forget that younger scientists
+            also have things to say and they might be more approachable/committed.</p>
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-resources">
+        <h5 class="mb-0">
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#resources" aria-expanded="true" aria-controls="resources" style="white-space:normal">
+                What if I don't find a suitable candidate? Other resources.
+            </button>
+        </h5>
+        </div>
+        <div id="resources" class="collapse" aria-labelledby="heading-resources" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">If you cannot identify potential speakers for your event, check out these other great resources:
+            <ul>
+                <li><a href="https://anneslist.net">Anne's list</a>, list of women in systems cognitive neuroscience.</li>
+                <li><a href="http://womeninbrainstim.com/">Women in Brain Simulation</a></li>
+                <li><a href="http://www.academia-net.org/">AcademiaNet</a>, database of women in all fields of science, nominated by partner agencies.</li>
+                <li><a href="https://500womenscientists.org/">500 women scientists</a>, list of women in STEM.</li>
+            </ul>
+            </p>
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-recommend">
+        <h5 class="mb-0">        
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#recommend" aria-expanded="true" aria-controls="recommend" style="white-space:normal">
+                How do I make a recommendation?
+            </button>
+        </h5>
+        </div>
+        <div id="recommend" class="collapse" aria-labelledby="heading-recommend" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">Visit the <a href="/list/">Repository</a> and enter the researcher's name
+            in the search bar or keywords related to your field. Click on 'View Profile' to view the detailed profile of a scientist you would like to recommend. You can then click the 'Recommend' button at the top right corner or click the 'write her one' link in the Recommendation section. Anyone can submit a recommendation, male or female. Recommendations must be positive. When recommending a researcher, please make sure
+            to include all relevant information, e.g. whether you have seen this person talk at an event before, and where and when that was
+            (as videos of the event might be available). Also include any potential conflicts of interest, disclosing any personal relationship with the scientist (e.g. colleague, close friend, student, ...). At the
+            moment, it is NOT possible to edit a recommendation, but <a href="mailto:admin@winrepo.org">contact us</a> for related queries.</p>
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-enter">
+        <h5 class="mb-0">        
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#enter" aria-expanded="true" aria-controls="enter" style="white-space:normal">
+                How can I add my profile to the repository?
+            </button>
+        </h5>
+        </div>
+        <div id="enter" class="collapse" aria-labelledby="heading-enter" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">To enter your name on the repository, fill in the form in the <a href="/list/create">Create profile</a> page. Make sure
+            you agree with our data storing terms (see <a href="#heading-gdpr">here</a>).</p>
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-edit">
+        <h5 class="mb-0">        
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#edit" aria-expanded="true" aria-controls="edit" style="white-space:normal">
+                How can I edit my information?
+            </button>
+        </h5>
+        </div>
+        <div id="edit" class="collapse" aria-labelledby="heading-edit" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">At the moment, editing your information can be done by contacting <a href="mailto:admin@winrepo.org">Women in Neuroscience Repository</a>, mentioning the exact information to modify.
+            </p>
+        </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="heading-gdpr">
+        <h5 class="mb-0">        
+        <button class="btn btn-link link-secondary" data-toggle="collapse" data-target="#gdpr" aria-expanded="true" aria-controls="gdpr" style="white-space:normal">
+                What do you do with my information?
+            </button>
+        </h5>
+        </div>
+        <div id="gdpr" class="collapse" aria-labelledby="heading-gdpr" data-parent="#accordion">
+        <div class="card-body">
+            <p class="m-1">We store the data provided (by you) only for display on this website, with the intent to increase the visibility of women in neuroscience.
+            We do not distribute it to third-parties within or outside the EU under any circumstances. You have the right to access your data, as well as for the data to be
+            erased from our database at any time.
+            To do so, simply email us at <a href="mailto:admin@winrepo.org">Women in Neuroscience Repository</a>. To know more about your rights as users of this website, please
+            refer to the <a href="https://ec.europa.eu/info/law/law-topic/data-protection_en">European Commission</a> data protection policies.
+            </p>
+        </div>
+        </div>
+    </div>
+    </div>
+{% endblock content %}

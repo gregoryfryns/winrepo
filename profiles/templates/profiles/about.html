@@ -1,0 +1,482 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} - About {% endblock title %}
+
+{% block nav-about-classes %}active{% endblock nav-about-classes %}
+
+{% block content %}
+    <style type="text/css" media="screen">
+
+    section .section-title {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .card {
+        border: none;
+        background: #ffffff;
+    }
+
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
+
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 10px;
+    }
+
+    .backside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        border: 1px solid #BFBFBF;
+    }
+
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
+
+    #cont .card {
+        width: 12rem;
+        height: 16rem;
+    }
+
+    #board .card {
+        width: 15rem;
+        height: 18rem;
+    }
+
+    .backside .card .card-text{
+        font-size: 0.8rem;
+        margin:0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -30%;
+        transform: translate(-50%, -50%)
+    }
+
+    .frontside .card-title{
+        font-size:1.3rem
+        }
+        
+    .frontside .card-text{
+        font-size:0.9rem
+        }
+
+    .frontside .card .card-body img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+    }
+
+    </style>
+
+    <h4>Credits</h4>
+
+    <p> This project would not have been possible without the help of our contributors and sponsors.
+    We are especially thankful to those who contributed on their spare time, simply to improve the
+        visibility of women in neuroscience.</p>
+    <br>
+
+    <h4>Contributors</h4>
+    <section id="cont" class="pb-5">
+        <div class="container">
+            <div class="row">
+                <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_GF.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Gregory Fryns</h4>
+                                        <p class="card-text">Implementation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Gregory is a highly qualified computer science engineer with 10+ years experience in customer support and process improvement.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_LB.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Laetitia Briere</h4>
+                                        <p class="card-text">Design</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Laetitia is a freelance designer based in France. She creates visual identities, including logos, flyers, posters, websites, based on the unique needs of her clients. 
+                                        To find out more, see her portfolio at <a href ="https://www.lbgraphiste.fr">www.lbgraphiste.fr</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_LS.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Laura Symul</h4>
+                                        <p class="card-text">Illustrations</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text" >Laura has worked as a data scientist, done data visualisations and science communication for the industry, international organisations and academia. 
+                                        Her freelance activities include workshops, training and consulting on data visualisation and scientific illustration.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_DS.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Diana Sousa</h4>
+                                        <p class="card-text">Logo</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Diana is a Graduate Student Researcher at Faculty of Sciences, University of Lisbon and has been working in a few projects as a Graphic Designer</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_JS.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Jessica Schrouff</h4>
+                                        <p class="card-text">Founder</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Jessica graduated in Electrical Engineering from the University of Liège, Belgium. 
+                                        She studied the application of machine learning methods to neuroimaging data during her PhD (Belgium) and post-doctoral work (Stanford, USA and UCL, UK). She is now working in industry.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>    
+        </div>
+    </section>
+
+    <!-- Team -->
+    <h4>Board</h4>
+    <section id="board" class="pb-5">
+        <div class="container">
+            <div class="row">
+                <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_JS.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Jessica Schrouff</h4>
+                                        <p class="card-text">Machine Learning Research Scientist, London, UK</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Jessica graduated in Electrical Engineering from the University of Liège, Belgium. 
+                                        She studied the application of machine learning methods to neuroimaging data during her PhD (Belgium) and post-doctoral work (Stanford, USA and UCL, UK). She is now working in industry.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_FF.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Fabio Ferreira</h4>
+                                        <p class="card-text">PhD Candidate at University College London, London, UK</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Fabio graduated in Biomedical Engineering at University of Coimbra, Portugal. His research interests lie on implementing and applying 
+                                        machine learning-based methods to multiple sources of data to identify biomarkers of mental health disorders and find reliable subgroups of patients.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_SG.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Sarah Genon</h4>
+                                        <p class="card-text">Research fellow at INM-7 at the Forschungszentrum Jülich, Germany</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Sarah has a background in clinical psychology, cognitive neuroscience and functional neuroanatomy. Her research aims to develop methods 
+                                        for studying and modelling the relationships between brain and behavior in large scale neuroimaging and behavioral data.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_AFP.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Aina Frau-Pascual</h4>
+                                        <p class="card-text">Research fellow at the Athinoula A. Martinos Center for Biomedical Imaging, USA</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Aina is working on the development of methods for diffusion and functional MRI analysis. 
+                                        During her PhD at Inria (France), she developed statistical models for the analysis of BOLD and ASL task fMRI.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_GL.png" alt="card image"></p>
+                                        <h4 class="card-title">Gabriella Liuzzi</h4>
+                                        <p class="card-text">Postdoc at CIMeC in TheFairLab, Mattarello, Italy</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Gabriella obtained her PhD at KULeuven in the Laboratory for Cognitive Neurology. Her primary research program focuses 
+                                        on the semantic representations of written words, spoken words and pictures in the human brain. By means of fMRI, she is currently investigating the role of the tasks in the semantic processing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_DP.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Doris Pischedda</h4>
+                                        <p class="card-text">Postdoc at CIMeC in LDMg, Mattarello, Italy</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Doris’s PhD work at the University of Milano-Bicocca investigated how and where rules are encoded in the human brain. 
+                                        As a postdoc, she employs fMRI and multivariate decoding to characterize neural representations of choice outcomes (previously rules) in both individual and social contexts.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_AL.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Ana Luísa Pinho</h4>
+                                        <p class="card-text">Postdoctoral Researcher at NeuroSpin (Inria/CEA-Saclay), Paris, France</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Ana Luisa graduated in Engineering Physics at Instituto Superior Técnico (ULisboa, Portugal). During her PhD at Karolinska Institutet (Stockholm, Sweden), 
+                                            she used fMRI to investigate the neural correlates involved in musical creativity. Now, she is developing a neuroimaging dataset to map cognition in the human brain</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- Team member -->
+                <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:15.5rem;">
+                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                        <div class="mainflip">
+                            <div class="frontside">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <p><img class=" img-fluid" src="../static/images/Pic_EV.jpg" alt="card image"></p>
+                                        <h4 class="card-title">Eliana Vassena</h4>
+                                        <p class="card-text">Marie Curie fellow at the Donders Institute for Brain, Cognition and Behaviour (Nijmegen, NL)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="backside">
+                                <div class="card">
+                                    <div class="card-body text-center mt-4">
+                                        <p class="card-text">Eliana is interested in motivation and decision-making.
+                                            During her PhD and postdoc she has used neuroimaging, neurostimulation and computational modelling to study 
+                                            the contribution of the prefrontal cortex to these processes. Currently, she works on translating neurocomputational models of motivation 
+                                            to neuropsychiatric populations</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+        </div>
+        </div>
+    </section>
+
+    <h4>Sponsors</h4>
+    <ul>
+    <li>Athena SWAN committee at the Computer Science Department, University College London</li>
+    <li>Marie Curie Alumni Association: micro-grant to J.S.</li>
+    </ul>
+
+    <h4>Scientific sponsors</h4>
+    <ul>
+    <li><a href="https://biaswatchneuro.com/">Bias Watch Neuro</a></li>
+    </ul>
+
+    <h4>Acknowledgments</h4>
+    <ul>
+    <li><a href="https://brainthemind.com/vvw/">Virginie van Wassenhove</a></li>
+    <li><a href="http://people.duke.edu/~jmgroh/">Jennifer Groh</a></li>
+    <li><a href="http://churchlandlab.labsites.cshl.edu//">Anne Churchland</a></li>
+    </ul>
+{% endblock content %}
