@@ -20,7 +20,7 @@ class FaqSitemap(sitemaps.Sitemap):
     changefreq = 'yearly'
 
     def items(self):
-        return ['faq']
+        return ['profiles:faq']
 
     def location(self, item):
         return reverse(item)
@@ -31,7 +31,7 @@ class AboutSitemap(sitemaps.Sitemap):
     changefreq = 'yearly'
 
     def items(self):
-        return ['about']
+        return ['profiles:about']
 
     def location(self, item):
         return reverse(item)
