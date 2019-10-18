@@ -25,7 +25,7 @@
 {% endif %}
 
 <div class="col-lg-10 col-lg-offset-1">
-	<form action="" method="post">
+	<form method="post">
  		{% csrf_token %}
 		{{ form.name|as_crispy_field }}
 		{{ form.institution|as_crispy_field }}
