@@ -1,131 +1,18 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/about.css' %}?v=1" />
+{% endblock css%}
+
+
 {% block title %}{{ block.super }} - About {% endblock title %}
 
 {% block nav-about-classes %}active{% endblock nav-about-classes %}
 
 {% block content %}
-    <style type="text/css" media="screen">
-
-    section .section-title {
-        text-align: center;
-        text-transform: uppercase;
-    }
-
-    .card {
-        border: none;
-        background: #ffffff;
-    }
-
-    .image-flip:hover .backside,
-    .image-flip.hover .backside {
-        -webkit-transform: rotateY(0deg);
-        -moz-transform: rotateY(0deg);
-        -o-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        transform: rotateY(0deg);
-        border-radius: .25rem;
-    }
-
-    .image-flip:hover .frontside,
-    .image-flip.hover .frontside {
-        -webkit-transform: rotateY(180deg);
-        -moz-transform: rotateY(180deg);
-        -o-transform: rotateY(180deg);
-        transform: rotateY(180deg);
-    }
-
-    .mainflip {
-        -webkit-transition: 1s;
-        -webkit-transform-style: preserve-3d;
-        -ms-transition: 1s;
-        -moz-transition: 1s;
-        -moz-transform: perspective(1000px);
-        -moz-transform-style: preserve-3d;
-        -ms-transform-style: preserve-3d;
-        transition: 1s;
-        transform-style: preserve-3d;
-        position: relative;
-    }
-
-    .frontside {
-        position: relative;
-        -webkit-transform: rotateY(0deg);
-        -ms-transform: rotateY(0deg);
-        z-index: 2;
-        margin-bottom: 10px;
-    }
-
-    .backside {
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: white;
-        -webkit-transform: rotateY(-180deg);
-        -moz-transform: rotateY(-180deg);
-        -o-transform: rotateY(-180deg);
-        -ms-transform: rotateY(-180deg);
-        transform: rotateY(-180deg);
-        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-        border: 1px solid #BFBFBF;
-    }
-
-    .frontside,
-    .backside {
-        -webkit-backface-visibility: hidden;
-        -moz-backface-visibility: hidden;
-        -ms-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -webkit-transition: 1s;
-        -webkit-transform-style: preserve-3d;
-        -moz-transition: 1s;
-        -moz-transform-style: preserve-3d;
-        -o-transition: 1s;
-        -o-transform-style: preserve-3d;
-        -ms-transition: 1s;
-        -ms-transform-style: preserve-3d;
-        transition: 1s;
-        transform-style: preserve-3d;
-    }
-
-    #cont .card {
-        width: 12rem;
-        height: 16rem;
-    }
-
-    #board .card {
-        width: 15rem;
-        height: 18rem;
-    }
-
-    .backside .card .card-text{
-        font-size: 0.8rem;
-        margin:0;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -30%;
-        transform: translate(-50%, -50%)
-    }
-
-    .frontside .card-title{
-        font-size:1.3rem
-        }
-        
-    .frontside .card-text{
-        font-size:0.9rem
-        }
-
-    .frontside .card .card-body img {
-        width: 8rem;
-        height: 8rem;
-        border-radius: 50%;
-    }
-
-    </style>
-
     <h4>Credits</h4>
 
     <p> This project would not have been possible without the help of our contributors and sponsors.
