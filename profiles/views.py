@@ -14,6 +14,7 @@ from django.views.generic.detail import DetailView
 
 from dal.autocomplete import Select2QuerySetView
 from rest_framework import viewsets
+from decouple import config
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
@@ -32,6 +33,12 @@ class Home(ListView):
             6)
 
         return sample
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['google_maps_api_key'] = config('GOOGLE_MAPS_API_KEY')
+        return context
 
 
 class ListProfiles(ListView):

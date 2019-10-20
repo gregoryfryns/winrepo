@@ -11,6 +11,10 @@
 	 {{ block.super }}
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
 	<script src="{% static 'profiles/js/home-graphs.js' %}?v=1"></script>
+	<script>
+		google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': '{{ google_maps_api_key }}' });
+		google.charts.setOnLoadCallback(init);
+	</script>
 {% endblock header_scripts %}
 
 {% block nav-home-classes %}active{% endblock nav-home-classes %}
