@@ -24,51 +24,17 @@
     {% endfor %}
 {% endif %}
 
-<div class="col-lg-10 col-lg-offset-1">
-	<form action="" method="post">
-		{% csrf_token %}´
-		<div class="form-row">
-			<div class="form-group col-md-6 mb-0">
-				{{ user_form.password1.as_crispy_field }}
-			</div>
-			<div class="form-group col-md-6 mb-0">
-				{{ user_form.password2.as_crispy_field }}
-			</div>
-		</div>
-		 <div class="form-row">
-			<div class="form-group col-md-6 mb-0">
-				{{ profile_form.name.as_crispy_field }}
-			</div>
-			<div class="form-group col-md-6 mb-0">
-				{{ profile_form.last_name.as_crispy_field }}
-			</div>
-		</div>
-		{{ profile_form.institution.as_crispy_field }}
-		{{ profile_form.country.as_crispy_field }}
-		{{ profile_form.position.as_crispy_field }}
-		{{ profile_form.email.as_crispy_field }}
-		{{ profile_form.webpage.as_crispy_field }}
-	 	<div class="form-row">
-		 	<div class="form-group col-md-6 mb-0">
-			 	{{ profile_form.grad_month.as_crispy_field }}
-		 	</div>
-		 	<div class="form-group col-md-6 mb-0">
-			 	{{ profile_form.grad_year.as_crispy_field }}
-		 	</div>
-	 	</div>
-	 {{ profile_form.brain_structure.as_crispy_field }}
-	 {{ profile_form.modalities.as_crispy_field }}
-	 {{ profile_form.methods.as_crispy_field }}
-	 {{ profile_form.domains.as_crispy_field }}
-	 {{ profile_form.keywords.as_crispy_field }}
-	 {{ profile_form.captcha }}
 
-	 <button type="submit" class="btn btn-primary pill-btn">
-		 Submit
-	 </button>
+{% block test_greg %}
+  <h2>Create profile</h2>
+  <form method="post">
+    {% csrf_token %}
+	{{ user_form|crispy }}
+	{{ profile_form|crispy }}
+    <button type="submit" class="btn btn-primary pill-btn">Sign up</button>
+  </form>
+{% endblock test_greg %}
 
-	</form>
-</div>
 {% endblock content %}
 
 {% block footer_scripts %}

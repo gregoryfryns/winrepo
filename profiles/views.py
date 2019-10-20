@@ -15,6 +15,8 @@ from django.db.models import Q, Count
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 
+from django.utils.translation import gettext_lazy as _
+
 from dal.autocomplete import Select2QuerySetView
 
 from .models import Profile, Recommendation, Country
@@ -84,11 +86,34 @@ class ListProfiles(ListView):
 class ProfileDetail(DetailView):
     model = Profile
 
-#@login_required
-def create_profile(request):
+@login_required
+@transaction.atomic
+def create_profile_greg(request):
     if request.method == 'POST':
         user_form = CreateUserForm(request.POST, instance=request.user)
         profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, _('Your profile was successfully updated!'))
+            return redirect('profiles:index')
+        else:
+            messages.error(request, _('Please correct the error below.'))
+    else:
+        user_form = CreateUserForm(instance=request.user)
+        profile_form = CreateProfileModelForm(instance=request.user.profile)
+    return render(request, 'profiles/profile_form.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+#@login_required
+def create_profile(request):
+    if request.method == 'POST':
+        # user_form = CreateUserForm(request.POST, instance=request.user)
+        # profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
+        user_form = CreateUserForm(request.POST)
+        profile_form = CreateProfileModelForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
             profile = profile_form.save(commit=False)
@@ -97,6 +122,7 @@ def create_profile(request):
 
             username = profile_form.cleaned_data.get('username')
             password = profile_form.cleaned_data.get('password1')
+            
             user = authenticate(username=username,password=password)
             login(request, user)
 
@@ -105,8 +131,10 @@ def create_profile(request):
         else:
             messages.error(request, _('Please correct the error below.'))
     else:
-        user_form = CreateUserForm(instance=request.user)
-        profile_form = CreateProfileModelForm(instance=request.user.profile)
+        # user_form = CreateUserForm(instance=request.user)
+        # profile_form = CreateProfileModelForm(instance=request.user.profile)
+        user_form = CreateUserForm()
+        profile_form = CreateProfileModelForm()
     return render(request, 'profiles/profile_form.html', {
         'user_form': user_form,
         'profile_form': profile_form
