@@ -49,5 +49,5 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
     path('', include(router.urls)),
-    path('api/', include('rest_framework.urls', namespace='rest_framework')),
+#     path('api/', include('rest_framework.urls', namespace='rest_framework')),
 ]
