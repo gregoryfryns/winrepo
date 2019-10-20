@@ -25,7 +25,7 @@
 	<link rel="shortcut icon" type="image/png" href="{% static 'images/win_brain.png' %}" />
 
 	{% block fonts %}
-		<link href="https://fonts.googleapis.com/css?family=Nunito|Open+Sans|Pacifico|Merriweather:blackitalic" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Nunito%7COpen+Sans%7CPacifico%7CMerriweather:blackitalic" rel="stylesheet">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	{% endblock fonts %}
@@ -46,7 +46,7 @@
 <body>
 	<nav class="navbar fixed-top navbar-custom navbar-light shadow-sm navbar-expand-md">
 		<a class="navbar-brand" href="{% url 'profiles:home' %}">
-			<img src="{% static 'images/logo_fill_triangles_wb.png' %}" height="38px">
+			<img src="{% static 'images/logo_fill_triangles_wb.png' %}" alt="Winrepo Logo" height="38">
 		</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="nav navbar-nav ml-auto">
@@ -63,10 +63,10 @@
 					<a class="nav-link h6" href="{% url 'profiles:recommend' %}">Recommend</a>
 				</li>
 				<li class="nav-item {% block nav-faq-classes %}{% endblock nav-faq-classes %}">
-					<a class="nav-link h6" href="{% url 'faq' %}">FAQ</a>
+					<a class="nav-link h6" href="{% url 'profiles:faq' %}">FAQ</a>
 				</li>
 				<li class="nav-item {% block nav-about-classes %}{% endblock nav-about-classes %}">
-					<a class="nav-link h6" href="{% url 'about' %}">About</a>
+					<a class="nav-link h6" href="{% url 'profiles:about' %}">About</a>
 				</li>
 			</ul>
 		</div>
@@ -77,7 +77,7 @@
 	</nav>
 
 	{% block full_page_content %}
-		<div class="full_page" class="w-100 bg-white"></div>
+		<div class="full_page w-100 bg-white"></div>
 	{% endblock full_page_content %}
 
 	{% block page_container %}
@@ -112,10 +112,13 @@
 			<div class="col-12 col-md-4 text-md-right text-sm-center">
 				<a class="btn btn-lg mx-1" href="https://www.facebook.com/WiNRepository/">
 					<i class="fab fa-facebook-f"></i>
+				</a>
 				<a class="btn btn-lg mx-1" href="https://twitter.com/WINRePo1">
 					<i class="fab fa-twitter"></i>
+				</a>
 				<a class="btn btn-lg mx-1" href="mailto:admin@winrepo.org">
 					<i class="fas fa-envelope"></i>
+				</a>
 			</div>
 		</div>
 	</footer>

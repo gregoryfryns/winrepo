@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
+
 from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
 
 class Country(models.Model):
     code = models.CharField(max_length=3, blank=False, unique=True)
@@ -16,7 +19,7 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 
 class Profile(models.Model):
     PHD = 'PhD student'
@@ -77,7 +80,7 @@ class Profile(models.Model):
         ('BS', 'Brain Stimulation'),
         ('GT', 'Genetics'),
         ('FN', 'fNIRS'),
-        ('LE','Lesions and Inactivations'),
+        ('LE', 'Lesions and Inactivations'),
     )
 
     METHODS_CHOICES = (
@@ -145,8 +148,10 @@ class Profile(models.Model):
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
-    grad_month = models.CharField(max_length=2, choices=MONTHS_CHOICES, blank=True)
+    position = models.CharField(max_length=50, choices=POSITION_CHOICES,
+                                blank=True)
+    grad_month = models.CharField(max_length=2, choices=MONTHS_CHOICES,
+                                  blank=True)
     grad_year = models.CharField(max_length=4, blank=True)
     brain_structure = MultiSelectField(choices=STRUCTURE_CHOICES, blank=True)
     modalities = MultiSelectField(choices=MODALITIES_CHOICES, blank=True)
@@ -163,22 +168,24 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.name}, {self.institution}'
 
-    # @property
-    # def is_senior(self):
-    #     senior_keywords = ('Senior', 'Lecturer', 'Professor', 'Director', 'Principal')
-    #     return any(keyword in self.position for keyword in senior_keywords)
+    def get_absolute_url(self):
+        return reverse('profiles:detail', kwargs={'pk': self.id})
 
     def brain_structure_labels(self):
-        return [dict(self.STRUCTURE_CHOICES).get(item, item) for item in self.brain_structure]
+        return [dict(self.STRUCTURE_CHOICES).get(item, item)
+                for item in self.brain_structure]
 
     def modalities_labels(self):
-        return [dict(self.MODALITIES_CHOICES).get(item, item) for item in self.modalities]
+        return [dict(self.MODALITIES_CHOICES).get(item, item)
+                for item in self.modalities]
 
     def methods_labels(self):
-        return [dict(self.METHODS_CHOICES).get(item, item) for item in self.methods]
+        return [dict(self.METHODS_CHOICES).get(item, item)
+                for item in self.methods]
 
     def domains_labels(self):
-        return [dict(self.DOMAINS_CHOICES).get(item, item) for item in self.domains]
+        return [dict(self.DOMAINS_CHOICES).get(item, item)
+                for item in self.domains]
 
     def grad_month_labels(self):
         return dict(self.MONTHS_CHOICES).get(self.grad_month)
@@ -218,7 +225,9 @@ class Recommendation(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     reviewer_name = models.CharField(max_length=100, blank=False)
     reviewer_email = models.EmailField(blank=False)
-    reviewer_position = models.CharField(max_length=50, choices=POSITION_CHOICES, blank=True)
+    reviewer_position = models.CharField(max_length=50,
+                                         choices=POSITION_CHOICES,
+                                         blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
     seen_at_conf = models.BooleanField()
     comment = models.TextField(blank=False)

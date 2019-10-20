@@ -9,8 +9,8 @@
 
 {% block header_scripts %}
 	 {{ block.super }}
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
 		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
 		google.charts.setOnLoadCallback(init);
 
@@ -96,7 +96,7 @@
 	<div class="row no-gutters p-4">
 		<div  class="col-md-10 offset-md-1" id="intro-text" >
 			<p class="h5 text-justify">Despite some effort from the community and
-				<a class="text-quinary" href="{% url 'faq' %}#heading-resources">great initiatives</a>, female neuroscientists <a class="text-quinary" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ejn.14397" target="_blank">are
+				<a class="text-quinary" href="{% url 'profiles:faq' %}#heading-resources">great initiatives</a>, female neuroscientists <a class="text-quinary" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ejn.14397" target="_blank">are
 				still under-represented in neuroscience</a>.
 				The aim of this Women in Neuroscience Repository is to help you identify
 				and recommend female neuroscientists for conferences, symposia or collaborations.</p>
@@ -118,7 +118,7 @@
 <div id="reco-carousel" class="container-fluid carousel bg-light slide" data-ride="carousel" data-interval="60000">
   <ol class="carousel-indicators">
 	{% for reco in recommendations.sample %}
-    <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active">{% endif %}</li>
+    <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
 	{% endfor %}
   </ol>
   <div class="carousel-inner m-auto">
