@@ -1,6 +1,3 @@
-google.charts.load('current', { 'packages': ['corechart', 'geochart'] });
-google.charts.setOnLoadCallback(init);
-
 function drawPieChart(divId, nbProfiles, totProfiles, label, color1) {
     const data = new google.visualization.DataTable();
     data.addColumn('string', 'Position');
