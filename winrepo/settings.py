@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'robots',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -172,5 +173,13 @@ BOOTSTRAP4 = {
 }
 
 SELECT2_CSS = ''
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

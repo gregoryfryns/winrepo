@@ -1,20 +1,24 @@
 import re
 import random
+
 from functools import reduce
 from operator import and_, or_
 
-from django.shortcuts import get_object_or_404, render
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q, Count
 from django.urls import reverse
+# from django.utils.translation import ugettext as _
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q, Count
 
 from dal.autocomplete import Select2QuerySetView
+from rest_framework import viewsets
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
+from .serializers import CountrySerializer, PositionsCountSerializer
 
 
 class ListProfiles(ListView):
@@ -254,3 +258,22 @@ class CountriesAutocomplete(Select2QuerySetView):
             countries = countries.filter(qs)
 
         return countries
+
+
+# class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+#     queryset = Profile.objects.all()
+#     serializer_class = ProfileSerializer
+
+
+class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+
+class TopPositionsViewSet(viewsets.ReadOnlyModelViewSet):
+    # queryset = Profile.objects.all()
+    queryset = Profile.objects.all() \
+        .values('position') \
+        .annotate(profiles_count=Count('id')) \
+        .order_by('-profiles_count')
+    serializer_class = PositionsCountSerializer
