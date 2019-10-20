@@ -9,7 +9,6 @@ from .sitemaps import HomeSitemap, FaqSitemap, AboutSitemap, \
 from . import views
 
 router = routers.DefaultRouter()
-# router.register(r'api/profiles', views.ProfileViewSet)
 router.register(r'api/countries', views.RepresentedCountriesViewSet)
 router.register(r'api/positions', views.TopPositionsViewSet)
 
@@ -25,7 +24,7 @@ sitemaps = {
 app_name = 'profiles'
 
 urlpatterns = [
-    path('', views.home,
+    path('', views.Home.as_view(),
          name='home'),
     path('list/', views.ListProfiles.as_view(),
          name='index'),

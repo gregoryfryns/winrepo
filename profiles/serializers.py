@@ -1,13 +1,7 @@
 
 from rest_framework import serializers
 
-from .models import Profile, Country, Recommendation
-
-
-# class ProfileSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Profile
-#         fields = ('id', 'name', 'position', 'country')
+from .models import Profile, Country
 
 
 class CountrySerializer(serializers.ModelSerializer):
@@ -24,9 +18,3 @@ class PositionsCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('position', 'profiles_count')
-
-
-class RecommendationSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Recommendation
-        fields = ('reviewer_name', 'profile', 'comment')
