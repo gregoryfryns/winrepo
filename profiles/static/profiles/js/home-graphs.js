@@ -1,4 +1,4 @@
-google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyDfq6jzJpQxH4AXGUbpX-h0RzhvTUuOSkU' });
+google.charts.load('current', { 'packages': ['corechart', 'geochart'] });
 google.charts.setOnLoadCallback(init);
 
 function drawPieChart(divId, nbProfiles, totProfiles, label, color1) {
