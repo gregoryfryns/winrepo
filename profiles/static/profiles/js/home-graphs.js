@@ -29,11 +29,12 @@ function drawPieChart(divId, nbProfiles, totProfiles, label, color1) {
 }
 
 function drawMap(divId, jsonData) {
-    const dataTable = jsonData.filter(country => country.profiles_count > 0)
-        .map(country => [country.name, country.profiles_count]);
-    dataTable.unshift(['Country', 'Profiles']);
-    const data = google.visualization.arrayToDataTable(dataTable, false);
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Country');
+    data.addColumn('number', 'Profiles');
 
+    data.addRows(jsonData.map(country => [country.name, country.profiles_count]));
+    
     const options = {
         colorAxis: { colors: ['#a0c1c1', '#10898B'] },
         legend: 'none',

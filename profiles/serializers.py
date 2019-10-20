@@ -12,6 +12,12 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'profiles_count')
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('id', 'name')
+
+
 class PositionsCountSerializer(serializers.ModelSerializer):
     profiles_count = serializers.IntegerField()
 

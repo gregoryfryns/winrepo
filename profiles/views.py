@@ -224,7 +224,8 @@ class CountriesAutocomplete(Select2QuerySetView):
 
 
 class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Country.objects.all()
+    queryset = Country.objects.annotate(profiles_count=Count('profile')) \
+                              .filter(profiles_count__gt=0)
     serializer_class = CountrySerializer
     authentication_classes = []
 
