@@ -7,16 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}?v=3" />
 {% endblock css%}
 
-{% block header_scripts %}
-	 {{ block.super }}
-	<script src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="{% static 'profiles/js/home-graphs.js' %}?v=1"></script>
-	<script>
-		google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': '{{ google_maps_api_key }}' });
-		google.charts.setOnLoadCallback(init);
-	</script>
-{% endblock header_scripts %}
-
 {% block nav-home-classes %}active{% endblock nav-home-classes %}
 
 {% block page_container %}
@@ -24,13 +14,17 @@
 
 {% block full_page_content %}
 <div class="container-fluid p-0">
-	<img src="{% static 'profiles/images/banner2.jpg' %}" class="img-fluid"  id="hero-image" alt="Responsive image">
+	<picture id="hero-image">
+		<source srcset="{% static 'profiles/images/banner2-1600.webp' %}" type="image/webp">
+		<source srcset="{% static 'profiles/images/banner2.jpg' %}" type="image/jpeg"> 
+		<img src="{% static 'profiles/images/banner2.jpg' %}" alt="Header Image">
+	</picture>
 </div>
 <div class="container-fluid" id="home-search">
-		<form action="list" method="get" class="input-group bg-white rounded p-1 mx-auto">
-			<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search" name="s" autofocus>
-			<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
-		</form>
+	<form action="list" method="get" class="input-group bg-white rounded p-1 mx-auto">
+		<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search" name="s" autofocus>
+		<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
+	</form>
 </div>
 <div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
 	<div class="row no-gutters p-4">
@@ -168,5 +162,7 @@
 
 {% block footer_scripts %}
 	{{ block.super }}
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="{% static 'profiles/js/home-graphs.js' %}?v=1"></script>
 	<script src="{% static 'profiles/js/home-gtag.js' %}?v=1"></script>
 {% endblock footer_scripts %}
