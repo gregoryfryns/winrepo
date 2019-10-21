@@ -34,6 +34,7 @@ section .section-title {
     -moz-transform: perspective(1000px);
     -moz-transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
+    transform: perspective(1000px);
     transition: 1s;
     transform-style: preserve-3d;
     position: relative;
@@ -43,6 +44,7 @@ section .section-title {
     position: relative;
     -webkit-transform: rotateY(0deg);
     -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
     z-index: 2;
     margin-bottom: 10px;
 }
