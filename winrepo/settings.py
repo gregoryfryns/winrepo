@@ -158,10 +158,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 BOOTSTRAP4 = {
 
     # The URL to the jQuery JavaScript file
-    'jquery_url': '//code.jquery.com/jquery.min.js',
+    'jquery_url': 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
 
     # The Bootstrap base URL
-    'base_url': '//maxcdn.bootstrapcdn.com/bootstrap/4.1.0/',
+    'base_url': 'https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/',
 
     # The complete URL to the Bootstrap CSS file
     # (None means derive it from base_url)
@@ -169,7 +169,7 @@ BOOTSTRAP4 = {
 
     # The complete URL to the Bootstrap JavaScript file
     # (None means derive it from base_url)
-    'javascript_url':  STATIC_URL + 'js/bootstrap.min.js',
+    'javascript_url': 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'
 }
 
 SELECT2_CSS = ''
