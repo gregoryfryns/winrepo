@@ -101,4 +101,17 @@ $(document).ready(function() {
 
     google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc' });
     google.charts.setOnLoadCallback(init);
+
+    //create trigger to resizeEnd event
+    $(window).resize(function () {
+        if (this.resizeTO) clearTimeout(this.resizeTO);
+        this.resizeTO = setTimeout(function () {
+            $(this).trigger('resizeEnd');
+        }, 500);
+    });
+
+    //redraw graph when window resize is completed
+    $(window).on('resizeEnd', function () {
+        $.get('/api/countries/?format=json', function (data) { return drawMap('regions_div', data); });
+    });
 });
