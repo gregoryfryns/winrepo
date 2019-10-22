@@ -46,7 +46,13 @@
 <body>
 	<nav class="navbar fixed-top navbar-custom navbar-light shadow-sm navbar-expand-md">
 		<a class="navbar-brand" href="{% url 'profiles:home' %}">
-			<img src="{% static 'images/logo_fill_triangles_wb.png' %}" alt="Winrepo Logo" height="38">
+			<picture id="winrepo-logo">
+				<source srcset="{% static 'images/logo_fill_triangles_wb.webp' %}" type="image/webp">
+				<source srcset="{% static 'images/logo_fill_triangles_wb.png' %}" type="image/png"> 
+				<source srcset="{% static 'images/logo_fill_triangles_wb.jpg' %}" type="image/jpeg"> 
+				<img src="{% static 'images/logo_fill_triangles_wb.jpg' %}" alt="Winrepo Logo">
+			</picture>
+			{% comment %} <img src="{% static 'images/logo_fill_triangles_wb.png' %}" alt="Winrepo Logo" height="38"> {% endcomment %}
 		</a>
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<ul class="nav navbar-nav ml-auto">
@@ -126,8 +132,6 @@
 
 	{% block footer_scripts %}
 		{% bootstrap_javascript jquery=1 %}
-		<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-		<script src="{% static 'js/infinite.min.js' %}"></script>
 	{% endblock footer_scripts %}
 </body>
 </html>

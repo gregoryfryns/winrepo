@@ -1,20 +1,37 @@
 import re
 import random
+
 from functools import reduce
 from operator import and_, or_
 
-from django.shortcuts import get_object_or_404, render
+from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q, Count
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q, Count
 
 from dal.autocomplete import Select2QuerySetView
+from rest_framework import viewsets
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
+from .serializers import CountrySerializer, PositionsCountSerializer
+
+
+class Home(ListView):
+    template_name = 'profiles/home.html'
+    context_object_name = 'recommendations_sample'
+    model = Recommendation
+
+    def get_queryset(self):
+        sample = random.sample(
+            list(Recommendation.objects.all()
+                 .order_by('-id')[:100]),
+            6)
+
+        return sample
 
 
 class ListProfiles(ListView):
@@ -164,63 +181,6 @@ class CreateRecommendation(SuccessMessageMixin, FormView):
         return initial
 
 
-def safe_div(x, y):
-    if y == 0:
-        return 0
-    return x / y
-
-
-def home(request):
-    # Get stats on database for Home page:
-    # Career stage
-    senior_keywords = ('Senior', 'Lecturer', 'Professor',
-                       'Director', 'Principal')
-    nb_senior = Profile.objects \
-                       .filter(reduce(or_,
-                                      [Q(position__icontains=q)
-                                       for q in senior_keywords])) \
-                       .count()
-    nb_students = Profile.objects \
-                         .filter(position__icontains='PhD student') \
-                         .count()
-    nb_postdoc = Profile.objects \
-                        .filter(position__icontains='Post-doc') \
-                        .count()
-    nb_all = Profile.objects.count()
-    nb_other = nb_all - nb_senior - nb_students - nb_postdoc
-
-    # Number of entries per country
-    country_stats = Country.objects.annotate(nb_profiles=Count('profile'))
-    country_stats = [country
-                     for country
-                     in country_stats
-                     if country.nb_profiles > 0]
-
-    context = {}
-    context['profiles'] = {
-        'nb_senior': nb_senior,
-        'nb_all': nb_all,
-        'nb_students': nb_students,
-        'nb_postdoc': nb_postdoc,
-        'nb_other': nb_all - nb_senior - nb_students - nb_postdoc,
-        'pct_students': round(100*safe_div(nb_students, nb_all)),
-        'pct_postdoc': round(100*safe_div(nb_postdoc, nb_all)),
-        'pct_senior': round(100*safe_div(nb_senior, nb_all)),
-        'pct_other': round(100*safe_div(nb_other, nb_all)),
-    }
-    context['countries'] = country_stats
-
-    context['recommendations'] = {
-        'total': Recommendation.objects.count(),
-        'sample': random.sample(list(
-            Recommendation.objects
-                          .all()
-                          .order_by('-id')[:100]), 6),
-    }
-
-    return render(request, 'profiles/home.html', context)
-
-
 class ProfilesAutocomplete(Select2QuerySetView):
     def get_queryset(self):
         profiles = Profile.objects.all()
@@ -254,3 +214,20 @@ class CountriesAutocomplete(Select2QuerySetView):
             countries = countries.filter(qs)
 
         return countries
+
+
+class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Country.objects.annotate(profiles_count=Count('profile')) \
+                              .filter(profiles_count__gt=0)
+    serializer_class = CountrySerializer
+    authentication_classes = []
+
+
+class TopPositionsViewSet(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = []
+
+    queryset = Profile.objects.all() \
+        .values('position') \
+        .annotate(profiles_count=Count('id')) \
+        .order_by('-profiles_count')
+    serializer_class = PositionsCountSerializer

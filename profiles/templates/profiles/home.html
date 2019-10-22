@@ -7,71 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'profiles/css/home.css' %}?v=3" />
 {% endblock css%}
 
-{% block header_scripts %}
-	 {{ block.super }}
-	<script src="https://www.gstatic.com/charts/loader.js"></script>
-	<script>
-		google.charts.load('current', {'packages':['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'});
-		google.charts.setOnLoadCallback(init);
-
-		function drawPieChart(myID,val1,label,color1) {
-			var percentVal = val1/{{ profiles.nb_all }};
-			var labelVal = percentVal.toString();
-			var data = new google.visualization.DataTable();
-			data.addColumn('string','Position');
-			data.addColumn('number','Entries in Repository');
-			data.addColumn({type:'string', role:'annotation'});
-			data.addRows([
-				[label, val1, labelVal],
-				['Rest', {{ profiles.nb_all }} -  val1,''],
-			]);
-
-			var options = {
-				colors: ['#dedede','#dedede'],
-				fontName: 'Open Sans',
-				fontSize: 14,
-				chartArea:{left:'10%',top:0,width:'80%',height:'100%'},
-				width: 120,
-				height: 120,
-				legend: 'none',
-				pieSliceText: 'none',
-				pieHole: 0.6,
-				enableInteractivity: false,
-				slices: [{color: color1,textStyle: {color:'#555555',fontName: 'Open Sans',fontSize: 18}},
-				 {textStyle: {color:'#ffffff',fontName: 'Open Sans',fontSize: 1}}]
-			};
-
-			var Piechart = new google.visualization.PieChart(document.getElementById(myID));
-
-			Piechart.draw(data, options);
-		}
-
-		function drawRegionsMap() {
-				var data = google.visualization.arrayToDataTable([['Country', 'Profiles']{% for country in countries %}, ['{{ country.name }}', {{ country.nb_profiles }}]{% endfor %}], false);
-
-			var options = {
-				// colorAxis: { colors: ['#db9daf', '#cc063e'] },
-				colorAxis: { colors: ['#a0c1c1', '#10898B'] },
-				legend: 'none',
-				tooltip: {isHtml: false},
-			};
-
-			var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-			chart.draw(data, options);
-		}
-
-		function init() {
-		    drawPieChart('chartPhD',{{ profiles.nb_students }},'PhD students','#CC063E');
-			drawPieChart('chartPostDoc',{{ profiles.nb_postdoc }},'Post-doc','#E83535');
-			drawPieChart('chartSenior',{{ profiles.nb_senior }},'Senior','#FD9407');
-			drawPieChart('chartOther',{{ profiles.nb_other }},'Other','#999999');
-			drawRegionsMap();
-		}
-
-	</script>
-{% endblock header_scripts %}
-
 {% block nav-home-classes %}active{% endblock nav-home-classes %}
 
 {% block page_container %}
@@ -79,13 +14,17 @@
 
 {% block full_page_content %}
 <div class="container-fluid p-0">
-	<img src="{% static 'profiles/images/banner2.jpg' %}" class="img-fluid"  id="hero-image" alt="Responsive image">
+	<picture id="hero-image">
+		<source srcset="{% static 'profiles/images/banner2-1600.webp' %}" type="image/webp">
+		<source srcset="{% static 'profiles/images/banner2.jpg' %}" type="image/jpeg"> 
+		<img src="{% static 'profiles/images/banner2.jpg' %}" alt="Header Image">
+	</picture>
 </div>
 <div class="container-fluid" id="home-search">
-		<form action="list" method="get" class="input-group bg-white rounded p-1 mx-auto">
-			<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search" name="s" autofocus>
-			<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
-		</form>
+	<form action="list" method="get" class="input-group bg-white rounded p-1 mx-auto">
+		<input type="text" id="search-input" class="form-control" placeholder="Enter search keywords here..." aria-label="Search" name="s" autofocus>
+		<button type="submit" id="search-btn" class="btn btn-secondary pl-4 pr-4">Search</button>
+	</form>
 </div>
 <div class="container-fluid bg-primary text-white pt-5 pb-5" id="intro-container">
 	<div class="row no-gutters p-4">
@@ -96,7 +35,7 @@
 	<div class="row no-gutters p-4">
 		<div  class="col-md-10 offset-md-1" id="intro-text" >
 			<p class="h5 text-justify">Despite some effort from the community and
-				<a class="text-quinary" href="{% url 'profiles:faq' %}#heading-resources">great initiatives</a>, female neuroscientists <a class="text-quinary" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ejn.14397" target="_blank">are
+				<a class="text-quinary" href="{% url 'profiles:faq' %}#heading-resources">great initiatives</a>, female neuroscientists <a class="text-quinary" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ejn.14397" target="_blank" rel="noopener">are
 				still under-represented in neuroscience</a>.
 				The aim of this Women in Neuroscience Repository is to help you identify
 				and recommend female neuroscientists for conferences, symposia or collaborations.</p>
@@ -117,12 +56,12 @@
 
 <div id="reco-carousel" class="container-fluid carousel bg-light slide" data-ride="carousel" data-interval="60000">
   <ol class="carousel-indicators">
-	{% for reco in recommendations.sample %}
+	{% for reco in recommendations_sample %}
     <li data-target="#reco-carousel" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
 	{% endfor %}
   </ol>
   <div class="carousel-inner m-auto">
-  {% for reco in recommendations.sample %}
+  {% for reco in recommendations_sample %}
     <div class="carousel-item p-4{% if forloop.first %} active{% endif %}">
 	<span class="text-secondary quote-icon float-left m-2"><i class="fas fa-quote-left"></i></span>
 	<blockquote class="blockquote text-center m-2">
@@ -144,7 +83,7 @@
 
 <div class="container-fluid" id="stats">
 	<div class="text-center m-4" id="entries-container">
-		<p class="h1 text-secondary font-weight-bold mb-0" id="entries-number"> {{ profiles.nb_all }} </p>
+		<p class="h1 text-secondary font-weight-bold mb-0" id="entries-number"> </p>
 		<p class="h5 text-primary" id="entries-text">entries in repository. </p>
 	</div>
 
@@ -154,53 +93,54 @@
 				<tr>
 					<td class="donutCell">
 						<div id="chartPhD" class="donutDiv"></div>
-						<div class="donutValue"> {{ profiles.pct_students }}%</div>
+						<div id="student-percent" class="donutValue">%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-secondary" id="PhDtext">PhD</span>
-			<p class="position-text">{{ profiles.nb_students }} profiles</p>
+			<p id="student-count" class="position-text"> profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartPostDoc" class="donutDiv"></div>
-						<div class="donutValue">{{ profiles.pct_postdoc }}%</div>
+						<div id="postdoc-percent" class="donutValue">%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-tertiary" id="PostDoctext">Post-doc</span>
-			<p class="position-text">{{ profiles.nb_postdoc }} profiles</p>
+			<p id="postdoc-count" class="position-text"> profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartSenior" class="donutDiv"></div>
-						<div class="donutValue">{{ profiles.pct_senior }}%</div>
+						<div id="senior-percent" class="donutValue">%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-quaternary" id="Seniortext">Senior</span>
-			<p class="position-text">{{ profiles.nb_senior }} profiles</p>
+			<p id="senior-count" class="position-text"> profiles</p>
 		</div>
 		<div class="p-2 text-center donutTab">
 			<table>
 				<tr>
 					<td class="donutCell">
 						<div id="chartOther" class="donutDiv"></div>
-						<div class="donutValue">{{ profiles.pct_other }}%</div>
+						<div id="other-percent" class="donutValue">%</div>
 					</td>
 				</tr>
 			</table>
 			<span class="position-title text-senary" id="Othertext">Other</span>
-			<p class="position-text">{{ profiles.nb_other }} profiles</p>
+			<p id="other-count" class="position-text"> profiles</p>
 		</div>
 	</div>
 
 	<div class="row no-gutters m-4" id="country-stats">
-		<div class="col-12 col-md-8 offset-md-2" id="map-container">
+		{% comment %} <div class="col-12 col-md-8 offset-md-2" id="map-container"> {% endcomment %}
+		<div class="col-12 col-md-8 offset-md-2 m-auto" id="map-container">
 			<div id="regions_div"></div>
 		</div>
 	</div>
@@ -222,5 +162,7 @@
 
 {% block footer_scripts %}
 	{{ block.super }}
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="{% static 'profiles/js/home-graphs.js' %}?v=1"></script>
 	<script src="{% static 'profiles/js/home-gtag.js' %}?v=1"></script>
 {% endblock footer_scripts %}

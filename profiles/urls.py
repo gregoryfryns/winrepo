@@ -1,10 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
+
+from rest_framework import routers
 
 from .sitemaps import HomeSitemap, FaqSitemap, AboutSitemap, \
      ListSitemap, ProfilesSitemap
 from . import views
+
+router = routers.DefaultRouter()
+router.register(r'api/countries', views.RepresentedCountriesViewSet)
+router.register(r'api/positions', views.TopPositionsViewSet)
 
 
 sitemaps = {
@@ -18,7 +24,7 @@ sitemaps = {
 app_name = 'profiles'
 
 urlpatterns = [
-    path('', views.home,
+    path('', views.Home.as_view(),
          name='home'),
     path('list/', views.ListProfiles.as_view(),
          name='index'),
@@ -42,4 +48,6 @@ urlpatterns = [
          name='countries_autocomplete'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
+    path('', include(router.urls)),
+#     path('api/', include('rest_framework.urls', namespace='rest_framework')),
 ]
