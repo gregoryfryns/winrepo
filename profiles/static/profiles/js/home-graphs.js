@@ -1,4 +1,4 @@
-$(document).ready(() => {
+$(document).ready(function() {
     function percentString(decimal) {
         return (decimal * 100).toFixed(0) + '%';
     }
@@ -79,7 +79,7 @@ $(document).ready(() => {
     }
 
     function drawMap(divId, jsonData) {
-        const array = jsonData.map(country => [country.name, country.profiles_count]);
+        const array = jsonData.map(function(country) { return [country.name, country.profiles_count]; });
         array.unshift(['Country', 'Profiles']);
 
         const data = google.visualization.arrayToDataTable(array);
@@ -95,8 +95,8 @@ $(document).ready(() => {
     }
 
     function init() {
-        $.get('/api/countries/?format=json', data => drawMap('regions_div', data));
-        $.get('/api/positions/?format=json', data => preparePiecharts(data));
+        $.get('/api/countries/?format=json', function(data) { return drawMap('regions_div', data); });
+        $.get('/api/positions/?format=json', function(data) { return preparePiecharts(data); });
     }
 
     google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc' });
