@@ -1,4 +1,4 @@
-(() => {
+(function() {
     $( document ).ready(function() {
         // Trigger search when checking/unchecking boxes in form
         $('#underrepresented-only, #senior-only').change(function() {

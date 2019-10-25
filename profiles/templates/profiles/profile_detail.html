@@ -35,7 +35,7 @@
 				<a class="btn pill-btn text-white btn-secondary m-1 email-btn{% if profile.email == "" %} disabled{% endif %}" href="mailto:{{ profile.email }}">
 					<i class="fas fa-envelope"></i> Send Email</a>
 
-				<a class="btn pill-btn text-white btn-secondary m-1 webpage-btn{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank">
+				<a class="btn pill-btn text-white btn-secondary m-1 webpage-btn{% if profile.webpage == "" %} disabled{% endif %}" href="{{ profile.webpage }}" target="_blank" rel="noopener">
 					<i class="fas fa-address-card"></i> View Page</a>
 
 				<a class="btn pill-btn btn-outline-primary m-1 recommend-btn" href="{% url 'profiles:recommend_profile' profile.id %}">

@@ -2,9 +2,10 @@
 	font-size: 16px;
 }
 
-#hero-image {
-	width: 100%;
-	min-height: 200px;
+#hero-image > img{
+	width: 100vw;
+	padding-top: 28px;
+	/* min-height: 200px; */
 }
 
 #home-search {

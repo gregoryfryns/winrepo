@@ -1,4 +1,4 @@
-(() => {
+(function() {
     var profileId = $('#profile-id').text() || '';
     $('a.email-btn').click(function() {
         // var emaillink = $(this).attr('href');
