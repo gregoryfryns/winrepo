@@ -11,12 +11,13 @@ from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.shortcuts import render
 
 from dal.autocomplete import Select2QuerySetView
 from rest_framework import viewsets
 
 from .models import Profile, Recommendation, Country
-from .forms import CreateProfileModelForm, RecommendModelForm
+from .forms import CreateProfileModelForm, RecommendModelForm,CreateUserForm
 from .serializers import CountrySerializer, PositionsCountSerializer
 
 
@@ -121,27 +122,6 @@ class ListProfiles(ListView):
 class ProfileDetail(DetailView):
     model = Profile
 
-"""@login_required
-@transaction.atomic
-def create_profile_greg(request):
-    if request.method == 'POST':
-        user_form = CreateUserForm(request.POST, instance=request.user)
-        profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, _('Your profile was successfully updated!'))
-            return redirect('profiles:index')
-        else:
-            messages.error(request, _('Please correct the error below.'))
-    else:
-        user_form = CreateUserForm(instance=request.user)
-        profile_form = CreateProfileModelForm(instance=request.user.profile)
-    return render(request, 'profiles/profile_form.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })"""
-
 #@login_required
 def create_profile(request):
     if request.method == 'POST':
@@ -166,8 +146,8 @@ def create_profile(request):
         else:
             messages.error(request, _('Please correct the error below.'))
     else:
-        # user_form = CreateUserForm(instance=request.user)
-        # profile_form = CreateProfileModelForm(instance=request.user.profile)
+        #user_form = CreateUserForm(instance=request.user)
+        #profile_form = CreateProfileModelForm(instance=request.user.profile)
         user_form = CreateUserForm()
         profile_form = CreateProfileModelForm()
     return render(request, 'profiles/profile_form.html', {
@@ -175,12 +155,12 @@ def create_profile(request):
         'profile_form': profile_form
     })
 
-""" class UpdateProfile(SuccessMessageMixin, UpdateView):
 
 class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
     fields = [
         'name',
+        'last_name',
         'email',
         'webpage',
         'institution',
@@ -197,7 +177,7 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
     success_message = "The profile for %(name)s was updated successfully"
 
     def get_success_url(self):
-        return reverse('profiles:detail', args=(self.object.id,)) """
+        return reverse('profiles:detail', args=(self.object.id,)) 
 
 
 """ class CreateProfile(SuccessMessageMixin, CreateView):

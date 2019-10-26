@@ -29,7 +29,7 @@
   <form method="post">
     {% csrf_token %}
 	{{ user_form|crispy }}
-	{{ profile_form|crispy }}
+    {{ profile_form|crispy }}
     <button type="submit" class="btn btn-primary pill-btn">Sign up</button>
   </form>
 {% endblock test_greg %}

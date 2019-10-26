@@ -174,9 +174,6 @@ BOOTSTRAP4 = {
 
 SELECT2_CSS = ''
 
-<<<<<<< HEAD
-# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
-=======
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
@@ -184,4 +181,3 @@ REST_FRAMEWORK = {
 }
 
 # SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
->>>>>>> origin/master
