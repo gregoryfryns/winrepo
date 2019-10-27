@@ -24,7 +24,7 @@
     {% endfor %}
 {% endif %}
 
-{% block test_greg %}
+{% block test %}
   <h2>Create profile</h2>
   <form method="post">
     {% csrf_token %}
@@ -32,11 +32,11 @@
     {{ profile_form|crispy }}
     <button type="submit" class="btn btn-primary pill-btn">Sign up</button>
   </form>
-{% endblock test_greg %}
+{% endblock test %}
 
 {% endblock content %}
 
 {% block footer_scripts %}
     {{ block.super }}
-    {{ form.media }}
+    {{ profile_form.media }}
 {% endblock footer_scripts %}

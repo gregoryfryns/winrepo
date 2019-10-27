@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render
+from django.contrib import messages
 
 from dal.autocomplete import Select2QuerySetView
 from rest_framework import viewsets
@@ -19,7 +20,6 @@ from rest_framework import viewsets
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm,CreateUserForm
 from .serializers import CountrySerializer, PositionsCountSerializer
-
 
 class Home(ListView):
     template_name = 'profiles/home.html'
@@ -125,8 +125,8 @@ class ProfileDetail(DetailView):
 #@login_required
 def create_profile(request):
     if request.method == 'POST':
-        # user_form = CreateUserForm(request.POST, instance=request.user)
-        # profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
+        #user_form = CreateUserForm(request.POST, instance=request.user)
+        #profile_form = CreateProfileModelForm(request.POST, instance=request.user.profile)
         user_form = CreateUserForm(request.POST)
         profile_form = CreateProfileModelForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
@@ -141,10 +141,10 @@ def create_profile(request):
             user = authenticate(username=username,password=password)
             login(request, user)
 
-            messages.success(request, _('Your profile was successfully updated!'))
+            messages.success(request, ('Your profile was successfully updated!'))
             return redirect('index')
         else:
-            messages.error(request, _('Please correct the error below.'))
+            messages.error(request, ('Please correct the error below.'))
     else:
         #user_form = CreateUserForm(instance=request.user)
         #profile_form = CreateProfileModelForm(instance=request.user.profile)
@@ -154,7 +154,6 @@ def create_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
-
 
 class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
