@@ -5,7 +5,7 @@ from functools import reduce
 from operator import and_, or_
 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, FormView
@@ -13,11 +13,9 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 from dal.autocomplete import Select2QuerySetView
-from rest_framework import viewsets
 
 from .models import Profile, Recommendation, Country
 from .forms import CreateProfileModelForm, RecommendModelForm
-from .serializers import CountrySerializer, PositionsCountSerializer
 
 
 class Home(ListView):
@@ -26,10 +24,16 @@ class Home(ListView):
     model = Recommendation
 
     def get_queryset(self):
-        sample = random.sample(
-            list(Recommendation.objects.all()
-                 .order_by('-id')[:100]),
-            6)
+        top_reco = list(Recommendation.objects.all().order_by('-id')[:100])
+        nb_samples = 6
+
+        if len(top_reco) == 0:
+            sample = []
+        else:
+            sample = random.sample(
+                top_reco,
+                nb_samples if len(top_reco) > nb_samples else len(top_reco)
+            )
 
         return sample
 
@@ -214,20 +218,3 @@ class CountriesAutocomplete(Select2QuerySetView):
             countries = countries.filter(qs)
 
         return countries
-
-
-class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Country.objects.annotate(profiles_count=Count('profile')) \
-                              .filter(profiles_count__gt=0)
-    serializer_class = CountrySerializer
-    authentication_classes = []
-
-
-class TopPositionsViewSet(viewsets.ReadOnlyModelViewSet):
-    authentication_classes = []
-
-    queryset = Profile.objects.all() \
-        .values('position') \
-        .annotate(profiles_count=Count('id')) \
-        .order_by('-profiles_count')
-    serializer_class = PositionsCountSerializer

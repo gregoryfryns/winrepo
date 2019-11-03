@@ -1,7 +1,6 @@
-
 from rest_framework import serializers
 
-from .models import Profile, Country
+from profiles.models import Profile, Country
 
 
 class CountrySerializer(serializers.ModelSerializer):
