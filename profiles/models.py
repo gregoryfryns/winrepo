@@ -142,7 +142,9 @@ class Profile(models.Model):
     email = models.EmailField(blank=True)
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, 
+                                on_delete=models.CASCADE,
+                                related_name='profiles')
     position = models.CharField(max_length=50, choices=POSITION_CHOICES,
                                 blank=True)
     grad_month = models.CharField(max_length=2, choices=MONTHS_CHOICES,
@@ -208,7 +210,9 @@ class Recommendation(models.Model):
         (DIR, 'Group leader/ Director/ Head of Department')
     )
 
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, 
+                                on_delete=models.CASCADE, 
+                                related_name='recommendations')
     reviewer_name = models.CharField(max_length=100, blank=False)
     reviewer_email = models.EmailField(blank=False)
     reviewer_position = models.CharField(max_length=50,
