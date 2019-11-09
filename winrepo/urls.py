@@ -20,4 +20,5 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('admin/', admin.site.urls),
     path('robots.txt', include('robots.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]

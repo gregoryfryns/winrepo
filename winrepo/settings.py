@@ -174,10 +174,5 @@ BOOTSTRAP4 = {
 
 SELECT2_CSS = ''
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-    ]
-}
 
 # SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

@@ -2,8 +2,12 @@ from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 
-from .sitemaps import HomeSitemap, FaqSitemap, AboutSitemap, \
-     ListSitemap, ProfilesSitemap
+from .sitemaps import (HomeSitemap,
+                       FaqSitemap,
+                       AboutSitemap,
+                       ListSitemap,
+                       ProfilesSitemap)
+
 from . import views
 
 
@@ -43,5 +47,4 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': SITEMAPS},
          name='django.contrib.sitemaps.views.sitemap'),
     path('api/', include('profiles.api.urls')),
-#     path('api/', include('rest_framework.urls', namespace='rest_framework')),
 ]
