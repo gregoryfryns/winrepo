@@ -141,6 +141,7 @@ class Profile(models.Model):
     def get_domains_choices(cls):
         return cls.DOMAINS_CHOICES
 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=100, blank=False)
     email = models.EmailField(blank=True)
     webpage = models.URLField(blank=True)
