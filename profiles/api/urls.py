@@ -11,7 +11,7 @@ ROUTER.register('positions', views.TopPositionsViewSet)
 
 urlpatterns = [
     path('', include(ROUTER.urls)),
-    path('profiles/', views.ProfileListCreateAPIView.as_view()),
+    path('profiles/', views.ProfilesListCreateAPIView.as_view()),
     path('profiles/<int:pk>/', views.ProfileRetrieveUpdateView.as_view()),
     path('profiles/recommendations', views.RecommendationsListCreateAPIView.as_view()),
 ]

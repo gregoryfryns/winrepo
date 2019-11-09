@@ -26,21 +26,21 @@ class RecommendationSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    country = serializers.StringRelatedField()
     recommendations = RecommendationSerializer(many=True, read_only=True)
 
-    # brain_structure = MultipleChoiceField(choices=STRUCTURE_CHOICES)
-    # modalities = MultipleChoiceField(choices=MODALITIES_CHOICES)
-    # methods = MultipleChoiceField(choices=METHODS_CHOICES)
-    # domains = MultipleChoiceField(choices=DOMAINS_CHOICES)
+    brain_structure = MultipleChoiceField(choices=STRUCTURE_CHOICES, allow_blank=True)
+    modalities = MultipleChoiceField(choices=MODALITIES_CHOICES, allow_blank=True)
+    methods = MultipleChoiceField(choices=METHODS_CHOICES, allow_blank=True)
+    domains = MultipleChoiceField(choices=DOMAINS_CHOICES, allow_blank=True)
 
     class Meta:
         model = Profile
         exclude = ('publish_date',)
+        # exclude = ('user', 'publish_date',)
 
 
 class PositionsCountSerializer(serializers.ModelSerializer):
-    profiles_count = serializers.IntegerField()
+    profiles_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Profile
