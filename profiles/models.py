@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
-# from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.urls import reverse
 
 from multiselectfield import MultiSelectField
@@ -187,28 +190,18 @@ class Profile(models.Model):
         return dict(self.MONTHS_CHOICES).get(self.grad_month)
 
 
-class Recommendation(models.Model):
-    PHD = 'PhD student'
-    MDR = 'Medical Doctor'
-    PDR = 'Post-doctoral researcher'
-    SRE = 'Senior researcher/ scientist'
-    LEC = 'Lecturer'
-    ATP = 'Assistant Professor'
-    ACP = 'Associate Professor'
-    PRF = 'Professor'
-    DIR = 'Group leader/ Director/ Head of Department'
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
 
-    POSITION_CHOICES = (
-        (PHD, 'PhD student'),
-        (MDR, 'Medical Doctor'),
-        (PDR, 'Post-doctoral researcher'),
-        (SRE, 'Senior researcher/ scientist'),
-        (LEC, 'Lecturer'),
-        (ATP, 'Assistant Professor'),
-        (ACP, 'Associate Professor'),
-        (PRF, 'Professor'),
-        (DIR, 'Group leader/ Director/ Head of Department')
-    )
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+class Recommendation(models.Model):
 
     profile = models.ForeignKey(Profile,
                                 on_delete=models.CASCADE,
