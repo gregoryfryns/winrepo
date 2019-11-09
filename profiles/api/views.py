@@ -47,6 +47,6 @@ class RecommendationsListCreateAPIView(ListCreateAPIView):
 
 
 class RecommendationRetrieveUpdateView(UpdateAPIView):
-    queryset = Recommendation.objects.all()
+    queryset = Recommendation.objects.all().order_by('-last_updated')
     serializer_class = Recommendation
     permission_classes = [IsAdminUserOrReadOnly]

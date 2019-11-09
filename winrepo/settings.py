@@ -174,5 +174,9 @@ BOOTSTRAP4 = {
 
 SELECT2_CSS = ''
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
 
 # SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
