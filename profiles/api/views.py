@@ -9,8 +9,7 @@ from profiles.api.serializers import (CountrySerializer,
                                       PositionsCountSerializer,
                                       RecommendationSerializer)
 
-from profiles.api.permissions import (IsAdminUserOrReadOnly,
-                                      IsSelfOrReadOnly)
+from profiles.api.permissions import IsAdminUserOrReadOnly
 
 
 class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
@@ -39,6 +38,7 @@ class ProfileRetrieveUpdateView(RetrieveUpdateAPIView):
     queryset = Profile.objects.all().order_by('-last_updated')
     serializer_class = ProfileSerializer
     # permission_classes = [IsSelfOrReadOnly]
+    permission_classes = [IsAdminUserOrReadOnly]
 
 
 class RecommendationsListCreateAPIView(ListCreateAPIView):

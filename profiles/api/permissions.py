@@ -7,9 +7,9 @@ class IsAdminUserOrReadOnly(permissions.IsAdminUser):
         return request.method in permissions.SAFE_METHODS or is_admin
 
 
-class IsSelfOrReadOnly(permissions.BasePermission):
-    def has_permission(self, request, view, obj):
-        if request.method == permissions.SAFE_METHODS:
-            return True
+# class IsSelfOrReadOnly(permissions.BasePermission):
+#     def has_permission(self, request, view, obj):
+#         if request.method == permissions.SAFE_METHODS:
+#             return True
 
-        return obj.user == request.user
+#         return obj.user is not None and obj.user == request.user

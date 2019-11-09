@@ -18,7 +18,7 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'profiles_count')
 
 
-class RecommendationSerializer(serializers.ModelSerializer):   
+class RecommendationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         exclude = ('seen_at_conf', 'publish_date',)
@@ -34,8 +34,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        # exclude = ('publish_date',)
-        exclude = ('user', 'publish_date',)
+        exclude = ('publish_date',)
+        # exclude = ('user', 'publish_date',)
 
 
 class PositionsCountSerializer(serializers.ModelSerializer):
