@@ -25,6 +25,7 @@ class RecommendationSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
     recommendations = RecommendationSerializer(many=True, read_only=True)
 
     brain_structure = MultipleChoiceField(choices=STRUCTURE_CHOICES, allow_blank=True)
