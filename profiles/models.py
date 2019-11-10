@@ -139,14 +139,16 @@ class Profile(models.Model):
     def get_domains_choices(cls):
         return cls.DOMAINS_CHOICES
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    is_public = models.BooleanField(default=True)
     name = models.CharField(max_length=100, blank=False)
-    email = models.EmailField(blank=True)
+    contact_email = models.EmailField(blank=True)
     webpage = models.URLField(blank=True)
     institution = models.CharField(max_length=100, blank=False)
     country = models.ForeignKey(Country,
                                 on_delete=models.CASCADE,
-                                related_name='profiles')
+                                related_name='profiles',
+                                null=True)
     position = models.CharField(max_length=50, choices=POSITION_CHOICES,
                                 blank=True)
     grad_month = models.CharField(max_length=2, choices=MONTHS_CHOICES,

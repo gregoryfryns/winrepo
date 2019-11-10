@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 
 from captcha.fields import ReCaptchaField
@@ -12,16 +14,33 @@ class CaptchaForm(forms.Form):
     captcha = ReCaptchaField(widget=ReCaptchaV3, label=False)
 
 
+class CreateUserForm(CaptchaForm, UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email',)
+        labels = {
+            'email': _('Email Address'),
+        }
+        help_texts = {
+            'email': _('We will use this address only when we need to '
+                       'communicate with you about this website - it will not '
+                       'be displayed to anyone else. It is recommended to enter '
+                       'an email address that is not likely to change in the future.'),
+        }
+
+
 class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
     use_required_attribute = False
 
     class Meta:
         model = Profile
-        fields = [
+        fields = (
             'name',
             'institution',
             'country',
-            'email',
+            'contact_email',
             'webpage',
             'position',
             'grad_month',
@@ -31,11 +50,11 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'methods',
             'domains',
             'keywords',
-        ]
+        )
         labels = {
             'name': _('Full Name'),
             'institution': _('Institution/Company'),
-            'email': _('Email Address'),
+            'contact_email': _('Email Address'),
             'webpage': _('Linked In or web page'),
             'grad_month': _('Date PhD was obtained: Month'),
             'grad_year': _('Year'),
@@ -46,6 +65,8 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             'keywords': _('Field of Research - Keywords'),
         }
         help_texts = {
+            'contact_email': _('Email Address that will be shown to the people '
+                               'who look at your profile.'),
             'country': _('Country of the institution'),
             'webpage': _('Make sure people can look you up easily by '
                          'providing a link to a personal website, profile '
@@ -71,7 +92,7 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
         }
 
     def clean_email(self):
-        email = self.cleaned_data['email']
+        email = self.cleaned_data['contact_email']
 
         if email and Profile.objects.filter(email=email).exists():
             raise forms.ValidationError(_('This email is already being used'),
@@ -86,14 +107,14 @@ class RecommendModelForm(CaptchaForm, forms.ModelForm):
     class Meta:
         model = Recommendation
 
-        fields = [
+        fields = (
             'profile',
             'reviewer_name',
             'reviewer_institution',
             'reviewer_position',
             'seen_at_conf',
             'comment',
-        ]
+        )
 
         labels = {
             'profile': _('Recommended Person'),

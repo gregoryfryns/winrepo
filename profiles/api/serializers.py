@@ -35,8 +35,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        exclude = ('publish_date',)
-        # exclude = ('user', 'publish_date',)
+        exclude = ('is_public', 'publish_date',)
 
 
 class PositionsCountSerializer(serializers.ModelSerializer):

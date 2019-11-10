@@ -50,7 +50,9 @@ class ListProfiles(ListView):
         is_senior = self.request.GET.get('senior') == 'on'
 
         # create filter on search terms
-        q_st = ~Q(pk=None)  # always true
+        # q_st = ~Q(pk=None)  # always true
+        q_st = Q(is_public=True)
+
         if s is not None:
             # split search terms and filter empty words (if successive spaces)
             search_terms = list(filter(None, s.split(' ')))
@@ -130,7 +132,7 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
     model = Profile
     fields = [
         'name',
-        'email',
+        'contact_email',
         'webpage',
         'institution',
         'country',
@@ -147,6 +149,17 @@ class UpdateProfile(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('profiles:detail', args=(self.object.id,))
+
+
+# class CreateUser(CreateView):
+#     form_class = CreateUserForm
+#     template_name = 'profiles/signup.html'
+
+#     def form_valid(self, form):
+#         form.save()
+
+#     def get_success_url(self):
+#         return reverse('profiles:create', kwargs={'pk': self.object.profile.pk})
 
 
 class CreateProfile(SuccessMessageMixin, CreateView):

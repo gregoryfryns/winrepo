@@ -2,6 +2,7 @@ from django.db.models import Count
 
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, UpdateAPIView
+from rest_framework.permissions import IsAdminUser
 
 from profiles.models import Country, Profile, Recommendation
 from profiles.api.serializers import (CountrySerializer,
@@ -9,7 +10,7 @@ from profiles.api.serializers import (CountrySerializer,
                                       PositionsCountSerializer,
                                       RecommendationSerializer)
 
-from profiles.api.permissions import IsAdminUserOrReadOnly
+from profiles.api.permissions import ReadOnly, IsSelf
 
 
 class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
@@ -17,28 +18,29 @@ class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
                               .filter(profiles_count__gt=0)
     serializer_class = CountrySerializer
     authentication_classes = []
+    pagination_class = None
 
 
 class TopPositionsViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = []
 
-    queryset = Profile.objects.all() \
+    queryset = Profile.objects.filter(is_public=True) \
         .values('position') \
         .annotate(profiles_count=Count('id')) \
         .order_by('-profiles_count')
     serializer_class = PositionsCountSerializer
+    pagination_class = None
 
 
 class ProfilesListCreateAPIView(ListCreateAPIView):
-    queryset = Profile.objects.all().order_by('-last_updated')
+    queryset = Profile.objects.filter(is_public=True).order_by('-last_updated')
     serializer_class = ProfileSerializer
 
 
 class ProfileRetrieveUpdateView(RetrieveUpdateAPIView):
-    queryset = Profile.objects.all().order_by('-last_updated')
+    queryset = Profile.objects.filter(is_public=True).order_by('-last_updated')
     serializer_class = ProfileSerializer
-    # permission_classes = [IsSelfOrReadOnly]
-    permission_classes = [IsAdminUserOrReadOnly]
+    permission_classes = [ReadOnly|IsAdminUser]
 
 
 class RecommendationsListCreateAPIView(ListCreateAPIView):
@@ -49,4 +51,4 @@ class RecommendationsListCreateAPIView(ListCreateAPIView):
 class RecommendationRetrieveUpdateView(UpdateAPIView):
     queryset = Recommendation.objects.all().order_by('-last_updated')
     serializer_class = Recommendation
-    permission_classes = [IsAdminUserOrReadOnly]
+    permission_classes = [ReadOnly|IsAdminUser]

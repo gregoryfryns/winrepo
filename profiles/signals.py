@@ -15,4 +15,6 @@ from .models import Profile
 def create_profile(sender, instance, created, **kwargs):
     print('Created ', created)
     if created:
-        Profile.objects.create(user=instance, **kwargs)
+        Profile.objects.create(user=instance,
+                               name=f'{instance.first_name} {instance.last_name}',
+                               contact_email=instance.email)
