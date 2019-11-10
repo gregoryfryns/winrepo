@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['localhost', 'gfryns.pythonanywhere.com', 'www.winrepo.org']
 
 INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
+
     'multiselectfield',
     'crispy_forms',
     'captcha',
@@ -40,7 +41,15 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
     'robots',
+
     'rest_framework',
+    'rest_framework.authtoken',
+
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,7 +185,14 @@ SELECT2_CSS = ''
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
 }
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = (True)
 
 # SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']

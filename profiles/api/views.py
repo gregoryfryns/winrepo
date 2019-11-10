@@ -2,7 +2,6 @@ from django.db.models import Count
 
 from rest_framework import viewsets
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, UpdateAPIView
-from rest_framework.permissions import IsAdminUser
 
 from profiles.models import Country, Profile, Recommendation
 from profiles.api.serializers import (CountrySerializer,
@@ -10,7 +9,7 @@ from profiles.api.serializers import (CountrySerializer,
                                       PositionsCountSerializer,
                                       RecommendationSerializer)
 
-from profiles.api.permissions import ReadOnly, IsSelf
+from profiles.api.permissions import ReadOnly, IsSelfOrReadOnly
 
 
 class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
@@ -40,7 +39,7 @@ class ProfilesListCreateAPIView(ListCreateAPIView):
 class ProfileRetrieveUpdateView(RetrieveUpdateAPIView):
     queryset = Profile.objects.filter(is_public=True).order_by('-last_updated')
     serializer_class = ProfileSerializer
-    permission_classes = [ReadOnly|IsAdminUser]
+    permission_classes = [IsSelfOrReadOnly]
 
 
 class RecommendationsListCreateAPIView(ListCreateAPIView):
@@ -51,4 +50,4 @@ class RecommendationsListCreateAPIView(ListCreateAPIView):
 class RecommendationRetrieveUpdateView(UpdateAPIView):
     queryset = Recommendation.objects.all().order_by('-last_updated')
     serializer_class = Recommendation
-    permission_classes = [ReadOnly|IsAdminUser]
+    permission_classes = [ReadOnly]
