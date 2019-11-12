@@ -119,25 +119,26 @@ class Country(models.Model):
 
 
 class Profile(models.Model):
+    
     @classmethod
     def get_position_choices(cls):
-        return cls.POSITION_CHOICES
+        return POSITION_CHOICES
 
     @classmethod
     def get_structure_choices(cls):
-        return cls.STRUCTURE_CHOICES
+        return STRUCTURE_CHOICES
 
     @classmethod
     def get_modalities_choices(cls):
-        return cls.MODALITIES_CHOICES
+        return MODALITIES_CHOICES
 
     @classmethod
     def get_methods_choices(cls):
-        return cls.METHODS_CHOICES
+        return METHODS_CHOICES
 
     @classmethod
     def get_domains_choices(cls):
-        return cls.DOMAINS_CHOICES
+        return DOMAINS_CHOICES
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     is_public = models.BooleanField(default=True)
@@ -172,23 +173,23 @@ class Profile(models.Model):
         return reverse('profiles:detail', kwargs={'pk': self.id})
 
     def brain_structure_labels(self):
-        return [dict(self.STRUCTURE_CHOICES).get(item, item)
+        return [dict(STRUCTURE_CHOICES).get(item, item)
                 for item in self.brain_structure]
 
     def modalities_labels(self):
-        return [dict(self.MODALITIES_CHOICES).get(item, item)
+        return [dict(MODALITIES_CHOICES).get(item, item)
                 for item in self.modalities]
 
     def methods_labels(self):
-        return [dict(self.METHODS_CHOICES).get(item, item)
+        return [dict(METHODS_CHOICES).get(item, item)
                 for item in self.methods]
 
     def domains_labels(self):
-        return [dict(self.DOMAINS_CHOICES).get(item, item)
+        return [dict(DOMAINS_CHOICES).get(item, item)
                 for item in self.domains]
 
     def grad_month_labels(self):
-        return dict(self.MONTHS_CHOICES).get(self.grad_month)
+        return dict(MONTHS_CHOICES).get(self.grad_month)
 
 
 class Recommendation(models.Model):

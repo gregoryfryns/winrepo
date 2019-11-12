@@ -1,11 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import MultipleChoiceField
 
-from profiles.models import (DOMAINS_CHOICES,
-                             METHODS_CHOICES,
-                             MODALITIES_CHOICES,
-                             STRUCTURE_CHOICES,
-                             Profile,
+from profiles.models import (Profile,
                              Recommendation,
                              Country)
 
@@ -28,10 +24,10 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     recommendations = RecommendationSerializer(many=True, read_only=True)
 
-    brain_structure = MultipleChoiceField(choices=STRUCTURE_CHOICES, allow_blank=True)
-    modalities = MultipleChoiceField(choices=MODALITIES_CHOICES, allow_blank=True)
-    methods = MultipleChoiceField(choices=METHODS_CHOICES, allow_blank=True)
-    domains = MultipleChoiceField(choices=DOMAINS_CHOICES, allow_blank=True)
+    brain_structure = MultipleChoiceField(choices=Profile.get_structure_choices(), allow_blank=True)
+    modalities = MultipleChoiceField(choices=Profile.get_modalities_choices(), allow_blank=True)
+    methods = MultipleChoiceField(choices=Profile.get_methods_choices(), allow_blank=True)
+    domains = MultipleChoiceField(choices=Profile.get_domains_choices(), allow_blank=True)
 
     class Meta:
         model = Profile

@@ -51,39 +51,39 @@ class ProfileViewSet(viewsets.ModelViewSet):
             for st in search_terms:
                 st_regex = re.compile(f'.*{st}.*', re.IGNORECASE)
 
-                # matching_structures = list(
-                #     Q(brain_structure__contains=x[0])
-                #     for x
-                #     in Profile.get_structure_choices()
-                #     if st_regex.match(x[1]))
-                # matching_modalities = list(
-                #     Q(modalities__contains=x[0])
-                #     for x
-                #     in Profile.get_modalities_choices()
-                #     if st_regex.match(x[1]))
-                # matching_methods = list(
-                #     Q(methods__contains=x[0])
-                #     for x
-                #     in Profile.get_methods_choices()
-                #     if st_regex.match(x[1]))
-                # matching_domains = list(
-                #     Q(domains__contains=x[0])
-                #     for x
-                #     in Profile.get_domains_choices()
-                #     if st_regex.match(x[1]))
+                matching_structures = list(
+                    Q(brain_structure__contains=x[0])
+                    for x
+                    in Profile.get_structure_choices()
+                    if st_regex.match(x[1]))
+                matching_modalities = list(
+                    Q(modalities__contains=x[0])
+                    for x
+                    in Profile.get_modalities_choices()
+                    if st_regex.match(x[1]))
+                matching_methods = list(
+                    Q(methods__contains=x[0])
+                    for x
+                    in Profile.get_methods_choices()
+                    if st_regex.match(x[1]))
+                matching_domains = list(
+                    Q(domains__contains=x[0])
+                    for x
+                    in Profile.get_domains_choices()
+                    if st_regex.match(x[1]))
 
                 st_conditions = [
                     Q(name__icontains=st),
                     Q(institution__icontains=st),
                     Q(position__icontains=st),
-                    # Q(brain_structure__icontains=st),
+                    Q(brain_structure__icontains=st),
                     Q(country__name__icontains=st),
                     Q(keywords__icontains=st),
-                    ] 
-                    # + matching_structures \
-                    # + matching_modalities \
-                    # + matching_methods \
-                    # + matching_domains
+                    ] \
+                    + matching_structures \
+                    + matching_modalities \
+                    + matching_methods \
+                    + matching_domains
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
