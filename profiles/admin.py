@@ -15,7 +15,7 @@ class RecommendationAdmin(admin.ModelAdmin):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('name', 'position', 'institution')
+    list_display = ('name', 'position', 'institution', 'is_public')
     search_fields = ('name', 'institution', 'email')
 
 
