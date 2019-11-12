@@ -1,17 +1,16 @@
 from django.urls import path, include
 
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 
 from profiles.api import views
 
 
-ROUTER = routers.DefaultRouter()
-ROUTER.register('countries', views.RepresentedCountriesViewSet)
-ROUTER.register('positions', views.TopPositionsViewSet)
+router = DefaultRouter()
+router.register('countries', views.RepresentedCountriesViewSet)
+router.register('positions', views.TopPositionsViewSet)
+router.register('profiles', views.ProfileViewSet, 'profiles')
+router.register('recommendations', views.RecommendationViewSet, 'recommendations')
 
 urlpatterns = [
-    path('', include(ROUTER.urls)),
-    path('profiles/', views.ProfilesListCreateAPIView.as_view()),
-    path('profiles/<int:pk>/', views.ProfileRetrieveUpdateView.as_view()),
-    path('profiles/recommendations', views.RecommendationsListCreateAPIView.as_view()),
+    path('', include(router.urls)),
 ]
