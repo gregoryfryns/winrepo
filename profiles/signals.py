@@ -19,6 +19,7 @@ def link_or_create_profile(sender, instance, created, **kwargs):
                                    name=f'{instance.first_name} {instance.last_name}',
                                    contact_email=instance.email)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     if instance.profile is not None:
