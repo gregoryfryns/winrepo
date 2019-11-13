@@ -79,11 +79,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
                     Q(brain_structure__icontains=st),
                     Q(country__name__icontains=st),
                     Q(keywords__icontains=st),
-                    ] \
-                    + matching_structures \
-                    + matching_modalities \
-                    + matching_methods \
-                    + matching_domains
+                    ] + matching_structures \
+                      + matching_modalities \
+                      + matching_methods \
+                      + matching_domains
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
