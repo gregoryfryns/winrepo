@@ -8,13 +8,13 @@ from django.db.models import Count, Q
 from rest_framework import mixins
 from rest_framework import viewsets
 
-from profiles.models import Country, Profile, Recommendation
-from profiles.api.serializers import (CountrySerializer,
-                                      ProfileSerializer,
-                                      PositionsCountSerializer,
-                                      RecommendationSerializer)
+from ..models import Country, Profile, Recommendation
+from .serializers import (CountrySerializer,
+                          ProfileSerializer,
+                          PositionsCountSerializer,
+                          RecommendationSerializer)
 
-from profiles.api.permissions import IsOwnProfileOrReadOnly
+from .permissions import IsOwnProfileOrReadOnly
 
 
 class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):

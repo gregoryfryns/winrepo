@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from rest_framework.fields import MultipleChoiceField
 
-from profiles.models import (Profile,
-                             Recommendation,
-                             Country)
+from ..models import (Profile,
+                      Recommendation,
+                      Country)
 
 
 class CountrySerializer(serializers.ModelSerializer):
