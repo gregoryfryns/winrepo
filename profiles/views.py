@@ -126,6 +126,7 @@ class ListProfiles(ListView):
 
 class ProfileDetail(DetailView):
     model = Profile
+    queryset = Profile.objects.filter(is_public=True)
 
 
 class UpdateProfile(SuccessMessageMixin, UpdateView):
