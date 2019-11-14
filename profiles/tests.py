@@ -1,8 +1,10 @@
-from django.test import TestCase
+# from captcha.models import CaptchaStore
+from django.contrib.auth.models import User
+from django.test import SimpleTestCase, TestCase
 from django.urls import reverse
 
-from .models import Profile, Country, Recommendation
-
+from .forms import CreateProfileModelForm
+from .models import Country, Profile, Recommendation
 
 default_profile = {
     'name': 'Test Profile',
@@ -10,36 +12,39 @@ default_profile = {
     'institution': 'Test insitution',
     'grad_month': '06',
     'grad_year': '2010',
-    'brain_structure': 'N',
-    'modalities': 'EP',
-    'methods': 'UV',
-    'domains': 'CG',
     'keywords': 'test one two',
     'is_public': True
 }
 
 
-# Create your tests here.
-class ProfileIndexViewTests(TestCase):
-    def test_no_profile(self):
+class ModelsTests(TestCase):
+
+    def test_new_user_new_profile(self):
         """
-        If no profiles exist, an appropriate message is displayed.
+        If a new user is created, a linked profile should be created as well
         """
-        response = self.client.get(reverse('profiles:index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No matching entries")
-        self.assertQuerysetEqual(response.context['profiles'], [])
+        email = 'test@user.com'
+        user = User.objects.create_user(username='testuser', password='super-password', email=email)
+        self.assertIsNotNone(user.profile)
+        self.assertEqual(user.profile.contact_email, email)
+
+    def test_new_user_existing_profile(self):
+        """
+        If a new user is created, a linked profile should be created as well
+        """
+        email = 'existing@user.com'
+        profile_settings = dict(default_profile)
+        profile_settings['contact_email'] = email
+        profile = Profile.objects.create(**profile_settings)
+
+        user = User.objects.create_user(username='testuser', password='super-password', email=email)
+        self.assertEqual(user.profile, profile)
+        self.assertEqual(user.profile.user, user)
 
 
 class ProfileDetailViewTests(TestCase):
-    profile = None
-    country = None
-    recommendations_count = 5
 
     def setUp(self):
-        """
-        Construct fake profiles
-        """
         self.country = Country.objects.create(code='USA',
                                               name='United States',
                                               is_under_represented=False)
@@ -81,7 +86,8 @@ class ProfileDetailViewTests(TestCase):
         """
         All the recommendations are displayed in the profile detail page
         """
-        for i in range(0, self.recommendations_count):
+        recommendations_count = 5
+        for i in range(recommendations_count):
             Recommendation.objects.create(profile=self.profile,
                                           reviewer_name=f'Reviewer {i}',
                                           reviewer_email=f'test{i}@test.com',
@@ -93,12 +99,53 @@ class ProfileDetailViewTests(TestCase):
         self.assertEqual(response.context['profile']
                                  .recommendations
                                  .count(),
-                         self.recommendations_count)
+                         recommendations_count)
+
+# TODO: disable captcha before testing
+# class ProfileCreateViewTests(TestCase):
+
+#     create_url = reverse('profiles:create')
+
+#     def setUp(self):
+#         self.country = Country.objects.create(code='USA',
+#                                               name='United States',
+#                                               is_under_represented=False)
+    
+#     def test_create_profile(self):
+#         """
+#         A profile can be created from the view, and the newly created profile is displayed
+#         """
+#         profile_settings = dict(default_profile)
+#         profile_settings['country'] = self.country.id
+#         profile_settings['contact_email'] = 'test@user.com'
+
+#         response = self.client.post(self.create_url, profile_settings)
+#         self.assertFormError(response, 'form', 'captcha', '')
+#         self.assertEqual(response.status_code, 200)
+#         new_profile = Profile.objects.filter(contact_email='test@user.com').first()
+#         self.assertIsNotNone(new_profile)
+#         self.assertURLEqual(response.redirect_chain, reverse('profiles:detail', args=(new_profile.id,)))
+
+#     def test_create_profile_with_existing_email(self):
+#         """
+#         Form will not allow another user to be created with the same email address
+#         """
+#         email = 'test@user.com'
+#         existing_profile = {'name': 'Existing User', 'institution': 'My institution', 'contact_email': email, 'country': self.country}
+#         Profile.objects.create(**existing_profile)
+
+#         profile_settings = dict(default_profile)
+#         profile_settings['country'] = self.country.id
+#         profile_settings['contact_email'] = email
+#         response = self.client.post(self.create_url, profile_settings)
+#         self.assertEqual(response.status_code, 200)
+#         self.assertFormError(response, 'form', 'contact_email', 'This email address is already taken')
 
 
 class ProfileListViewTests(TestCase):
     profiles = []
     country = None
+    index_url = reverse('profiles:index')
 
     def setUp(self):
         """
@@ -125,20 +172,50 @@ class ProfileListViewTests(TestCase):
         """
         The profiles list does not contain more than 20 profiles when it loads
         """
-        response = self.client.get(reverse('profiles:index'))
+        response = self.client.get(self.index_url)
         self.assertEqual(response.status_code, 200)
         self.assertGreater(len(self.profiles), 20)
         self.assertEqual(len(response.context['profiles']), 20)
 
-    def hide_private_profiles(self):
+    def test_hide_private_profiles(self):
         """
         The profiles that are not public should not be displayed
         """
         page = 1
-        response = self.client.get(f'{reverse("profiles:index")}?page={page}')
+        response = self.client.get(f'{self.index_url}?page={page}')
         self.assertEqual(response.status_code, 200)
         while response.status_code == 200:
             for profile in response.context['profiles']:
                 self.assertTrue(profile.is_public)
             page += 1
-            response = self.client.get(f'{reverse("profiles:index")}?page={page}')
+            response = self.client.get(f'{self.index_url}?page={page}')
+
+
+class ProfileEmptyListViewTests(TestCase):
+    index_url = reverse('profiles:index')
+
+    def test_no_profile(self):
+        """
+        If no profiles exist, an appropriate message is displayed.
+        """
+        response = self.client.get(self.index_url)
+        self.assertContains(response, 'No matching entries')
+        self.assertQuerysetEqual(response.context['profiles'], [])
+
+
+class StaticPagesTests(TestCase):
+    def test_has_robots_file(self):
+        response = self.client.get('/robots.txt')
+        self.assertContains(response, 'User-agent')
+    
+    def test_has_sitemap(self):
+        response = self.client.get(reverse('profiles:django.contrib.sitemaps.views.sitemap'))
+        self.assertContains(response, '<urlset')
+
+    def test_has_about_page(self):
+        response = self.client.get(reverse('profiles:about'))
+        self.assertContains(response, 'About')
+
+    def test_has_faq_page(self):
+        response = self.client.get(reverse('profiles:faq'))
+        self.assertContains(response, 'Frequently')

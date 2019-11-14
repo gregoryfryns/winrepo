@@ -1,11 +1,10 @@
-from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django.utils.translation import gettext_lazy as _
-
 from captcha.fields import ReCaptchaField
-from dal.autocomplete import ModelSelect2
 from captcha.widgets import ReCaptchaV3
+from dal.autocomplete import ModelSelect2
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 from .models import Profile, Recommendation
 
@@ -91,11 +90,10 @@ class CreateProfileModelForm(CaptchaForm, forms.ModelForm):
             )
         }
 
-    def clean_email(self):
+    def clean_contact_email(self):
         email = self.cleaned_data['contact_email']
-
-        if email and Profile.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('This email is already being used'),
+        if email and Profile.objects.filter(contact_email=email).exists():
+            raise forms.ValidationError(_('This email address is already taken'),
                                         code='duplicate_email')
 
         return email
