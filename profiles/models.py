@@ -119,7 +119,7 @@ class Country(models.Model):
 
 
 class Profile(models.Model):
-    
+
     @classmethod
     def get_position_choices(cls):
         return POSITION_CHOICES

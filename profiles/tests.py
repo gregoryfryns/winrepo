@@ -1,15 +1,15 @@
 # from captcha.models import CaptchaStore
 from django.contrib.auth.models import User
-from django.test import SimpleTestCase, TestCase
+from django.test import TestCase
 from django.urls import reverse
 
-from .forms import CreateProfileModelForm
+# from .forms import CreateProfileModelForm
 from .models import Country, Profile, Recommendation
 
 default_profile = {
     'name': 'Test Profile',
     'position': 'Lecturer',
-    'institution': 'Test insitution',
+    'institution': 'Test institution',
     'grad_month': '06',
     'grad_year': '2010',
     'keywords': 'test one two',
@@ -144,26 +144,36 @@ class ProfileDetailViewTests(TestCase):
 
 class ProfileListViewTests(TestCase):
     profiles = []
-    country = None
     index_url = reverse('profiles:index')
 
     def setUp(self):
         """
         Construct fake profiles
         """
-        self.country = Country.objects.create(code='USA',
-                                              name='United States',
-                                              is_under_represented=False)
+        self.POSITION_CHOICES = Profile.get_position_choices()
+        POSITION_CHOICES_IDS = [pos[0] for pos in self.POSITION_CHOICES]
+        self.COUNTRIES = [
+            Country.objects.create(code='USA',
+                                   name='United States',
+                                   is_under_represented=False),
+            Country.objects.create(code='FRA',
+                                   name='France',
+                                   is_under_represented=False),
+            Country.objects.create(code='VEN',
+                                   name='Venezuela',
+                                   is_under_represented=True)
+        ]
 
         for i in range(1, 25):
             profile_settings = dict(default_profile)
-            profile_settings['country'] = self.country
+            profile_settings['country'] = self.COUNTRIES[i % len(self.COUNTRIES)]
             profile_settings['name'] = f'User {i}'
+            profile_settings['position'] = POSITION_CHOICES_IDS[i % len(POSITION_CHOICES_IDS)]
             self.profiles.append(Profile.objects.create(**profile_settings))
 
         for i in range(1, 5):
             profile_settings = dict(default_profile)
-            profile_settings['country'] = self.country
+            profile_settings['country'] = self.COUNTRIES[i % len(self.COUNTRIES)]
             profile_settings['name'] = f'Inactive User {i}'
             profile_settings['is_public'] = False
             self.profiles.append(Profile.objects.create(**profile_settings))            
@@ -190,6 +200,71 @@ class ProfileListViewTests(TestCase):
             page += 1
             response = self.client.get(f'{self.index_url}?page={page}')
 
+    def test_filter_senior(self):
+        """
+        The query parameter senior=on should filter out the non-senior profiles
+        """
+        SENIOR_PROFILES = [pos[1] for pos in self.POSITION_CHOICES[4:]]
+
+        senior_profiles_count = 0
+        page = 1
+        response = self.client.get(f'{self.index_url}?senior=on&page={page}')
+        self.assertEqual(response.status_code, 200)
+        while response.status_code == 200:
+            for profile in response.context['profiles']:
+                senior_profiles_count += 1
+                self.assertIn(profile.get_position_display(), SENIOR_PROFILES)
+            page += 1
+            response = self.client.get(f'{self.index_url}?senior=on&page={page}')
+
+        # get all results and see if we didn't miss any
+        total_profiles_count = {'senior': 0, 'non-senior': 0}
+        page = 1
+        response = self.client.get(f'{self.index_url}?page={page}')
+        self.assertEqual(response.status_code, 200)
+        while response.status_code == 200:
+            for profile in response.context['profiles']:
+                if profile.get_position_display() in SENIOR_PROFILES:
+                    total_profiles_count['senior'] += 1
+                else:
+                    total_profiles_count['non-senior'] += 1
+            page += 1
+            response = self.client.get(f'{self.index_url}?page={page}')
+
+        self.assertEqual(total_profiles_count['senior'], senior_profiles_count)
+
+    def test_filter_under_represented(self):
+        """
+        The query parameter ur=on should filter out the non under-represented countries
+        """
+
+        underrepresented_count = 0
+        page = 1
+        response = self.client.get(f'{self.index_url}?ur=on&page={page}')
+        self.assertEqual(response.status_code, 200)
+        while response.status_code == 200:
+            for profile in response.context['profiles']:
+                underrepresented_count += 1
+                self.assertTrue(profile.country.is_under_represented)
+            page += 1
+            response = self.client.get(f'{self.index_url}?ur=on&page={page}')
+
+        # get all results and see if we didn't miss any
+        total_profiles_count = {'underrepresented': 0, 'other': 0}
+        page = 1
+        response = self.client.get(f'{self.index_url}?page={page}')
+        self.assertEqual(response.status_code, 200)
+        while response.status_code == 200:
+            for profile in response.context['profiles']:
+                if profile.country.is_under_represented:
+                    total_profiles_count['underrepresented'] += 1
+                else:
+                    total_profiles_count['other'] += 1
+            page += 1
+            response = self.client.get(f'{self.index_url}?page={page}')
+
+        self.assertEqual(total_profiles_count['underrepresented'], underrepresented_count)
+
 
 class ProfileEmptyListViewTests(TestCase):
     index_url = reverse('profiles:index')
@@ -207,7 +282,7 @@ class StaticPagesTests(TestCase):
     def test_has_robots_file(self):
         response = self.client.get('/robots.txt')
         self.assertContains(response, 'User-agent')
-    
+
     def test_has_sitemap(self):
         response = self.client.get(reverse('profiles:django.contrib.sitemaps.views.sitemap'))
         self.assertContains(response, '<urlset')
