@@ -154,7 +154,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static-collected")
 RECAPTCHA_PUBLIC_KEY = '6Lc8d5YUAAAAAGeYG5ilVvTNiV8GgwGUxmDFpEhG'
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 NOCAPTCHA = False
-RECAPTCHA_USE_SSL = False
+RECAPTCHA_USE_SSL = True
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
 
 # Sites settings
