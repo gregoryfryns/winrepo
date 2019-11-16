@@ -107,7 +107,7 @@
 		<a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">Recommend</a>
 	</div>-->
 	{% if profile.recommendations.all %}
-	<span class="text-primary float-right" style="margin-top:-34px;"><i class="fas fa-comment num-rec"></i> {{ profile.recommendation_set.all|length }}</span>
+	<span class="text-primary float-right" style="margin-top:-34px;"><i class="fas fa-comment num-rec"></i> {{ profile.recommendations.count }}</span>
 		<ul id="profile-quotes" class="list-unstyled">
 		{% for recommendation in profile.recommendations.all %}
 			<li class="quote grey-bg p-4 mt-3 rounded">
