@@ -1,0 +1,29 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Winrepo Login</title>
+    {% bootstrap_css %}
+    <style>
+        .login-form-container {
+            width: 300px;
+            margin: auto;
+        }
+        .registration-form-container {
+            width: 400px;
+            margin: auto;
+        }
+    </style>
+    {% bootstrap_messages %}
+</head>
+<body>
+    <div class="auth-box text-center">
+     {% block content %}
+     {% endblock content %}
+    </div>
+</body>
+</html>

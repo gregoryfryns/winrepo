@@ -110,7 +110,7 @@ class ProfileDetailViewTests(TestCase):
 #         self.country = Country.objects.create(code='USA',
 #                                               name='United States',
 #                                               is_under_represented=False)
-    
+
 #     def test_create_profile(self):
 #         """
 #         A profile can be created from the view, and the newly created profile is displayed
@@ -131,7 +131,8 @@ class ProfileDetailViewTests(TestCase):
 #         Form will not allow another user to be created with the same email address
 #         """
 #         email = 'test@user.com'
-#         existing_profile = {'name': 'Existing User', 'institution': 'My institution', 'contact_email': email, 'country': self.country}
+#         existing_profile = {'name': 'Existing User', 'institution': 'My institution', 'contact_email': email,
+#                             'country': self.country}
 #         Profile.objects.create(**existing_profile)
 
 #         profile_settings = dict(default_profile)
@@ -176,7 +177,7 @@ class ProfileListViewTests(TestCase):
             profile_settings['country'] = self.COUNTRIES[i % len(self.COUNTRIES)]
             profile_settings['name'] = f'Inactive User {i}'
             profile_settings['is_public'] = False
-            self.profiles.append(Profile.objects.create(**profile_settings))            
+            self.profiles.append(Profile.objects.create(**profile_settings))
 
     def test_list_profiles(self):
         """
