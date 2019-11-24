@@ -6,11 +6,24 @@ from . import views
 
 
 router = DefaultRouter()
-router.register('countries', views.RepresentedCountriesViewSet)
-router.register('positions', views.TopPositionsViewSet)
 router.register('profiles', views.ProfileViewSet, basename='profiles')
-router.register('recommendations', views.RecommendationViewSet, basename='recommendations')
 
 urlpatterns = [
     path('', include(router.urls)),
+
+    path('top-countries/',
+         views.TopCountriesListAPIView.as_view(),
+         name='top-countries'),
+
+    path('top-positions/',
+         views.TopPositionsListAPIView.as_view(),
+         name='top-positions'),
+
+    path('profiles/<int:pk>/recommend/',
+         views.RecommendationCreateAPIView.as_view(),
+         name='create-recommendation'),
+
+    path('recommendations-sample/',
+         views.RandomRecommendationsListAPIView.as_view(),
+         name='random-recomendations'),
 ]

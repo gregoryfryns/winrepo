@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import MultipleChoiceField
+from rest_framework.validators import UniqueTogetherValidator
 
 from ..models import (Profile,
                       Recommendation,
@@ -15,9 +16,18 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class RecommendationSerializer(serializers.ModelSerializer):
+    profile = serializers.StringRelatedField(many=False)
+
     class Meta:
         model = Recommendation
-        exclude = ('seen_at_conf', 'publish_date',)
+        exclude = ('publish_date', 'last_updated')
+        validators = [
+            UniqueTogetherValidator(
+                queryset=Recommendation.objects.all(),
+                fields=['profile', 'reviewer_name', 'reviewer_institution'],
+                message='You have already recommended that person!'
+            )
+        ]
 
 
 class ProfileSerializer(serializers.ModelSerializer):

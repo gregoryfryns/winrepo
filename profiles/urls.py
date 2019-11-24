@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 
@@ -46,5 +46,4 @@ urlpatterns = [
          name='countries_autocomplete'),
     path('sitemap.xml', sitemap, {'sitemaps': SITEMAPS},
          name='django.contrib.sitemaps.views.sitemap'),
-    path('api/', include('profiles.api.urls')),
 ]

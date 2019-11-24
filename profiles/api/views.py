@@ -1,31 +1,27 @@
+import random
 import re
-
 from functools import reduce
 from operator import and_, or_
 
 from django.db.models import Count, Q
-
-from rest_framework import mixins
-from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.viewsets import ModelViewSet
 
 from ..models import Country, Profile, Recommendation
-from .serializers import (CountrySerializer,
-                          ProfileSerializer,
-                          PositionsCountSerializer,
-                          RecommendationSerializer)
-
 from .permissions import IsOwnProfileOrReadOnly
+from .serializers import (CountrySerializer, PositionsCountSerializer,
+                          ProfileSerializer, RecommendationSerializer)
 
 
-class RepresentedCountriesViewSet(viewsets.ReadOnlyModelViewSet):
+class TopCountriesListAPIView(ListAPIView):
     queryset = Country.objects.annotate(profiles_count=Count('profiles')) \
-                              .filter(profiles_count__gt=0)
+                              .filter(profiles_count__gt=0) \
+                              .order_by('-profiles_count')
     serializer_class = CountrySerializer
-    authentication_classes = []
     pagination_class = None
 
 
-class TopPositionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class TopPositionsListAPIView(ListAPIView):
     authentication_classes = []
 
     queryset = Profile.objects.filter(is_public=True) \
@@ -36,7 +32,20 @@ class TopPositionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     pagination_class = None
 
 
-class ProfileViewSet(viewsets.ModelViewSet):
+class RandomRecommendationsListAPIView(ListAPIView):
+    serializer_class = RecommendationSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        qs = list(Recommendation.objects.filter(profile__is_public=True).order_by('-last_updated')[:100])
+
+        sample_size = min(6, len(qs))
+        sample = random.sample(qs, sample_size) if len(qs) > 0 else []
+
+        return sample
+
+
+class ProfileViewSet(ModelViewSet):
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnProfileOrReadOnly]
 
@@ -104,16 +113,20 @@ class ProfileViewSet(viewsets.ModelViewSet):
         return queryset.filter(q_st, q_ur, q_senior).order_by('-last_updated')
 
 
-class RecommendationViewSet(mixins.ListModelMixin,
-                            mixins.CreateModelMixin,
-                            mixins.RetrieveModelMixin,
-                            viewsets.GenericViewSet):
+# class RecommendationViewSet(mixins.ListModelMixin,
+#                             mixins.CreateModelMixin,
+#                             mixins.RetrieveModelMixin,
+#                             GenericViewSet):
+#     serializer_class = RecommendationSerializer
+
+#     def get_queryset(self):
+#         queryset = Recommendation.objects.all()
+#         profile_id = self.request.query_params.get('profile', None)
+#         if profile_id is not None:
+#             queryset = queryset.filter(profile__pk=profile_id)
+
+#         return queryset.order_by('-last_updated')
+
+class RecommendationCreateAPIView(CreateAPIView):
+    queryset = Recommendation.objects.all()
     serializer_class = RecommendationSerializer
-
-    def get_queryset(self):
-        queryset = Recommendation.objects.all()
-        profile_id = self.request.query_params.get('profile', None)
-        if profile_id is not None:
-            queryset = queryset.filter(profile__pk=profile_id)
-
-        return queryset.order_by('-last_updated')
