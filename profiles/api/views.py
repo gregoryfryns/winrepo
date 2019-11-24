@@ -32,19 +32,6 @@ class TopPositionsListAPIView(ListAPIView):
     pagination_class = None
 
 
-class RandomRecommendationsListAPIView(ListAPIView):
-    serializer_class = RecommendationSerializer
-    pagination_class = None
-
-    def get_queryset(self):
-        qs = list(Recommendation.objects.filter(profile__is_public=True).order_by('-last_updated')[:100])
-
-        sample_size = min(6, len(qs))
-        sample = random.sample(qs, sample_size) if len(qs) > 0 else []
-
-        return sample
-
-
 class ProfileViewSet(ModelViewSet):
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnProfileOrReadOnly]
@@ -113,19 +100,24 @@ class ProfileViewSet(ModelViewSet):
         return queryset.filter(q_st, q_ur, q_senior).order_by('-last_updated')
 
 
-# class RecommendationViewSet(mixins.ListModelMixin,
-#                             mixins.CreateModelMixin,
-#                             mixins.RetrieveModelMixin,
-#                             GenericViewSet):
-#     serializer_class = RecommendationSerializer
+class RandomRecommendationsListAPIView(ListAPIView):
+    serializer_class = RecommendationSerializer
+    pagination_class = None
 
-#     def get_queryset(self):
-#         queryset = Recommendation.objects.all()
-#         profile_id = self.request.query_params.get('profile', None)
-#         if profile_id is not None:
-#             queryset = queryset.filter(profile__pk=profile_id)
+    def get_queryset(self):
+        qs = list(Recommendation.objects.filter(profile__is_public=True).order_by('-last_updated')[:100])
 
-#         return queryset.order_by('-last_updated')
+        ss = self.request.query_params.get('sample-size', None)
+        if ss is not None and ss.isdigit():
+            sample_size = min(int(ss), len(qs))
+        else:
+            sample_size = 6
+
+        sample_size = min(sample_size, len(qs))
+        sample = random.sample(qs, sample_size) if len(qs) > 0 else []
+
+        return sample
+
 
 class RecommendationCreateAPIView(CreateAPIView):
     queryset = Recommendation.objects.all()
