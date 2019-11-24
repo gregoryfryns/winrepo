@@ -111,7 +111,7 @@ class RandomRecommendationsListAPIView(ListAPIView):
         ss = self.request.query_params.get('sample-size', None)
         if ss is not None:
             if not ss.isdigit():
-                raise ParseError('The sample size should be a numeric value!')
+                raise ParseError('The sample size should be an integer value!')
 
             sample_size = min(int(ss), len(qs))
         else:
