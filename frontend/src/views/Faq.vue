@@ -6,17 +6,17 @@
 
 <script>
 export default {
-    name: "faq",
-    data() {
-        return {
-            message: "hello FAQ!"
-        }
-    }
-}
+  name: "faq",
+  data() {
+    return {
+      message: "hello FAQ!"
+    };
+  }
+};
 </script>
 
 <style scoped>
-    h1 {
-        color: red;
-    }
+h1 {
+  color: red;
+}
 </style>
