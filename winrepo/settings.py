@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'dal_select2',
     'robots',
 
+    'webpack_loader',
+
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -147,10 +149,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static-collected")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-collected')
 
 # reCaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6Lc8d5YUAAAAAGeYG5ilVvTNiV8GgwGUxmDFpEhG'
@@ -158,6 +160,7 @@ RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 NOCAPTCHA = False
 RECAPTCHA_USE_SSL = True
 RECAPTCHA_DOMAIN = 'www.recaptcha.net'
+# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
 
 # Sites settings
 SITE_ID = config('SITE_ID', cast=int)
@@ -168,7 +171,6 @@ ROBOTS_CACHE_TIMEOUT = 60 * 60 * 24
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 BOOTSTRAP4 = {
-
     # The URL to the jQuery JavaScript file
     'jquery_url': 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js',
 
@@ -202,4 +204,9 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')
+    }
+}

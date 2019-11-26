@@ -15,8 +15,15 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'profiles_count')
 
 
+class profileBasicDetailsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ['id', 'name', 'institution']
+
+
 class RecommendationSerializer(serializers.ModelSerializer):
-    profile = serializers.StringRelatedField(many=False)
+    profile = profileBasicDetailsSerializer(many=False, read_only=True)
 
     class Meta:
         model = Recommendation
