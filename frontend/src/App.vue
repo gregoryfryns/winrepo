@@ -1,33 +1,63 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/faq">FAQ</router-link> |
-      <router-link to="/about">About</router-link>
+    <NavbarComponent />
+    <div id="content" class="bg-white">
+      <router-view />
     </div>
-    <router-view />
+    <FooterComponent />
   </div>
 </template>
 
+<script>
+// @ is an alias to /src
+import { apiServce } from "@/common/api_service";
+import NavbarComponent from "@/components/Navbar.vue";
+import FooterComponent from "@/components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    NavbarComponent,
+    FooterComponent
+  }
+};
+</script>
+
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* text-align: center;
+  color: #2c3e50; */
 }
 
-#nav {
-  padding: 30px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nunito", "Lato", sans-serif;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#content {
+  margin-top: 2.3em;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.grey-bg {
+  background-color: #e6e6e6;
+}
+
+.link-secondary {
+  color: #cc063e;
+}
+
+.pill-btn {
+  border-radius: 50px;
+}
+
+.full-page {
+  padding-top: 65px;
 }
 </style>

@@ -1,12 +1,25 @@
+{% load static %}
 {% load render_bundle from webpack_loader %}
+{% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
+	<meta name="author" content="Gregory Fryns">
+	<meta name="description" content="Listing of women working in Neuroscience">
+	<meta name="keywords" content="Women,Neuroscience,brain,research">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>frontend</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/win_brain.png' %}" />
+    <title>Winrepo</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito%7COpen+Sans%7CPacifico%7CMerriweather:blackitalic" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CSource+Sans+Pro:400,700%7CSource+Serif+Pro:400">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    {% bootstrap_css %}
+    {% bootstrap_messages %}
+    {% block style %}{% endblock style %}
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+    crossorigin="anonymous"></script>
   </head>
   <body>
     <noscript>
@@ -16,5 +29,6 @@
     {% render_bundle 'app' %}
     <!-- built files will be auto injected -->
 
+    {% bootstrap_javascript jquery=1 %}
   </body>
 </html>
