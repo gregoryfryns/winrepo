@@ -1,0 +1,330 @@
+<template>
+  <div id="profiles-list">
+    <div id="list-search" class="w-100 grey-bg">
+      <form method="get">
+        <div id="search-container" class="form-row p-2">
+          <div class="col-12 col-sm-6 offset-sm-3">
+            <div id="search-form" class="input-group bg-white rounded">
+              <div class="input-group-prepend p-1 w-100">
+                <input
+                  id="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Enter keywords, e.g. 'Attention MEG France'"
+                  name="s"
+                  autofocus
+                />
+                <input
+                  id="search-btn"
+                  type="submit"
+                  value="Search"
+                  class="btn btn-secondary pl-4 pr-4 rounded mx-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row p-2">
+          <div
+            id="underrepresented-countries"
+            class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-3"
+          >
+            <div class="form-check custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="underrepresented-only"
+                name="ur"
+              />
+              <label class="custom-control-label" for="underrepresented-only"
+                >Under Represented Countries Only</label
+              >
+            </div>
+          </div>
+          <div
+            id="senior-positions"
+            class="col-12 col-sm-9 offset-sm-3 col-lg-3 offset-lg-0"
+          >
+            <div class="form-check custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="senior-only"
+                name="senior"
+              />
+              <label class="custom-control-label" for="senior-only"
+                >Senior Positions Only</label
+              >
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div
+      v-if="count > 0"
+      id="profiles-list"
+      class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8"
+    >
+      <div class="pb-3 no-gutters entries-number">
+        <span id="search-message">
+          <span class="text-secondary font-weight-bold">{{ count }}</span>
+          entries found.
+        </span>
+      </div>
+      <div id="results-table" class="infinite-container">
+        <div
+          v-for="profile in profiles"
+          class="table-entry infinite-item"
+          :key="profile.id"
+        >
+          <div class="row my-4 no-gutters">
+            <!-- <div class="profile_id d-none">{{ profile.id }}</div> -->
+            <div class="col-xs-12 col-sm-4 col-lg-3">
+              <h5 class="text-primary font-weight-bold">{{ profile.name }}</h5>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-lg-3 details-grey text-muted">
+              <p class="m-1">
+                <i class="fas fa-user"></i>
+                <span class="ml-1">{{ profile.position }}</span>
+              </p>
+              <p class="m-1">
+                <i class="fas fa-university"></i>
+                <span class="ml-1">{{ profile.institution }}</span>
+              </p>
+              <p class="m-1">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="ml-1">{{ profile.country }}</span>
+              </p>
+            </div>
+
+            <div class="d-none">
+              <dl>
+                <dt>Brain Area</dt>
+                <dd>{{ profile.brain_structure }}</dd>
+                <dt>Methods</dt>
+                <dd>{{ profile.methods }}</dd>
+              </dl>
+            </div>
+            <div class="keywords-list col-lg-3 mt-1 d-none d-lg-block">
+              {{
+                []
+                  .concat(profile.modalities, profile.domains, profile.keywords)
+                  .filter(el => el)
+                  .join(', ')
+              }}
+            </div>
+            <div class="col-md-1 mt-1 pl-4 d-none d-md-block text-primary">
+              <span v-if="profile.recommendations.length > 0"
+                ><i class="fas fa-comment num-rec"></i>
+                {{ profile.recommendations.length }}</span
+              >
+            </div>
+            <div
+              class="actions col-xs-12 col-sm-4 col-md-2 text-xs-left text-sm-right"
+            >
+              <router-link
+                :to="{ name: 'profile', params: { id: profile.id.toString() } }"
+                class="btn pill-btn btn-outline-secondary w-75 m-2"
+              >
+                View Profile
+              </router-link>
+              <a
+                class="btn pill-btn btn-outline-secondary w-75 m-2"
+                href="/recommend"
+                >Recommend</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p v-show="isLoading">Loading...</p>
+        <button
+          v-show="next"
+          class="btn btn-sm btn-outline-secondary mt-3 mx-4"
+          @click="getProfilesList"
+        >
+          Load next batch...
+        </button>
+      </div>
+    </div>
+
+    <div
+      v-else
+      id="profiles-list"
+      class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8"
+    >
+      <p>No matching profiles</p>
+    </div>
+
+    <!-- from http://jsfiddle.net/gilbitron/Lt2wH/ -->
+    <a href="#" id="back-to-top" title="Back to top" class="btn"
+      ><i class="fas fa-chevron-circle-up"></i
+    ></a>
+  </div>
+</template>
+
+<script>
+import { apiService } from '../common/api_service';
+
+export default {
+  name: 'ProfilesList',
+  data() {
+    return {
+      profiles: [],
+      count: 0,
+      next: null,
+      isLoading: false
+    };
+  },
+  methods: {
+    getProfilesList() {
+      if (this.count > 0 && !this.next) return;
+      const endpoint = this.next || 'api/profiles/';
+      this.isLoading = true;
+      apiService(endpoint).then(data => {
+        this.count = data.count;
+        this.profiles.push(...data.results);
+        this.isLoading = false;
+        this.next = data.next || null;
+      });
+    }
+  },
+  created() {
+    this.getProfilesList();
+    document.title = 'Winrepo - Repository';
+  }
+};
+</script>
+
+<style scoped>
+#list-search {
+  padding-top: 64px;
+  padding-bottom: 30px;
+}
+
+#list-search .custom-control-label:before,
+#list-search .custom-control-label:after {
+  background-color: #fff;
+  border-radius: 2px;
+}
+
+#list-search
+  .custom-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label::before,
+#list-search
+  .custom-checkbox
+  .custom-control-input:checked
+  ~ .custom-control-label::after {
+  background-color: #1c898a;
+  border-radius: 2px;
+}
+
+#search-message > span {
+  font-size: 18px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#search {
+  line-height: 2.5rem;
+  border: white;
+  border-left: #e6e6e6;
+}
+
+#search:focus {
+  box-shadow: none;
+}
+
+#search-form .input-group-prepend {
+  height: 3em;
+}
+
+/* .input-group-text {
+  line-height: 2.5rem;
+  border: white;
+} */
+
+.entries-number {
+  border-bottom: 1px solid #ababab;
+}
+
+.table-entry {
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.table-entry .keywords-list {
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.table-entry .actions a {
+  font-size: 0.9em;
+}
+
+.num-rec {
+  font-size: 24px;
+}
+
+#results-nav a.pill-btn {
+  width: 110px;
+}
+
+#page-number {
+  line-height: 2.9em;
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 9999;
+  background: #cacaca;
+  color: #fafafa;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  padding: 0px;
+  font-size: 42px;
+  line-height: 50px;
+  text-decoration: none;
+  transition: opacity 0.2s ease-out;
+  opacity: 0;
+}
+#back-to-top:hover {
+  background: #10898b;
+}
+
+#back-to-top.show {
+  opacity: 1;
+}
+
+#field-of-research-list > div {
+  border-right: 1px solid #ccc;
+}
+
+#field-of-research-list > div:last-child {
+  border-right: none;
+}
+
+li.quote .quote-date {
+  line-height: 1.6rem;
+}
+
+/* Autocomplete fields  */
+.modelselect2 {
+  height: auto !important;
+}
+
+.modelselect2 > span {
+  height: 100% !important;
+}
+
+.select2-selection {
+  border: 1px solid #ced4da !important;
+}
+</style>

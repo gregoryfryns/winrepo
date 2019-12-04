@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import ProfilesList from '../views/ProfilesList';
+import Profile from '../views/Profile';
+import ProfileEditor from '../views/ProfileEditor';
 import Faq from '../views/Faq.vue';
 import About from '../views/About.vue';
 
@@ -15,12 +18,18 @@ const routes = [
   {
     path: '/list',
     name: 'list',
-    component: Home
+    component: ProfilesList
+  },
+  {
+    path: '/list/:id',
+    name: 'profile',
+    component: Profile,
+    props: true
   },
   {
     path: '/create',
     name: 'create',
-    component: Home
+    component: ProfileEditor
   },
   {
     path: '/recommend',

@@ -1,64 +1,91 @@
 <template>
   <nav class="navbar fixed-top navbar-light shadow-sm navbar-expand-md">
-    <div @click="active='home'">
-      <router-link class="navbar-brand"
-                  :to="{ name: 'home' }">
-          <picture id="winrepo-logo">
-              <source srcset="../assets/logo_fill_triangles_wb.webp" type="image/webp">
-              <source srcset="../assets/logo_fill_triangles_wb.png" type="image/png">
-              <source srcset="../assets/logo_fill_triangles_wb.jpg" type="image/jpeg">
-              <img src="../assets/logo_fill_triangles_wb.jpg" alt="Winrepo Logo">
-          </picture>
+    <div @click="active = 'home'">
+      <router-link class="navbar-brand" :to="{ name: 'home' }">
+        <picture id="winrepo-logo">
+          <source
+            srcset="../assets/logo_fill_triangles_wb.webp"
+            type="image/webp"
+          />
+          <source
+            srcset="../assets/logo_fill_triangles_wb.png"
+            type="image/png"
+          />
+          <source
+            srcset="../assets/logo_fill_triangles_wb.jpg"
+            type="image/jpeg"
+          />
+          <img src="../assets/logo_fill_triangles_wb.jpg" alt="Winrepo Logo" />
+        </picture>
       </router-link>
     </div>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <ul class="nav navbar-nav ml-auto">
-    <li @click="active='home'"
-        class="nav-item"
-        :class="{active:active === 'home'}">
-        <router-link class="nav-link h6" :to="{ name: 'home' }">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="nav navbar-nav ml-auto">
+        <li
+          @click="active = 'home'"
+          class="nav-item"
+          :class="{ active: active === 'home' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'home' }">
             Home
-        </router-link>
-    </li>
-    <li @click="active='list'"
-        class="nav-item"
-        :class="{active:active === 'list'}">
-        <router-link class="nav-link h6" :to="{ name: 'list' }">
+          </router-link>
+        </li>
+        <li
+          @click="active = 'list'"
+          class="nav-item"
+          :class="{ active: active === 'list' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'list' }">
             Repository
-        </router-link>
-    </li>
-    <li @click="active='create'"
-        class="nav-item"
-        :class="{active:active === 'create'}">
-        <router-link class="nav-link h6" :to="{ name: 'create' }">
+          </router-link>
+        </li>
+        <li
+          @click="active = 'create'"
+          class="nav-item"
+          :class="{ active: active === 'create' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'create' }">
             Create Profile
-        </router-link>
-    </li>
-    <li @click="active='recommend'"
-        class="nav-item"
-        :class="{active:active === 'recommend'}">
-        <router-link class="nav-link h6" :to="{ name: 'recommend' }">
+          </router-link>
+        </li>
+        <li
+          @click="active = 'recommend'"
+          class="nav-item"
+          :class="{ active: active === 'recommend' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'recommend' }">
             Recommend
-        </router-link>
-    </li>
-    <li @click="active='faq'"
-        class="nav-item"
-        :class="{active:active === 'faq'}">
-        <router-link class="nav-link h6" :to="{ name: 'faq' }">
+          </router-link>
+        </li>
+        <li
+          @click="active = 'faq'"
+          class="nav-item"
+          :class="{ active: active === 'faq' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'faq' }">
             FAQ
-        </router-link>
-    </li>
-    <li @click="active='about'"
-        class="nav-item"
-        :class="{active:active === 'about'}">
-        <router-link class="nav-link h6" :to="{ name: 'about' }">
+          </router-link>
+        </li>
+        <li
+          @click="active = 'about'"
+          class="nav-item"
+          :class="{ active: active === 'about' }"
+        >
+          <router-link class="nav-link h6" :to="{ name: 'about' }">
             About
-        </router-link>
-    </li>
-    </ul>
-  </div>
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-            aria-expanded="false" aria-label="Toggle navigation">
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <button
+      class="navbar-toggler ml-auto"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
   </nav>
@@ -66,9 +93,9 @@
 
 <script>
 export default {
-  name: "NavbarComponent",
+  name: 'NavbarComponent',
   data() {
-  return { active: 'home' }
+    return { active: 'home' };
   }
 };
 </script>

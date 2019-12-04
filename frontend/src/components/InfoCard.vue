@@ -1,55 +1,58 @@
 <template>
-    <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
-        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-            <div class="mainflip">
-                <div class="frontside">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <p>
-                                <!-- <img src="../assets/people/Pic_GF-280.jpg" v-bind:alt="name"> -->
-                                <img v-bind:src="'@/img/' + imageBaseName + '.jpg'" v-bind:alt="name">
-                                <!-- <picture>
+  <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
+    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+      <div class="mainflip">
+        <div class="frontside">
+          <div class="card">
+            <div class="card-body text-center">
+              <p>
+                <!-- <img src="../assets/people/Pic_GF-280.jpg" v-bind:alt="name"> -->
+                <img
+                  v-bind:src="'@/img/' + imageBaseName + '.jpg'"
+                  v-bind:alt="name"
+                />
+                <!-- <picture>
                                     <source v-bind:srcset="imgBasePath + '.webp'" type="image/webp">
                                     <source v-bind:srcset="imgBasePath + '.jpg'" type="image/jpeg">
                                     <img v-bind:src="imgBasePath + '.jpg'" v-bind:alt="name">
                                 </picture> -->
-                            </p>
-                            <h4 class="card-title">{{ name }}</h4>
-                            <p class="card-text">{{ role }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="backside">
-                    <div class="card">
-                        <div class="card-body text-center mt-4">
-                            <p class="card-text" v-html="description"></p>
-                        </div>
-                    </div>
-                </div>
+              </p>
+              <h4 class="card-title">{{ name }}</h4>
+              <p class="card-text">{{ role }}</p>
             </div>
+          </div>
         </div>
+        <div class="backside">
+          <div class="card">
+            <div class="card-body text-center mt-4">
+              <p class="card-text" v-html="description"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "InfoCardComponent",
+  name: 'InfoCardComponent',
   props: {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     role: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     },
     imageBaseName: {
-        type: String,
-        required: true
+      type: String,
+      required: true
     }
   }
 };
@@ -57,116 +60,116 @@ export default {
 
 <style scoped>
 .card {
-    border: none;
-    background: #ffffff;
+  border: none;
+  background: #ffffff;
 }
 
 .image-flip:hover .backside,
 .image-flip.hover .backside {
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-    border-radius: .25rem;
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  border-radius: 0.25rem;
 }
 
 .image-flip:hover .frontside,
 .image-flip.hover .frontside {
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .mainflip {
-    -webkit-transition: 1s;
-    -webkit-transform-style: preserve-3d;
-    -ms-transition: 1s;
-    -moz-transition: 1s;
-    -moz-transform: perspective(1000px);
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    transform: perspective(1000px);
-    transition: 1s;
-    transform-style: preserve-3d;
-    position: relative;
+  -webkit-transition: 1s;
+  -webkit-transform-style: preserve-3d;
+  -ms-transition: 1s;
+  -moz-transition: 1s;
+  -moz-transform: perspective(1000px);
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: 1s;
+  transform-style: preserve-3d;
+  position: relative;
 }
 
 .frontside {
-    position: relative;
-    -webkit-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-    z-index: 2;
-    margin-bottom: 10px;
+  position: relative;
+  -webkit-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  z-index: 2;
+  margin-bottom: 10px;
 }
 
 .backside {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: white;
-    -webkit-transform: rotateY(-180deg);
-    -moz-transform: rotateY(-180deg);
-    -o-transform: rotateY(-180deg);
-    -ms-transform: rotateY(-180deg);
-    transform: rotateY(-180deg);
-    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
-    border: 1px solid #BFBFBF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
+  -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+  -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+  box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+  border: 1px solid #bfbfbf;
 }
 
 .frontside,
 .backside {
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transition: 1s;
-    -webkit-transform-style: preserve-3d;
-    -moz-transition: 1s;
-    -moz-transform-style: preserve-3d;
-    -o-transition: 1s;
-    -o-transform-style: preserve-3d;
-    -ms-transition: 1s;
-    -ms-transform-style: preserve-3d;
-    transition: 1s;
-    transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transition: 1s;
+  -moz-transform-style: preserve-3d;
+  -o-transition: 1s;
+  -o-transform-style: preserve-3d;
+  -ms-transition: 1s;
+  -ms-transform-style: preserve-3d;
+  transition: 1s;
+  transform-style: preserve-3d;
 }
 
 #cont .card {
-    width: 12rem;
-    height: 16rem;
+  width: 12rem;
+  height: 16rem;
 }
 
 #board .card {
-    width: 15rem;
-    height: 18rem;
+  width: 15rem;
+  height: 18rem;
 }
 
-.backside .card .card-text{
-    font-size: 0.8rem;
-    margin:0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -30%;
-    transform: translate(-50%, -50%)
+.backside .card .card-text {
+  font-size: 0.8rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -30%;
+  transform: translate(-50%, -50%);
 }
 
-.frontside .card-title{
-    font-size:1.3rem
-    }
+.frontside .card-title {
+  font-size: 1.3rem;
+}
 
-.frontside .card-text{
-    font-size:0.9rem
-    }
+.frontside .card-text {
+  font-size: 0.9rem;
+}
 
 .frontside .card .card-body img {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
 }
 </style>

@@ -11,6 +11,10 @@ router.register('profiles', views.ProfileViewSet, basename='profiles')
 urlpatterns = [
     path('', include(router.urls)),
 
+    path('profiles/<int:pk>/recommend/',
+         views.RecommendationCreateAPIView.as_view(),
+         name='create-recommendation'),
+
     path('top-countries/',
          views.TopCountriesListAPIView.as_view(),
          name='top-countries'),
@@ -18,10 +22,6 @@ urlpatterns = [
     path('top-positions/',
          views.TopPositionsListAPIView.as_view(),
          name='top-positions'),
-
-    path('profiles/<int:pk>/recommend/',
-         views.RecommendationCreateAPIView.as_view(),
-         name='create-recommendation'),
 
     path('recommendations-sample/',
          views.RandomRecommendationsListAPIView.as_view(),

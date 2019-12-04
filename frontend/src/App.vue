@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavbarComponent />
-    <div id="content" class="bg-white">
+    <div id="content" class="bg-white mb-5">
       <router-view />
     </div>
     <FooterComponent />
@@ -10,12 +10,13 @@
 
 <script>
 // @ is an alias to /src
-import { apiServce } from "@/common/api_service";
-import NavbarComponent from "@/components/Navbar.vue";
-import FooterComponent from "@/components/Footer.vue";
+import { apiServce } from '@/common/api_service';
+import NavbarComponent from '@/components/Navbar.vue';
+import FooterComponent from '@/components/Footer.vue';
+
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     NavbarComponent,
     FooterComponent
@@ -25,7 +26,7 @@ export default {
 
 <style>
 #app {
-  font-family: "Open Sans", "Lato", sans-serif;
+  font-family: 'Open Sans', 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center;
@@ -38,7 +39,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Nunito", "Lato", sans-serif;
+  font-family: 'Nunito', 'Lato', sans-serif;
 }
 
 #content {
