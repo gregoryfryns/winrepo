@@ -18,11 +18,16 @@
               name="name"
               maxlength="100"
               class="textinput textInput form-control"
-              :class="{ 'is-invalid': errors.length>0 }"
+              :class="{
+                'is-invalid': errors.length > 0 || fieldsErrors['name']
+              }"
               id="id_name"
             />
             <p id="error_id_name" class="invalid-feedback">
-              <strong>{{ errors[0] }}</strong>
+              <strong v-if="fieldsErrors['name']">{{
+                fieldsErrors['name'][0]
+              }}</strong>
+              <strong v-else-if="errors">{{ errors[0] }}</strong>
             </p>
           </div>
         </div>
@@ -44,7 +49,7 @@
               name="institution"
               maxlength="100"
               class="textinput textInput form-control"
-              :class="{ 'is-invalid': errors.length>0 }"
+              :class="{ 'is-invalid': errors.length > 0 }"
               id="id_institution"
             />
             <p id="error_id_institution" class="invalid-feedback">
@@ -70,7 +75,7 @@
               name="contact_email"
               maxlength="254"
               class="emailinput form-control"
-              :class="{ 'is-invalid': errors.length>0 }"
+              :class="{ 'is-invalid': errors.length > 0 }"
               id="id_contact_email"
             />
             <p id="error_id_contact_email" class="invalid-feedback">
@@ -95,7 +100,7 @@
               name="webpage"
               maxlength="200"
               class="urlinput form-control"
-              :class="{ 'is-invalid': errors.length>0 }"
+              :class="{ 'is-invalid': errors.length > 0 }"
               id="id_webpage"
             />
             <p id="error_id_webpage" class="invalid-feedback">
@@ -120,7 +125,7 @@
                   v-model="fields.grad_month"
                   name="grad_month"
                   class="select form-control"
-                  :class="{ 'is-invalid': errors.length>0 }"
+                  :class="{ 'is-invalid': errors.length > 0 }"
                   id="id_grad_month"
                 >
                   <option value="" selected="">---------</option>
@@ -137,9 +142,9 @@
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </select>
-            <p id="error_id_grad_month" class="invalid-feedback">
-              <strong>{{ errors[0] }}</strong>
-            </p>
+                <p id="error_id_grad_month" class="invalid-feedback">
+                  <strong>{{ errors[0] }}</strong>
+                </p>
                 <small id="hint_id_grad_month" class="form-text text-muted"
                   >Leave empty if no PhD (yet).</small
                 >
@@ -159,12 +164,12 @@
                     name="grad_year"
                     maxlength="4"
                     class="textinput textInput form-control"
-                    :class="{ 'is-invalid': errors.length>0 }"
+                    :class="{ 'is-invalid': errors.length > 0 }"
                     id="id_grad_year"
                   />
-            <p id="error_id_grad_year" class="invalid-feedback">
-              <strong>{{ errors[0] }}</strong>
-            </p>
+                  <p id="error_id_grad_year" class="invalid-feedback">
+                    <strong>{{ errors[0] }}</strong>
+                  </p>
                   <small id="hint_id_grad_year" class="form-text text-muted"
                     >Please enter the full year (4 digits).</small
                   >
@@ -179,18 +184,23 @@
           Field of Research - Brain Structure
         </label>
         <div class="">
-          <div v-for="(struct, i) in brainStructureChoices"
+          <div
+            v-for="(struct, i) in brainStructureChoices"
             :key="struct.value"
-            class="form-check custom-checkbox">
+            class="form-check custom-checkbox"
+          >
             <input
               v-model="fields.brain_structure"
               type="checkbox"
               class="form-check-input custom-control-input"
               name="brain_structure"
-              :id="`id_brain_structure_${ i+1 }`"
+              :id="`id_brain_structure_${i + 1}`"
               :value="struct.value"
             />
-            <label class="form-check-label custom-control-label" :for="`id_brain_structure_${ i+1 }`">
+            <label
+              class="form-check-label custom-control-label"
+              :for="`id_brain_structure_${i + 1}`"
+            >
               {{ struct.display_name }}
             </label>
           </div>
@@ -201,18 +211,23 @@
           Field of Research - Modalities
         </label>
         <div class="">
-          <div v-for="(modality, i) in modalitiesChoices"
+          <div
+            v-for="(modality, i) in modalitiesChoices"
             :key="modality.value"
-            class="form-check custom-checkbox">
+            class="form-check custom-checkbox"
+          >
             <input
               v-model="fields.modalities"
               type="checkbox"
               class="form-check-input custom-control-input"
               name="modalities"
-              :id="`id_modalities_${ i+1 }`"
+              :id="`id_modalities_${i + 1}`"
               :value="modality.value"
             />
-            <label class="form-check-label custom-control-label" :for="`id_modalities_${ i+1 }`">
+            <label
+              class="form-check-label custom-control-label"
+              :for="`id_modalities_${i + 1}`"
+            >
               {{ modality.display_name }}
             </label>
           </div>
@@ -223,41 +238,51 @@
           Field of Research - Methods
         </label>
         <div class="">
-          <div> selected: {{ methods }}</div>
-          <div v-for="(method, i) in methodsChoices"
+          <div>selected: {{ methods }}</div>
+          <div
+            v-for="(method, i) in methodsChoices"
             :key="method.value"
-            class="form-check custom-checkbox">
+            class="form-check custom-checkbox"
+          >
             <input
               v-model="fields.methods"
               type="checkbox"
               class="form-check-input custom-control-input"
               name="methods"
-              :id="`id_methods_${ i+1 }`"
+              :id="`id_methods_${i + 1}`"
               :value="method.value"
             />
-            <label class="form-check-label custom-control-label" :for="`id_methods_${ i+1 }`">
+            <label
+              class="form-check-label custom-control-label"
+              :for="`id_methods_${i + 1}`"
+            >
               {{ method.display_name }}
             </label>
           </div>
-       </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="" class="">
           Field of Research - Domains
         </label>
         <div class="">
-          <div v-for="(domain, i) in domainsChoices"
+          <div
+            v-for="(domain, i) in domainsChoices"
             :key="domain.value"
-            class="form-check custom-checkbox">
+            class="form-check custom-checkbox"
+          >
             <input
               v-model="fields.domains"
               type="checkbox"
               class="form-check-input custom-control-input"
               name="domains"
-              :id="`id_domains_${ i+1 }`"
+              :id="`id_domains_${i + 1}`"
               :value="domain.value"
             />
-            <label class="form-check-label custom-control-label" :for="`id_domains_${ i+1 }`">
+            <label
+              class="form-check-label custom-control-label"
+              :for="`id_domains_${i + 1}`"
+            >
               {{ domain.display_name }}
             </label>
           </div>
@@ -298,67 +323,68 @@ export default {
         methods: [],
         domains: []
       },
+      fieldsErrors: {},
       error: null,
       brainStructureChoices: [
-        { 'value': 'N', 'display_name': 'Neuron' },
-        { 'value': 'L', 'display_name': 'Layer' },
-        { 'value': 'C', 'display_name': 'Column' },
-        { 'value': 'R', 'display_name': 'Region' },
-        { 'value': 'W', 'display_name': 'Whole Brain' }
+        { value: 'N', display_name: 'Neuron' },
+        { value: 'L', display_name: 'Layer' },
+        { value: 'C', display_name: 'Column' },
+        { value: 'R', display_name: 'Region' },
+        { value: 'W', display_name: 'Whole Brain' }
       ],
       modalitiesChoices: [
-        { 'value': 'EP', 'display_name': 'Electrophysiology (EEG, MEG, ECoG)' },
-        { 'value': 'OE', 'display_name': 'Other electrophysiology' },
-        { 'value': 'MR', 'display_name': 'MRI' },
-        { 'value': 'PE', 'display_name': 'PET' },
-        { 'value': 'DT', 'display_name': 'DTI' },
-        { 'value': 'BH', 'display_name': 'Behavioural' },
-        { 'value': 'ET', 'display_name': 'Eye Tracking' },
-        { 'value': 'BS', 'display_name': 'Brain Stimulation' },
-        { 'value': 'GT', 'display_name': 'Genetics' },
-        { 'value': 'FN', 'display_name': 'fNIRS' },
-        { 'value': 'LE', 'display_name': 'Lesions and Inactivations' }
+        { value: 'EP', display_name: 'Electrophysiology (EEG, MEG, ECoG)' },
+        { value: 'OE', display_name: 'Other electrophysiology' },
+        { value: 'MR', display_name: 'MRI' },
+        { value: 'PE', display_name: 'PET' },
+        { value: 'DT', display_name: 'DTI' },
+        { value: 'BH', display_name: 'Behavioural' },
+        { value: 'ET', display_name: 'Eye Tracking' },
+        { value: 'BS', display_name: 'Brain Stimulation' },
+        { value: 'GT', display_name: 'Genetics' },
+        { value: 'FN', display_name: 'fNIRS' },
+        { value: 'LE', display_name: 'Lesions and Inactivations' }
       ],
       methodsChoices: [
-        { 'value': 'UV', 'display_name': 'Univariate' },
-        { 'value': 'MV', 'display_name': 'Multivariate' },
-        { 'value': 'PM', 'display_name': 'Predictive Models' },
-        { 'value': 'DC', 'display_name': 'DCM' },
-        { 'value': 'CT', 'display_name': 'Connectivity' },
-        { 'value': 'CM', 'display_name': 'Computational Modeling' },
-        { 'value': 'AM', 'display_name': 'Animal Models' }
+        { value: 'UV', display_name: 'Univariate' },
+        { value: 'MV', display_name: 'Multivariate' },
+        { value: 'PM', display_name: 'Predictive Models' },
+        { value: 'DC', display_name: 'DCM' },
+        { value: 'CT', display_name: 'Connectivity' },
+        { value: 'CM', display_name: 'Computational Modeling' },
+        { value: 'AM', display_name: 'Animal Models' }
       ],
       domainsChoices: [
-        { 'value': 'CG', 'display_name': 'Cognition (general)' },
-        { 'value': 'MM', 'display_name': 'Memory' },
-        { 'value': 'SS', 'display_name': 'Sensory systems' },
-        { 'value': 'MO', 'display_name': 'Motor Systems' },
-        { 'value': 'LG', 'display_name': 'Language' },
-        { 'value': 'EM', 'display_name': 'Emotion' },
-        { 'value': 'PN', 'display_name': 'Pain' },
-        { 'value': 'LE', 'display_name': 'Learning' },
-        { 'value': 'AT', 'display_name': 'Attention' },
-        { 'value': 'DE', 'display_name': 'Decision Making' },
-        { 'value': 'DV', 'display_name': 'Developmental' },
-        { 'value': 'SL', 'display_name': 'Sleep' },
-        { 'value': 'CN', 'display_name': 'Consciousness' },
-        { 'value': 'CL', 'display_name': 'Clinical (general)' },
-        { 'value': 'DM', 'display_name': 'Dementia' },
-        { 'value': 'PK', 'display_name': 'Parkinson' },
-        { 'value': 'DD', 'display_name': 'Other degenerative diseases' },
-        { 'value': 'PS', 'display_name': 'Psychiatry' },
-        { 'value': 'AD', 'display_name': 'Addiction' },
-        { 'value': 'ON', 'display_name': 'Oncology' },
-        { 'value': 'EV', 'display_name': 'Evolutionary' },
-        { 'value': 'CM', 'display_name': 'Cellular and Molecular' },
-        { 'value': 'BI', 'display_name': 'Bioinformatics' },
-        { 'value': 'NC', 'display_name': 'Neuropharmacology' },
-        { 'value': 'ET', 'display_name': 'Ethics' }
+        { value: 'CG', display_name: 'Cognition (general)' },
+        { value: 'MM', display_name: 'Memory' },
+        { value: 'SS', display_name: 'Sensory systems' },
+        { value: 'MO', display_name: 'Motor Systems' },
+        { value: 'LG', display_name: 'Language' },
+        { value: 'EM', display_name: 'Emotion' },
+        { value: 'PN', display_name: 'Pain' },
+        { value: 'LE', display_name: 'Learning' },
+        { value: 'AT', display_name: 'Attention' },
+        { value: 'DE', display_name: 'Decision Making' },
+        { value: 'DV', display_name: 'Developmental' },
+        { value: 'SL', display_name: 'Sleep' },
+        { value: 'CN', display_name: 'Consciousness' },
+        { value: 'CL', display_name: 'Clinical (general)' },
+        { value: 'DM', display_name: 'Dementia' },
+        { value: 'PK', display_name: 'Parkinson' },
+        { value: 'DD', display_name: 'Other degenerative diseases' },
+        { value: 'PS', display_name: 'Psychiatry' },
+        { value: 'AD', display_name: 'Addiction' },
+        { value: 'ON', display_name: 'Oncology' },
+        { value: 'EV', display_name: 'Evolutionary' },
+        { value: 'CM', display_name: 'Cellular and Molecular' },
+        { value: 'BI', display_name: 'Bioinformatics' },
+        { value: 'NC', display_name: 'Neuropharmacology' },
+        { value: 'ET', display_name: 'Ethics' }
       ]
     };
   },
   computed: {
-    formValid () {
+    formValid() {
       // loop over all contents of the fields object and check if they exist and valid.
       return Object.keys(this.fields).every(field => {
         return this.fields[field] && this.fields[field].valid;
@@ -377,24 +403,28 @@ export default {
       const method = 'POST';
       const content = this.fields;
 
-      apiService(endpoint, method, content).then(profile_data => {
-        if (profile_data.id) {
-          this.$router.push({
-            name: 'profile',
-            params: { id: profile_data.id }
-          });
-        }
-        else {
-          this.error = 'Could not create profile :(';
-        }
-      })
-      // .catch(err => {
-      //     this.loaded = true;
-      //     if (err.response.status === 422) {
-      //       // this.errors = error.response.data.errors || {};
-      //       this.error = err.response.data.errors || '';
-      //     }
-      //   });
+      apiService(endpoint, method, content)
+        .then(profile_data => {
+          console.log(' tadaaaa', JSON.stringify(profile_data));
+          if (profile_data.id) {
+            this.$router.push({
+              name: 'profile',
+              params: { id: profile_data.id }
+            });
+          } else {
+            this.error = 'Could not create profile :(';
+            this.fieldsErrors = profile_data;
+          }
+        })
+        .catch(err => {
+          console.log('error: ', JSON.stringify(err));
+          this.loaded = true;
+          if (err.response.status === 400) {
+            console.log('bla');
+            // this.errors = error.response.data.errors || {};
+            this.fieldsErrors = err.response.data.errors || '';
+          }
+        });
     }
   },
   created() {
