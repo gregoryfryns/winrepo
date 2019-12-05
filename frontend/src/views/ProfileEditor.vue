@@ -64,11 +64,9 @@
         v-slot="{ errors }"
       >
         <div class="form-group">
-          <label for="id_contact_email" class="required">
-            Email Address
-          </label>
+          <label for="id_contact_email" class="required">Email Address</label>
           <span class="asterisk">*</span>
-          <div class="">
+          <div class>
             <input
               v-model="fields.contact_email"
               type="email"
@@ -81,18 +79,16 @@
             <p id="error_id_contact_email" class="invalid-feedback">
               <strong>{{ errors[0] }}</strong>
             </p>
-            <small id="hint_id_contact_email" class="form-text text-muted"
-              >Email Address that will be shown to the people who look at your
-              profile.</small
-            >
+            <small id="hint_id_contact_email" class="form-text text-muted">
+              Email Address that will be shown to the people who look at your
+              profile.
+            </small>
           </div>
         </div>
       </ValidationProvider>
       <ValidationProvider name="webpage" v-slot="{ errors }">
         <div class="form-group">
-          <label for="id_webpage">
-            Linked In or web page
-          </label>
+          <label for="id_webpage">Linked In or web page</label>
           <div>
             <input
               v-model="fields.webpage"
@@ -106,10 +102,10 @@
             <p id="error_id_webpage" class="invalid-feedback">
               <strong>{{ errors[0] }}</strong>
             </p>
-            <small id="hint_id_webpage" class="form-text text-muted"
-              >Make sure people can look you up easily by providing a link to a
-              personal website, profile or institution site.</small
-            >
+            <small id="hint_id_webpage" class="form-text text-muted">
+              Make sure people can look you up easily by providing a link to a
+              personal website, profile or institution site.
+            </small>
           </div>
         </div>
       </ValidationProvider>
@@ -117,10 +113,10 @@
         <div class="form-group col-md-6 mb-0">
           <ValidationProvider name="grad_month" v-slot="{ errors }">
             <div class="form-group">
-              <label for="id_grad_month" class="">
-                Date PhD was obtained: Month
-              </label>
-              <div class="">
+              <label for="id_grad_month" class
+                >Date PhD was obtained: Month</label
+              >
+              <div class>
                 <select
                   v-model="fields.grad_month"
                   name="grad_month"
@@ -128,7 +124,7 @@
                   :class="{ 'is-invalid': errors.length > 0 }"
                   id="id_grad_month"
                 >
-                  <option value="" selected="">---------</option>
+                  <option value selected>---------</option>
                   <option value="01">January</option>
                   <option value="02">February</option>
                   <option value="03">March</option>
@@ -154,10 +150,8 @@
           <ValidationProvider name="grad_year" v-slot="{ errors }">
             <div class="form-group col-md-6 mb-0">
               <div class="form-group">
-                <label for="id_grad_year" class="">
-                  Year
-                </label>
-                <div class="">
+                <label for="id_grad_year" class>Year</label>
+                <div class>
                   <input
                     v-model="fields.grad_year"
                     type="text"
