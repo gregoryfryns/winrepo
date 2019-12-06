@@ -1,21 +1,16 @@
 <template>
-  <div class="col-xs-12 col-sm-6 col-md-4" style="max-width:12.5rem;">
+  <div class="col-xs-12 col-sm-6 col-md-4 card-container">
     <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
       <div class="mainflip">
         <div class="frontside">
           <div class="card">
             <div class="card-body text-center">
               <p>
-                <!-- <img src="../assets/people/Pic_GF-280.jpg" v-bind:alt="name"> -->
-                <img
-                  v-bind:src="'@/img/' + imageBaseName + '.jpg'"
-                  v-bind:alt="name"
-                />
-                <!-- <picture>
-                                    <source v-bind:srcset="imgBasePath + '.webp'" type="image/webp">
-                                    <source v-bind:srcset="imgBasePath + '.jpg'" type="image/jpeg">
-                                    <img v-bind:src="imgBasePath + '.jpg'" v-bind:alt="name">
-                                </picture> -->
+                <picture>
+                    <source :srcset="require('../assets/people/' + imageBaseName + '.webp')" type="image/webp">
+                    <source :srcset="require('../assets/people/' + imageBaseName + '.jpg')" type="image/jpeg">
+                    <img :src="require('../assets/people/' + imageBaseName + '.jpg')" :alt="name">
+                </picture>
               </p>
               <h4 class="card-title">{{ name }}</h4>
               <p class="card-text">{{ role }}</p>
