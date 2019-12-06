@@ -162,14 +162,26 @@
     <a href="#" id="back-to-top" title="Back to top" class="btn"
       ><i class="fas fa-chevron-circle-up"></i
     ></a>
+    <div style="height: 800px; background-color: yellow; margin: 50px"> bla </div>
+
+    <go-top
+      :src="require('../assets/back-to-top.svg')"
+      style="padding: 8px"
+      size="44px"
+      bg-color="#fff"
+    ></go-top>
   </div>
 </template>
 
 <script>
+import GoTop from '@inotom/vue-go-top';
 import { apiService } from '../common/api_service';
 
 export default {
   name: 'ProfilesList',
+  components: {
+    GoTop
+  },
   data() {
     return {
       profiles: [],
