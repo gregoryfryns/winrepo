@@ -22,6 +22,30 @@ class TopCountriesListAPIView(ListAPIView):
     pagination_class = None
 
 
+class CountriesLookupAPIView(ListAPIView):
+    serializer_class = CountrySerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        q = self.request.query_params.get('q', '')
+
+        return Country.objects.filter(name__icontains=q).order_by('name')
+
+
+class ProfileLookupAPIView(ListAPIView):
+    serializer_class = ProfileSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        q = self.request.query_params.get('q', '')
+
+        queryset = Profile.objects \
+            .filter(or_(Q(name__icontains=q), Q(institution__icontains=q)), is_public=True) \
+            .order_by('name')
+
+        return queryset
+
+
 class TopPositionsListAPIView(ListAPIView):
     authentication_classes = []
 

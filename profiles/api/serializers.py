@@ -47,11 +47,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     methods = MultipleChoiceField(choices=Profile.get_methods_choices(), allow_blank=True)
     domains = MultipleChoiceField(choices=Profile.get_domains_choices(), allow_blank=True)
 
-    # brain_structure = serializers.CharField(source='get_brain_structure_display', allow_blank=True)
-    # modalities = serializers.CharField(source='get_modalities_display', allow_blank=True)
-    # methods = serializers.CharField(source='get_methods_display', allow_blank=True)
-    # domains = serializers.CharField(source='get_domains_display', allow_blank=True)
-
     class Meta:
         model = Profile
         exclude = ('is_public', 'publish_date',)

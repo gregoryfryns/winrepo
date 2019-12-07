@@ -61,4 +61,13 @@ h6 {
 .full-page {
   padding-top: 65px;
 }
+
+.vs__search, .vs__search:focus {
+  padding: 2px 4px !important;
+  line-height: 24px !important;
+}
+
+.vs__selected-options {
+  padding-left: 6px !important;
+}
 </style>

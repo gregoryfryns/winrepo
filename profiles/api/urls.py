@@ -11,13 +11,21 @@ router.register('profiles', views.ProfileViewSet, basename='profiles')
 urlpatterns = [
     path('', include(router.urls)),
 
-    path('profiles/<int:pk>/recommend/',
+    path('profiles/recommend/',
          views.RecommendationCreateAPIView.as_view(),
          name='create-recommendation'),
 
     path('top-countries/',
          views.TopCountriesListAPIView.as_view(),
          name='top-countries'),
+
+    path('countries-lookup/',
+         views.CountriesLookupAPIView.as_view(),
+         name='countries-lookup'),
+
+    path('profiles-lookup/',
+         views.ProfileLookupAPIView.as_view(),
+         name='profiles-lookup'),
 
     path('top-positions/',
          views.TopPositionsListAPIView.as_view(),

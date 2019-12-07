@@ -74,7 +74,7 @@
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ structure }}
+                {{ structureChoices[structure] || structure }}
               </li>
             </ul>
           </div>
@@ -87,7 +87,7 @@
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ domain }}
+                {{ domainsChoices[domain] || domain }}
               </li>
             </ul>
           </div>
@@ -100,7 +100,7 @@
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ modality }}
+                {{ modalitiesChoices[modality] || modality }}
               </li>
             </ul>
           </div>
@@ -113,7 +113,7 @@
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ method }}
+                {{ methodsChoices[method] || method }}
               </li>
             </ul>
           </div>
@@ -183,9 +183,12 @@
           <p>No recommendations have been made for {{ profile.name }} yet.</p>
           <p>
             Have you seen her at a conference? If so, please consider
-            <b
-              ><a href="/list/recommend" target="_blank">writing her one.</a></b
+            <router-link
+              :to="{ name: 'recommend' }"
             >
+            <b>writing her one.</b>
+          </router-link>
+            <!-- <b><a href="/list/recommend" target="_blank">writing her one.</a></b> -->
           </p>
         </div>
         <p class="m-1"></p>
@@ -194,17 +197,15 @@
       <div class="mt-5">
         <p class="m-1 text-muted small">
           Noticed something incorrect in your profile?
-          <b
-            ><a
-              :href="
-                encodeURI(
-                  `mailto:admin@winrepo.org?subject=Winrepo - update profile ${profile.id} ( ${profile.name})`
-                )
-              "
-            >
-              Send us an email</a
-            ></b
+          <a
+            :href="
+              encodeURI(
+                `mailto:admin@winrepo.org?subject=Winrepo - update profile ${profile.id} (${profile.name})`
+              )
+            "
           >
+            <b>Send us an email</b>
+          </a>
           with instructions so we can update it!
         </p>
       </div>
@@ -248,7 +249,63 @@ export default {
   },
   data() {
     return {
-      profile: {}
+      profile: {},
+      structureChoices: {
+        N: 'Neuron',
+        L: 'Layer',
+        C: 'Column',
+        R: 'Region',
+        W: 'Whole Brain'
+      },
+      modalitiesChoices: {
+        EP: 'Electrophysiology (EEG, MEG, ECoG)',
+        OE: 'Other electrophysiology',
+        MR: 'MRI',
+        PE: 'PET',
+        DT: 'DTI',
+        BH: 'Behavioural',
+        ET: 'Eye Tracking',
+        BS: 'Brain Stimulation',
+        GT: 'Genetics',
+        FN: 'fNIRS',
+        LE: 'Lesions and Inactivations'
+      },
+      methodsChoices: {
+        UV: 'Univariate',
+        MV: 'Multivariate',
+        PM: 'Predictive Models',
+        DC: 'DCM',
+        CT: 'Connectivity',
+        CM: 'Computational Modeling',
+        AM: 'Animal Models'
+      },
+      domainsChoices: {
+        CG: 'Cognition (general)',
+        MM: 'Memory',
+        SS: 'Sensory systems',
+        MO: 'Motor Systems',
+        LG: 'Language',
+        EM: 'Emotion',
+        PN: 'Pain',
+        LE: 'Learning',
+        AT: 'Attention',
+        DE: 'Decision Making',
+        DV: 'Developmental',
+        SL: 'Sleep',
+        CN: 'Consciousness',
+        CL: 'Clinical (general)',
+        DM: 'Dementia',
+        PK: 'Parkinson',
+        DD: 'Other degenerative diseases',
+        PS: 'Psychiatry',
+        AD: 'Addiction',
+        ON: 'Oncology',
+        EV: 'Evolutionary',
+        CM: 'Cellular and Molecular',
+        BI: 'Bioinformatics',
+        NC: 'Neuropharmacology',
+        ET: 'Ethics'
+      }
     };
   },
   methods: {

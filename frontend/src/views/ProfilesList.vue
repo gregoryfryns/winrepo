@@ -101,15 +101,15 @@
             <div class="d-none">
               <dl>
                 <dt>Brain Area</dt>
-                <dd>{{ profile.brain_structure }}</dd>
+                <dd>{{ structureChoices[profile.brain_structure] || profile.brain_structure }}</dd>
                 <dt>Methods</dt>
-                <dd>{{ profile.methods }}</dd>
+                <dd>{{ methodsChoices[profile.methods] || profile.methods }}</dd>
               </dl>
             </div>
             <div class="keywords-list col-lg-3 mt-1 d-none d-lg-block">
               {{
                 []
-                  .concat(profile.modalities, profile.domains, profile.keywords)
+                  .concat(profile.modalities.map(mod => modalitiesChoices[mod] || mod), profile.domains.map(dom => domainsChoices[dom] || dom), profile.keywords)
                   .filter(el => el)
                   .join(', ')
               }}
@@ -186,7 +186,63 @@ export default {
       profiles: [],
       count: 0,
       next: null,
-      isLoading: false
+      isLoading: false,
+      structureChoices: {
+        N: 'Neuron',
+        L: 'Layer',
+        C: 'Column',
+        R: 'Region',
+        W: 'Whole Brain'
+      },
+      modalitiesChoices: {
+        EP: 'Electrophysiology (EEG, MEG, ECoG)',
+        OE: 'Other electrophysiology',
+        MR: 'MRI',
+        PE: 'PET',
+        DT: 'DTI',
+        BH: 'Behavioural',
+        ET: 'Eye Tracking',
+        BS: 'Brain Stimulation',
+        GT: 'Genetics',
+        FN: 'fNIRS',
+        LE: 'Lesions and Inactivations'
+      },
+      methodsChoices: {
+        UV: 'Univariate',
+        MV: 'Multivariate',
+        PM: 'Predictive Models',
+        DC: 'DCM',
+        CT: 'Connectivity',
+        CM: 'Computational Modeling',
+        AM: 'Animal Models'
+      },
+      domainsChoices: {
+        CG: 'Cognition (general)',
+        MM: 'Memory',
+        SS: 'Sensory systems',
+        MO: 'Motor Systems',
+        LG: 'Language',
+        EM: 'Emotion',
+        PN: 'Pain',
+        LE: 'Learning',
+        AT: 'Attention',
+        DE: 'Decision Making',
+        DV: 'Developmental',
+        SL: 'Sleep',
+        CN: 'Consciousness',
+        CL: 'Clinical (general)',
+        DM: 'Dementia',
+        PK: 'Parkinson',
+        DD: 'Other degenerative diseases',
+        PS: 'Psychiatry',
+        AD: 'Addiction',
+        ON: 'Oncology',
+        EV: 'Evolutionary',
+        CM: 'Cellular and Molecular',
+        BI: 'Bioinformatics',
+        NC: 'Neuropharmacology',
+        ET: 'Ethics'
+      }
     };
   },
   methods: {

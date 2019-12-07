@@ -58,6 +58,56 @@
           </div>
         </div>
       </ValidationProvider>
+      <ValidationProvider name="country" rules="required" v-slot="{ errors }">
+        <div class="form-group">
+          <label for="country" class="control-label">
+            Country
+          </label>
+          <v-select
+            class="vue-select2"
+            :class="{ 'is-invalid': errors.length > 0 }"
+            name="country"
+            :options="countriesList"
+            label="name"
+            :reduce="country => country.id.toString()"
+            :searchable="true"
+            :filterable="true"
+            :clearable="false"
+            :select-on-tab="true"
+            v-model="fields.country"
+          />
+          <p id="error_id_country" class="invalid-feedback">
+            <strong>{{ errors[0] }}</strong>
+          </p>
+          <small id="hint_id_country" class="form-text text-muted">
+            Country of the institution
+          </small>
+        </div>
+      </ValidationProvider>
+      <ValidationProvider name="country" rules="" v-slot="{ errors }">
+        <div class="form-group">
+          <label for="country" class="control-label">
+            Position
+          </label>
+          <v-select
+            class="vue-select2"
+            :class="{ 'is-invalid': errors.length > 0 }"
+            name="position"
+            :options="positionsChoices"
+            :clearable="false"
+            :select-on-tab="true"
+            label="name"
+            v-model="fields.position"
+          />
+          <p id="error_id_position" class="invalid-feedback">
+            <strong>{{ errors[0] }}</strong>
+          </p>
+          <small id="hint_id_position" class="form-text text-muted">
+            Please choose your 'highest' title from the proposed options to ease
+            future searches.
+          </small>
+        </div>
+      </ValidationProvider>
       <ValidationProvider
         name="contact_email"
         rules="required|email"
@@ -88,7 +138,7 @@
       </ValidationProvider>
       <ValidationProvider name="webpage" v-slot="{ errors }">
         <div class="form-group">
-          <label for="id_webpage">Linked In or web page</label>
+          <label for="id_webpage">LinkedIn or web page</label>
           <div>
             <input
               v-model="fields.webpage"
@@ -117,27 +167,17 @@
                 >Date PhD was obtained: Month</label
               >
               <div class>
-                <select
-                  v-model="fields.grad_month"
-                  name="grad_month"
-                  class="select form-control"
+                <v-select
+                  class="vue-select2"
                   :class="{ 'is-invalid': errors.length > 0 }"
-                  id="id_grad_month"
-                >
-                  <option value selected>---------</option>
-                  <option value="01">January</option>
-                  <option value="02">February</option>
-                  <option value="03">March</option>
-                  <option value="04">April</option>
-                  <option value="05">May</option>
-                  <option value="06">June</option>
-                  <option value="07">July</option>
-                  <option value="08">August</option>
-                  <option value="09">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
-                </select>
+                  name="grad_month"
+                  :options="monthsChoices"
+                  :clearable="true"
+                  :select-on-tab="true"
+                  :reduce="month => month.value"
+                  label="display_name"
+                  v-model="fields.grad_month"
+                />
                 <p id="error_id_grad_month" class="invalid-feedback">
                   <strong>{{ errors[0] }}</strong>
                 </p>
@@ -147,27 +187,27 @@
               </div>
             </div>
           </ValidationProvider>
+        </div>
+        <div class="form-group col-md-6 mb-0">
           <ValidationProvider name="grad_year" v-slot="{ errors }">
-            <div class="form-group col-md-6 mb-0">
-              <div class="form-group">
-                <label for="id_grad_year" class>Year</label>
-                <div class>
-                  <input
-                    v-model="fields.grad_year"
-                    type="text"
-                    name="grad_year"
-                    maxlength="4"
-                    class="textinput textInput form-control"
-                    :class="{ 'is-invalid': errors.length > 0 }"
-                    id="id_grad_year"
-                  />
-                  <p id="error_id_grad_year" class="invalid-feedback">
-                    <strong>{{ errors[0] }}</strong>
-                  </p>
-                  <small id="hint_id_grad_year" class="form-text text-muted"
-                    >Please enter the full year (4 digits).</small
-                  >
-                </div>
+            <div class="form-group">
+              <label for="id_grad_year" class>Year</label>
+              <div class>
+                <input
+                  v-model="fields.grad_year"
+                  type="text"
+                  name="grad_year"
+                  maxlength="4"
+                  class="textinput textInput form-control"
+                  :class="{ 'is-invalid': errors.length > 0 }"
+                  id="id_grad_year"
+                />
+                <p id="error_id_grad_year" class="invalid-feedback">
+                  <strong>{{ errors[0] }}</strong>
+                </p>
+                <small id="hint_id_grad_year" class="form-text text-muted"
+                  >Please enter the full year (4 digits).</small
+                >
               </div>
             </div>
           </ValidationProvider>
@@ -232,7 +272,6 @@
           Field of Research - Methods
         </label>
         <div class="">
-          <div>selected: {{ methods }}</div>
           <div
             v-for="(method, i) in methodsChoices"
             :key="method.value"
@@ -242,13 +281,13 @@
               v-model="fields.methods"
               type="checkbox"
               class="form-check-input custom-control-input"
-              name="methods"
-              :id="`id_methods_${i + 1}`"
+              name="methodsList"
+              :id="`id_methodsList_${i + 1}`"
               :value="method.value"
             />
             <label
               class="form-check-label custom-control-label"
-              :for="`id_methods_${i + 1}`"
+              :for="`id_methodsList_${i + 1}`"
             >
               {{ method.display_name }}
             </label>
@@ -282,6 +321,35 @@
           </div>
         </div>
       </div>
+      <ValidationProvider
+        name="institution"
+        rules=""
+        v-slot="{ errors }"
+      >
+        <div class="form-group">
+          <label for="id_keywords">
+            Field of Research - Other Keywords
+          </label>
+          <div>
+            <input
+              v-model="fields.keywords"
+              type="text"
+              name="keywords"
+              maxlength="250"
+              class="textinput textInput form-control"
+              :class="{ 'is-invalid': errors.length > 0 }"
+              id="id_keywords"
+            />
+            <p id="error_id_keywords" class="invalid-feedback">
+              <strong>{{ errors[0] }}</strong>
+            </p>
+            <small id="hint_id_webpage" class="form-text text-muted">
+              Optionally you can add some more specific terms to describe your
+              field of research, separated by commas.
+            </small>
+          </div>
+        </div>
+      </ValidationProvider>
       <button type="submit" class="btn btn-primary pill-btn">Submit</button>
     </form>
   </div>
@@ -374,7 +442,34 @@ export default {
         { value: 'BI', display_name: 'Bioinformatics' },
         { value: 'NC', display_name: 'Neuropharmacology' },
         { value: 'ET', display_name: 'Ethics' }
-      ]
+      ],
+      positionsChoices: [
+        'PhD student',
+        'Medical Doctor',
+        'Post-doctoral researcher',
+        'Researcher/ scientist',
+        'Senior researcher/ scientist',
+        'Lecturer',
+        'Assistant Professor',
+        'Associate Professor',
+        'Professor',
+        'Group leader/ Director/ Head of Department'
+      ],
+      monthsChoices: [
+        { value: '01', display_name: 'January' },
+        { value: '02', display_name: 'February' },
+        { value: '03', display_name: 'March' },
+        { value: '04', display_name: 'April' },
+        { value: '05', display_name: 'May' },
+        { value: '06', display_name: 'June' },
+        { value: '07', display_name: 'July' },
+        { value: '08', display_name: 'August' },
+        { value: '09', display_name: 'September' },
+        { value: '10', display_name: 'October' },
+        { value: '11', display_name: 'November' },
+        { value: '12', display_name: 'December' }
+      ],
+      countriesList: []
     };
   },
   computed: {
@@ -387,19 +482,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      // check if input valid
-      // if (!this.formValid) {
-      //   console.log('bouhouhou');
-      //   return;
-      // }
-
       const endpoint = '/api/profiles/';
       const method = 'POST';
       const content = this.fields;
 
       apiService(endpoint, method, content)
         .then(profile_data => {
-          console.log(' tadaaaa', JSON.stringify(profile_data));
           if (profile_data.id) {
             this.$router.push({
               name: 'profile',
@@ -414,33 +502,24 @@ export default {
           console.log('error: ', JSON.stringify(err));
           this.loaded = true;
           if (err.response.status === 400) {
-            console.log('bla');
             // this.errors = error.response.data.errors || {};
             this.fieldsErrors = err.response.data.errors || '';
           }
         });
+    },
+    loadCountriesList() {
+      apiService('/api/countries-lookup/').then(data => {
+        if (data instanceof Array) {
+          this.countriesList = data;
+        }
+      });
     }
   },
   created() {
     document.title = 'Winrepo - Edit Profile';
+    this.loadCountriesList();
   }
 };
 </script>
 
-<style scoped>
-/* .custom-control-label:before,
-.custom-control-label:after {
-  border: 1px solid #cacaca;
-  border-radius: 2px;
-}
-
-.custom-checkbox
-.custom-control-input:checked
-~ .custom-control-label::before,
-.custom-checkbox
-.custom-control-input:checked
-~ .custom-control-label::after {
-  background-color: #1c898a;
-  border-radius: 2px;
-} */
-</style>
+<style scoped></style>
