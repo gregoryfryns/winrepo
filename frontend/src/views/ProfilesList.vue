@@ -138,7 +138,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <!-- <div>
         <p v-show="isLoading">Loading...</p>
         <button
           v-show="next"
@@ -147,7 +147,7 @@
         >
           Load next batch...
         </button>
-      </div>
+      </div> -->
     </div>
 
     <div
@@ -200,11 +200,22 @@ export default {
         this.isLoading = false;
         this.next = data.next || null;
       });
+    },
+    onScroll () {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight & !this.isLoading) {
+        this.getProfilesList();
+      }
     }
   },
   created() {
-    this.getProfilesList();
     document.title = 'Winrepo - Repository';
+    this.getProfilesList();
+  },
+  mounted() {
+    document.addEventListener('scroll', this.onScroll)
+  },
+  destroyed () {
+    document.removeEventListener('scroll', this.onScroll);
   }
 };
 </script>
