@@ -43,10 +43,24 @@ class RecommendationSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class ProfileDisplaySerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(many=False, read_only=True)
     recommendations = RecommendationBasicDetailsSerializer(many=True, read_only=True)
-    # country = serializers.PrimaryKeyRelatedField(queryset=Country.objects.all(), many=False)
+    country = serializers.StringRelatedField(many=False, read_only=True)
+
+    brain_structure = serializers.CharField(source='get_brain_structure_display')
+    modalities = serializers.CharField(source='get_modalities_display')
+    methods = serializers.CharField(source='get_methods_display')
+    domains = serializers.CharField(source='get_domains_display')
+    grad_month = serializers.CharField(source='get_grad_month_display')
+
+    class Meta:
+        model = Profile
+        exclude = ('is_public', 'publish_date',)
+
+
+class ProfileWriteSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(many=False, read_only=True)
 
     brain_structure = MultipleChoiceField(choices=Profile.get_structure_choices(), allow_blank=True)
     modalities = MultipleChoiceField(choices=Profile.get_modalities_choices(), allow_blank=True)
@@ -56,7 +70,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         exclude = ('is_public', 'publish_date',)
-        depth = 1
 
 
 class ProfilesCountByPositionSerializer(serializers.ModelSerializer):

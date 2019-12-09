@@ -15,11 +15,11 @@
               <i class="fas fa-university"></i> {{ profile.institution }}
             </p>
             <p v-if="profile.country" class="m-1">
-              <i class="fas fa-map-marker-alt"></i> {{ profile.country.name }}
+              <i class="fas fa-map-marker-alt"></i> {{ profile.country }}
             </p>
             <p v-if="profile.grad_year" class="m-1">
               <i class="fas fa-graduation-cap"></i>
-              {{ monthsChoices[profile.grad_month.toString()] || profile.grad_month }} {{ profile.grad_year }}
+              {{ profile.grad_month }} {{ profile.grad_year }}
             </p>
             <!-- <div id="profile-id" class="d-none">{{ profile.id }}</div> -->
           </div>
@@ -69,12 +69,12 @@
             <h6 class="text-secondary font-weight-bold">Brain Area</h6>
             <ul class="list-group list-group-flush">
               <li
-                v-for="structure in profile.brain_structure"
+                v-for="structure in (profile.brain_structure || '').split(',')"
                 :key="structure"
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ structureChoices[structure] || structure }}
+                {{ structure }}
               </li>
             </ul>
           </div>
@@ -82,12 +82,12 @@
             <h6 class="text-secondary font-weight-bold">Domain</h6>
             <ul class="list-group list-group-flush">
               <li
-                v-for="domain in profile.domains"
+                v-for="domain in (profile.domains || '').split(',')"
                 :key="domain"
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ domainsChoices[domain] || domain }}
+                {{ domain }}
               </li>
             </ul>
           </div>
@@ -95,12 +95,12 @@
             <h6 class="text-secondary font-weight-bold">Modalities</h6>
             <ul class="list-group list-group-flush">
               <li
-                v-for="modality in profile.modalities"
+                v-for="modality in (profile.modalities || '').split(',')"
                 :key="modality"
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ modalitiesChoices[modality] || modality }}
+                {{ modality }}
               </li>
             </ul>
           </div>
@@ -108,12 +108,12 @@
             <h6 class="text-secondary font-weight-bold">Methods</h6>
             <ul class="list-group list-group-flush">
               <li
-                v-for="method in profile.methods"
+                v-for="method in (profile.methods || '').split(',')"
                 :key="method"
                 class="list-group-item grey-bg"
                 style="border: none; padding: 0;"
               >
-                {{ methodsChoices[method] || method }}
+                {{ method }}
               </li>
             </ul>
           </div>
@@ -249,77 +249,7 @@ export default {
   },
   data() {
     return {
-      profile: {},
-      monthsChoices: {
-        '01': 'January',
-        '02': 'February',
-        '03': 'March',
-        '04': 'April',
-        '05': 'May',
-        '06': 'June',
-        '07': 'July',
-        '08': 'August',
-        '09': 'September',
-        '10': 'October',
-        '11': 'November',
-        '12': 'December'
-      },
-      structureChoices: {
-        N: 'Neuron',
-        L: 'Layer',
-        C: 'Column',
-        R: 'Region',
-        W: 'Whole Brain'
-      },
-      modalitiesChoices: {
-        EP: 'Electrophysiology (EEG, MEG, ECoG)',
-        OE: 'Other electrophysiology',
-        MR: 'MRI',
-        PE: 'PET',
-        DT: 'DTI',
-        BH: 'Behavioural',
-        ET: 'Eye Tracking',
-        BS: 'Brain Stimulation',
-        GT: 'Genetics',
-        FN: 'fNIRS',
-        LE: 'Lesions and Inactivations'
-      },
-      methodsChoices: {
-        UV: 'Univariate',
-        MV: 'Multivariate',
-        PM: 'Predictive Models',
-        DC: 'DCM',
-        CT: 'Connectivity',
-        CM: 'Computational Modeling',
-        AM: 'Animal Models'
-      },
-      domainsChoices: {
-        CG: 'Cognition (general)',
-        MM: 'Memory',
-        SS: 'Sensory systems',
-        MO: 'Motor Systems',
-        LG: 'Language',
-        EM: 'Emotion',
-        PN: 'Pain',
-        LE: 'Learning',
-        AT: 'Attention',
-        DE: 'Decision Making',
-        DV: 'Developmental',
-        SL: 'Sleep',
-        CN: 'Consciousness',
-        CL: 'Clinical (general)',
-        DM: 'Dementia',
-        PK: 'Parkinson',
-        DD: 'Other degenerative diseases',
-        PS: 'Psychiatry',
-        AD: 'Addiction',
-        ON: 'Oncology',
-        EV: 'Evolutionary',
-        CM: 'Cellular and Molecular',
-        BI: 'Bioinformatics',
-        NC: 'Neuropharmacology',
-        ET: 'Ethics'
-      }
+      profile: {}
     };
   },
   methods: {

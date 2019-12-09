@@ -70,7 +70,7 @@
             name="country"
             :options="countriesList"
             label="name"
-            :reduce="country => ({ id: country.id })"
+            :reduce="country => country.id"
             :searchable="true"
             :filterable="true"
             :clearable="false"

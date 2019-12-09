@@ -10,9 +10,11 @@ from rest_framework.viewsets import ModelViewSet
 
 from ..models import Country, Profile, Recommendation
 from .permissions import IsOwnProfileOrReadOnly
-from .serializers import (CountrySerializer, ProfilesCountByCountrySerializer,
-                          ProfilesCountByPositionSerializer, ProfileSerializer,
-                          RecommendationSerializer)
+from .serializers import (CountrySerializer, ProfileBasicDetailsSerializer,
+                          ProfileDisplaySerializer,
+                          ProfilesCountByCountrySerializer,
+                          ProfilesCountByPositionSerializer,
+                          ProfileWriteSerializer, RecommendationSerializer)
 
 
 class TopCountriesListAPIView(ListAPIView):
@@ -34,7 +36,7 @@ class CountriesLookupAPIView(ListAPIView):
 
 
 class ProfileLookupAPIView(ListAPIView):
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileBasicDetailsSerializer
     pagination_class = None
 
     def get_queryset(self):
@@ -59,8 +61,13 @@ class TopPositionsListAPIView(ListAPIView):
 
 
 class ProfileViewSet(ModelViewSet):
-    serializer_class = ProfileSerializer
     permission_classes = [IsOwnProfileOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update' or self.action == 'destroy':
+            return ProfileWriteSerializer
+        else:
+            return ProfileDisplaySerializer
 
     def get_queryset(self):
         queryset = Profile.objects
