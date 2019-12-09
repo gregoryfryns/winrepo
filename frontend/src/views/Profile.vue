@@ -43,12 +43,11 @@
                 <i class="fas fa-address-card"></i> View Page
               </a>
 
-              <a
-                class="btn pill-btn btn-outline-primary m-1 recommend-btn"
-                href="list/recommend/"
+              <router-link
+                :to="{ name: 'recommend' }"
+                class="btn pill-btn btn-outline-primary m-1"
               >
-                <i class="fas fa-comment"></i> Recommend</a
-              >
+                <i class="fas fa-comment"></i> Recommend</router-link>
             </div>
           </div>
         </div>
@@ -143,7 +142,7 @@
                 <a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">Recommend</a>
             </div>-->
         <div
-          v-if="profile.recommendations && profile.recommendations.length > 0"
+          v-if="profile.recommendations"
         >
           <span class="text-primary float-right" style="margin-top:-34px;"
             ><i class="fas fa-comment num-rec"></i>
@@ -162,7 +161,7 @@
                   {{ recommendation.reviewer_institution }})</small
                 >
                 <small class="text-muted float-right quote-date">{{
-                  recommendation.publish_date
+                  new Date(recommendation.publish_date) | dateFormat('MMM DD, YYYY')
                 }}</small>
               </h5>
               <blockquote>
@@ -171,12 +170,11 @@
             </li>
           </ul>
           <div class="d-flex justify-content-end">
-            <a
+            <router-link
+              :to="{ name: 'recommend' }"
               class="btn pill-btn btn-outline-primary m-1"
-              href="{% url 'profiles:recommend_profile' profile.id %}"
             >
-              <i class="fas fa-comment"></i> Recommend</a
-            >
+              <i class="fas fa-comment"></i> Recommend</router-link>
           </div>
         </div>
         <div v-else class="m-1 pt-4">
