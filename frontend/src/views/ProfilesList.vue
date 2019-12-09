@@ -92,9 +92,9 @@
                 <i class="fas fa-university"></i>
                 <span class="ml-1">{{ profile.institution }}</span>
               </p>
-              <p class="m-1">
+              <p v-if="profile.country" class="m-1">
                 <i class="fas fa-map-marker-alt"></i>
-                <span class="ml-1">{{ profile.country }}</span>
+                <span class="ml-1">{{ profile.country.name }}</span>
               </p>
             </div>
 

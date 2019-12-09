@@ -188,7 +188,7 @@
               To enter your name on the repository, fill in the form in the
               <router-link :to="{ name: 'create' }">Create profile</router-link>
               page. Make sure you agree with our data storing terms (see
-              <a href="#heading-gdpr">here</a>).
+              <router-link :to="{ name: 'faq', hash: '#heading-gdpr' }">here</router-link>).
             </p>
           </div>
         </div>

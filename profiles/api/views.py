@@ -10,15 +10,16 @@ from rest_framework.viewsets import ModelViewSet
 
 from ..models import Country, Profile, Recommendation
 from .permissions import IsOwnProfileOrReadOnly
-from .serializers import (CountrySerializer, PositionsCountSerializer,
-                          ProfileSerializer, RecommendationSerializer)
+from .serializers import (CountrySerializer, ProfilesCountByCountrySerializer,
+                          ProfilesCountByPositionSerializer, ProfileSerializer,
+                          RecommendationSerializer)
 
 
 class TopCountriesListAPIView(ListAPIView):
     queryset = Country.objects.annotate(profiles_count=Count('profiles')) \
                               .filter(profiles_count__gt=0) \
                               .order_by('-profiles_count')
-    serializer_class = CountrySerializer
+    serializer_class = ProfilesCountByCountrySerializer
     pagination_class = None
 
 
@@ -53,7 +54,7 @@ class TopPositionsListAPIView(ListAPIView):
                       .values('position') \
                       .annotate(profiles_count=Count('id')) \
                       .order_by('-profiles_count')
-    serializer_class = PositionsCountSerializer
+    serializer_class = ProfilesCountByPositionSerializer
     pagination_class = None
 
 

@@ -8,18 +8,18 @@
         <div class="row no-gutters">
           <div class="col-xs-6 col-sm-8 col-md-9 text-muted details-grey">
             <h2 class="text-primary font-weight-bold">{{ profile.name }}</h2>
-            <p class="m-1">
+            <p v-if="profile.position" class="m-1">
               <i class="fas fa-user"></i> {{ profile.position }}
             </p>
-            <p class="m-1">
+            <p v-if="profile.institution" class="m-1">
               <i class="fas fa-university"></i> {{ profile.institution }}
             </p>
-            <p class="m-1">
-              <i class="fas fa-map-marker-alt"></i> {{ profile.country }}
+            <p v-if="profile.country" class="m-1">
+              <i class="fas fa-map-marker-alt"></i> {{ profile.country.name }}
             </p>
-            <p v-if="profile.grad_year !== null" class="m-1">
+            <p v-if="profile.grad_year" class="m-1">
               <i class="fas fa-graduation-cap"></i>
-              {{ profile.grad_month_labels }} {{ profile.grad_year }}
+              {{ monthsChoices[profile.grad_month.toString()] || profile.grad_month }} {{ profile.grad_year }}
             </p>
             <!-- <div id="profile-id" class="d-none">{{ profile.id }}</div> -->
           </div>
@@ -250,6 +250,20 @@ export default {
   data() {
     return {
       profile: {},
+      monthsChoices: {
+        '01': 'January',
+        '02': 'February',
+        '03': 'March',
+        '04': 'April',
+        '05': 'May',
+        '06': 'June',
+        '07': 'July',
+        '08': 'August',
+        '09': 'September',
+        '10': 'October',
+        '11': 'November',
+        '12': 'December'
+      },
       structureChoices: {
         N: 'Neuron',
         L: 'Layer',

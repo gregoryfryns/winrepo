@@ -60,16 +60,17 @@
       </ValidationProvider>
       <ValidationProvider name="country" rules="required" v-slot="{ errors }">
         <div class="form-group">
-          <label for="country" class="control-label">
+          <label for="country" class="control-label required">
             Country
           </label>
+          <span class="asterisk">*</span>
           <v-select
             class="vue-select2"
             :class="{ 'is-invalid': errors.length > 0 }"
             name="country"
             :options="countriesList"
             label="name"
-            :reduce="country => country.id.toString()"
+            :reduce="country => ({ id: country.id })"
             :searchable="true"
             :filterable="true"
             :clearable="false"
@@ -491,7 +492,7 @@ export default {
           if (profile_data.id) {
             this.$router.push({
               name: 'profile',
-              params: { id: profile_data.id }
+              params: { id: profile_data.id.toString() }
             });
           } else {
             this.error = 'Could not create profile :(';
