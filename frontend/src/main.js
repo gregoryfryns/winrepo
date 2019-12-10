@@ -7,7 +7,7 @@ import VueFilterDateFormat from 'vue-filter-date-format';
 import 'vue-select/dist/vue-select.css';
 
 Vue.config.productionTip = false;
-Vue.component('v-select', vSelect)
+Vue.component('v-select', vSelect);
 Vue.use(VueFilterDateFormat);
 
 new Vue({

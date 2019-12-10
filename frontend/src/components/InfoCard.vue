@@ -7,9 +7,22 @@
             <div class="card-body text-center">
               <p>
                 <picture>
-                    <source :srcset="require('../assets/people/' + imageBaseName + '.webp')" type="image/webp">
-                    <source :srcset="require('../assets/people/' + imageBaseName + '.jpg')" type="image/jpeg">
-                    <img :src="require('../assets/people/' + imageBaseName + '.jpg')" :alt="name">
+                  <source
+                    :srcset="
+                      require('../assets/people/' + imageBaseName + '.webp')
+                    "
+                    type="image/webp"
+                  />
+                  <source
+                    :srcset="
+                      require('../assets/people/' + imageBaseName + '.jpg')
+                    "
+                    type="image/jpeg"
+                  />
+                  <img
+                    :src="require('../assets/people/' + imageBaseName + '.jpg')"
+                    :alt="name"
+                  />
                 </picture>
               </p>
               <h4 class="card-title">{{ name }}</h4>

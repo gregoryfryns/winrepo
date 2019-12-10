@@ -47,7 +47,8 @@
                 :to="{ name: 'recommend' }"
                 class="btn pill-btn btn-outline-primary m-1"
               >
-                <i class="fas fa-comment"></i> Recommend</router-link>
+                <i class="fas fa-comment"></i> Recommend</router-link
+              >
             </div>
           </div>
         </div>
@@ -141,9 +142,7 @@
         <!--<div class="col-12 col-md-4 text-right pt-3 pr-4">
                 <a class="btn pill-btn text-white btn-primary" href="{% url 'profiles:recommend_profile' profile.id %}" target="_blank">Recommend</a>
             </div>-->
-        <div
-          v-if="profile.recommendations"
-        >
+        <div v-if="profile.recommendations">
           <span class="text-primary float-right" style="margin-top:-34px;"
             ><i class="fas fa-comment num-rec"></i>
             {{ profile.recommendations.length }}</span
@@ -161,7 +160,8 @@
                   {{ recommendation.reviewer_institution }})</small
                 >
                 <small class="text-muted float-right quote-date">{{
-                  new Date(recommendation.publish_date) | dateFormat('MMM DD, YYYY')
+                  new Date(recommendation.publish_date)
+                    | dateFormat('MMM DD, YYYY')
                 }}</small>
               </h5>
               <blockquote>
@@ -174,18 +174,17 @@
               :to="{ name: 'recommend' }"
               class="btn pill-btn btn-outline-primary m-1"
             >
-              <i class="fas fa-comment"></i> Recommend</router-link>
+              <i class="fas fa-comment"></i> Recommend</router-link
+            >
           </div>
         </div>
         <div v-else class="m-1 pt-4">
           <p>No recommendations have been made for {{ profile.name }} yet.</p>
           <p>
             Have you seen her at a conference? If so, please consider
-            <router-link
-              :to="{ name: 'recommend' }"
-            >
-            <b>writing her one.</b>
-          </router-link>
+            <router-link :to="{ name: 'recommend' }">
+              <b>writing her one.</b>
+            </router-link>
             <!-- <b><a href="/list/recommend" target="_blank">writing her one.</a></b> -->
           </p>
         </div>

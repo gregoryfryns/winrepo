@@ -86,31 +86,36 @@ export default {
         {
           name: 'Gregory Fryns',
           role: 'Implementation',
-          description: 'During the day Gregory works for a tech startup as a Technical Solution Architect. In the evening, he likes to improve his development skills by building websites like this one.',
+          description:
+            'During the day Gregory works for a tech startup as a Technical Solution Architect. In the evening, he likes to improve his development skills by building websites like this one.',
           imageBaseName: 'Pic_GF-280'
         },
         {
           name: 'Laetitia Briere',
           role: 'Design',
-          description: 'Laetitia is a freelance designer based in France. She creates visual identities, including logos, flyers, posters, websites, based on the unique needs of her clients. To find out more, see her portfolio at <a href="https://www.lbgraphiste.fr" target="_blank">www.lbgraphiste.fr</a>',
+          description:
+            'Laetitia is a freelance designer based in France. She creates visual identities, including logos, flyers, posters, websites, based on the unique needs of her clients. To find out more, see her portfolio at <a href="https://www.lbgraphiste.fr" target="_blank">www.lbgraphiste.fr</a>',
           imageBaseName: 'Pic_LB-280'
         },
         {
           name: 'Laura Symul',
           role: 'Illustrations',
-          description: 'Laura has worked as a data scientist, done data visualisations and science communication for the industry, international organisations and academia. Her freelance activities include workshops, training and consulting on data visualisation and scientific illustration.',
+          description:
+            'Laura has worked as a data scientist, done data visualisations and science communication for the industry, international organisations and academia. Her freelance activities include workshops, training and consulting on data visualisation and scientific illustration.',
           imageBaseName: 'Pic_LS-280'
         },
         {
           name: 'Diana Sousa',
           role: 'Logo',
-          description: 'Diana is a Graduate Student Researcher at Faculty of Sciences, University of Lisbon and has been working in a few projects as a Graphic Designer.',
+          description:
+            'Diana is a Graduate Student Researcher at Faculty of Sciences, University of Lisbon and has been working in a few projects as a Graphic Designer.',
           imageBaseName: 'Pic_DS-280'
         },
         {
           name: 'Jessica Schrouff',
           role: 'Founder',
-          description: 'Jessica graduated in Electrical Engineering from the University of Liège, Belgium. She studied the application of machine learning methods to neuroimaging data during her PhD (Belgium) and post-doctoral work (Stanford, USA and UCL, UK). She is now working in industry.',
+          description:
+            'Jessica graduated in Electrical Engineering from the University of Liège, Belgium. She studied the application of machine learning methods to neuroimaging data during her PhD (Belgium) and post-doctoral work (Stanford, USA and UCL, UK). She is now working in industry.',
           imageBaseName: 'Pic_JS-280'
         }
       ],
@@ -131,14 +136,16 @@ export default {
         },
         {
           name: 'Sarah Genon',
-          role: 'Research fellow at INM-7 at the Forschungszentrum Jülich, Germany',
+          role:
+            'Research fellow at INM-7 at the Forschungszentrum Jülich, Germany',
           description: `Sarah has a background in clinical psychology, cognitive neuroscience and functional neuroanatomy. Her research aims to develop methods
                         for studying and modelling the relationships between brain and behavior in large scale neuroimaging and behavioral data.`,
           imageBaseName: 'Pic_SG-280'
         },
         {
           name: 'Aina Frau-Pascual',
-          role: 'Research fellow at the Athinoula A. Martinos Center for Biomedical Imaging, USA',
+          role:
+            'Research fellow at the Athinoula A. Martinos Center for Biomedical Imaging, USA',
           description: `Aina is working on the development of methods for diffusion and functional MRI analysis.
                         During her PhD at Inria (France), she developed statistical models for the analysis of BOLD and ASL task fMRI.`,
           imageBaseName: 'Pic_AFP-280'
@@ -159,14 +166,16 @@ export default {
         },
         {
           name: 'Ana Luísa Pinho',
-          role: 'Postdoctoral Researcher at NeuroSpin (Inria/CEA-Saclay), Paris, France',
+          role:
+            'Postdoctoral Researcher at NeuroSpin (Inria/CEA-Saclay), Paris, France',
           description: `Ana Luisa graduated in Engineering Physics at Instituto Superior Técnico (ULisboa, Portugal). During her PhD at Karolinska Institutet (Stockholm, Sweden),
                         she used fMRI to investigate the neural correlates involved in musical creativity. Now, she is developing a neuroimaging dataset to map cognition in the human brain.`,
           imageBaseName: 'Pic_AL-280'
         },
         {
           name: 'Eliana Vassena',
-          role: 'Marie Curie fellow at the Donders Institute for Brain, Cognition and Behaviour (Nijmegen, NL)',
+          role:
+            'Marie Curie fellow at the Donders Institute for Brain, Cognition and Behaviour (Nijmegen, NL)',
           description: `Eliana is interested in motivation and decision-making.
                         During her PhD and postdoc she has used neuroimaging, neurostimulation and computational modelling to study
                         the contribution of the prefrontal cortex to these processes. Currently, she works on translating neurocomputational models of motivation
@@ -199,17 +208,15 @@ section .section-title {
 }
 
 .card-container {
- max-width: 12.5rem;
+  max-width: 12.5rem;
 }
 
 #board .card-container {
- max-width: 15.5rem;
+  max-width: 15.5rem;
 }
 
 #board .card {
   width: 15rem;
   height: 18rem;
 }
-
-
 </style>

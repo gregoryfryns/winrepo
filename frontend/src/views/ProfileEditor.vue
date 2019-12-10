@@ -322,11 +322,7 @@
           </div>
         </div>
       </div>
-      <ValidationProvider
-        name="institution"
-        rules=""
-        v-slot="{ errors }"
-      >
+      <ValidationProvider name="institution" rules="" v-slot="{ errors }">
         <div class="form-group">
           <label for="id_keywords">
             Field of Research - Other Keywords

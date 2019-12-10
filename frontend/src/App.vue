@@ -14,7 +14,6 @@ import { apiServce } from '@/common/api_service';
 import NavbarComponent from '@/components/Navbar.vue';
 import FooterComponent from '@/components/Footer.vue';
 
-
 export default {
   name: 'App',
   components: {
@@ -62,7 +61,8 @@ h6 {
   padding-top: 65px;
 }
 
-.vs__search, .vs__search:focus {
+.vs__search,
+.vs__search:focus {
   padding: 2px 4px !important;
   line-height: 24px !important;
 }

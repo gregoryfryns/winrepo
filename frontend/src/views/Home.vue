@@ -152,51 +152,85 @@
     <div class="container-fluid" id="stats">
       <div class="text-center m-4" id="entries-container">
         <p class="h1 text-secondary font-weight-bold mb-0">{{ nbProfiles }}</p>
-        <p class="h5 text-primary" id="entries-text">entries in repository. </p>
+        <p class="h5 text-primary" id="entries-text">entries in repository.</p>
       </div>
-      <div class="d-flex flex-wrap justify-content-center align-items-start m-4" id="chart-stats">
+      <div
+        class="d-flex flex-wrap justify-content-center align-items-start m-4"
+        id="chart-stats"
+      >
         <div
           v-for="(donut, i) in donutCharts"
           :key="`donut_${i}`"
-          class="p-2 text-center donutTab">
+          class="p-2 text-center donutTab"
+        >
           <table>
             <tr>
               <td class="donutCell">
                 <!-- <div class="donutDiv"></div> -->
                 <GChart
-                 type="PieChart"
-                 :data="[
-                  ['Position', 'Entries in Repository'],
-                  [donut.label, donut.count],
-                  ['Rest', nbProfiles - donut.count]
+                  type="PieChart"
+                  :data="[
+                    ['Position', 'Entries in Repository'],
+                    [donut.label, donut.count],
+                    ['Rest', nbProfiles - donut.count]
                   ]"
-                 :options="{
+                  :options="{
                     colors: ['#dedede', '#dedede'],
                     fontName: 'Open Sans',
                     fontSize: 14,
-                    chartArea: { left: '10%', top: 0, width: '80%', height: '100%' },
+                    chartArea: {
+                      left: '10%',
+                      top: 0,
+                      width: '80%',
+                      height: '100%'
+                    },
                     width: 120,
                     height: 120,
                     legend: 'none',
                     pieSliceText: 'none',
                     pieHole: 0.6,
                     enableInteractivity: false,
-                    slices: [{ color: donut.color, textStyle: { color: '#555555', fontName: 'Open Sans', fontSize: 18 } },
-                    { textStyle: { color: '#ffffff', fontName: 'Open Sans', fontSize: 1 } }]
+                    slices: [
+                      {
+                        color: donut.color,
+                        textStyle: {
+                          color: '#555555',
+                          fontName: 'Open Sans',
+                          fontSize: 18
+                        }
+                      },
+                      {
+                        textStyle: {
+                          color: '#ffffff',
+                          fontName: 'Open Sans',
+                          fontSize: 1
+                        }
+                      }
+                    ]
                   }"
                 />
-                <div class="donutValue">{{ (100 * donut.count/nbProfiles).toFixed(0) }}%</div>
+                <div class="donutValue">
+                  {{ ((100 * donut.count) / nbProfiles).toFixed(0) }}%
+                </div>
               </td>
             </tr>
           </table>
-          <span :style="{ color: donut.color || '#999999' }" class="position-title">{{ donut.label }}</span>
+
+          <span
+            :style="{ color: donut.color || '#999999' }"
+            class="position-title"
+            >{{ donut.label }}</span
+          >
           <p class="position-text">{{ donut.count }} profiles</p>
         </div>
       </div>
       <div class="row no-gutters m-4" id="country-stats">
         <div class="col-12 col-md-8 offset-md-2 m-auto" id="map-container">
           <GChart
-            :settings="{ 'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc' }"
+            :settings="{
+              packages: ['corechart', 'geochart'],
+              mapsApiKey: 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc'
+            }"
             type="GeoChart"
             :data="mapChart.data"
             :options="mapChart.options"
@@ -252,7 +286,10 @@ export default {
     getMapChartData() {
       const endpoint = '/api/top-countries/';
       apiService(endpoint).then(data => {
-        const array = data.map(country => [country.name, country.profiles_count]);
+        const array = data.map(country => [
+          country.name,
+          country.profiles_count
+        ]);
         array.unshift(['Country', '# Profiles']);
         this.mapChart.data = array;
       });
@@ -266,35 +303,48 @@ export default {
 
         let totProfiles = 0;
         const profiles = {
-            'senior': 0,
-            'postdoc': 0,
-            'student': 0,
-            'other': 0
-        }
+          senior: 0,
+          postdoc: 0,
+          student: 0,
+          other: 0
+        };
         for (let pos of data) {
           totProfiles += pos.profiles_count;
           if (pos.position.match(seniorRe)) {
-              profiles.senior += pos.profiles_count;
+            profiles.senior += pos.profiles_count;
+          } else if (pos.position.match(postdocRe)) {
+            profiles.postdoc += pos.profiles_count;
+          } else if (pos.position.match(studentRe)) {
+            profiles.student += pos.profiles_count;
+          } else {
+            profiles.other += pos.profiles_count;
           }
-          else if (pos.position.match(postdocRe)) {
-              profiles.postdoc += pos.profiles_count;
-          }
-          else if (pos.position.match(studentRe)) {
-              profiles.student += pos.profiles_count;
-          }
-          else {
-              profiles.other += pos.profiles_count;
-          }
-        };
+        }
 
         this.nbProfiles = totProfiles;
 
-        this.donutCharts.push({ label: 'PhD', count: profiles.student, color: '#CC063E' });
-        this.donutCharts.push({ label: 'Post-doc', count: profiles.postdoc, color: '#E83535' });
-        this.donutCharts.push({ label: 'Senior', count: profiles.senior, color: '#FD9407' });
-        this.donutCharts.push({ label: 'Other', count: profiles.other, color: '#999999' });
+        this.donutCharts.push({
+          label: 'PhD',
+          count: profiles.student,
+          color: '#CC063E'
+        });
+        this.donutCharts.push({
+          label: 'Post-doc',
+          count: profiles.postdoc,
+          color: '#E83535'
+        });
+        this.donutCharts.push({
+          label: 'Senior',
+          count: profiles.senior,
+          color: '#FD9407'
+        });
+        this.donutCharts.push({
+          label: 'Other',
+          count: profiles.other,
+          color: '#999999'
+        });
 
-   // const array = data.map(country => [country.name, country.profiles_count]);
+        // const array = data.map(country => [country.name, country.profiles_count]);
         // array.unshift(['Country', '# Profiles']);
         // this.mapChart.data = array;
       });
@@ -391,31 +441,29 @@ export default {
 }
 
 /* Stats */
-.donutCell
-{
-    position: relative;
+.donutCell {
+  position: relative;
 }
 
-.donutValue
-{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-	transform: translate(-50%,-50%);
-	-ms-transform: translate(-50%,-50%);
-    text-align: center;
-    font-size: 16px;
-    color: #555555;
+.donutValue {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 16px;
+  color: #555555;
 }
 
 .position-title {
-	font-size: 18px;
-	font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .position-text {
-	font-size: 14px;
-	color: #555555;
+  font-size: 14px;
+  color: #555555;
 }
 
 #map-container > div {
