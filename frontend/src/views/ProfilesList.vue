@@ -13,12 +13,14 @@
                   placeholder="Enter keywords, e.g. 'Attention MEG France'"
                   name="s"
                   autofocus
+                  v-model="search"
                 />
                 <input
                   id="search-btn"
                   type="submit"
                   value="Search"
                   class="btn btn-secondary pl-4 pr-4 rounded mx-auto"
+                  @click.prevent="getProfilesList"
                 />
               </div>
             </div>
@@ -34,7 +36,8 @@
                 type="checkbox"
                 class="custom-control-input"
                 id="underrepresented-only"
-                name="ur"
+                v-model="underRepresented"
+                @change="getProfilesList"
               />
               <label class="custom-control-label" for="underrepresented-only"
                 >Under Represented Countries Only</label
@@ -50,7 +53,8 @@
                 type="checkbox"
                 class="custom-control-input"
                 id="senior-only"
-                name="senior"
+                v-model="senior"
+                @change="getProfilesList"
               />
               <label class="custom-control-label" for="senior-only"
                 >Senior Positions Only</label
@@ -179,12 +183,25 @@ export default {
       count: 0,
       next: null,
       isLoading: false,
+      search: '',
+      senior: false,
+      underRepresented: false
     };
   },
   methods: {
     getProfilesList() {
-      if (this.count > 0 && !this.next) return;
-      const endpoint = this.next || 'api/profiles/';
+      const endpoint = `api/profiles/?s=${encodeURIComponent(this.search) + (this.senior ? '&senior' : '') + (this.underRepresented ? '&ur' : '')}`;
+      this.isLoading = true;
+      apiService(endpoint).then(data => {
+        this.count = data.count;
+        this.profiles = data.results;
+        this.isLoading = false;
+        this.next = data.next || null;
+      });
+    },
+    getNextProfiles() {
+      if (!this.next) return;
+      const endpoint = this.next;
       this.isLoading = true;
       apiService(endpoint).then(data => {
         this.count = data.count;
@@ -193,9 +210,12 @@ export default {
         this.next = data.next || null;
       });
     },
-    onScroll () {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight & !this.isLoading) {
-        this.getProfilesList();
+    onScroll() {
+      if (
+        (window.innerHeight + window.scrollY >= document.body.offsetHeight) &
+        !this.isLoading
+      ) {
+        this.getNextProfiles();
       }
     }
   },
@@ -204,9 +224,9 @@ export default {
     this.getProfilesList();
   },
   mounted() {
-    document.addEventListener('scroll', this.onScroll)
+    document.addEventListener('scroll', this.onScroll);
   },
-  destroyed () {
+  destroyed() {
     document.removeEventListener('scroll', this.onScroll);
   }
 };
