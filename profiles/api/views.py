@@ -5,16 +5,18 @@ from operator import and_, or_
 
 from django.db.models import Count, Q
 from rest_framework.exceptions import ParseError
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     get_object_or_404)
 from rest_framework.viewsets import ModelViewSet
 
 from ..models import Country, Profile, Recommendation
 from .permissions import IsOwnProfileOrReadOnly
 from .serializers import (CountrySerializer, ProfileBasicDetailsSerializer,
-                          ProfileDisplaySerializer,
+                          ProfileEditSerializer,
                           ProfilesCountByCountrySerializer,
                           ProfilesCountByPositionSerializer,
-                          ProfileWriteSerializer, RecommendationSerializer)
+                          ProfileViewSerializer, RecommendationEditSerializer,
+                          RecommendationViewSerializer)
 
 
 class TopCountriesListAPIView(ListAPIView):
@@ -65,9 +67,9 @@ class ProfileViewSet(ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update' or self.action == 'destroy':
-            return ProfileWriteSerializer
+            return ProfileEditSerializer
         else:
-            return ProfileDisplaySerializer
+            return ProfileViewSerializer
 
     def get_queryset(self):
         queryset = Profile.objects
@@ -115,7 +117,7 @@ class ProfileViewSet(ModelViewSet):
 
                 q_st = and_(reduce(or_, st_conditions), q_st)
 
-        ur = self.request.query_params.get('under-represented', None)
+        ur = self.request.query_params.get('ur', None)
         q_ur = ~Q(pk=None)  # always true
         if ur is not None:
             q_ur = Q(country__is_under_represented=True)
@@ -134,7 +136,7 @@ class ProfileViewSet(ModelViewSet):
 
 
 class RandomRecommendationsListAPIView(ListAPIView):
-    serializer_class = RecommendationSerializer
+    serializer_class = RecommendationViewSerializer
     pagination_class = None
 
     def get_queryset(self):
@@ -157,4 +159,9 @@ class RandomRecommendationsListAPIView(ListAPIView):
 
 class RecommendationCreateAPIView(CreateAPIView):
     queryset = Recommendation.objects.all()
-    serializer_class = RecommendationSerializer
+    serializer_class = RecommendationEditSerializer
+
+    def perform_create(self, serializer):
+        profile_id = self.kwargs.get("pk")
+        profile = get_object_or_404(Profile, pk=profile_id)
+        serializer.save(profile=profile)

@@ -198,12 +198,12 @@ class Recommendation(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='recommendations')
     reviewer_name = models.CharField(max_length=100, blank=False)
-    reviewer_email = models.EmailField(blank=False)
+    reviewer_email = models.EmailField(blank=True)
     reviewer_position = models.CharField(max_length=50,
                                          choices=POSITION_CHOICES,
                                          blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
-    seen_at_conf = models.BooleanField()
+    seen_at_conf = models.BooleanField(blank=True)
     comment = models.TextField(blank=False)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

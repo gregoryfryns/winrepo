@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import ProfilesList from '../views/ProfilesList';
 import Profile from '../views/Profile';
 import ProfileEditor from '../views/ProfileEditor';
+import RecommendationEditor from '../views/RecommendationEditor';
 import Faq from '../views/Faq.vue';
 import About from '../views/About.vue';
 
@@ -34,7 +35,7 @@ const routes = [
   {
     path: '/recommend',
     name: 'recommend',
-    component: Home
+    component: RecommendationEditor
   },
   {
     path: '/faq',
@@ -57,16 +58,16 @@ const router = new VueRouter({
   mode: 'history',
   // base: process.env.BASE_URL,
   routes,
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
       return {
         selector: to.hash
         // , offset: { x: 0, y: 10 }
-      }
+      };
     } else if (savedPosition) {
-      return savedPosition
+      return savedPosition;
     } else {
-      return { x: 0, y: 0 }
+      return { x: 0, y: 0 };
     }
   }
 });

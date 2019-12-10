@@ -28,9 +28,15 @@ class RecommendationBasicDetailsSerializer (serializers.ModelSerializer):
         exclude = ['id', 'profile']
 
 
-class RecommendationSerializer(serializers.ModelSerializer):
+class RecommendationViewSerializer(serializers.ModelSerializer):
     profile = ProfileBasicDetailsSerializer(many=False, read_only=True)
 
+    class Meta:
+        model = Recommendation
+        exclude = ('publish_date', 'last_updated')
+
+
+class RecommendationEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         exclude = ('publish_date', 'last_updated')
@@ -43,7 +49,7 @@ class RecommendationSerializer(serializers.ModelSerializer):
         ]
 
 
-class ProfileDisplaySerializer(serializers.ModelSerializer):
+class ProfileViewSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(many=False, read_only=True)
     recommendations = RecommendationBasicDetailsSerializer(many=True, read_only=True)
     country = serializers.StringRelatedField(many=False, read_only=True)
@@ -59,7 +65,7 @@ class ProfileDisplaySerializer(serializers.ModelSerializer):
         exclude = ('is_public', 'publish_date',)
 
 
-class ProfileWriteSerializer(serializers.ModelSerializer):
+class ProfileEditSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(many=False, read_only=True)
 
     brain_structure = MultipleChoiceField(choices=Profile.get_structure_choices(), allow_blank=True)
