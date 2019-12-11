@@ -83,7 +83,6 @@
           :key="profile.id"
         >
           <div class="row my-4 no-gutters">
-            <!-- <div class="profile_id d-none">{{ profile.id }}</div> -->
             <div class="col-xs-12 col-sm-4 col-lg-3">
               <h5 class="text-primary font-weight-bold">{{ profile.name }}</h5>
             </div>
@@ -134,16 +133,7 @@
           </div>
         </div>
       </div>
-      <!-- <div>
-        <p v-show="isLoading">Loading...</p>
-        <button
-          v-show="next"
-          class="btn btn-sm btn-outline-secondary mt-3 mx-4"
-          @click="getProfilesList"
-        >
-          Load next batch...
-        </button>
-      </div> -->
+      <p v-show="isLoading">Loading...</p>
     </div>
 
     <div

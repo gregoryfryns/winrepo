@@ -343,10 +343,6 @@ export default {
           count: profiles.other,
           color: '#999999'
         });
-
-        // const array = data.map(country => [country.name, country.profiles_count]);
-        // array.unshift(['Country', '# Profiles']);
-        // this.mapChart.data = array;
       });
     }
   },
@@ -367,7 +363,6 @@ export default {
 #hero-image > img {
   width: 100vw;
   padding-top: 28px;
-  /* min-height: 200px; */
 }
 
 #home-search {

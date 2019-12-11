@@ -1,26 +1,92 @@
 <template>
   <nav class="navbar fixed-top navbar-light shadow-sm navbar-expand-md">
-    <div @click="active = 'home'">
-      <router-link class="navbar-brand" :to="{ name: 'home' }">
-        <picture id="winrepo-logo">
-          <source
-            srcset="../assets/logo_fill_triangles_wb.webp"
-            type="image/webp"
-          />
-          <source
-            srcset="../assets/logo_fill_triangles_wb.png"
-            type="image/png"
-          />
-          <source
-            srcset="../assets/logo_fill_triangles_wb.jpg"
-            type="image/jpeg"
-          />
-          <img src="../assets/logo_fill_triangles_wb.jpg" alt="Winrepo Logo" />
-        </picture>
-      </router-link>
-    </div>
+    <router-link class="navbar-brand" :to="{ name: 'home' }">
+      <picture id="winrepo-logo">
+        <source
+          srcset="../assets/logo_fill_triangles_wb.webp"
+          type="image/webp"
+        />
+        <source
+          srcset="../assets/logo_fill_triangles_wb.png"
+          type="image/png"
+        />
+        <source
+          srcset="../assets/logo_fill_triangles_wb.jpg"
+          type="image/jpeg"
+        />
+        <img src="../assets/logo_fill_triangles_wb.jpg" alt="Winrepo Logo" />
+      </picture>
+    </router-link>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="nav navbar-nav ml-auto">
+        <router-link
+          :to="{ name: 'home' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">Home</a>
+          </li>
+        </router-link>
+        <router-link
+          :to="{ name: 'list' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">Repository</a>
+          </li>
+        </router-link>
+        <router-link
+          :to="{ name: 'create' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">Create Profile</a>
+          </li>
+        </router-link>
+        <router-link
+          :to="{ name: 'recommend' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">Recommend</a>
+          </li>
+        </router-link>
+        <router-link
+          :to="{ name: 'faq' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">FAQ</a>
+          </li>
+        </router-link>
+        <router-link
+          :to="{ name: 'about' }"
+          v-slot="{ href, route, navigate, isActive, isExactActive }"
+        >
+          <li
+            class="nav-item"
+            :class="[isActive && 'active', isExactActive && 'exact-active']"
+          >
+            <a class="nav-link h6" :href="href" @click="navigate">About</a>
+          </li>
+        </router-link>
+
+<!-- 
         <li
           @click="active = 'home'"
           class="nav-item"
@@ -74,7 +140,7 @@
           <router-link class="nav-link h6" :to="{ name: 'about' }">
             About
           </router-link>
-        </li>
+        </li> -->
       </ul>
     </div>
     <button
