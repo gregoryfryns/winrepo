@@ -142,16 +142,12 @@ class RandomRecommendationsListAPIView(ListAPIView):
     def get_queryset(self):
         qs = list(Recommendation.objects.filter(profile__is_public=True).order_by('-last_updated')[:100])
 
-        ss = self.request.query_params.get('sample-size', None)
-        if ss is not None:
-            if not ss.isdigit():
-                raise ParseError('The sample size should be an integer value!')
+        ss = self.request.query_params.get('sample-size', '6')
+        if not ss.isdigit():
+            raise ParseError('The sample size should be an integer value!')
 
-            sample_size = min(int(ss), len(qs))
-        else:
-            sample_size = 6
+        sample_size = min(int(ss), len(qs))
 
-        sample_size = min(sample_size, len(qs))
         sample = random.sample(qs, sample_size) if len(qs) > 0 else []
 
         return sample
