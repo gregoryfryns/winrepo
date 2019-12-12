@@ -18,9 +18,8 @@
             :clearable="false"
             :select-on-tab="true"
             :options="profiles_list"
-            :reduce="profile => profile.id.toString()"
             @search="onProfileSearch"
-            v-model="profile_id"
+            v-model="profile"
           >
             <template slot="no-options">
               type to search profiles..
@@ -200,13 +199,19 @@ extend('max', max);
 
 export default {
   name: 'ProfileEditor',
+  props: {
+    id: {
+      type: String,
+      required: false
+    }
+  },
   components: {
     ValidationProvider
   },
   data() {
     return {
       fields: {},
-      profile_id: null,
+      profile: null,
       fieldsErrors: {},
       error: null,
       profiles_list: [],
@@ -233,6 +238,12 @@ export default {
     }
   },
   methods: {
+    getProfilesDetails() {
+      const endpoint = `/api/profiles/${this.id}/`;
+      apiService(endpoint).then(data => {
+        this.profile = (({id, name, institution }) => ({id: id, name: name, institution: institution}))(data);
+      });
+    },
     onSubmit() {
       // check if input valid
       // if (!this.formValid) {
@@ -245,10 +256,10 @@ export default {
       const content = this.fields;
       apiService(endpoint, method, content)
         .then(response_data => {
-          if (response_data && this.profile_id) {
+          if (response_data && this.profile) {
             this.$router.push({
               name: 'profile',
-              params: { id: this.profile_id }
+              params: { id: this.profile.id }
             });
           } else {
             this.error = 'Could not create recommendation :(';
@@ -280,6 +291,9 @@ export default {
   },
   created() {
     document.title = 'Winrepo - Edit Recommendation';
+    if (this.id) {
+      this.getProfilesDetails();
+    }
   }
 };
 </script>

@@ -41,6 +41,7 @@
               under-represented countries (list based on the
               <a
                 href="https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups"
+                target="_blank"
                 >World's Bank</a
               >
               list of Low, Lower-Middle and Upper-Middle income economies as of
@@ -95,21 +96,23 @@
             </p>
             <ul>
               <li>
-                <a href="https://anneslist.net">Anne's list</a>, list of women
+                <a href="https://anneslist.net" target="_blank">Anne's list</a>, list of women
                 in systems cognitive neuroscience.
               </li>
               <li>
                 <a href="http://womeninbrainstim.com/"
+                  target="_blank"
                   >Women in Brain Simulation</a
                 >
               </li>
               <li>
-                <a href="http://www.academia-net.org/">AcademiaNet</a>, database
+                <a href="http://www.academia-net.org/" target="_blank">AcademiaNet</a>, database
                 of women in all fields of science, nominated by partner
                 agencies.
               </li>
               <li>
                 <a href="https://500womenscientists.org/"
+                  target="_blank"
                   >500 women scientists</a
                 >, list of women in STEM.
               </li>
@@ -261,6 +264,7 @@
               refer to the
               <a
                 href="https://ec.europa.eu/info/law/law-topic/data-protection_en"
+                target="_blank"
                 >European Commission</a
               >
               data protection policies.

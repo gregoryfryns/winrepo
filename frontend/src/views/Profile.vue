@@ -21,7 +21,6 @@
               <i class="fas fa-graduation-cap"></i>
               {{ profile.grad_month }} {{ profile.grad_year }}
             </p>
-            <!-- <div id="profile-id" class="d-none">{{ profile.id }}</div> -->
           </div>
           <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="d-flex flex-column">
@@ -44,7 +43,7 @@
               </a>
 
               <router-link
-                :to="{ name: 'recommend' }"
+                :to="{ name: 'recommend', params: { id: id } }"
                 class="btn pill-btn btn-outline-primary m-1"
               >
                 <i class="fas fa-comment"></i> Recommend</router-link
@@ -171,7 +170,7 @@
           </ul>
           <div class="d-flex justify-content-end">
             <router-link
-              :to="{ name: 'recommend' }"
+              :to="{ name: 'recommend', params: { id: id } }"
               class="btn pill-btn btn-outline-primary m-1"
             >
               <i class="fas fa-comment"></i> Recommend</router-link
@@ -182,7 +181,7 @@
           <p>No recommendations have been made for {{ profile.name }} yet.</p>
           <p>
             Have you seen her at a conference? If so, please consider
-            <router-link :to="{ name: 'recommend' }">
+            <router-link :to="{ name: 'recommend', params: { id: id } }">
               <b>writing her one.</b>
             </router-link>
             <!-- <b><a href="/list/recommend" target="_blank">writing her one.</a></b> -->

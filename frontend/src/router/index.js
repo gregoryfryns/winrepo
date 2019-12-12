@@ -37,9 +37,10 @@ const routes = [
     component: ProfileEditor
   },
   {
-    path: '/recommend',
+    path: '/recommend/:id?',
     name: 'recommend',
-    component: RecommendationEditor
+    component: RecommendationEditor,
+    props: true
   },
   {
     path: '/faq',

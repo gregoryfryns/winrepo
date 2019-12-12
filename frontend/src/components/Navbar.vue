@@ -85,62 +85,6 @@
             <a class="nav-link h6" :href="href" @click="navigate">About</a>
           </li>
         </router-link>
-
-<!-- 
-        <li
-          @click="active = 'home'"
-          class="nav-item"
-          :class="{ active: active === 'home' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'home' }">
-            Home
-          </router-link>
-        </li>
-        <li
-          @click="active = 'list'"
-          class="nav-item"
-          :class="{ active: active === 'list' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'list' }">
-            Repository
-          </router-link>
-        </li>
-        <li
-          @click="active = 'create'"
-          class="nav-item"
-          :class="{ active: active === 'create' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'create' }">
-            Create Profile
-          </router-link>
-        </li>
-        <li
-          @click="active = 'recommend'"
-          class="nav-item"
-          :class="{ active: active === 'recommend' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'recommend' }">
-            Recommend
-          </router-link>
-        </li>
-        <li
-          @click="active = 'faq'"
-          class="nav-item"
-          :class="{ active: active === 'faq' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'faq' }">
-            FAQ
-          </router-link>
-        </li>
-        <li
-          @click="active = 'about'"
-          class="nav-item"
-          :class="{ active: active === 'about' }"
-        >
-          <router-link class="nav-link h6" :to="{ name: 'about' }">
-            About
-          </router-link>
-        </li> -->
       </ul>
     </div>
     <button

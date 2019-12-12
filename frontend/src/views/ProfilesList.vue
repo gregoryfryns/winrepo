@@ -124,11 +124,17 @@
               >
                 View Profile
               </router-link>
-              <a
+               <router-link
+                :to="{ name: 'recommend', params: { id: profile.id.toString() } }"
+                class="btn pill-btn btn-outline-secondary w-75 m-2"
+              >
+                Recommend
+              </router-link>
+              <!-- <a
                 class="btn pill-btn btn-outline-secondary w-75 m-2"
                 href="/recommend"
                 >Recommend</a
-              >
+              > -->
             </div>
           </div>
         </div>
