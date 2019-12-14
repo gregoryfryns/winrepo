@@ -9,9 +9,9 @@
     <form @submit.prevent="onSubmit">
       <div class="form-group">
         <ValidationProvider name="profile" rules="required" v-slot="{ errors }">
-            <label for="id_profile" class="required">Recommended Person</label>
-            <span class="asterisk">*</span>
-        <v-select
+          <label for="id_profile" class="required">Recommended Person</label>
+          <span class="asterisk">*</span>
+          <v-select
             label="name"
             id="id_profile"
             :filterable="false"
@@ -37,7 +37,9 @@
               </div>
             </template>
           </v-select>
-          <small id="hint_id_profile" class="form-text text-muted">Name of the person you would like to recommend</small>
+          <small id="hint_id_profile" class="form-text text-muted"
+            >Name of the person you would like to recommend</small
+          >
           <p id="error_id_reviewer_name" class="invalid-feedback">
             <strong v-if="errors">{{ errors[0] }}</strong>
           </p>
@@ -50,7 +52,9 @@
           v-slot="{ errors }"
         >
           <div class="form-group">
-            <label for="id_reviewer_name" class="required">Your Full Name</label>
+            <label for="id_reviewer_name" class="required"
+              >Your Full Name</label
+            >
             <span class="asterisk">*</span>
             <div>
               <input
@@ -60,7 +64,8 @@
                 maxlength="100"
                 class="textinput textInput form-control"
                 :class="{
-                  'is-invalid': errors.length > 0 || fieldsErrors['reviewer_name']
+                  'is-invalid':
+                    errors.length > 0 || fieldsErrors['reviewer_name']
                 }"
                 id="id_reviewer_name"
               />
@@ -106,7 +111,12 @@
                   :class="{ 'is-invalid': errors.length > 0 }"
                   id="id_reviewer_position"
                 /> -->
-                <small id="hint_id_reviewer_position" class="form-text text-muted">Please choose the 'closest' title from the proposed options.</small>
+                <small
+                  id="hint_id_reviewer_position"
+                  class="form-text text-muted"
+                  >Please choose the 'closest' title from the proposed
+                  options.</small
+                >
                 <p id="error_id_reviewer_position" class="invalid-feedback">
                   <strong>{{ errors[0] }}</strong>
                 </p>
@@ -144,11 +154,7 @@
         </div>
       </div>
       <div class="form-group">
-        <ValidationProvider
-          name="comment"
-          rules="required"
-          v-slot="{ errors }"
-        >
+        <ValidationProvider name="comment" rules="required" v-slot="{ errors }">
           <div class="form-group">
             <!-- <label for="id_comment" class="required"
               >Comment</label
@@ -169,7 +175,13 @@
               <p id="error_id_comment" class="invalid-feedback">
                 <strong>{{ errors[0] }}</strong>
               </p>
-              <small id="hint_id_comment" class="form-text text-muted">Describe here why you recommend this person for conference invitations or collaborations. If you attended one of her talks, add details on the event (year, event name). Please also mention potential conflicts of interest, like personal or professional relationships (friends, colleagues, former PI, ...)</small>
+              <small id="hint_id_comment" class="form-text text-muted"
+                >Describe here why you recommend this person for conference
+                invitations or collaborations. If you attended one of her talks,
+                add details on the event (year, event name). Please also mention
+                potential conflicts of interest, like personal or professional
+                relationships (friends, colleagues, former PI, ...)</small
+              >
             </div>
           </div>
         </ValidationProvider>
@@ -241,7 +253,11 @@ export default {
     getProfilesDetails() {
       const endpoint = `/api/profiles/${this.id}/`;
       apiService(endpoint).then(data => {
-        this.profile = (({id, name, institution }) => ({id: id, name: name, institution: institution}))(data);
+        this.profile = (({ id, name, institution }) => ({
+          id: id,
+          name: name,
+          institution: institution
+        }))(data);
       });
     },
     onSubmit() {

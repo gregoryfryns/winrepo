@@ -124,8 +124,11 @@
               >
                 View Profile
               </router-link>
-               <router-link
-                :to="{ name: 'recommend', params: { id: profile.id.toString() } }"
+              <router-link
+                :to="{
+                  name: 'recommend',
+                  params: { id: profile.id.toString() }
+                }"
                 class="btn pill-btn btn-outline-secondary w-75 m-2"
               >
                 Recommend
@@ -186,7 +189,9 @@ export default {
   },
   methods: {
     getProfilesList() {
-      const endpoint = `api/profiles/?s=${encodeURIComponent(this.search) + (this.senior ? '&senior' : '') + (this.underRepresented ? '&ur' : '')}`;
+      const endpoint = `api/profiles/?s=${encodeURIComponent(this.search) +
+        (this.senior ? '&senior' : '') +
+        (this.underRepresented ? '&ur' : '')}`;
       this.isLoading = true;
       apiService(endpoint).then(data => {
         this.count = data.count;

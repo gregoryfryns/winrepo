@@ -34,7 +34,7 @@ $(document).ready(function() {
         const seniorRe = /senior|lecturer|professor|director|principal/i;
         const postdocRe = /post-doc/i;
         const studentRe = /phd\sstudent/i;
-        
+
         let totProfiles = 0;
         const profiles = {
             'senior': 0,
@@ -95,8 +95,8 @@ $(document).ready(function() {
     }
 
     function init() {
-        $.get('/api/countries/?format=json', function(data) { return drawMap('regions_div', data); });
-        $.get('/api/positions/?format=json', function(data) { return preparePiecharts(data); });
+        $.get('/api/top-countries/?format=json', function(data) { return drawMap('regions_div', data); });
+        $.get('/api/top-positions/?format=json', function(data) { return preparePiecharts(data); });
     }
 
     google.charts.load('current', { 'packages': ['corechart', 'geochart'], 'mapsApiKey': 'AIzaSyCoD-FXcgIKxspIjalcutPYjaSK1B1WmXc' });
@@ -112,6 +112,6 @@ $(document).ready(function() {
 
     //redraw graph when window resize is completed
     $(window).on('resizeEnd', function () {
-        $.get('/api/countries/?format=json', function (data) { return drawMap('regions_div', data); });
+        $.get('/api/top-countries/?format=json', function (data) { return drawMap('regions_div', data); });
     });
 });

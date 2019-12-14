@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import ProfilesList from '../views/ProfilesList';
-import Profile from '../views/Profile';
-import ProfileEditor from '../views/ProfileEditor';
-import RecommendationEditor from '../views/RecommendationEditor';
+import ProfilesList from '../views/ProfilesList.vue';
+import Profile from '../views/Profile.vue';
+import ProfileEditor from '../views/ProfileEditor.vue';
+import RecommendationEditor from '../views/RecommendationEditor.vue';
 import Faq from '../views/Faq.vue';
 import About from '../views/About.vue';
+import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,11 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     // component: () =>
     //   import(/* webpackChunkName: 'about' */ '../views/About.vue')
+  },
+  {
+    path: '*',
+    name: 'page-not-found',
+    component: NotFound
   }
 ];
 

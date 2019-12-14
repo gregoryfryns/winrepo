@@ -96,23 +96,22 @@
             </p>
             <ul>
               <li>
-                <a href="https://anneslist.net" target="_blank">Anne's list</a>, list of women
-                in systems cognitive neuroscience.
+                <a href="https://anneslist.net" target="_blank">Anne's list</a>,
+                list of women in systems cognitive neuroscience.
               </li>
               <li>
-                <a href="http://womeninbrainstim.com/"
-                  target="_blank"
+                <a href="http://womeninbrainstim.com/" target="_blank"
                   >Women in Brain Simulation</a
                 >
               </li>
               <li>
-                <a href="http://www.academia-net.org/" target="_blank">AcademiaNet</a>, database
-                of women in all fields of science, nominated by partner
-                agencies.
+                <a href="http://www.academia-net.org/" target="_blank"
+                  >AcademiaNet</a
+                >, database of women in all fields of science, nominated by
+                partner agencies.
               </li>
               <li>
-                <a href="https://500womenscientists.org/"
-                  target="_blank"
+                <a href="https://500womenscientists.org/" target="_blank"
                   >500 women scientists</a
                 >, list of women in STEM.
               </li>

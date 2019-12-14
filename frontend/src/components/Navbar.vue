@@ -49,7 +49,9 @@
             class="nav-item"
             :class="[isActive && 'active', isExactActive && 'exact-active']"
           >
-            <a class="nav-link h6" :href="href" @click="navigate">Create Profile</a>
+            <a class="nav-link h6" :href="href" @click="navigate"
+              >Create Profile</a
+            >
           </li>
         </router-link>
         <router-link

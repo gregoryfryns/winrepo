@@ -2,6 +2,7 @@
   <div id="profileDetails">
     <div id="list-search" class="w-100 bg-primary"></div>
     <div
+      v-if="profile"
       class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8"
     >
       <div class="container-fluid">
@@ -229,6 +230,13 @@
             </div> -->
       </div>
     </div>
+    <div
+      v-else
+      id="not-found"
+      class="bg-white rounded-top p-4 offset-md-1 col-md-10 offset-lg-2 col-lg-8"
+    >
+      <h2 class="p-4 text-center">404 - Profile not found!</h2>
+    </div>
   </div>
 </template>
 
@@ -270,5 +278,9 @@ export default {
 #list-search {
   height: 216px;
   margin-bottom: -150px;
+}
+
+#not-found {
+  min-height: 300px;
 }
 </style>

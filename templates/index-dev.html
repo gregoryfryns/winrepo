@@ -1,4 +1,6 @@
+
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
@@ -16,22 +18,20 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     {% bootstrap_css %}
     {% bootstrap_messages %}
-    {% block style %}
-      <link rel="stylesheet" href="{% static 'bundle.css' %}">
-    {% endblock style %}
+    {% block style %}{% endblock style %}
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
     crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body style="background-color: pink">
     <noscript>
       <strong>We're sorry but frontend doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+            /!\ dev dev dev /!\
+
+    {% render_bundle 'app' %}
     <!-- built files will be auto injected -->
 
     {% bootstrap_javascript jquery=1 %}
-    {% block script %}
-      <script src="{% static 'bundle.js' %}"></script>
-    {% endblock script %}
   </body>
 </html>

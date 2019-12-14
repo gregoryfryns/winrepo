@@ -159,8 +159,8 @@
         id="chart-stats"
       >
         <div
-          v-for="(donut, i) in donutCharts"
-          :key="`donut_${i}`"
+          v-for="donut in donutCharts"
+          :key="`donut_${donut.label}`"
           class="p-2 text-center donutTab"
         >
           <table>
@@ -238,17 +238,17 @@
         </div>
       </div>
     </div>
-    <!-- <div class="container-fluid">
+    <div class="container-fluid">
       <div class="row no-gutters m-4 pt-4">
         <div class="col-12 col-md-8 offset-md-2 text-center">
           <h2 class="text-secondary">Going to a conference soon?</h2>
           <p class="text-dark text-justify">Download our slide and insert it at the end of your presentation!
             It will raise awareness on the issue of gender equity in neuroscience and show that there are resources to
             help conference organizers. In addition, it will encourage researchers to submit recommendations of their peers.</p>
-          <a :href="require('../assets/slide_May2019.pdf')" id="download-slide" class="btn pill-btn slide-btn text-white btn-secondary" download="WiNRepo_Slide">Download slide</a>
+          <a href="../assets/slide_May2019.pdf" id="download-slide" class="btn pill-btn slide-btn text-white btn-secondary" download="WiNRepo_Slide">Download slide</a>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
