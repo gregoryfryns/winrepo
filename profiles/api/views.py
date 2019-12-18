@@ -5,8 +5,7 @@ from operator import and_, or_
 
 from django.db.models import Count, Q
 from rest_framework.exceptions import ParseError
-from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     get_object_or_404)
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
 from ..models import Country, Profile, Recommendation
@@ -157,7 +156,12 @@ class RecommendationCreateAPIView(CreateAPIView):
     queryset = Recommendation.objects.all()
     serializer_class = RecommendationEditSerializer
 
-    def perform_create(self, serializer):
-        profile_id = self.kwargs.get("pk")
-        profile = get_object_or_404(Profile, pk=profile_id)
-        serializer.save(profile=profile)
+    # def get_queryset(self):
+    #     profile_id = self.kwargs.get("pk")
+    #     profile = get_object_or_404(Profile, pk=profile_id)
+    #     return profile
+
+    # def perform_create(self, serializer):
+    #     profile_id = self.kwargs.get("pk")
+    #     profile = get_object_or_404(Profile, pk=profile_id)
+    #     serializer.save(profile=profile)

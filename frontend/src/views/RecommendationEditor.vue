@@ -18,8 +18,9 @@
             :clearable="false"
             :select-on-tab="true"
             :options="profiles_list"
+            :reduce="profile => profile.id"
             @search="onProfileSearch"
-            v-model="profile"
+            v-model="fields.profile"
           >
             <template slot="no-options">
               type to search profiles..
@@ -267,15 +268,15 @@ export default {
       //   return;
       // }
 
-      const endpoint = `/api/profiles/${this.profile_id}/recommend/`;
+      const endpoint = `/api/recommendations/`;
       const method = 'POST';
       const content = this.fields;
       apiService(endpoint, method, content)
         .then(response_data => {
-          if (response_data && this.profile) {
+          if (response_data && response_data.profile) {
             this.$router.push({
               name: 'profile',
-              params: { id: this.profile.id }
+              params: { id: response_data.profile }
             });
           } else {
             this.error = 'Could not create recommendation :(';
@@ -283,11 +284,12 @@ export default {
           }
         })
         .catch(err => {
-          this.loaded = true;
-          if (err.response.status === 400) {
+          // console.log('err: ', err);
+          // if (err.response.status === 400) {
             // this.errors = error.response.data.errors || {};
             this.fieldsErrors = err.response.data.errors || '';
-          }
+            this.error = err.response_data.data.non_field_errors ? err.response_data.data.non_field_errors[0] : null;
+          // }
         });
     },
     onProfileSearch(search, loading) {

@@ -203,7 +203,7 @@ class Recommendation(models.Model):
                                          choices=POSITION_CHOICES,
                                          blank=True)
     reviewer_institution = models.CharField(max_length=100, blank=False)
-    seen_at_conf = models.BooleanField(blank=True)
+    seen_at_conf = models.BooleanField(null=True)
     comment = models.TextField(blank=False)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)

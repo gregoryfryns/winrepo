@@ -27,7 +27,7 @@
           id="search-btn"
           class="btn btn-secondary pl-4 pr-4"
         >
-          Search
+          Search hi
         </button>
       </form>
     </div>
@@ -245,7 +245,7 @@
           <p class="text-dark text-justify">Download our slide and insert it at the end of your presentation!
             It will raise awareness on the issue of gender equity in neuroscience and show that there are resources to
             help conference organizers. In addition, it will encourage researchers to submit recommendations of their peers.</p>
-          <a href="../assets/slide_May2019.pdf" id="download-slide" class="btn pill-btn slide-btn text-white btn-secondary" download="WiNRepo_Slide">Download slide</a>
+          <a :href="require('../assets/slide_May2019.pdf')" target="_blank" id="download-slide" class="btn pill-btn slide-btn text-white btn-secondary" download="WiNRepo_Slide">Download slide</a>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ router.register('profiles', views.ProfileViewSet, basename='profiles')
 urlpatterns = [
     path('', include(router.urls)),
 
-    path('profiles/<int:pk>/recommend/',
+    path('recommendations/',
          views.RecommendationCreateAPIView.as_view(),
          name='create-recommendation'),
 
