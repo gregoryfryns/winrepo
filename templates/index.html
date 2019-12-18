@@ -1,4 +1,5 @@
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% load bootstrap4 %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,8 @@
     {% bootstrap_css %}
     {% bootstrap_messages %}
     {% block style %}
-      <link rel="stylesheet" href="{% static 'bundle.css' %}">
+      {% render_bundle 'app' 'css' %}
+      {% comment %} <link rel="stylesheet" href="{% static 'bundle.css' %}"> {% endcomment %}
     {% endblock style %}
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
     crossorigin="anonymous"></script>
@@ -31,7 +33,9 @@
 
     {% bootstrap_javascript jquery=1 %}
     {% block script %}
-      <script src="{% static 'bundle.js' %}"></script>
+    <script>console.log('gna')</script>
+      {% render_bundle 'app' 'js' %}
+      {% comment %} <script src="{% static 'bundle.js' %}"></script> {% endcomment %}
     {% endblock script %}
   </body>
 </html>
