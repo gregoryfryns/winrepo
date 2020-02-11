@@ -4,7 +4,7 @@ bandit==1.6.2
 beautifulsoup4==4.8.1
 colorama==0.4.1
 coverage==4.5.4
-Django==2.2.6
+Django==2.2.10
 django-autocomplete-light==3.4.1
 django-bootstrap4==1.0.1
 django-crispy-forms==1.7.2
